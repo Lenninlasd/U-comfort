@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>formulas</title>
+  </head>
+  <body>
+
+    </select>
+    <script>
+
+    /*
+
+    1) Formula 1.  transferencia de calor techo.
+    las ganancias por conduccion.
+
+    Q_PAREDES= U_T ∗ A ∗ DTCE
+
+    Q_PARED = Calor sensible ganado por techo (Btu/h)
+    U = Coeficiente global de transferencia de calor (Btu/h ∗ ft 2 ∗ °F).
+    A = Área total del techo (ft 2 )
+    DTCE = iferencia de temperatura para carga de enfriamiento. (F)
+    se calcula se clcula de tablas. 6.1 y 6.2  correccion:
+
+     DTCE= ((DTCE + LM)*K+(78-Tr)+(To-85))*F
+
+     LM = Corrección mensual de latitud en techos.
+     K = Factor de corrección en función al color de pared oscura 1,0   y 0,65 pared clara.
+     F= Factor de correcion de ventilacion para cielo razo (solo para techos), 0,75 para ventiladores de techo falso
+      para el resto 1.0
+    */
+     //debugger;
+
+      var U = 1;
+      var A = 1;
+      var LM = 1;
+      var K= 1;
+      var DTCE2= 1;
+      var Tr = 15;
+      var To =85;
+      var F= 1;
+
+      var DTCE = calculoCorrecionDTCE(To,Tr);
+      var Q_PARED= calculoTransferenciaCalorPared(DTCE);
+      console.log(Q_PARED + ' Btu/h');
+
+
+     function calculoCorrecionDTCE(To,Tr)
+     {
+       var DTCE = ((DTCE2+LM)*K+(78-Tr)+(To-85))+F;
+      return DTCE;
+     }
+
+     function calculoTransferenciaCalorPared(DTCE)
+
+    {
+      var Q_PARED= U* A * DTCE;
+      return Q_PARED;
+     }
+
+    </script>
+
+
+  </body>
+</html>
