@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+		// Calculo de cargas comerciales de enfriamiento
+		const datos_ubicacion = {
+		    ubicacion: "Indianapolis, Ind",
+		    latitud : 39,
+		    condiciones_de_diseno: {
+		          exterior: {
+		              bulbo_seco: 90, // A.9 condiciones exteriores de diseño
+		              bulbo_humedo: 74, // A.9
+		              humedad_especifica: 101 // formula pendiente
+		          },
+		          recinto: {
+		              // Estas condiciones no varian
+		              bulbo_seco: 78,
+		              humedad_relativa: 50,
+		              humedad_especifica: 72
+		          }
+		    }
+  		};
+
+		const carga_pico_enfriamiento = {
+	      rango_diario : 22, // Fahrenheit
+	      fecha: "21-07-xxxx",
+	      hora: "17",
+	      promedio: 79, // Fahrenheit
+	  	};
+
+		/* md`## Elementos del cuarto.
+		Materiales en el cual se esta haciendo la conducción de exterior a interior.` */
+
+		const vidrios = [
+		  {
+		    orientacion: "W",
+		    coeficiente_transferencia_calor: 1.04,
+		    area_neta: 830, //ft^2
+			CLDT_tabla: 13, // ºF **
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  },{
+		  	orientacion: "W",
+		    coeficiente_transferencia_calor: 1.04,
+		    area_neta: 42, //ft^2
+			CLDT_tabla: 13, // ºF
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  },{
+		    orientacion: "E",
+		    coeficiente_transferencia_calor: 1.04,
+		    area_neta: 42, //ft^2
+			CLDT_tabla: 13, // ºF
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  }
+	    ].map(CLDT_correccion);
+
+		console.log('vidrios', vidrios);
+
+		const pared = [
+		  {
+		    orientacion: "N",
+		    color: "D",
+		    coeficiente_transferencia_calor: 0.13,
+		    area_neta: 840, //ft^2
+			  CLDT_tabla: 11, // ºF
+		    CLDT_correccion: 5, // ºF
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  },{
+		  	orientacion: "S",
+		    color: "D",
+		    coeficiente_transferencia_calor: 0.13,
+		    area_neta: 840, //ft^2
+			  CLDT_tabla: 17, // ºF
+		    CLDT_correccion: 12, // ºF
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  },{
+		    orientacion: "E",
+		    color: "D",
+		    coeficiente_transferencia_calor: 0.13,
+		    area_bruta: 1260,
+		    area_neta: 1176, //ft^2
+			  CLDT_tabla: 26, // ºF
+		    CLDT_correccion: 20, // ºF
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  },
+		  {
+		    orientacion: "W",
+		    color: "D",
+		    coeficiente_transferencia_calor: 0.13,
+		    area_bruta: 1260,
+		    area_neta: 388, //ft^2
+			  CLDT_tabla: 17, // ºF
+		    CLDT_correccion: 11, // ºF
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  }
+	  ];
+
+	const  techo = {
+        color: "D",
+        coeficiente_transferencia_calor: 0.09,
+        area_neta: 5400, //ft^2
+        CLDT_tabla: 71, // ºF
+        CLDT_correccion: 66, // ºF
+        Factor_correcion_calor_sensible: 0.91 // ºF
+    }
+
+	const piso = {
+        coeficiente_transferencia_calor: 0.35,
+        area_neta: 5400, //ft^2
+        CLDT_correccion: 12, // ºF
+        Factor_correcion_calor_sensible: 0.91 // ºF
+    };
+
+	const puerta = [
+		  {
+		    orientacion: "E",
+		    coeficiente_transferencia_calor: 0.18,
+		    area_neta: 42, //ft^2
+			CLDT_tabla: 27, // ºF
+		    CLDT_correccion: 22, // ºF
+		    Factor_correcion_calor_sensible: 0.91 // ºF
+		  }
+		]
+
+	// Radiación solar a través de vidrio. (investigar)
+	const radiacion_vidrio = [
+	  {
+	    direccion: "W",
+	    sombra: "no",
+	    SHGF: 216, //investigar
+	    area: 830,
+		  SC: 0.69,
+	    CLF: 0.56,
+	    Factor_correcion_calor_sensible: 0.91 // ºF
+	  },
+	    {
+	    direccion: "W",
+	    sombra: "no",
+	    SHGF: 216, //investigar
+	    area: 42,
+		  SC: 1,
+	    CLF: 0.56,
+	    Factor_correcion_calor_sensible: 0.91 // ºF
+	  },
+	    {
+	    direccion: "E",
+	    sombra: "no",
+	    SHGF: 216, //investigar
+	    area: 42,
+		  SC: 1,
+	    CLF: 0.23,
+	    Factor_correcion_calor_sensible: 0.91 // ºF
+	  }
+  	];
+
+	// Otros calculos
+	const luces = 16200 * 3.41 * 1.2 * 1.0 * 0.91; // RLHG BTU/h
+
+	const personas = {
+		sensible: 315 * 60 * 1.0 * 0.91,
+    	latente: 325 * 60
+	}
+
+	const ventilacion = {
+		sensible: 1.1 * 600 * 12,
+    	latente: 0.68 * 600 * 29
+	}
+
+	//Calculo final
+
+	const ganancia_calor_recinto = calculoTotalSensible(vidrios, pared, techo, piso, puerta, radiacion_vidrio) + luces + personas.sensible;
+	const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
+
+	const total_sensible = ganancia_calor_recinto + ventilacion.sensible + ganancia_ventilador_forzado;
+
+	const carga_enfriamiento = cargaEnfriamiento(total_sensible, personas, ventilacion); // Tons
+
+	console.log(`# Carga de enfriamiento (tons): ${carga_enfriamiento}`);
+
+	function cargaEnfriamiento(totalSensible, personas, ventilacion){
+  		return (totalSensible + personas.latente + ventilacion.latente)/12000 // Tons
+	}
+
+	function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}], radiacion_vidrio = [{}]){
+
+	  	const calorVidrio = getCalorSensibleArray(vidrios);
+	  	const calorPared = getCalorSensibleArray(pared);
+	  	const calorTecho = getCalorSensible(techo);
+	 	const calorPiso = 	getCalorSensible(piso);
+	  	const calorPuerta = getCalorSensibleArray(puerta);
+	  	const calorRadiacionVidrio = getCalorSensibleVidrio(radiacion_vidrio);
+
+		return calorVidrio + calorPared + calorTecho + calorPiso + calorPuerta + calorRadiacionVidrio;
+
+
+	    function getCalorSensibleVidrio(el){
+	    	return el.map(i => i.SHGF * i.area * i.SC * i.CLF * i.Factor_correcion_calor_sensible)
+	          .reduce( (anterior, actual) => {
+	              return anterior + actual;
+	          });
+	    }
+
+	    function getCalorSensibleArray(el){ // calculoIndividualSensible
+	    	return el.map(i => getCalorSensible(i))
+	          .reduce( (anterior, actual) => {
+	              return anterior + actual;
+	          });
+	    }
+
+	    function getCalorSensible(obj) {
+	      return obj.coeficiente_transferencia_calor * obj.area_neta * obj.CLDT_correccion *                                    obj.Factor_correcion_calor_sensible;
+	    }
+	}
+
+	// TODO: fn Calcular CLTD corregido
+
+	function CLDT_correccion(el) {
+		// Note: investigar el CLDT_correccion de las puertas
+		const DeltaTempDiseno = 78 - 85;
+		const tempExterior = datos_ubicacion.condiciones_de_diseno.exterior.bulbo_seco;
+		const rango_diario = carga_pico_enfriamiento.rango_diario;
+		const tempInterior = datos_ubicacion.condiciones_de_diseno.recinto.bulbo_seco;
+
+		el.CLDT_correccion = el.CLDT_tabla + DeltaTempDiseno + tempExterior - 0.5*rango_diario - tempInterior;
+		return el;
+	}
+
+
+		</script>
+	</body>
+</html>
