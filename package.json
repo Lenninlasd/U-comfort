@@ -1,0 +1,27 @@
+{
+  "name": "confort",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "NODE_ENV=prod webpack",
+    "dev": "webpack -d --watch",
+    "start": "http-server -p 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lenninlasd/formulas.git"
+  },
+  "author": "lenninlasd@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lenninlasd/formulas/issues"
+  },
+  "homepage": "https://github.com/Lenninlasd/formulas#readme",
+  "devDependencies": {
+    "http-server": "^0.11.1",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  }
+}
