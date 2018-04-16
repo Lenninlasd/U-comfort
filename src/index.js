@@ -18,7 +18,11 @@ const puerta = data.elementos.puerta;
 const radiacion_vidrio = data.elementos.radiacion_vidrio;
 
 // Otros calculos
-const luces = 16200 * 3.41 * 1.2 * 1.0 * 0.91; // RLHG BTU/h
+ // 3.41 factor de conversion
+ // 16200: watios de numero de focos
+ // .91: factor de ganancia alredor Factor_correcion_calor_sensible
+// 1.2 pendiente
+const luces = 16200 * 3.41 * 1.2 * Factor_correcion_calor_sensible; // RLHG BTU/h
 
 const personas = {
 	sensible: 315 * data.numero_personas * 1.0 * 0.91,
@@ -76,8 +80,6 @@ const ventilacion = {
 	      return obj.coeficiente_transferencia_calor * obj.area_neta * obj.CLDT_correccion * Factor_correcion_calor_sensible;
 	    }
 	}
-
-	// TODO: fn Calcular CLTD corregido
 
 	function getCLDT_correccion(el) {
 		// Note: investigar el CLDT_correccion de las puertas
