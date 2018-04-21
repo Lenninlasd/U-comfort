@@ -2,6 +2,18 @@ import tablaVidrio from '../json/CLTD_vidrio';
 import tablaPared from '../json/CLTD_pared';
 import tablaTecho from '../json/CLTD_techo';
 import tablaSHGF from '../json/SHGF_lat_40';
+import tablaCLF from '../json/CLF_6_8_min';
+import UtechosParedesParticiones from '../json/U_techos_paredes_particiones';
+import Uvidrios from '../json/U_vidrios';
+
+const CLF_ = tablaCLF.filter(x => x.CAPACIDAD === "M");
+console.log('CLF_', CLF_);
+
+const Uv_sencillo = Uvidrios.filter(x => x.descripcion === 'vidrio sencillo')
+console.log('Uvidrios', Uv_sencillo[0].U_exterior);
+
+console.log('UtechosParedesParticiones', UtechosParedesParticiones);
+
 
 const data = {
     ubicacion: "Indianapolis, Ind",
@@ -128,6 +140,8 @@ setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
 setCLTD_pared(data.elementos.pared, tablaPared);
 setCLTD_techo(data.elementos.techo, tablaTecho);
 setSHGF_lat_40(data.elementos.radiacion_vidrio, tablaSHGF);
+
+console.log('data.elementos', data.elementos);
 
 function setCLTD_vidrio(vidrios, tablaVidrio) {
     const d = Number(tablaVidrio[0]['17']);
