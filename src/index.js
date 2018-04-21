@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import { data } from "./data";
 
 const vidrios = data.elementos.vidrios.map(getCLDT_correccion);
@@ -44,7 +47,13 @@ const ventilacion = {
 
 	const carga_enfriamiento = cargaEnfriamiento(total_sensible, personas, ventilacion); // Tons
 
-	console.log(`# Carga de enfriamiento (tons): ${carga_enfriamiento}`);
+    ReactDOM.render(
+        <div>
+            <h1> Carga de enfriamiento (tons):</h1>
+            <h2>{carga_enfriamiento}</h2>
+        </div>,
+        document.getElementById('root')
+    );
 
 	function cargaEnfriamiento(totalSensible, personas, ventilacion){
   		return (totalSensible + personas.latente + ventilacion.latente)/12000 // Tons

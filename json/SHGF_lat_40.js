@@ -1,4 +1,4 @@
-[
+export default [
 	{
 		"MES": "ene",
 		"LATITUD": "0",

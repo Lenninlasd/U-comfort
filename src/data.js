@@ -1,31 +1,7 @@
-import * as d3 from "d3";
-
-d3.csv('../csv/cltd_vidrio.csv')
-.then(d => d[0])
-.then( data => {
-	 console.log('vidrio:', data['17']);
-});
-
-d3.csv('../csv/CLTD_pared.csv')
-.then( data => {
-    // el grupo es dado en la seleccion de los datos
-    const CLTD_pared = data.filter(x => x.grupo === 'b')
-                             .map(x => ({orientacion: x.orientacion, 'CLTD': x[17]}) );
-    console.log('csv data pared', CLTD_pared);
-});
-
-d3.csv('../csv/CLTD_techo.csv')
-.then( data => {
-    const CLTD_techo = data.find(x => x.tipo_de_techo === 'sin cielo raso suspendido'
-                                    && x.numero_techo === '3');
-    console.log('csv data CLTD_techo', CLTD_techo['17']);
-});
-
-d3.csv('../csv/SHGF_lat_40.csv')
-.then( data => {
-    const SHGF = data.find(x => x.MES === 'jul' && x.LATITUD === '40');
-    console.log('csv data SHGF:',SHGF['E/W']);
-});
+import tablaVidrio from '../json/CLTD_vidrio';
+import tablaPared from '../json/CLTD_pared';
+import tablaTecho from '../json/CLTD_techo';
+import tablaSHGF from '../json/SHGF_lat_40';
 
 const data = {
     ubicacion: "Indianapolis, Ind",
@@ -54,22 +30,19 @@ const data = {
 	elementos:  {
 		/* md`## Elementos del cuarto. Materiales en el cual se esta haciendo la conducción de exterior a interior.` */
 		vidrios: [
-	        {
-	            orientacion: "W",
-	            coeficiente_transferencia_calor: 1.04,
-	            area_neta: 830, //ft^2
-	            CLDT_tabla: 13, // ºF **
-	        },{
-	            orientacion: "W",
-	            coeficiente_transferencia_calor: 1.04,
-	            area_neta: 42, //ft^2
-	            CLDT_tabla: 13, // ºF
-	        },{
-	            orientacion: "E",
-	            coeficiente_transferencia_calor: 1.04,
-	            area_neta: 42, //ft^2
-	            CLDT_tabla: 13, // ºF
-	        }
+            {
+                orientacion: "W",
+                coeficiente_transferencia_calor: 1.04,
+                area_neta: 830, //ft^2
+            },{
+                orientacion: "W",
+                coeficiente_transferencia_calor: 1.04,
+                area_neta: 42, //ft^2
+            },{
+                orientacion: "E",
+                coeficiente_transferencia_calor: 1.04,
+                area_neta: 42, //ft^2
+            }
 	    ],
 		pared: [
 		    {
@@ -77,7 +50,6 @@ const data = {
 		        color: "D",
 		        coeficiente_transferencia_calor: 0.13,
 		        area_neta: 840, //ft^2
-		        CLDT_tabla: 11, // ºF
 		        correcion_latitud_mes_LM: 0,
 		        correcion_color_K: 1,
 		    },{
@@ -85,7 +57,6 @@ const data = {
 		        color: "D",
 		        coeficiente_transferencia_calor: 0.13,
 		        area_neta: 840, //ft^2
-		        CLDT_tabla: 17, // ºF
 		        correcion_latitud_mes_LM: 1,
 		        correcion_color_K: 1,
 		    },{
@@ -95,8 +66,7 @@ const data = {
 		        area_bruta: 1260,
 		        area_neta: 1176, //ft^2
 		        correcion_latitud_mes_LM: 0,
-		        correcion_color_K: 1,
-		        CLDT_tabla: 26, // ºF
+		        correcion_color_K: 1
 		    },{
 		        orientacion: "W",
 		        color: "D",
@@ -104,15 +74,13 @@ const data = {
 		        area_bruta: 1260,
 		        area_neta: 388, //ft^2
 		        correcion_latitud_mes_LM: 0,
-		        correcion_color_K: 1,
-		        CLDT_tabla: 17, // ºF
+		        correcion_color_K: 1
 		    }
 		],
 		techo: {
 		    color: "D",
 		    coeficiente_transferencia_calor: 0.09,
 		    area_neta: 5400, //ft^2
-		    CLDT_tabla: 71, // ºF
 		    correcion_latitud_mes_LM: 1,
 		    correcion_color_K: 1,
 		    CLDT_correccion: 66, // ºF
@@ -126,35 +94,72 @@ const data = {
 		        orientacion: "E",
 		        coeficiente_transferencia_calor: 0.18,
 		        area_neta: 42, //ft^2
-		        CLDT_tabla: 27, // ºF no se sabe
+		        CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
 		        CLDT_correccion: 22, // ºF
 		    }
 		],
-		// Radiación solar a través de vidrio. (investigar)
-		radiacion_vidrio: [{
-		        direccion: "W", //usuario
-		        sombra: "no", // usuario
-		        SHGF: 216, //investigar tabla 6.6
-		        area: 830, // usuario
-		        SC: 0.69, // tabla 6.7
-		        CLF: 0.56,  // tabla 6.8
-		    },{
-		        direccion: "W",
-		        sombra: "no",
-		        SHGF: 216, //investigar
-		        area: 42,
-		        SC: 1,
-		        CLF: 0.56,
-		    },{
-		        direccion: "E",
-		        sombra: "no",
-		        SHGF: 216, //investigar
-		        area: 42,
-		        SC: 1,
-		        CLF: 0.23,
-		    }
+        // Radiación solar a través de vidrio. (investigar)
+        radiacion_vidrio: [
+            {
+                direccion: "W", //usuario
+                sombra: "no", // usuario
+                area: 830, // usuario
+                SC: 0.69, // tabla 6.7
+                CLF: 0.56,  // tabla 6.8
+            },{
+                direccion: "W",
+                sombra: "no",
+                area: 42,
+                SC: 1,
+                CLF: 0.56,
+            },{
+                direccion: "E",
+                sombra: "no",
+                area: 42,
+                SC: 1,
+                CLF: 0.23,
+            }
 		]
 	}
 };
+
+
+setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
+setCLTD_pared(data.elementos.pared, tablaPared);
+setCLTD_techo(data.elementos.techo, tablaTecho);
+setSHGF_lat_40(data.elementos.radiacion_vidrio, tablaSHGF);
+
+function setCLTD_vidrio(vidrios, tablaVidrio) {
+    const d = Number(tablaVidrio[0]['17']);
+    vidrios.forEach(vidrio => {
+        vidrio.CLDT_tabla = d;
+    });
+}
+
+function setCLTD_pared(paredes, tablaPared) {
+    // el grupo es dado en la seleccion de los datos
+    const dataPared = tablaPared.filter(x => x.grupo === 'b')
+                        .map(x => ({orientacion: x.orientacion, 'CLTD': Number(x[17])}) );
+    paredes.forEach(pared => {
+        const CLTD = dataPared.find(x => x.orientacion === pared.orientacion).CLTD;
+        pared.CLDT_tabla = CLTD;
+    });
+}
+
+function setCLTD_techo(techo, tablaTecho) {
+    const data_techo = tablaTecho.find(x => x.tipo_de_techo === 'sin cielo raso suspendido'
+                                            && x.numero_techo === '3');
+    techo.CLDT_tabla = Number(data_techo['17']);
+}
+
+function setSHGF_lat_40(radiacionVidrio, tablaSHGF) {
+    const dataSHGF = tablaSHGF.find(x => x.MES === 'jul' && x.LATITUD === '40');
+
+    radiacionVidrio.forEach(vidrio => {
+        let dir = vidrio.direccion;
+        dir = dir === 'E' || dir === 'W' ? 'E/W' : dir;
+        vidrio.SHGF = Number(dataSHGF[dir]);
+    });
+}
 
 export { data }
