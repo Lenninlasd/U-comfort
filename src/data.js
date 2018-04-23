@@ -3,17 +3,12 @@ import tablaPared from '../json/CLTD_pared';
 import tablaTecho from '../json/CLTD_techo';
 import tablaSHGF from '../json/SHGF_lat_40';
 import tablaCLF from '../json/CLF_6_8_min';
-import UtechosParedesParticiones from '../json/U_techos_paredes_particiones';
-import Uvidrios from '../json/U_vidrios';
+import tablaUtechosParedesParticiones from '../json/U_techos_paredes_particiones';
+import tablaUvidrios from '../json/U_vidrios';
+import tablaSC from '../json/SC_tabla_6_7';
+import tablaLM from '../json/LM_6_4';
 
-const CLF_ = tablaCLF.filter(x => x.CAPACIDAD === "M");
-console.log('CLF_', CLF_);
-
-const Uv_sencillo = Uvidrios.filter(x => x.descripcion === 'vidrio sencillo')
-console.log('Uvidrios', Uv_sencillo[0].U_exterior);
-
-console.log('UtechosParedesParticiones', UtechosParedesParticiones);
-
+console.log('tablaLM', tablaLM);
 
 const data = {
     ubicacion: "Indianapolis, Ind",
@@ -44,15 +39,12 @@ const data = {
 		vidrios: [
             {
                 orientacion: "W",
-                coeficiente_transferencia_calor: 1.04,
                 area_neta: 830, //ft^2
             },{
                 orientacion: "W",
-                coeficiente_transferencia_calor: 1.04,
                 area_neta: 42, //ft^2
             },{
                 orientacion: "E",
-                coeficiente_transferencia_calor: 1.04,
                 area_neta: 42, //ft^2
             }
 	    ],
@@ -91,14 +83,12 @@ const data = {
 		],
 		techo: {
 		    color: "D",
-		    coeficiente_transferencia_calor: 0.09,
 		    area_neta: 5400, //ft^2
 		    correcion_latitud_mes_LM: 1,
-		    correcion_color_K: 1,
-		    CLDT_correccion: 66, // ºF
+		    correcion_color_K: 1
 		},
 		piso: {
-		    coeficiente_transferencia_calor: 0.35,
+		    coeficiente_transferencia_calor: 0.35, //Falta
 		    area_neta: 5400, //ft^2
 		},
 		puerta: [
@@ -116,20 +106,20 @@ const data = {
                 direccion: "W", //usuario
                 sombra: "no", // usuario
                 area: 830, // usuario
-                SC: 0.69, // tabla 6.7
-                CLF: 0.56,  // tabla 6.8
+                espesor_nominal: "3/16 a 1/4",
+                tipo_de_vidrio: "absorbente de calor"
             },{
                 direccion: "W",
                 sombra: "no",
                 area: 42,
-                SC: 1,
-                CLF: 0.56,
+                espesor_nominal: "3/32 a 1/4",
+                tipo_de_vidrio: "claro"
             },{
                 direccion: "E",
                 sombra: "no",
                 area: 42,
-                SC: 1,
-                CLF: 0.23,
+                espesor_nominal: "3/32 a 1/4",
+                tipo_de_vidrio: "claro"
             }
 		]
 	}
@@ -141,15 +131,24 @@ setCLTD_pared(data.elementos.pared, tablaPared);
 setCLTD_techo(data.elementos.techo, tablaTecho);
 setSHGF_lat_40(data.elementos.radiacion_vidrio, tablaSHGF);
 
+setUtecho(data.elementos.techo, tablaUtechosParedesParticiones);
+setUvidrio(data.elementos.vidrios, tablaUvidrios);
+
+setCLF(data.elementos.radiacion_vidrio, tablaCLF);
+setSC(data.elementos.radiacion_vidrio, tablaSC);
+
 console.log('data.elementos', data.elementos);
 
+export { data };
+
+
+// CLTD
 function setCLTD_vidrio(vidrios, tablaVidrio) {
     const d = Number(tablaVidrio[0]['17']);
     vidrios.forEach(vidrio => {
         vidrio.CLDT_tabla = d;
     });
 }
-
 function setCLTD_pared(paredes, tablaPared) {
     // el grupo es dado en la seleccion de los datos
     const dataPared = tablaPared.filter(x => x.grupo === 'b')
@@ -159,13 +158,13 @@ function setCLTD_pared(paredes, tablaPared) {
         pared.CLDT_tabla = CLTD;
     });
 }
-
 function setCLTD_techo(techo, tablaTecho) {
     const data_techo = tablaTecho.find(x => x.tipo_de_techo === 'sin cielo raso suspendido'
                                             && x.numero_techo === '3');
     techo.CLDT_tabla = Number(data_techo['17']);
 }
 
+//SHGF
 function setSHGF_lat_40(radiacionVidrio, tablaSHGF) {
     const dataSHGF = tablaSHGF.find(x => x.MES === 'jul' && x.LATITUD === '40');
 
@@ -176,4 +175,35 @@ function setSHGF_lat_40(radiacionVidrio, tablaSHGF) {
     });
 }
 
-export { data }
+// U
+function setUtecho(techo, tablaU, type='TECHO', material='CUBIERTA DE EJEMPLO') {
+    const Utechos = tablaU.find(
+                        x => x.tipo === type && x.material === material
+                    );
+    techo.coeficiente_transferencia_calor = Utechos.U;
+}
+function setUvidrio(vidrios, tablaUvidrios, glassDescription='vidrio sencillo') {
+    const Uv_sencillo = tablaUvidrios.find(x => x.descripcion === glassDescription)
+
+    vidrios.forEach(vidrio => {
+        vidrio.coeficiente_transferencia_calor = Number(Uv_sencillo.U_exterior);
+    });
+}
+
+function setCLF(radiacion_vidrio, tablaCLF, glassCapacity='M') {
+    const CLF_ = tablaCLF.filter(x => x.CAPACIDAD === glassCapacity);
+
+    radiacion_vidrio.forEach(vidrio => {
+        const value = CLF_.find(x => x.ORIENTACION === vidrio.direccion);
+        vidrio.CLF = Number(value['17']);
+    });
+}
+
+function setSC(radiacion_vidrio, tablaSC) {
+    const dataSc = tablaSC.filter(x => x.vidrio === 'vidrio sencillo');
+    radiacion_vidrio.map(vidrio => {
+        const dataScFiltered = dataSc.find(x => x.tipo_de_vidrio === vidrio.tipo_de_vidrio &&
+                                           x.espesor_nominal === vidrio.espesor_nominal);
+        vidrio.SC = Number(dataScFiltered.sin_sombreado_interior);
+    });
+}

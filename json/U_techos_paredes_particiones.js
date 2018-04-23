@@ -15,6 +15,11 @@ export default [
 		"U": "0.18"
 	},
 	{
+		"tipo": "TECHO",
+		"material": "CUBIERTA DE EJEMPLO",
+		"U": "0.09"
+	},
+	{
 		"tipo": "PARTICION TECHO",
 		"material": "PARTICON",
 		"U": "0.24"
