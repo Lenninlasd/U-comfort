@@ -18,8 +18,6 @@ piso.CLDT_correccion = data.design.exterior.bulbo_seco - data.design.recinto.bul
 
 const puerta = data.elementos.puerta;
 
-const radiacion_vidrio = data.elementos.radiacion_vidrio;
-
 // Otros calculos
  // 3.41 factor de conversion
  // 16200: watios de numero de focos
@@ -39,7 +37,7 @@ const ventilacion = {
 
 	//Calculo final
 
-	const ganancia_calor_recinto = calculoTotalSensible(vidrios, pared, techo, piso, puerta, radiacion_vidrio) + luces + personas.sensible;
+	const ganancia_calor_recinto = calculoTotalSensible(vidrios, pared, techo, piso, puerta) + luces + personas.sensible;
 
 	const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
@@ -59,20 +57,20 @@ const ventilacion = {
   		return (totalSensible + personas.latente + ventilacion.latente)/12000 // Tons
 	}
 
-	function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}], radiacion_vidrio = [{}]){
+	function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}]){
 
 	  	const calorVidrio = getCalorSensibleArray(vidrios);
 	  	const calorPared = getCalorSensibleArray(pared);
 	  	const calorTecho = getCalorSensible(techo);
 	 	const calorPiso = 	getCalorSensible(piso);
 	  	const calorPuerta = getCalorSensibleArray(puerta);
-	  	const calorRadiacionVidrio = getCalorSensibleVidrio(radiacion_vidrio);
+	  	const calorRadiacionVidrio = getCalorSensibleVidrio(vidrios);
 
 		return calorVidrio + calorPared + calorTecho + calorPiso + calorPuerta + calorRadiacionVidrio;
 
 
 	    function getCalorSensibleVidrio(el){
-	    	return el.map(i => i.SHGF * i.area * i.SC * i.CLF * Factor_correcion_calor_sensible)
+	    	return el.map(i => i.SHGF * i.area_neta * i.SC * i.CLF * Factor_correcion_calor_sensible)
 	          .reduce( (anterior, actual) => {
 	              return anterior + actual;
 	          });

@@ -39,13 +39,22 @@ const data = {
 		vidrios: [
             {
                 orientacion: "W",
+                sombra: "no", // usuario
                 area_neta: 830, //ft^2
+                espesor_nominal: "3/16 a 1/4",
+                tipo_de_vidrio: "absorbente de calor"
             },{
                 orientacion: "W",
+                sombra: "no",
                 area_neta: 42, //ft^2
+                espesor_nominal: "3/32 a 1/4",
+                tipo_de_vidrio: "claro"
             },{
                 orientacion: "E",
+                sombra: "no",
                 area_neta: 42, //ft^2
+                espesor_nominal: "3/32 a 1/4",
+                tipo_de_vidrio: "claro"
             }
 	    ],
 		pared: [
@@ -100,28 +109,6 @@ const data = {
 		        CLDT_correccion: 22, // ºF
 		    }
 		],
-        // Radiación solar a través de vidrio. (investigar)
-        radiacion_vidrio: [
-            {
-                direccion: "W", //usuario
-                sombra: "no", // usuario
-                area: 830, // usuario
-                espesor_nominal: "3/16 a 1/4",
-                tipo_de_vidrio: "absorbente de calor"
-            },{
-                direccion: "W",
-                sombra: "no",
-                area: 42,
-                espesor_nominal: "3/32 a 1/4",
-                tipo_de_vidrio: "claro"
-            },{
-                direccion: "E",
-                sombra: "no",
-                area: 42,
-                espesor_nominal: "3/32 a 1/4",
-                tipo_de_vidrio: "claro"
-            }
-		]
 	}
 };
 
@@ -129,13 +116,14 @@ const data = {
 setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
 setCLTD_pared(data.elementos.pared, tablaPared);
 setCLTD_techo(data.elementos.techo, tablaTecho);
-setSHGF_lat_40(data.elementos.radiacion_vidrio, tablaSHGF);
+
+setSHGF_lat_40(data.elementos.vidrios, tablaSHGF);
 
 setUtecho(data.elementos.techo, tablaUtechosParedesParticiones);
 setUvidrio(data.elementos.vidrios, tablaUvidrios);
 
-setCLF(data.elementos.radiacion_vidrio, tablaCLF);
-setSC(data.elementos.radiacion_vidrio, tablaSC);
+setCLF(data.elementos.vidrios, tablaCLF);
+setSC(data.elementos.vidrios, tablaSC);
 
 console.log('data.elementos', data.elementos);
 
@@ -169,7 +157,7 @@ function setSHGF_lat_40(radiacionVidrio, tablaSHGF) {
     const dataSHGF = tablaSHGF.find(x => x.MES === 'jul' && x.LATITUD === '40');
 
     radiacionVidrio.forEach(vidrio => {
-        let dir = vidrio.direccion;
+        let dir = vidrio.orientacion;
         dir = dir === 'E' || dir === 'W' ? 'E/W' : dir;
         vidrio.SHGF = Number(dataSHGF[dir]);
     });
@@ -190,18 +178,18 @@ function setUvidrio(vidrios, tablaUvidrios, glassDescription='vidrio sencillo') 
     });
 }
 
-function setCLF(radiacion_vidrio, tablaCLF, glassCapacity='M') {
+function setCLF(vidrios, tablaCLF, glassCapacity='M') {
     const CLF_ = tablaCLF.filter(x => x.CAPACIDAD === glassCapacity);
 
-    radiacion_vidrio.forEach(vidrio => {
-        const value = CLF_.find(x => x.ORIENTACION === vidrio.direccion);
+    vidrios.forEach(vidrio => {
+        const value = CLF_.find(x => x.ORIENTACION === vidrio.orientacion);
         vidrio.CLF = Number(value['17']);
     });
 }
 
-function setSC(radiacion_vidrio, tablaSC) {
+function setSC(vidrios, tablaSC) {
     const dataSc = tablaSC.filter(x => x.vidrio === 'vidrio sencillo');
-    radiacion_vidrio.map(vidrio => {
+    vidrios.map(vidrio => {
         const dataScFiltered = dataSc.find(x => x.tipo_de_vidrio === vidrio.tipo_de_vidrio &&
                                            x.espesor_nominal === vidrio.espesor_nominal);
         vidrio.SC = Number(dataScFiltered.sin_sombreado_interior);
