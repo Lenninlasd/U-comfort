@@ -1,3 +1,5 @@
+'use strict';
+
 import tablaVidrio from '../json/CLTD_vidrio';
 import tablaPared from '../json/CLTD_pared';
 import tablaTecho from '../json/CLTD_techo';
@@ -7,8 +9,6 @@ import tablaUtechosParedesParticiones from '../json/U_techos_paredes_particiones
 import tablaUvidrios from '../json/U_vidrios';
 import tablaSC from '../json/SC_tabla_6_7';
 import tablaLM from '../json/LM_6_4';
-
-console.log('tablaLM', tablaLM);
 
 const data = {
     ubicacion: "Indianapolis, Ind",
@@ -63,14 +63,12 @@ const data = {
 		        color: "D",
 		        coeficiente_transferencia_calor: 0.13,
 		        area_neta: 840, //ft^2
-		        correcion_latitud_mes_LM: 0,
 		        correcion_color_K: 1,
 		    },{
 		        orientacion: "S",
 		        color: "D",
 		        coeficiente_transferencia_calor: 0.13,
 		        area_neta: 840, //ft^2
-		        correcion_latitud_mes_LM: 1,
 		        correcion_color_K: 1,
 		    },{
 		        orientacion: "E",
@@ -78,7 +76,6 @@ const data = {
 		        coeficiente_transferencia_calor: 0.13,
 		        area_bruta: 1260,
 		        area_neta: 1176, //ft^2
-		        correcion_latitud_mes_LM: 0,
 		        correcion_color_K: 1
 		    },{
 		        orientacion: "W",
@@ -86,7 +83,6 @@ const data = {
 		        coeficiente_transferencia_calor: 0.13,
 		        area_bruta: 1260,
 		        area_neta: 388, //ft^2
-		        correcion_latitud_mes_LM: 0,
 		        correcion_color_K: 1
 		    }
 		],
@@ -124,6 +120,8 @@ setUvidrio(data.elementos.vidrios, tablaUvidrios);
 
 setCLF(data.elementos.vidrios, tablaCLF);
 setSC(data.elementos.vidrios, tablaSC);
+
+setLM(data.elementos.pared, tablaLM);
 
 console.log('data.elementos', data.elementos);
 
@@ -193,5 +191,12 @@ function setSC(vidrios, tablaSC) {
         const dataScFiltered = dataSc.find(x => x.tipo_de_vidrio === vidrio.tipo_de_vidrio &&
                                            x.espesor_nominal === vidrio.espesor_nominal);
         vidrio.SC = Number(dataScFiltered.sin_sombreado_interior);
+    });
+}
+
+function setLM(paredes, tablaLM, mes="JUL") {
+    const datoLM = tablaLM.find(x => Number(x.LATITUD) === 40 && x.MES === mes);
+    paredes.map(pared => {
+        pared.correcion_latitud_mes_LM = Number(datoLM[pared.orientacion]);
     });
 }
