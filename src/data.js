@@ -104,6 +104,11 @@ const data = {
 		        CLDT_correccion: 22, // ºF
 		    }
 		],
+        luces: {
+            numeroLuces: 135,
+            wattsPorLampara: 120,
+            factConv: 3.41
+        }
 	}
 };
 

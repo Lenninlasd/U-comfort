@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { data } from "./data";
+import tablaCalorPersonas from "../json/calor_personas_6_11";
 
 const vidrios = data.elementos.vidrios.map(getCLDT_correccion);
 
@@ -17,18 +18,15 @@ const piso = data.elementos.piso;
 piso.CLDT_correccion = data.design.exterior.bulbo_seco - data.design.recinto.bulbo_seco;
 
 const puerta = data.elementos.puerta;
+const luces = data.elementos.luces;
 
 // Otros calculos
  // 3.41 factor de conversion
  // 16200: watios de numero de focos
  // .91: factor de ganancia alredor Factor_correcion_calor_sensible
-// 1.2 pendiente
-const luces = 16200 * 3.41 * 1.2 * Factor_correcion_calor_sensible; // RLHG BTU/h
+const calorLuces = luces.wattsPorLampara * luces.numeroLuces * luces.factConv * Factor_correcion_calor_sensible;
 
-const personas = {
-	sensible: 315 * data.numero_personas * 1.0 * 0.91,
-	latente: 325 * data.numero_personas
-}
+const personas = setCalorPersonas(data.numero_personas, Factor_correcion_calor_sensible, tablaCalorPersonas);
 
 const ventilacion = {
 	sensible: 1.1 * 600 * 12,
@@ -37,27 +35,38 @@ const ventilacion = {
 
 	//Calculo final
 
-	const ganancia_calor_recinto = calculoTotalSensible(vidrios, pared, techo, piso, puerta) + luces + personas.sensible;
+const ganancia_calor_recinto = calculoTotalSensible(vidrios, pared, techo, piso, puerta) + calorLuces + personas.sensible;
 
-	const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
+const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
-	const total_sensible = ganancia_calor_recinto + ventilacion.sensible + ganancia_ventilador_forzado;
+const total_sensible = ganancia_calor_recinto + ventilacion.sensible + ganancia_ventilador_forzado;
 
-	const carga_enfriamiento = cargaEnfriamiento(total_sensible, personas, ventilacion); // Tons
+const carga_enfriamiento = cargaEnfriamiento(total_sensible, personas, ventilacion); // Tons
 
-    ReactDOM.render(
-        <div>
-            <h1> Carga de enfriamiento (tons):</h1>
-            <h2>{carga_enfriamiento}</h2>
-        </div>,
-        document.getElementById('root')
-    );
+ReactDOM.render(
+    <div>
+        <h1> Carga de enfriamiento (tons):</h1>
+        <h2>{carga_enfriamiento}</h2>
+    </div>,
+    document.getElementById('root')
+);
 
-	function cargaEnfriamiento(totalSensible, personas, ventilacion){
-  		return (totalSensible + personas.latente + ventilacion.latente)/12000 // Tons
-	}
+function setCalorPersonas(n_personas, correcion, tablaCalorPersonas) {
+    const filtered = tablaCalorPersonas.filter(x => x['APLICACIONES_TIPICAS'] === 'TIENDAS MINORISTAS, BANCOS');
+    const calorSensible = filtered.find( x => x['CALOR'] === 'CALOR SENSIBLE');
+    const calorLatente = filtered.find( x => x['CALOR'] === 'CALOR LATENTE');
 
-	function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}]){
+    return {
+    	sensible: calorSensible['BTUH'] * n_personas * 1.0 * correcion,
+    	latente: calorLatente['BTUH'] * n_personas
+    };
+}
+
+function cargaEnfriamiento(totalSensible, personas, ventilacion){
+    return (totalSensible + personas.latente + ventilacion.latente)/12000 // Tons
+}
+
+function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}]){
 
 	  	const calorVidrio = getCalorSensibleArray(vidrios);
 	  	const calorPared = getCalorSensibleArray(pared);
@@ -86,25 +95,25 @@ const ventilacion = {
 	    function getCalorSensible(obj) {
 	      return obj.coeficiente_transferencia_calor * obj.area_neta * obj.CLDT_correccion * Factor_correcion_calor_sensible;
 	    }
-	}
+}
 
-	function getCLDT_correccion(el) {
-		// Note: investigar el CLDT_correccion de las puertas
-		const DeltaTempDiseno = 78 - 85;
-		const tempExterior = data.design.exterior.bulbo_seco;
-		const rango_diario = data.carga_pico_enfriamiento.rango_diario;
-		const tempInterior = data.design.recinto.bulbo_seco;
-		const LM = el.correcion_latitud_mes_LM;
-		const K = el.correcion_color_K;
-		const CLDT_temp = LM !== undefined && K !== undefined ? (el.CLDT_tabla + LM) * K : el.CLDT_tabla;
+function getCLDT_correccion(el) {
+	// Note: investigar el CLDT_correccion de las puertas
+	const DeltaTempDiseno = 78 - 85;
+	const tempExterior = data.design.exterior.bulbo_seco;
+	const rango_diario = data.carga_pico_enfriamiento.rango_diario;
+	const tempInterior = data.design.recinto.bulbo_seco;
+	const LM = el.correcion_latitud_mes_LM;
+	const K = el.correcion_color_K;
+	const CLDT_temp = LM !== undefined && K !== undefined ? (el.CLDT_tabla + LM) * K : el.CLDT_tabla;
 
-		el.CLDT_correccion = CLDT_temp + DeltaTempDiseno + tempExterior - 0.5*rango_diario - tempInterior;
-		return el;
-	}
+	el.CLDT_correccion = CLDT_temp + DeltaTempDiseno + tempExterior - 0.5*rango_diario - tempInterior;
+	return el;
+}
 
-	function getCalor_sensible(vidrios, pared, transferencia_calor_vidrio, transferencia_calor_pared){
-		const area_vidrio = vidrios.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
-		const area_pared = pared.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
-		const K_= (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / data.design.perimetro;
-		return 1 - 0.02 * K_;
-	}
+function getCalor_sensible(vidrios, pared, transferencia_calor_vidrio, transferencia_calor_pared){
+	const area_vidrio = vidrios.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
+	const area_pared = pared.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
+	const K_= (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / data.design.perimetro;
+	return 1 - 0.02 * K_;
+}
