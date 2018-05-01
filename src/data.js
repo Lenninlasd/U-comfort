@@ -89,7 +89,6 @@ const data = {
 		techo: {
 		    color: "D",
 		    area_neta: 5400, //ft^2
-		    correcion_latitud_mes_LM: 1,
 		    correcion_color_K: 1
 		},
 		piso: {
@@ -121,7 +120,7 @@ setUvidrio(data.elementos.vidrios, tablaUvidrios);
 setCLF(data.elementos.vidrios, tablaCLF);
 setSC(data.elementos.vidrios, tablaSC);
 
-setLM(data.elementos.pared, tablaLM);
+setLM(data.elementos.pared, data.elementos.techo, tablaLM);
 
 console.log('data.elementos', data.elementos);
 
@@ -194,9 +193,11 @@ function setSC(vidrios, tablaSC) {
     });
 }
 
-function setLM(paredes, tablaLM, mes="JUL") {
+function setLM(paredes, techo, tablaLM, mes="JUL") {
     const datoLM = tablaLM.find(x => Number(x.LATITUD) === 40 && x.MES === mes);
     paredes.map(pared => {
         pared.correcion_latitud_mes_LM = Number(datoLM[pared.orientacion]);
     });
+
+    techo.correcion_latitud_mes_LM = Number(datoLM['HORA']);
 }
