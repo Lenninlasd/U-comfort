@@ -3,45 +3,43 @@ import ReactDOM from 'react-dom';
 
 import { data } from "./data";
 import tablaCalorPersonas from "../json/calor_personas_6_11";
+import tablaCFM from "../json/CFM_6_15";
 
 const vidrios = data.elementos.vidrios.map(getCLDT_correccion);
 
 const pared = data.elementos.pared.map(getCLDT_correccion);
 
-const calor_vidrio = 1.04;
-const calor_pared = 0.13;
+// TODO: Remove hardcode
+const calor_vidrio = 1.04; //coeficiente_transferencia_calor
+const calor_pared = 0.13; // coeficiente_transferencia_calor
 const Factor_correcion_calor_sensible = getCalor_sensible(vidrios, pared, calor_vidrio, calor_pared); //0.91
 
 const  techo = getCLDT_correccion(data.elementos.techo);
 
+const diffTemp = data.design.exterior.bulbo_seco - data.design.recinto.bulbo_seco;
+const diffHumedad = data.design.exterior.humedad_especifica - data.design.recinto.humedad_especifica;
+
 const piso = data.elementos.piso;
-piso.CLDT_correccion = data.design.exterior.bulbo_seco - data.design.recinto.bulbo_seco;
+piso.CLDT_correccion = diffTemp;
 
 const puerta = data.elementos.puerta;
 const luces = data.elementos.luces;
 
-// Otros calculos
- // 3.41 factor de conversion
- // 16200: watios de numero de focos
- // .91: factor de ganancia alredor Factor_correcion_calor_sensible
 const calorLuces = luces.wattsPorLampara * luces.numeroLuces * luces.factConv * Factor_correcion_calor_sensible;
 
-const personas = setCalorPersonas(data.numero_personas, Factor_correcion_calor_sensible, tablaCalorPersonas);
+const calorPersonas = setCalorPersonas(data.numero_personas, Factor_correcion_calor_sensible, tablaCalorPersonas);
 
-const ventilacion = {
-	sensible: 1.1 * 600 * 12,
-	latente: 0.68 * 600 * 29
-}
+const calorVentilacion = setCalorVentilacion(data.numero_personas, diffTemp, diffHumedad, tablaCFM);
 
 	//Calculo final
 
-const ganancia_calor_recinto = calculoTotalSensible(vidrios, pared, techo, piso, puerta) + calorLuces + personas.sensible;
+const ganancia_calor_recinto = calculoTotalSensible(vidrios, pared, techo, piso, puerta) + calorLuces + calorPersonas.sensible;
 
 const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
-const total_sensible = ganancia_calor_recinto + ventilacion.sensible + ganancia_ventilador_forzado;
+const total_sensible = ganancia_calor_recinto + calorVentilacion.sensible + ganancia_ventilador_forzado;
 
-const carga_enfriamiento = cargaEnfriamiento(total_sensible, personas, ventilacion); // Tons
+const carga_enfriamiento = cargaEnfriamiento(total_sensible, calorPersonas, calorVentilacion); // Tons
 
 ReactDOM.render(
     <div>
@@ -51,8 +49,8 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-function setCalorPersonas(n_personas, correcion, tablaCalorPersonas) {
-    const filtered = tablaCalorPersonas.filter(x => x['APLICACIONES_TIPICAS'] === 'TIENDAS MINORISTAS, BANCOS');
+function setCalorPersonas(n_personas, correcion, tablaCalorPersonas, aplicacion='TIENDAS MINORISTAS, BANCOS') {
+    const filtered = tablaCalorPersonas.filter(x => x['APLICACIONES_TIPICAS'] === aplicacion);
     const calorSensible = filtered.find( x => x['CALOR'] === 'CALOR SENSIBLE');
     const calorLatente = filtered.find( x => x['CALOR'] === 'CALOR LATENTE');
 
@@ -62,8 +60,21 @@ function setCalorPersonas(n_personas, correcion, tablaCalorPersonas) {
     };
 }
 
-function cargaEnfriamiento(totalSensible, personas, ventilacion){
-    return (totalSensible + personas.latente + ventilacion.latente)/12000 // Tons
+function setCalorVentilacion(n_personas, diffTemp, diffHumedad, tablaCFM){
+
+    const cfmRecomendado = tablaCFM.find(x =>
+        x.lugar === 'comercios: pisos de venta (pisos superiores)')['cfm_recomendado'];
+    // take the first cfm of the range
+    const CFM = cfmRecomendado.split('-')[0];
+
+    return {
+    	sensible: 1.1 * CFM * n_personas * diffTemp,
+    	latente: 0.68 * CFM * n_personas * diffHumedad
+    }
+}
+
+function cargaEnfriamiento(totalSensible, calorPersonas, calorVentilacion){
+    return (totalSensible + calorPersonas.latente + calorVentilacion.latente)/12000 // Tons
 }
 
 function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}]){
