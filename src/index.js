@@ -5,19 +5,19 @@ import { data } from "./data";
 import tablaCalorPersonas from "../json/calor_personas_6_11";
 import tablaCFM from "../json/CFM_6_15";
 
-const vidrios = data.elementos.vidrios.map(getCLDT_correccion);
+const vidrios = data.elementos.vidrios;
 
-const pared = data.elementos.pared.map(getCLDT_correccion);
+const pared = data.elementos.pared;
 
 // TODO: Remove hardcode
 const calor_vidrio = 1.04; //coeficiente_transferencia_calor
 const calor_pared = 0.13; // coeficiente_transferencia_calor
 const Factor_correcion_calor_sensible = getCalor_sensible(vidrios, pared, calor_vidrio, calor_pared); //0.91
 
-const  techo = getCLDT_correccion(data.elementos.techo);
+const  techo = data.elementos.techo;
 
-const diffTemp = data.design.exterior.bulbo_seco - data.design.recinto.bulbo_seco;
-const diffHumedad = data.design.exterior.humedad_especifica - data.design.recinto.humedad_especifica;
+const diffTemp = data.exterior.bulbo_seco - data.recinto.bulbo_seco;
+const diffHumedad = data.exterior.humedad_especifica - data.recinto.humedad_especifica;
 
 const piso = data.elementos.piso;
 piso.CLDT_correccion = diffTemp;
@@ -108,23 +108,9 @@ function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {
 	    }
 }
 
-function getCLDT_correccion(el) {
-	// Note: investigar el CLDT_correccion de las puertas
-	const DeltaTempDiseno = 78 - 85;
-	const tempExterior = data.design.exterior.bulbo_seco;
-	const rango_diario = data.carga_pico_enfriamiento.rango_diario;
-	const tempInterior = data.design.recinto.bulbo_seco;
-	const LM = el.correcion_latitud_mes_LM;
-	const K = el.correcion_color_K;
-	const CLDT_temp = LM !== undefined && K !== undefined ? (el.CLDT_tabla + LM) * K : el.CLDT_tabla;
-
-	el.CLDT_correccion = CLDT_temp + DeltaTempDiseno + tempExterior - 0.5*rango_diario - tempInterior;
-	return el;
-}
-
 function getCalor_sensible(vidrios, pared, transferencia_calor_vidrio, transferencia_calor_pared){
 	const area_vidrio = vidrios.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
 	const area_pared = pared.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
-	const K_= (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / data.design.perimetro;
+	const K_= (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / data.perimetro;
 	return 1 - 0.02 * K_;
 }

@@ -14,22 +14,20 @@ const data = {
     ubicacion: "Indianapolis, Ind",
     latitud : 39,
     numero_personas: 60,
-    design: {
-            perimetro: 300,
-            exterior: {
-                bulbo_seco: 90, // A.9 condiciones exteriores de diseño
-                bulbo_humedo: 74, // A.9
-                humedad_especifica: 101 // formula pendiente
-            },
-            recinto: {
-              // Estas condiciones no varian
-                bulbo_seco: 78,
-                humedad_relativa: 50,
-                humedad_especifica: 72
-            }
+    perimetro: 300,
+    exterior: {
+        bulbo_seco: 90, // A.9 condiciones exteriores de diseño
+        bulbo_humedo: 74, // A.9
+        humedad_especifica: 101 // formula pendiente
     },
-	carga_pico_enfriamiento: {
-	    rango_diario : 22, // Fahrenheit no va a cambiar
+    recinto: {
+      // Estas condiciones no varian
+        bulbo_seco: 78,
+        humedad_relativa: 50,
+        humedad_especifica: 72
+    },
+	cargaPico: {
+	    rangoDiario : 22, // Fahrenheit no va a cambiar
 	    fecha: "21-07-xxxx", // julio, no va a cambiar
 	    hora: "17", // no va a cambiar
 	    promedio: 79, // Fahrenheit
@@ -117,6 +115,13 @@ setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
 setCLTD_pared(data.elementos.pared, tablaPared);
 setCLTD_techo(data.elementos.techo, tablaTecho);
 
+setLM(data.elementos.pared, data.elementos.techo, tablaLM);
+
+getCLDT_correccion(data.elementos.vidrios, data.exterior.bulbo_seco,
+        data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
+getCLDT_correccion(data.elementos.pared, data.exterior.bulbo_seco,
+        data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
+
 setSHGF_lat_40(data.elementos.vidrios, tablaSHGF);
 
 setUtecho(data.elementos.techo, tablaUtechosParedesParticiones);
@@ -125,7 +130,9 @@ setUvidrio(data.elementos.vidrios, tablaUvidrios);
 setCLF(data.elementos.vidrios, tablaCLF);
 setSC(data.elementos.vidrios, tablaSC);
 
-setLM(data.elementos.pared, data.elementos.techo, tablaLM);
+getCLDT_correccion(data.elementos.techo, data.exterior.bulbo_seco,
+        data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
+
 
 console.log('data.elementos', data.elementos);
 
@@ -152,6 +159,24 @@ function setCLTD_techo(techo, tablaTecho) {
     const data_techo = tablaTecho.find(x => x.tipo_de_techo === 'sin cielo raso suspendido'
                                             && x.numero_techo === '3');
     techo.CLDT_tabla = Number(data_techo['17']);
+}
+
+function getCLDT_correccion(elementos, tempExterior, tempInterior, rangoDiario) {
+    const DeltaTempDiseno = 78 - 85;
+
+    if (Array.isArray(elementos)) {
+        elementos.map(correct);
+    }else if(typeof(elementos) === "object"){
+        correct(elementos);
+    }
+
+    function correct(el) {
+        const LM = el.correcion_latitud_mes_LM;
+    	const K = el.correcion_color_K;
+    	const CLDT_temp = LM !== undefined && K !== undefined ? (el.CLDT_tabla + LM) * K : el.CLDT_tabla;
+
+    	el.CLDT_correccion = CLDT_temp + DeltaTempDiseno + tempExterior - 0.5*rangoDiario - tempInterior;
+    }
 }
 
 //SHGF
