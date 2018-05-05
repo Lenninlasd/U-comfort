@@ -45,6 +45,11 @@ export default [
 		"U": "0.36"
 	},
 	{
+		"tipo": "PAREDES",
+		"material": "MURO EJEMPLO",
+		"U": "0.13"
+	},
+	{
 		"tipo": "PARTICION PAREDES",
 		"material": "MURO INTERIOIR DRYWALL",
 		"U": "0.3"
@@ -53,5 +58,15 @@ export default [
 		"tipo": "PARTICION PAREDES",
 		"material": "DIVISION INTERIOR CRISTAL",
 		"U": "0.4"
+	},
+	{
+		"tipo": "PUERTA",
+		"material": "PUERTA EJEMPLO",
+		"U": "0.18"
+	},
+	{
+		"tipo": "PISO",
+		"material": "PISO EJEMPLO",
+		"U": "0.35"
 	}
 ]

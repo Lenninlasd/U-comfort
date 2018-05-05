@@ -59,44 +59,43 @@ const data = {
 		    {
 		        orientacion: "N",
 		        color: "D",
-		        coeficiente_transferencia_calor: 0.13,
 		        area_neta: 840, //ft^2
 		        correcion_color_K: 1,
+                type: "superficie_oscura"
 		    },{
 		        orientacion: "S",
 		        color: "D",
-		        coeficiente_transferencia_calor: 0.13,
 		        area_neta: 840, //ft^2
 		        correcion_color_K: 1,
+                type: "superficie_oscura"
 		    },{
 		        orientacion: "E",
 		        color: "D",
-		        coeficiente_transferencia_calor: 0.13,
 		        area_bruta: 1260,
 		        area_neta: 1176, //ft^2
-		        correcion_color_K: 1
+		        correcion_color_K: 1,
+                type: "superficie_oscura"
 		    },{
 		        orientacion: "W",
 		        color: "D",
-		        coeficiente_transferencia_calor: 0.13,
 		        area_bruta: 1260,
 		        area_neta: 388, //ft^2
-		        correcion_color_K: 1
+		        correcion_color_K: 1,
+                type: "superficie_oscura"
 		    }
 		],
 		techo: {
 		    color: "D",
 		    area_neta: 5400, //ft^2
-		    correcion_color_K: 1
+		    correcion_color_K: 1,
+            type: "superficie_oscura"
 		},
 		piso: {
-		    coeficiente_transferencia_calor: 0.35, //Falta
 		    area_neta: 5400, //ft^2
 		},
 		puerta: [
 		    {
 		        orientacion: "E",
-		        coeficiente_transferencia_calor: 0.18,
 		        area_neta: 42, //ft^2
 		        CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
 		        CLDT_correccion: 22, // ºF
@@ -125,6 +124,10 @@ getCLDT_correccion(data.elementos.pared, data.exterior.bulbo_seco,
 setSHGF_lat_40(data.elementos.vidrios, tablaSHGF);
 
 setUtecho(data.elementos.techo, tablaUtechosParedesParticiones);
+setUtecho(data.elementos.pared, tablaUtechosParedesParticiones, 'PAREDES', 'MURO EJEMPLO');
+setUtecho(data.elementos.puerta, tablaUtechosParedesParticiones, 'PUERTA', 'PUERTA EJEMPLO');
+setUtecho(data.elementos.piso, tablaUtechosParedesParticiones, 'PISO', 'PISO EJEMPLO');
+
 setUvidrio(data.elementos.vidrios, tablaUvidrios);
 
 setCLF(data.elementos.vidrios, tablaCLF);
@@ -163,12 +166,8 @@ function setCLTD_techo(techo, tablaTecho) {
 
 function getCLDT_correccion(elementos, tempExterior, tempInterior, rangoDiario) {
     const DeltaTempDiseno = 78 - 85;
-
-    if (Array.isArray(elementos)) {
-        elementos.map(correct);
-    }else if(typeof(elementos) === "object"){
-        correct(elementos);
-    }
+    elementos = !Array.isArray(elementos) ? [elementos] : elementos;
+    elementos.map(correct);
 
     function correct(el) {
         const LM = el.correcion_latitud_mes_LM;
@@ -195,8 +194,11 @@ function setUtecho(techo, tablaU, type='TECHO', material='CUBIERTA DE EJEMPLO') 
     const Utechos = tablaU.find(
                         x => x.tipo === type && x.material === material
                     );
-    techo.coeficiente_transferencia_calor = Utechos.U;
+    techo = !Array.isArray(techo) ? [techo] : techo;
+
+    techo.map(el => el.coeficiente_transferencia_calor = Utechos.U );
 }
+
 function setUvidrio(vidrios, tablaUvidrios, glassDescription='vidrio sencillo') {
     const Uv_sencillo = tablaUvidrios.find(x => x.descripcion === glassDescription)
 
