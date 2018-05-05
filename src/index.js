@@ -5,6 +5,8 @@ import { data } from "./data";
 import tablaCalorPersonas from "../json/calor_personas_6_11";
 import tablaCFM from "../json/CFM_6_15";
 
+import infiltration from './infiltration';
+
 const vidrios = data.elementos.vidrios;
 
 const pared = data.elementos.pared;
@@ -39,7 +41,7 @@ const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
 const total_sensible = ganancia_calor_recinto + calorVentilacion.sensible + ganancia_ventilador_forzado;
 
-const carga_enfriamiento = cargaEnfriamiento(total_sensible, calorPersonas, calorVentilacion); // Tons
+const carga_enfriamiento = cargaEnfriamiento(total_sensible, calorPersonas, calorVentilacion, infiltration); // Tons
 
 ReactDOM.render(
     <div>
@@ -74,7 +76,8 @@ function setCalorVentilacion(n_personas, diffTemp, diffHumedad, tablaCFM){
 }
 
 function cargaEnfriamiento(totalSensible, calorPersonas, calorVentilacion){
-    return (totalSensible + calorPersonas.latente + calorVentilacion.latente)/12000 // Tons
+    const totalCalor = totalSensible + calorPersonas.latente + calorVentilacion.latente + infiltration.sensible + infiltration.latente;
+    return totalCalor/12000; // Tons
 }
 
 function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}]){

@@ -165,6 +165,7 @@ function setCLTD_techo(techo, tablaTecho) {
 }
 
 function getCLDT_correccion(elementos, tempExterior, tempInterior, rangoDiario) {
+    // Valores inmutables de la ecuacion.
     const DeltaTempDiseno = 78 - 85;
     elementos = !Array.isArray(elementos) ? [elementos] : elementos;
     elementos.map(correct);
