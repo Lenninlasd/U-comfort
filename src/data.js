@@ -15,6 +15,7 @@ const data = {
     latitud : 39,
     numero_personas: 60,
     perimetro: 300,
+    altura: 14,
     exterior: {
         bulbo_seco: 90, // A.9 condiciones exteriores de diseño
         bulbo_humedo: 74, // A.9
@@ -197,7 +198,7 @@ function setUtecho(techo, tablaU, type='TECHO', material='CUBIERTA DE EJEMPLO') 
                     );
     techo = !Array.isArray(techo) ? [techo] : techo;
 
-    techo.map(el => el.coeficiente_transferencia_calor = Utechos.U );
+    techo.map(el => el.coeficiente_transferencia_calor = Number(Utechos.U) );
 }
 
 function setUvidrio(vidrios, tablaUvidrios, glassDescription='vidrio sencillo') {

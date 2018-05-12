@@ -1,6 +1,6 @@
 import tablaInfiltracion from '../json/tabla_infiltracion';
 
-function getCalor(area_neta=5400, height=14, Δtemp=90-78, ΔHumedad=29){
+export default function getCalor(area_neta, height, Δtemp, ΔHumedad){
 
     const tipoRecinto = 'puerta_o_ventanas_en_dos_lado_del_cuarto';
     const CambioAire = tablaInfiltracion.find(x => x.tipo_de_recinto === tipoRecinto);
@@ -11,7 +11,3 @@ function getCalor(area_neta=5400, height=14, Δtemp=90-78, ΔHumedad=29){
 
     return { sensible, latente };
 }
-
-const infiltration = getCalor();
-
-export default infiltration;
