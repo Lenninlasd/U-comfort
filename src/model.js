@@ -1,18 +1,18 @@
 /*
 Pared:
-length,
- Width,
- height ==> gross area, perimeter,
-        ==> techo, piso area
+[x] length,
+[x] Width,
+[x] height ==> [x]gross area, perimeter,
+        ==> [x] techo, piso area
 
 glass:
-numero de vidrios,
-orientaciones
-sombra
+[x] numero de vidrios,
+[x] orientaciones
+[x] sombra
 espesor_nominal,
 tipo_de_vidrio
-Width x height ==> glass area_net
-               ==> pared net area
+[x]Width x height ==> [ ] glass area_net
+                  ==> [ ] pared net area
 luces:
 ** estimar #luces
 numeroLuces: 135,

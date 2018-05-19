@@ -46,23 +46,43 @@ class GlassWindows extends React.Component {
     handleChange(event){
         const el = event.target;
         this.props.onWindowsChange({
-            value: Number(el.value),
-            id: el.id
+            id: el.dataset.group,
+            [el.dataset.type]: el.value
         });
     }
 
     render() {
         const windows = this.props.numberWindows >= 0 ? this.props.numberWindows : 0;
         const inputList = [...Array(windows)].map( (_, key) => (
-            <div key={key.toString()} className="form-row">
-                <div className="col">
-                    <input id={'window-height-' + key} group={'window-' + key}
-                           className='form-control' type="number"
+            <div key={key.toString()} className='form-row'>
+                <div className='col'>
+                    <input id={'window-height-' + key} data-group={'window-' + key}
+                           data-type='height' className='form-control' type="number"
                            placeholder='height' onChange={this.handleChange}/>
                 </div>
-                {/* <div className="col">
-                    <input id={'window-width-' + key} className="form-control"  type="number" placeholder='width' />
-                </div> */}
+                <div className='col'>
+                    <input id={'window-width-' + key} data-group={'window-' + key}
+                           data-type='width' className="form-control"  type="number"
+                           placeholder='width' onChange={this.handleChange} />
+                </div>
+                <div className='col'>
+                    <select id={'window-orientation-' + key} data-group={'window-' + key}
+                            data-type='orientation' className='form-control' onChange={this.handleChange}>
+                        <option hidden >Orientation</option>
+                        <option value='N'>N</option>
+                        <option value='S'>S</option>
+                        <option value='E'>E</option>
+                        <option value='W'>W</option>
+                    </select>
+                </div>
+                <div className='col'>
+                    <select id={'window-shade-' + key} data-group={'window-' + key}
+                            data-type='shade' className='form-control' onChange={this.handleChange}>
+                        <option hidden >Shade</option>
+                        <option value='yes'>Yes</option>
+                        <option value='no'>No</option>
+                    </select>
+                </div>
             </div>
         ));
 
@@ -109,7 +129,7 @@ class TodoApp extends React.Component {
         this.setState( prevState => {
             const filtered = prevState.windowList.find(item => item.id === glassWindow.id);
             if (filtered) {
-                filtered.value = glassWindow.value;
+                Object.assign(filtered, glassWindow);
             }else {
                 prevState.windowList.push(glassWindow);
             }
