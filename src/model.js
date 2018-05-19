@@ -7,10 +7,10 @@ length,
 
 glass:
 numero de vidrios,
-espesor_nominal,
-tipo_de_vidrio
 orientaciones
 sombra
+espesor_nominal,
+tipo_de_vidrio
 Width x height ==> glass area_net
                ==> pared net area
 luces:
