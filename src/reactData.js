@@ -1,3 +1,18 @@
+import tablaSC from '../json/SC_tabla_6_7';
+
+const nominalThickness = new Set(
+    tablaSC.map(i => i['espesor_nominal'])
+           .filter(i => i !== '-')
+);
+
+const typeofGlass = new Set(
+    tablaSC.map(i => i['tipo_de_vidrio'])
+)
+
+const getNominalThickness = () => nominalThickness;
+
+const getTypeofGlass = () => typeofGlass;
+
 function getMetricData(props) {
     const perimeter = 2*props.width + 2*props.length;
     const height = props.height;
@@ -40,5 +55,7 @@ function getFloor(p) {
 }
 
 export default {
-    getMetricData
+    getMetricData,
+    getNominalThickness,
+    getTypeofGlass
 }

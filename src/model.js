@@ -9,8 +9,8 @@ glass:
 [x] numero de vidrios,
 [x] orientaciones
 [x] sombra
-espesor_nominal,
-tipo_de_vidrio
+[x] espesor_nominal,
+[x] tipo_de_vidrio
 [x]Width x height ==> [ ] glass area_net
                   ==> [ ] pared net area
 luces:

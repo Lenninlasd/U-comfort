@@ -29,7 +29,7 @@ class SizeDataForm extends React.Component {
                 <div className="form-group">
                     numero de ventanas:
                     <input id='numberWindows' className="form-control" type="number" value={this.props.numberWindows}
-                        placeholder='numero de ventanas' onChange={this.handleChange} />
+                        placeholder='numero de ventanas' onChange={this.handleChange} min='0' max='20' />
                 </div>
             </form>
         );
@@ -41,6 +41,12 @@ class GlassWindows extends React.Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.list = [];
+        this.nominalThickness = [...u.getNominalThickness()].map(el =>
+            <option key={el} value={el}>{el}</option>
+        );
+        this.typeofGlass = [...u.getTypeofGlass()].map(el =>
+            <option key={el} value={el}>{el}</option>
+        );
     }
 
     handleChange(event){
@@ -53,6 +59,7 @@ class GlassWindows extends React.Component {
 
     render() {
         const windows = this.props.numberWindows >= 0 ? this.props.numberWindows : 0;
+
         const inputList = [...Array(windows)].map( (_, key) => (
             <div key={key.toString()} className='form-row'>
                 <div className='col'>
@@ -81,6 +88,20 @@ class GlassWindows extends React.Component {
                         <option hidden >Shade</option>
                         <option value='yes'>Yes</option>
                         <option value='no'>No</option>
+                    </select>
+                </div>
+                <div className='col'>
+                    <select id={'window-nominalthickness-' + key} data-group={'window-' + key}
+                            data-type='nominalThickness' className='form-control' onChange={this.handleChange}>
+                        <option hidden >Nominal thickness</option>
+                        {this.nominalThickness}
+                    </select>
+                </div>
+                <div className='col'>
+                    <select id={'window-typeofglass-' + key} data-group={'window-' + key}
+                            data-type='typeofGlass' className='form-control' onChange={this.handleChange}>
+                        <option hidden >Type of glass</option>
+                        {this.typeofGlass}
                     </select>
                 </div>
             </div>
