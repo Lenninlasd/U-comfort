@@ -16,18 +16,25 @@ const getTypeofGlass = () => typeofGlass;
 function getMetricData(props) {
     const perimeter = 2*props.width + 2*props.length;
     const height = props.height;
-    const walls = getWalls(props);
     const floor = getFloor(props);
+    const windowList = getWindowList(props);
+    const walls = getWalls(props, windowList);
 
     return {
         perimeter,
         height,
         walls,
+        windowList,
         floor
     }
 }
 
-function getWalls(p){
+function getWalls(p, windowList){
+    const glassHash = {};
+    for (const w of windowList) {
+        glassHash[w.orientation] = (glassHash[w.orientation] || 0) + w.netArea;
+    }
+
     const base = [
         {
             orientation: 'N',
@@ -47,11 +54,21 @@ function getWalls(p){
         },
     ]
 
-    return base;
+    return base.map(p => {
+        // TODO: Alert if netArea < 0
+        p.netArea = p.grossArea - (glassHash[p.orientation] || 0);
+        return p;
+    });
 }
 
 function getFloor(p) {
     return { netArea: p.width * p.length };
+}
+function getWindowList(props) {
+    return props.windowList.map(w => {
+        w.netArea = Number(w.height) * Number(w.width);
+        return w
+    });
 }
 
 export default {

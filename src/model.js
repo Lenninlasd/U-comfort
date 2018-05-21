@@ -11,8 +11,13 @@ glass:
 [x] sombra
 [x] espesor_nominal,
 [x] tipo_de_vidrio
-[x]Width x height ==> [ ] glass area_net
-                  ==> [ ] pared net area
+[x] Width x height ==> [x] glass area_net
+                  ==> [x] pared net area
+
+[ ] memoria para los datos de las ventanas
+[ ] opcion eliminar ventana: una vez se crea no se puede reducir el numero de ventanas
+con el input, debera hacer clic en un link elimar, este eliminara el state, y cambiara
+el min del input.
 luces:
 ** estimar #luces
 numeroLuces: 135,
