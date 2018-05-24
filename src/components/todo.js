@@ -1,5 +1,5 @@
 import React from 'react';
-import u from './reactData';
+import u from '../reactData';
 
 class SizeDataForm extends React.Component {
     constructor(props) {

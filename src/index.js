@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodoApp from './todo';
+import TodoApp from './components/todo';
 
 import { data } from "./data";
 import getCargaEnfriamiento from './cargaEnfriamiento.js';
