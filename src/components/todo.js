@@ -1,120 +1,7 @@
 import React from 'react';
 import u from '../reactData';
-
-class SizeDataForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(event){
-        this.props.onSizeChange(event.target);
-    }
-
-    render() {
-        return (
-            <form>
-                <div className="form-group">
-                    length:
-                    <input id='length' className="form-control" type="number" value={this.props.length} placeholder='length' onChange={this.handleChange} />
-                </div>
-                <div className="form-group">
-                    width:
-                    <input id='width' className="form-control" type="number" value={this.props.width}  placeholder='width'  onChange={this.handleChange} />
-                </div>
-                <div className="form-group">
-                    height:
-                    <input id='height' className="form-control"  type="number" value={this.props.height} placeholder='height' onChange={this.handleChange} />
-                </div>
-                <div className="form-group">
-                    numero de ventanas:
-                    <input id='numberWindows' className="form-control" type="number" value={this.props.numberWindows}
-                        placeholder='numero de ventanas' onChange={this.handleChange} min='0' max='20' />
-                </div>
-            </form>
-        );
-    }
-}
-
-class GlassWindows extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.list = [];
-        this.nominalThickness = [...u.getNominalThickness()].map(el =>
-            <option key={el} value={el}>{el}</option>
-        );
-        this.typeofGlass = [...u.getTypeofGlass()].map(el =>
-            <option key={el} value={el}>{el}</option>
-        );
-    }
-
-    handleChange(event){
-        const el = event.target;
-        this.props.onWindowsChange({
-            id: el.dataset.group,
-            [el.dataset.type]: el.value
-        });
-    }
-
-    render() {
-        const windows = this.props.numberWindows >= 0 ? this.props.numberWindows : 0;
-
-        const inputList = [...Array(windows)].map( (_, key) => (
-            <div key={key.toString()} className='form-row'>
-                <div className='col'>
-                    <input id={'window-height-' + key} data-group={'window-' + key}
-                           data-type='height' className='form-control' type="number"
-                           placeholder='height' onChange={this.handleChange}/>
-                </div>
-                <div className='col'>
-                    <input id={'window-width-' + key} data-group={'window-' + key}
-                           data-type='width' className="form-control"  type="number"
-                           placeholder='width' onChange={this.handleChange} />
-                </div>
-                <div className='col'>
-                    <select id={'window-orientation-' + key} data-group={'window-' + key}
-                            data-type='orientation' className='form-control' onChange={this.handleChange}>
-                        <option hidden >Orientation</option>
-                        <option value='N'>N</option>
-                        <option value='S'>S</option>
-                        <option value='E'>E</option>
-                        <option value='W'>W</option>
-                    </select>
-                </div>
-                <div className='col'>
-                    <select id={'window-shade-' + key} data-group={'window-' + key}
-                            data-type='shade' className='form-control' onChange={this.handleChange}>
-                        <option hidden >Shade</option>
-                        <option value='yes'>Yes</option>
-                        <option value='no'>No</option>
-                    </select>
-                </div>
-                <div className='col'>
-                    <select id={'window-nominalthickness-' + key} data-group={'window-' + key}
-                            data-type='nominalThickness' className='form-control' onChange={this.handleChange}>
-                        <option hidden >Nominal thickness</option>
-                        {this.nominalThickness}
-                    </select>
-                </div>
-                <div className='col'>
-                    <select id={'window-typeofglass-' + key} data-group={'window-' + key}
-                            data-type='typeofGlass' className='form-control' onChange={this.handleChange}>
-                        <option hidden >Type of glass</option>
-                        {this.typeofGlass}
-                    </select>
-                </div>
-            </div>
-        ));
-
-        return (
-            <div className="form-group">
-                { inputList }
-            </div>
-        )
-    }
-}
-
+import SizeDataForm from './sizeForm';
+import GlassWindows from './glassWindow';
 
 function Area(props){
     return !props.perimeter ? null : (
@@ -166,22 +53,28 @@ class TodoApp extends React.Component {
     render() {
         const state = this.state;
         return (
-            <div>
-                <SizeDataForm width={state.width} length={state.length}
-                              height={state.height}
-                              onSizeChange={this.handleChange}/>
+            <div className='row'>
+                <div className='offset-md-6 col-md-6'>
+                    <div className='card u-card'>
+                        <div className='card-body'>
+                            <SizeDataForm width={state.width} length={state.length}
+                                          height={state.height}
+                                          onSizeChange={this.handleChange}/>
 
-                <GlassWindows numberWindows={state.numberWindows}
-                              windowList={state.windowList}
-                              onWindowsChange={this.handleWindows}/>
+                            <GlassWindows numberWindows={state.numberWindows}
+                                          windowList={state.windowList}
+                                          onWindowsChange={this.handleWindows}/>
 
-                <button type="button"
-                        className="btn btn-primary"
-                        onClick={this.handleSubmit}>Calcular</button>
+                            <button type="button"
+                                    className="btn btn-primary"
+                                    onClick={this.handleSubmit}>Calcular</button>
 
-                <Area floor={state.floor}
-                      perimeter={state.perimeter}
-                      walls={state.walls} windowList={state.windowList}/>
+                            <Area floor={state.floor}
+                                  perimeter={state.perimeter}
+                                  walls={state.walls} windowList={state.windowList}/>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

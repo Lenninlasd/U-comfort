@@ -8,9 +8,9 @@ import getCargaEnfriamiento from './cargaEnfriamiento.js';
 const cargaEnfriamiento = getCargaEnfriamiento(data);
 
 ReactDOM.render(
-    <div>
+    <div className='container-fluid'>
         <h1> Carga de enfriamiento (tons):</h1>
-        <h2>{cargaEnfriamiento}</h2>
+        <h3>{cargaEnfriamiento}</h3>
         <TodoApp />
     </div>,
     document.getElementById('root')
