@@ -1,6 +1,24 @@
 import React from 'react';
 import u from '../reactData';
 
+function SelectWinProps(props) {
+    return (
+        <select id={`window-${props.type}-${props.tag}`} data-group={`window-${props.tag}`}
+                data-type={props.type} className='form-control' onChange={props.handleChange}>
+            <option hidden >{props.title}</option>
+            {props.optionList}
+        </select>
+    );
+}
+
+function InputWinProps(props) {
+    return (
+        <input id={`window-${props.type}-${props.tag}`} data-group={`window-${props.tag}`}
+               data-type={props.type} className='form-control' type="number"
+               placeholder={props.title} onChange={props.handleChange}/>
+    );
+}
+
 export default class GlassWindows extends React.Component {
     constructor(props) {
         super(props);
@@ -29,48 +47,36 @@ export default class GlassWindows extends React.Component {
             <div key={key.toString()} className='form-group'>
                 <div className='form-row'>
                     <div className='col'>
-                        <input id={'window-height-' + key} data-group={'window-' + key}
-                               data-type='height' className='form-control' type="number"
-                               placeholder='height' onChange={this.handleChange}/>
+                        <InputWinProps tag={key} type='height' title='height' handleChange={this.handleChange}/>
                     </div>
                     <div className='col'>
-                        <input id={'window-width-' + key} data-group={'window-' + key}
-                               data-type='width' className="form-control"  type="number"
-                               placeholder='width' onChange={this.handleChange} />
+                        <InputWinProps tag={key} type='width' title='width' handleChange={this.handleChange}/>
                     </div>
                     <div className='col'>
-                        <select id={'window-orientation-' + key} data-group={'window-' + key}
-                                data-type='orientation' className='form-control' onChange={this.handleChange}>
-                            <option hidden >Orientation</option>
-                            <option value='N'>N</option>
-                            <option value='S'>S</option>
-                            <option value='E'>E</option>
-                            <option value='W'>W</option>
-                        </select>
+                        <SelectWinProps tag={key} type='orientation' handleChange={this.handleChange} title='Orientation'
+                            optionList={[
+                                <option key='N' value='N'>N</option>,
+                                <option key='S' value='S'>S</option>,
+                                <option key='E' value='E'>E</option>,
+                                <option key='W' value='W'>W</option>,
+                            ]} />
                     </div>
                 </div>
                 <div className='form-row'>
                     <div className='col'>
-                        <select id={'window-shade-' + key} data-group={'window-' + key}
-                                data-type='shade' className='form-control' onChange={this.handleChange}>
-                            <option hidden >Shade</option>
-                            <option value='yes'>Yes</option>
-                            <option value='no'>No</option>
-                        </select>
+                        <SelectWinProps tag={key} type='shade' handleChange={this.handleChange} title='Shade'
+                            optionList={[
+                                <option key='yes' value='yes'>Yes</option>,
+                                <option key='no' value='no'>No</option>
+                            ]}/>
                     </div>
                     <div className='col'>
-                        <select id={'window-nominalthickness-' + key} data-group={'window-' + key}
-                                data-type='nominalThickness' className='form-control' onChange={this.handleChange}>
-                            <option hidden >Nominal thickness</option>
-                            {this.nominalThickness}
-                        </select>
+                        <SelectWinProps tag={key} type='nominalThickness' handleChange={this.handleChange}
+                                        title='Nominal thickness' optionList={this.nominalThickness}/>
                     </div>
                     <div className='col'>
-                        <select id={'window-typeofglass-' + key} data-group={'window-' + key}
-                                data-type='typeofGlass' className='form-control' onChange={this.handleChange}>
-                            <option hidden >Type of glass</option>
-                            {this.typeofGlass}
-                        </select>
+                        <SelectWinProps tag={key} type='typeofGlass' handleChange={this.handleChange}
+                                        title='Type of glass' optionList={this.typeofGlass}/>
                     </div>
                 </div>
             </div>

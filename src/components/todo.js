@@ -2,6 +2,7 @@ import React from 'react';
 import u from '../reactData';
 import SizeDataForm from './sizeForm';
 import GlassWindows from './glassWindow';
+import CanvasElement from './roomCanvasElement';
 
 function Area(props){
     return !props.perimeter ? null : (
@@ -10,6 +11,30 @@ function Area(props){
             <p>Perimetro piso: {props.perimeter}</p>
             <pre>{JSON.stringify(props.walls, undefined, 4)}</pre>
             <pre>{JSON.stringify(props.windowList, undefined, 4)}</pre>
+        </div>
+    );
+}
+
+function CardForm(props) {
+    return (
+        <div className='card u-card'>
+            <div className='card-body'>
+                <SizeDataForm width={props.state.width} length={props.state.length}
+                              height={props.state.height}
+                              onSizeChange={props.handleChange}/>
+
+                <GlassWindows numberWindows={props.state.numberWindows}
+                              windowList={props.state.windowList}
+                              onWindowsChange={props.handleWindows}/>
+
+                <button type="button"
+                        className="btn btn-primary"
+                        onClick={props.handleSubmit}>Calcular</button>
+
+                <Area floor={props.state.floor}
+                      perimeter={props.state.perimeter}
+                      walls={props.state.walls} windowList={props.state.windowList}/>
+            </div>
         </div>
     );
 }
@@ -51,29 +76,16 @@ class TodoApp extends React.Component {
     }
 
     render() {
-        const state = this.state;
         return (
             <div className='row'>
-                <div className='offset-md-6 col-md-6'>
-                    <div className='card u-card'>
-                        <div className='card-body'>
-                            <SizeDataForm width={state.width} length={state.length}
-                                          height={state.height}
-                                          onSizeChange={this.handleChange}/>
-
-                            <GlassWindows numberWindows={state.numberWindows}
-                                          windowList={state.windowList}
-                                          onWindowsChange={this.handleWindows}/>
-
-                            <button type="button"
-                                    className="btn btn-primary"
-                                    onClick={this.handleSubmit}>Calcular</button>
-
-                            <Area floor={state.floor}
-                                  perimeter={state.perimeter}
-                                  walls={state.walls} windowList={state.windowList}/>
-                        </div>
-                    </div>
+                <div className='col-md-6'>
+                    <CanvasElement id='cubeContainer'/>
+                </div>
+                <div className='col-md-6'>
+                    <CardForm state={this.state}
+                              handleChange={this.handleChange}
+                              handleWindows={this.handleWindows}
+                              handleSubmit={this.handleSubmit} />
                 </div>
             </div>
         );
