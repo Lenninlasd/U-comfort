@@ -1,6 +1,6 @@
 /*
 Pared:
-[x] length,
+[x] depth,
 [x] Width,
 [x] height ==> [x]gross area, perimeter,
         ==> [x] techo, piso area

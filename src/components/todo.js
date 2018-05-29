@@ -19,7 +19,7 @@ function CardForm(props) {
     return (
         <div className='card u-card'>
             <div className='card-body'>
-                <SizeDataForm width={props.state.width} length={props.state.length}
+                <SizeDataForm width={props.state.width} depth={props.state.depth}
                               height={props.state.height}
                               onSizeChange={props.handleChange}/>
 
@@ -43,7 +43,7 @@ class TodoApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            length: 90, width: 60, height: 14,
+            depth: 90, width: 60, height: 14,
             numberWindows: 3 ,
             windowList: []
         };
@@ -76,10 +76,16 @@ class TodoApp extends React.Component {
     }
 
     render() {
+        const size = {
+            width: this.state.width,
+            height: this.state.height,
+            depth: this.state.depth
+        };
+
         return (
             <div className='row'>
                 <div className='col-md-6'>
-                    <CanvasElement id='cubeContainer'/>
+                    <CanvasElement id='cubeContainer' size={size}/>
                 </div>
                 <div className='col-md-6'>
                     <CardForm state={this.state}

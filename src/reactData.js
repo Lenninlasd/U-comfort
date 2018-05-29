@@ -16,7 +16,7 @@ const getNominalThickness = () => nominalThickness;
 const getTypeofGlass = () => typeofGlass;
 
 function getMetricData(props) {
-    const perimeter = 2*props.width + 2*props.length;
+    const perimeter = 2*props.width + 2*props.depth;
     const height = props.height;
     const floor = getFloor(props);
     const windowList = getWindowList(props);
@@ -48,11 +48,11 @@ function getWalls(p, windowList){
         },
         {
             orientation: 'E',
-            grossArea: p.length * p.height
+            grossArea: p.depth * p.height
         },
         {
             orientation: 'W',
-            grossArea: p.length * p.height
+            grossArea: p.depth * p.height
         },
     ]
 
@@ -64,7 +64,7 @@ function getWalls(p, windowList){
 }
 
 function getFloor(p) {
-    return { netArea: p.width * p.length };
+    return { netArea: p.width * p.depth };
 }
 function getWindowList(props) {
     return props.windowList.map(w => {

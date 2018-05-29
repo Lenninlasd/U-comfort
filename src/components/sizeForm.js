@@ -15,8 +15,8 @@ export default class SizeDataForm extends React.Component {
             <form>
                 <div className='form-row form-group'>
                     <div className="col-lg-2 col-md-4 col-sm-12">
-                        <small><strong>LENGTH:</strong></small>
-                        <input id='length' className="form-control" type="number" value={this.props.length} placeholder='length' onChange={this.handleChange} />
+                        <small><strong>DEPTH:</strong></small>
+                        <input id='depth' className="form-control" type="number" value={this.props.depth} placeholder='depth' onChange={this.handleChange} />
                     </div>
                     <div className="col-lg-2 col-md-4 col-sm-12">
                         <small><strong>WIDTH:</strong></small>
