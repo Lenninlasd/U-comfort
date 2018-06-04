@@ -84,10 +84,10 @@ class TodoApp extends React.Component {
 
         return (
             <div className='row'>
-                <div className='col-md-6'>
+                <div className='col-lg-7 col-md-6'>
                     <CanvasElement id='cubeContainer' size={size}/>
                 </div>
-                <div className='col-md-6'>
+                <div className='col-lg-5 col-md-6'>
                     <CardForm state={this.state}
                               handleChange={this.handleChange}
                               handleWindows={this.handleWindows}
