@@ -39,3 +39,14 @@ export default function getCargaEnfriamiento(data) {
 
     return heat.cargaEnfriamiento(total_sensible, calorPersonas, calorVentilacion, infiltration); // Tons
 }
+
+// CFMventilacion = CFM_tabla * Numero de personas (ver function setCalorVentilacion)
+function getTempEntradaSerpentin(CFMnetoSensible, CFMventilacion, exterior, recinto){
+    const aireExterior = CFMventilacion * exterior.bulbo_seco;
+    const aireRetorno = recinto.bulbo_seco * (CFMnetoSensible - CFMventilacion);
+    return (aireExterior +  aireRetorno ) / CFMnetoSensible;
+}
+
+function LineaSerpentin(tempEntradaSerpentin, CFTtotal) {
+
+}

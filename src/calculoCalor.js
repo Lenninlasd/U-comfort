@@ -33,7 +33,12 @@ function setCalorVentilacion(n_personas, Δtemp, ΔHumedad, tablaCFM){
 
 function cargaEnfriamiento(totalSensible, calorPersonas, calorVentilacion, infiltration){
     const totalCalor = totalSensible + calorPersonas.latente + calorVentilacion.latente + infiltration.sensible + infiltration.latente;
-    return totalCalor/12000; // Tons
+    return totalCalor;// /12000; // Tons
+}
+
+function getCFMCalorNetoSensible(totalSensible, infiltration){
+    const ΔtempAireSuministro = 20;
+    return (totalSensible + infiltration.sensible)/ ΔtempAireSuministro * 1.1;
 }
 
 function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}], factorCorrecion){

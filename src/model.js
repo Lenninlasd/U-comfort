@@ -23,6 +23,8 @@ luces:
 numeroLuces: 135,
 wattsPorLampara: 120,
 */
+import condicionesClimaticas from '../json/condiciones_climaticas';
+
 export default {
     ubicacion: "Indianapolis, Ind",
     latitud : 39,
