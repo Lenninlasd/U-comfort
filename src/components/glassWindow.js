@@ -84,7 +84,7 @@ export default class GlassWindows extends React.Component {
 
         return (
             <div className="glass-windows form-group">
-                <small><strong>PROPERTIES:</strong></small>
+                <small><strong>PROPIEDADES DE LAS VENTANAS:</strong></small>
                 { inputList }
             </div>
         )

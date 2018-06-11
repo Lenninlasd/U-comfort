@@ -39,7 +39,7 @@ function createRectangleGeometry(size){
 
 
     const extrusionPath = new THREE.Path();
-    const padding = 1;
+    const padding = 0.5;
     extrusionPath.moveTo( rectLength/2-padding, rectWidth/2-padding );
     extrusionPath.lineTo( rectLength/2-padding, -rectWidth/2+padding );
     extrusionPath.lineTo( -rectLength/2+padding, -rectWidth/2+padding );

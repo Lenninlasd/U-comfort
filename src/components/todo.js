@@ -4,23 +4,13 @@ import SizeDataForm from './sizeForm';
 import GlassWindows from './glassWindow';
 import CanvasElement from './roomCanvasElement';
 
-function Area(props){
-    return !props.perimeter ? null : (
-        <div className="card">
-            <p>Area piso: {props.floor.netArea || 'hello'}</p>
-            <p>Perimetro piso: {props.perimeter}</p>
-            <pre>{JSON.stringify(props.walls, undefined, 4)}</pre>
-            <pre>{JSON.stringify(props.windowList, undefined, 4)}</pre>
-        </div>
-    );
-}
-
 function CardForm(props) {
     return (
         <div className='card u-card'>
             <div className='card-body'>
                 <SizeDataForm width={props.state.width} depth={props.state.depth}
                               height={props.state.height}
+                              numberWindows={props.state.numberWindows}
                               onSizeChange={props.handleChange}/>
 
                 <GlassWindows numberWindows={props.state.numberWindows}
@@ -30,10 +20,6 @@ function CardForm(props) {
                 <button type="button"
                         className="btn btn-primary"
                         onClick={props.handleSubmit}>Calcular</button>
-
-                <Area floor={props.state.floor}
-                      perimeter={props.state.perimeter}
-                      walls={props.state.walls} windowList={props.state.windowList}/>
             </div>
         </div>
     );
@@ -43,9 +29,12 @@ class TodoApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            depth: 90, width: 60, height: 14,
-            numberWindows: 3 ,
-            windowList: []
+            depth: 90,
+            width: 60,
+            height: 14,
+            numberWindows: 3,
+            windowList: [],
+            cargaEnfriamiento: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -73,6 +62,7 @@ class TodoApp extends React.Component {
     handleSubmit(){
         const data = u.getMetricData(this.state);
         this.setState(data);
+        console.log('data', data);
     }
 
     render() {
@@ -84,6 +74,8 @@ class TodoApp extends React.Component {
 
         return (
             <div className='row'>
+                <h1> Carga de enfriamiento (tons):</h1>
+                <h3>{this.state.cargaEnfriamiento}</h3>
                 <div className='col-lg-7 col-md-6'>
                     <CanvasElement id='cubeContainer' size={size}/>
                 </div>

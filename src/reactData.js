@@ -1,5 +1,8 @@
 import tablaSC from '../json/SC_tabla_6_7';
 
+import * as globalData from "./data.js";
+import getCargaEnfriamiento from './cargaEnfriamiento.js';
+
 const uniqueList = list => [...(new Set(list))];
 
 const nominalThickness = uniqueList(
@@ -21,13 +24,14 @@ function getMetricData(props) {
     const floor = getFloor(props);
     const windowList = getWindowList(props);
     const walls = getWalls(props, windowList);
-
+    const cargaEnfriamiento = getCargaEnfriamiento(globalData.data);
     return {
         perimeter,
         height,
         walls,
         windowList,
-        floor
+        floor,
+        cargaEnfriamiento
     }
 }
 

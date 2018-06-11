@@ -15,19 +15,19 @@ export default class SizeDataForm extends React.Component {
             <form>
                 <div className='form-row form-group'>
                     <div className="col-md-4 col-sm-12">
-                        <small><strong>DEPTH:</strong></small>
+                        <small><strong>LARGO:</strong></small>
                         <input id='depth' className="form-control" type="number" value={this.props.depth} placeholder='depth' onChange={this.handleChange} />
                     </div>
                     <div className="col-md-4 col-sm-12">
-                        <small><strong>WIDTH:</strong></small>
+                        <small><strong>ANCHO:</strong></small>
                         <input id='width' className="form-control" type="number" value={this.props.width}  placeholder='width'  onChange={this.handleChange} />
                     </div>
                     <div className="col-md-4 col-sm-12">
-                        <small><strong>HEIGHT:</strong></small>
+                        <small><strong>ALTO:</strong></small>
                         <input id='height' className="form-control"  type="number" value={this.props.height} placeholder='height' onChange={this.handleChange} />
                     </div>
                     <div className="col-md-12 col-sm-12">
-                        <small><strong># GLASS WINDOWS:</strong></small>
+                        <small><strong>No. VENTANAS:</strong></small>
                         <input id='numberWindows' className="form-control" type="number" value={this.props.numberWindows}
                             placeholder='numero de ventanas' onChange={this.handleChange} min='0' max='20' />
                     </div>
