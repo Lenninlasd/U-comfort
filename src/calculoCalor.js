@@ -54,7 +54,7 @@ function calculoTotalSensible(vidrios = [{}], paredes = [{}], techo = {}, piso =
 
 
 	    function getCalorSensibleVidrio(el){
-	    	return el.map(i => i.SHGF * i.area_neta * i.SC * i.CLF * factorCorrecion)
+	    	return el.map(i => i.SHGF * i.areaNeta * i.SC * i.CLF * factorCorrecion)
 	          .reduce( (anterior, actual) => {
 	              return anterior + actual;
 	          });
@@ -68,7 +68,7 @@ function calculoTotalSensible(vidrios = [{}], paredes = [{}], techo = {}, piso =
 	    }
 
 	    function getCalorSensible(obj) {
-	      return obj.coeficiente_transferencia_calor * obj.area_neta * obj.CLDT_correccion * factorCorrecion;
+	      return obj.coeficiente_transferencia_calor * obj.areaNeta * obj.CLDT_correccion * factorCorrecion;
 	    }
 }
 
@@ -76,8 +76,8 @@ function getCalor_sensible(vidrios, paredes, perimetro){
     const transferencia_calor_vidrio = vidrios[0].coeficiente_transferencia_calor;
     const transferencia_calor_pared = paredes[0].coeficiente_transferencia_calor;
 
-	const area_vidrio = vidrios.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
-	const area_pared = paredes.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
+	const area_vidrio = vidrios.reduce( (a, b) => ({ areaNeta: a.areaNeta + b.areaNeta }) ).areaNeta;
+	const area_pared = paredes.reduce( (a, b) => ({ areaNeta: a.areaNeta + b.areaNeta }) ).areaNeta;
 	const K_= (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / perimetro;
 	return 1 - 0.02 * K_;
 }

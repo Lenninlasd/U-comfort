@@ -53,7 +53,7 @@ export default class GlassWindows extends React.Component {
                         <InputWinProps tag={key} type='width' title='width' handleChange={this.handleChange}/>
                     </div>
                     <div className='col'>
-                        <SelectWinProps tag={key} type='orientation' handleChange={this.handleChange} title='Orientation'
+                        <SelectWinProps tag={key} type='orientacion' handleChange={this.handleChange} title='Orientación'
                             optionList={[
                                 <option key='N' value='N'>N</option>,
                                 <option key='S' value='S'>S</option>,
@@ -71,8 +71,8 @@ export default class GlassWindows extends React.Component {
                             ]}/>
                     </div>
                     <div className='col'>
-                        <SelectWinProps tag={key} type='nominalThickness' handleChange={this.handleChange}
-                                        title='Nominal thickness' optionList={this.nominalThickness}/>
+                        <SelectWinProps tag={key} type='espesor_nominal' handleChange={this.handleChange}
+                                        title='Espesor nominal' optionList={this.nominalThickness}/>
                     </div>
                     <div className='col'>
                         <SelectWinProps tag={key} type='typeofGlass' handleChange={this.handleChange}

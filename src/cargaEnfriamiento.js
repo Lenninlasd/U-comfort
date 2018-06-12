@@ -19,7 +19,7 @@ export default function getCargaEnfriamiento(data) {
           piso.CLDT_correccion = Δtemp;
 
     // Calculo de calor
-    const infiltration = getCalorPorInfiltracion(piso.area_neta, data.altura, Δtemp, ΔHumedad);
+    const infiltration = getCalorPorInfiltracion(piso.areaNeta, data.altura, Δtemp, ΔHumedad);
 
     const factorCorrecionCalorSensible = heat.getCalor_sensible(vidrios, paredes, data.perimetro);
 

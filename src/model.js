@@ -39,19 +39,19 @@ export default {
             {
                 orientacion: "W",
                 sombra: "no", // usuario
-                area_neta: 830, //ft^2
+                areaNeta: 830, //ft^2
                 espesor_nominal: "3/16 a 1/4",
                 tipo_de_vidrio: "absorbente de calor"
             },{
                 orientacion: "W",
                 sombra: "no",
-                area_neta: 42, //ft^2
+                areaNeta: 42, //ft^2
                 espesor_nominal: "3/32 a 1/4",
                 tipo_de_vidrio: "claro"
             },{
                 orientacion: "E",
                 sombra: "no",
-                area_neta: 42, //ft^2
+                areaNeta: 42, //ft^2
                 espesor_nominal: "3/32 a 1/4",
                 tipo_de_vidrio: "claro"
             }
@@ -60,44 +60,44 @@ export default {
 		    {
 		        orientacion: "N",
 		        color: "D",
-		        area_neta: 840, //ft^2
+		        areaNeta: 840, //ft^2
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    },{
 		        orientacion: "S",
 		        color: "D",
-		        area_neta: 840, //ft^2
+		        areaNeta: 840, //ft^2
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    },{
 		        orientacion: "E",
 		        color: "D",
 		        area_bruta: 1260,
-		        area_neta: 1176, //ft^2
+		        areaNeta: 1176, //ft^2
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    },{
 		        orientacion: "W",
 		        color: "D",
 		        area_bruta: 1260,
-		        area_neta: 388, //ft^2
+		        areaNeta: 388, //ft^2
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    }
 		],
 		techo: {
 		    color: "D",
-		    area_neta: 5400, //ft^2
+		    areaNeta: 5400, //ft^2
 		    correcion_color_K: 1,
             type: "superficie_oscura"
 		},
 		piso: {
-		    area_neta: 5400, //ft^2
+		    areaNeta: 5400, //ft^2
 		},
 		puerta: [
 		    {
 		        orientacion: "E",
-		        area_neta: 42, //ft^2
+		        areaNeta: 42, //ft^2
 		        CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
 		        CLDT_correccion: 22, // ºF
 		    }

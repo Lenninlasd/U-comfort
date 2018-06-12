@@ -19,7 +19,7 @@ function CardForm(props) {
                               onSizeChange={props.handleChange}/>
 
                 <GlassWindows numberWindows={props.state.numberWindows}
-                              windowList={props.state.windowList}
+                              vidrios={props.state.vidrios}
                               onWindowsChange={props.handleWindows}/>
 
                 <button type="button"
@@ -38,7 +38,7 @@ class TodoApp extends React.Component {
             width: 60,
             height: 14,
             numberWindows: 3,
-            windowList: [],
+            vidrios: [],
             cargaEnfriamiento: null
         };
         this.handleChange = this.handleChange.bind(this);
@@ -54,13 +54,13 @@ class TodoApp extends React.Component {
 
     handleWindows(glassWindow){
         this.setState( prevState => {
-            const filtered = prevState.windowList.find(item => item.id === glassWindow.id);
+            const filtered = prevState.vidrios.find(item => item.id === glassWindow.id);
             if (filtered) {
                 Object.assign(filtered, glassWindow);
             }else {
-                prevState.windowList.push(glassWindow);
+                prevState.vidrios.push(glassWindow);
             }
-            return {windowList: prevState.windowList};
+            return {vidrios: prevState.vidrios};
         });
     }
 

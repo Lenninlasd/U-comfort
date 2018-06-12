@@ -19,60 +19,60 @@ const getNominalThickness = () => nominalThickness;
 const getTypeofGlass = () => typeofGlass;
 
 function getMetricData(props) {
-    const perimeter = 2*props.width + 2*props.depth;
+    const perimetro = 2*props.width + 2*props.depth;
     const height = props.height;
-    const floor = getFloor(props);
-    const windowList = getWindowList(props);
-    const walls = getWalls(props, windowList);
+    const piso = getFloor(props);
+    const vidrios = getWindowList(props);
+    const paredes = getWalls(props, vidrios);
     const cargaEnfriamiento = getCargaEnfriamiento(globalData.data);
     return {
-        perimeter,
+        perimetro,
         height,
-        walls,
-        windowList,
-        floor,
+        paredes,
+        vidrios,
+        piso,
         cargaEnfriamiento
     }
 }
 
-function getWalls(p, windowList){
+function getWalls(p, vidrios){
     const glassHash = {};
-    for (const w of windowList) {
-        glassHash[w.orientation] = (glassHash[w.orientation] || 0) + w.netArea;
+    for (const w of vidrios) {
+        glassHash[w.orientacion] = (glassHash[w.orientacion] || 0) + w.areaNeta;
     }
 
     const base = [
         {
-            orientation: 'N',
-            grossArea: p.width * p.height
+            orientacion: 'N',
+            areaBruta: p.width * p.height
         },
         {
-            orientation: 'S',
-            grossArea: p.width * p.height
+            orientacion: 'S',
+            areaBruta: p.width * p.height
         },
         {
-            orientation: 'E',
-            grossArea: p.depth * p.height
+            orientacion: 'E',
+            areaBruta: p.depth * p.height
         },
         {
-            orientation: 'W',
-            grossArea: p.depth * p.height
+            orientacion: 'W',
+            areaBruta: p.depth * p.height
         },
     ]
 
     return base.map(p => {
-        // TODO: Alert if netArea < 0
-        p.netArea = p.grossArea - (glassHash[p.orientation] || 0);
+        // TODO: Alert if areaNeta < 0
+        p.areaNeta = p.areaBruta - (glassHash[p.orientacion] || 0);
         return p;
     });
 }
 
 function getFloor(p) {
-    return { netArea: p.width * p.depth };
+    return { areaNeta: p.width * p.depth };
 }
 function getWindowList(props) {
-    return props.windowList.map(w => {
-        w.netArea = Number(w.height) * Number(w.width);
+    return props.vidrios.map(w => {
+        w.areaNeta = Number(w.height) * Number(w.width);
         return w
     });
 }
