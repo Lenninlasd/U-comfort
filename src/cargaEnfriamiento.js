@@ -7,7 +7,7 @@ import tablaCFM from "../json/CFM_6_15";
 export default function getCargaEnfriamiento(data) {
 
     const vidrios = data.elementos.vidrios;
-    const pared = data.elementos.pared;
+    const paredes = data.elementos.paredes;
     const techo = data.elementos.techo;
     const puerta = data.elementos.puerta;
     const luces = data.elementos.luces;
@@ -21,7 +21,7 @@ export default function getCargaEnfriamiento(data) {
     // Calculo de calor
     const infiltration = getCalorPorInfiltracion(piso.area_neta, data.altura, Δtemp, ΔHumedad);
 
-    const factorCorrecionCalorSensible = heat.getCalor_sensible(vidrios, pared, data.perimetro);
+    const factorCorrecionCalorSensible = heat.getCalor_sensible(vidrios, paredes, data.perimetro);
 
     const calorLuces = luces.wattsPorLampara * luces.numeroLuces * luces.factConv * factorCorrecionCalorSensible;
 
@@ -31,7 +31,7 @@ export default function getCargaEnfriamiento(data) {
 
     //Calculo final
 
-    const ganancia_calor_recinto = heat.calculoTotalSensible(vidrios, pared, techo, piso, puerta, factorCorrecionCalorSensible) + calorLuces + calorPersonas.sensible;
+    const ganancia_calor_recinto = heat.calculoTotalSensible(vidrios, paredes, techo, piso, puerta, factorCorrecionCalorSensible) + calorLuces + calorPersonas.sensible;
 
     const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 

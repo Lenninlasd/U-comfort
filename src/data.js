@@ -13,20 +13,20 @@ import data         from './model.js'
 
 
 setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
-setCLTD_pared(data.elementos.pared, tablaPared);
+setCLTD_pared(data.elementos.paredes, tablaPared);
 setCLTD_techo(data.elementos.techo, tablaTecho);
 
-setLM(data.elementos.pared, data.elementos.techo, tablaLM);
+setLM(data.elementos.paredes, data.elementos.techo, tablaLM);
 
 getCLDT_correccion(data.elementos.vidrios, data.exterior.bulbo_seco,
         data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
-getCLDT_correccion(data.elementos.pared, data.exterior.bulbo_seco,
+getCLDT_correccion(data.elementos.paredes, data.exterior.bulbo_seco,
         data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
 
 setSHGF_lat_40(data.elementos.vidrios, tablaSHGF);
 
 setU(data.elementos.techo, tablaUtechosParedesParticiones, 'TECHO', 'CUBIERTA DE EJEMPLO');
-setU(data.elementos.pared, tablaUtechosParedesParticiones, 'PAREDES', 'MURO EJEMPLO');
+setU(data.elementos.paredes, tablaUtechosParedesParticiones, 'PAREDES', 'MURO EJEMPLO');
 setU(data.elementos.puerta, tablaUtechosParedesParticiones, 'PUERTA', 'PUERTA EJEMPLO');
 setU(data.elementos.piso, tablaUtechosParedesParticiones, 'PISO', 'PISO EJEMPLO');
 

@@ -56,7 +56,7 @@ export default {
                 tipo_de_vidrio: "claro"
             }
 	    ],
-		pared: [
+		paredes: [
 		    {
 		        orientacion: "N",
 		        color: "D",

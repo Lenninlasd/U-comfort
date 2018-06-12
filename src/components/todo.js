@@ -4,6 +4,11 @@ import SizeDataForm from './sizeForm';
 import GlassWindows from './glassWindow';
 import CanvasElement from './roomCanvasElement';
 
+import globalObj from '../model.js';
+
+console.log('globalObj', globalObj);
+
+
 function CardForm(props) {
     return (
         <div className='card u-card'>
@@ -74,8 +79,8 @@ class TodoApp extends React.Component {
 
         return (
             <div className='row'>
-                <h1> Carga de enfriamiento (tons):</h1>
-                <h3>{this.state.cargaEnfriamiento}</h3>
+                <h1> Carga de enfriamiento (tons): </h1>
+                <h1>{this.state.cargaEnfriamiento}</h1>
                 <div className='col-lg-7 col-md-6'>
                     <CanvasElement id='cubeContainer' size={size}/>
                 </div>

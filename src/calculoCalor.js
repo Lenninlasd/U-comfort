@@ -33,7 +33,7 @@ function setCalorVentilacion(n_personas, Δtemp, ΔHumedad, tablaCFM){
 
 function cargaEnfriamiento(totalSensible, calorPersonas, calorVentilacion, infiltration){
     const totalCalor = totalSensible + calorPersonas.latente + calorVentilacion.latente + infiltration.sensible + infiltration.latente;
-    return totalCalor;// /12000; // Tons
+    return (totalCalor/12000).toFixed(3); // Tons
 }
 
 function getCFMCalorNetoSensible(totalSensible, infiltration){
@@ -41,10 +41,10 @@ function getCFMCalorNetoSensible(totalSensible, infiltration){
     return (totalSensible + infiltration.sensible)/ ΔtempAireSuministro * 1.1;
 }
 
-function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {}, puerta =[{}], factorCorrecion){
+function calculoTotalSensible(vidrios = [{}], paredes = [{}], techo = {}, piso = {}, puerta =[{}], factorCorrecion){
 
 	  	const calorVidrio = getCalorSensibleArray(vidrios);
-	  	const calorPared = getCalorSensibleArray(pared);
+	  	const calorPared = getCalorSensibleArray(paredes);
 	  	const calorTecho = getCalorSensible(techo);
 	 	const calorPiso = 	getCalorSensible(piso);
 	  	const calorPuerta = getCalorSensibleArray(puerta);
@@ -72,12 +72,12 @@ function calculoTotalSensible(vidrios = [{}], pared = [{}], techo = {}, piso = {
 	    }
 }
 
-function getCalor_sensible(vidrios, pared, perimetro){
+function getCalor_sensible(vidrios, paredes, perimetro){
     const transferencia_calor_vidrio = vidrios[0].coeficiente_transferencia_calor;
-    const transferencia_calor_pared = pared[0].coeficiente_transferencia_calor;
+    const transferencia_calor_pared = paredes[0].coeficiente_transferencia_calor;
 
 	const area_vidrio = vidrios.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
-	const area_pared = pared.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
+	const area_pared = paredes.reduce( (a, b) => ({ area_neta: a.area_neta + b.area_neta }) ).area_neta;
 	const K_= (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / perimetro;
 	return 1 - 0.02 * K_;
 }
