@@ -64,7 +64,7 @@ export default class GlassWindows extends React.Component {
                 </div>
                 <div className='form-row'>
                     <div className='col'>
-                        <SelectWinProps tag={key} type='shade' handleChange={this.handleChange} title='Shade'
+                        <SelectWinProps tag={key} type='sombra' handleChange={this.handleChange} title='Sombra'
                             optionList={[
                                 <option key='yes' value='yes'>Yes</option>,
                                 <option key='no' value='no'>No</option>
@@ -75,8 +75,8 @@ export default class GlassWindows extends React.Component {
                                         title='Espesor nominal' optionList={this.nominalThickness}/>
                     </div>
                     <div className='col'>
-                        <SelectWinProps tag={key} type='typeofGlass' handleChange={this.handleChange}
-                                        title='Type of glass' optionList={this.typeofGlass}/>
+                        <SelectWinProps tag={key} type='tipo_de_vidrio' handleChange={this.handleChange}
+                                        title='Tipo de vidrio' optionList={this.typeofGlass}/>
                     </div>
                 </div>
             </div>

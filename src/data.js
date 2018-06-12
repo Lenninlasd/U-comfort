@@ -38,9 +38,6 @@ setSC(data.elementos.vidrios, tablaSC);
 getCLDT_correccion(data.elementos.techo, data.exterior.bulbo_seco,
         data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
 
-
-console.log('data.elementos', data.elementos);
-
 export { data };
 
 
