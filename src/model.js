@@ -39,19 +39,22 @@ export default {
             {
                 orientacion: "W",
                 sombra: "no", // usuario
-                areaNeta: 830, //ft^2
+                width: 83,
+                height: 10,
                 espesor_nominal: "3/16 a 1/4",
                 tipo_de_vidrio: "absorbente de calor"
             },{
                 orientacion: "W",
                 sombra: "no",
-                areaNeta: 42, //ft^2
+                width: 7,
+                height: 6,
                 espesor_nominal: "3/32 a 1/4",
                 tipo_de_vidrio: "claro"
             },{
                 orientacion: "E",
                 sombra: "no",
-                areaNeta: 42, //ft^2
+                width: 7,
+                height: 6,
                 espesor_nominal: "3/32 a 1/4",
                 tipo_de_vidrio: "claro"
             }

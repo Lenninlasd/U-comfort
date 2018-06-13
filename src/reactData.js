@@ -1,6 +1,6 @@
 import tablaSC from '../json/SC_tabla_6_7';
 
-import * as globalData from "./data.js";
+import enrichData from "./enrichData.js";
 import getCargaEnfriamiento from './cargaEnfriamiento.js';
 
 const uniqueList = list => [...(new Set(list))];
@@ -24,7 +24,8 @@ function getMetricData(props) {
     const piso = getFloor(props);
     const vidrios = getWindowList(props);
     const paredes = getWalls(props, vidrios);
-    const cargaEnfriamiento = getCargaEnfriamiento(globalData.data);
+
+    const cargaEnfriamiento = getCargaEnfriamiento(enrichData(props.globalData));
     return {
         perimetro,
         height,
@@ -72,7 +73,7 @@ function getFloor(p) {
 }
 function getWindowList(props) {
     return props.vidrios.map(w => {
-        w.areaNeta = Number(w.height) * Number(w.width);
+        w.areaNeta = w.height && w.width ? Number(w.height) * Number(w.width) : 0;
         return w
     });
 }

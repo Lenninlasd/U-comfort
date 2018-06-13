@@ -1,5 +1,3 @@
-'use strict';
-
 import tablaVidrio  from '../json/CLTD_vidrio';
 import tablaPared   from '../json/CLTD_pared';
 import tablaTecho   from '../json/CLTD_techo';
@@ -9,41 +7,44 @@ import tablaUvidr   from '../json/U_vidrios';
 import tablaSC      from '../json/SC_tabla_6_7';
 import tablaLM      from '../json/LM_6_4';
 import tablaUtechosParedesParticiones from '../json/U_techos_paredes_particiones';
-import data         from './model.js'
 
+export default function enrichData(data) {
+    setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
+    setCLTD_pared(data.elementos.paredes, tablaPared);
+    setCLTD_techo(data.elementos.techo, tablaTecho);
 
-setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
-setCLTD_pared(data.elementos.paredes, tablaPared);
-setCLTD_techo(data.elementos.techo, tablaTecho);
+    setLM(data.elementos.paredes, data.elementos.techo, tablaLM);
 
-setLM(data.elementos.paredes, data.elementos.techo, tablaLM);
+    getCLDT_correccion(data.elementos.vidrios, data.exterior.bulbo_seco,
+            data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
+    getCLDT_correccion(data.elementos.paredes, data.exterior.bulbo_seco,
+            data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
 
-getCLDT_correccion(data.elementos.vidrios, data.exterior.bulbo_seco,
-        data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
-getCLDT_correccion(data.elementos.paredes, data.exterior.bulbo_seco,
-        data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
+    setSHGF_lat_40(data.elementos.vidrios, tablaSHGF);
 
-setSHGF_lat_40(data.elementos.vidrios, tablaSHGF);
+    setU(data.elementos.techo, tablaUtechosParedesParticiones, 'TECHO', 'CUBIERTA DE EJEMPLO');
+    setU(data.elementos.paredes, tablaUtechosParedesParticiones, 'PAREDES', 'MURO EJEMPLO');
+    setU(data.elementos.puerta, tablaUtechosParedesParticiones, 'PUERTA', 'PUERTA EJEMPLO');
+    setU(data.elementos.piso, tablaUtechosParedesParticiones, 'PISO', 'PISO EJEMPLO');
 
-setU(data.elementos.techo, tablaUtechosParedesParticiones, 'TECHO', 'CUBIERTA DE EJEMPLO');
-setU(data.elementos.paredes, tablaUtechosParedesParticiones, 'PAREDES', 'MURO EJEMPLO');
-setU(data.elementos.puerta, tablaUtechosParedesParticiones, 'PUERTA', 'PUERTA EJEMPLO');
-setU(data.elementos.piso, tablaUtechosParedesParticiones, 'PISO', 'PISO EJEMPLO');
+    setUvidrio(data.elementos.vidrios, tablaUvidr);
 
-setUvidrio(data.elementos.vidrios, tablaUvidr);
+    setCLF(data.elementos.vidrios, tablaCLF);
+    setSC(data.elementos.vidrios, tablaSC);
 
-setCLF(data.elementos.vidrios, tablaCLF);
-setSC(data.elementos.vidrios, tablaSC);
+    getCLDT_correccion(data.elementos.techo, data.exterior.bulbo_seco,
+            data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
 
-getCLDT_correccion(data.elementos.techo, data.exterior.bulbo_seco,
-        data.recinto.bulbo_seco, data.cargaPico.rangoDiario);
+    return data;
+}
 
 export { data };
 
 
 // CLTD
 function setCLTD_vidrio(vidrios, tablaVidrio) {
-    const d = Number(tablaVidrio[0]['17']);
+    const peakHour = '17';
+    const d = Number(tablaVidrio[0][peakHour]);
     vidrios.forEach(vidrio => {
         vidrio.CLDT_tabla = d;
     });

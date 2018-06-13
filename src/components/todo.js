@@ -4,10 +4,7 @@ import SizeDataForm from './sizeForm';
 import GlassWindows from './glassWindow';
 import CanvasElement from './roomCanvasElement';
 
-import globalObj from '../model.js';
-
-console.log('globalObj', globalObj);
-
+import globalData from '../model.js';
 
 function CardForm(props) {
     return (
@@ -37,9 +34,10 @@ class TodoApp extends React.Component {
             depth: 90,
             width: 60,
             height: 14,
-            numberWindows: 3,
-            vidrios: [],
-            cargaEnfriamiento: null
+            numberWindows: globalData.elementos.vidrios.length,
+            vidrios: globalData.elementos.vidrios,
+            cargaEnfriamiento: null,
+            globalData: globalData
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,7 +52,7 @@ class TodoApp extends React.Component {
 
     handleWindows(glassWindow){
         this.setState( prevState => {
-            const filtered = prevState.vidrios.find(item => item.id === glassWindow.id);
+            const filtered = prevState.vidrios.find( (_, key) => key === glassWindow.id);
             if (filtered) {
                 Object.assign(filtered, glassWindow);
             }else {
@@ -68,6 +66,7 @@ class TodoApp extends React.Component {
         const data = u.getMetricData(this.state);
         this.setState(data);
         console.log('data', data);
+        console.log('globalData', globalData);
     }
 
     render() {
@@ -79,8 +78,10 @@ class TodoApp extends React.Component {
 
         return (
             <div className='row'>
-                <h1> Carga de enfriamiento (tons): </h1>
-                <h1>{this.state.cargaEnfriamiento}</h1>
+                <div className='col-lg-12'>
+                    <h1> Carga de enfriamiento (tons): </h1>
+                    <h2>{this.state.cargaEnfriamiento}</h2>
+                </div>
                 <div className='col-lg-7 col-md-6'>
                     <CanvasElement id='cubeContainer' size={size}/>
                 </div>
