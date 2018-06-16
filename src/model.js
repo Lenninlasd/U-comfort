@@ -1,4 +1,8 @@
 /*
+[ ] crear reducers para el modelo
+    [ ]
+
+
 [ ] memoria para los datos de las ventanas
 [ ] opcion eliminar ventana: una vez se crea no se puede reducir el numero de ventanas
 con el input, debera hacer clic en un link elimar, este eliminara el state, y cambiara

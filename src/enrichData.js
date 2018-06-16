@@ -8,7 +8,35 @@ import tablaSC      from '../json/SC_tabla_6_7';
 import tablaLM      from '../json/LM_6_4';
 import tablaUtechosParedesParticiones from '../json/U_techos_paredes_particiones';
 
+import initialState from './model.js';
+import {setVidrio} from './reducers/setCLTD.js';
+import { createStore, combineReducers } from 'redux';
+
+const confortApp = combineReducers({
+  vidrios: setVidrio
+});
+
+const store = createStore(confortApp, {vidrios: initialState.elementos.vidrios});
+store.subscribe(() => console.log('store', store.getState()) );
+
+
+
 export default function enrichData(data) {
+
+    store.dispatch({ type: 'SET_CLTD' });
+    store.dispatch({
+        type: 'SET_CLTD_CORRECCION',
+        tempExterior: data.exterior.bulbo_seco,
+        tempInterior: data.recinto.bulbo_seco,
+        rangoDiario: data.cargaPico.rangoDiario
+    });
+    store.dispatch({type: 'SET_SHGF_LAT_40'});
+    store.dispatch({type: 'SET_U_VIDRIO'});
+    store.dispatch({type: 'SET_CLF'});
+    store.dispatch({type: 'SET_SC'});
+
+    //=========================================
+
     setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
     setCLTD_pared(data.elementos.paredes, tablaPared);
     setCLTD_techo(data.elementos.techo, tablaTecho);
