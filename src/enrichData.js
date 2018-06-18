@@ -8,33 +8,62 @@ import tablaSC      from '../json/SC_tabla_6_7';
 import tablaLM      from '../json/LM_6_4';
 import tablaUtechosParedesParticiones from '../json/U_techos_paredes_particiones';
 
-import initialState from './model.js';
-import {setVidrio} from './reducers/setCLTD.js';
+import {getCargaEnfriamiento2} from './cargaEnfriamiento.js';
+import initState from './model.js';
+import * as reducers from './reducers/setCLTD.js';
 import { createStore, combineReducers } from 'redux';
 
-const confortApp = combineReducers({
-  vidrios: setVidrio
+const confortApp = combineReducers(reducers);
+
+const store = createStore(confortApp, {
+    vidrios: initState.elementos.vidrios.map(el => Object.assign({}, el)),
+    paredes: initState.elementos.paredes.map(el => Object.assign({}, el)),
+    techo:   Object.assign({}, initState.elementos.techo),
+    puertas: initState.elementos.puerta.map(el => Object.assign({}, el)),
+    piso:    Object.assign({}, initState.elementos.piso)
 });
 
-const store = createStore(confortApp, {vidrios: initialState.elementos.vidrios});
-store.subscribe(() => console.log('store', store.getState()) );
-
-
+// store.subscribe(() => console.log('store', store.getState()) );
 
 export default function enrichData(data) {
-
-    store.dispatch({ type: 'SET_CLTD' });
-    store.dispatch({
-        type: 'SET_CLTD_CORRECCION',
+    const dataTemp = {
         tempExterior: data.exterior.bulbo_seco,
         tempInterior: data.recinto.bulbo_seco,
-        rangoDiario: data.cargaPico.rangoDiario
-    });
-    store.dispatch({type: 'SET_SHGF_LAT_40'});
-    store.dispatch({type: 'SET_U_VIDRIO'});
-    store.dispatch({type: 'SET_CLF'});
-    store.dispatch({type: 'SET_SC'});
+        rangoDiario: data.cargaPico.rangoDiario,
+        Δtemp: data.exterior.bulbo_seco - data.recinto.bulbo_seco
+    };
 
+    store.dispatch({ type: 'SET_CLTD_VIDRIO' });
+    store.dispatch(Object.assign({}, dataTemp, {
+        type: 'SET_CLTD_CORRECCION_VIDRIO'
+    }));
+    store.dispatch({type: 'SET_SHGF_LAT_40_VIDRIO'});
+    store.dispatch({type: 'SET_U_VIDRIO'});
+    store.dispatch({type: 'SET_CLF_VIDRIO'});
+    store.dispatch({type: 'SET_SC_VIDRIO'});
+    store.dispatch({type: 'CALC_AREA_VIDRIO'});
+
+    store.dispatch({type: 'SET_CLTD_PARED'});
+    store.dispatch({type: 'SET_LM_PARED'});
+    store.dispatch(Object.assign({}, dataTemp, {
+        type: 'SET_CLTD_CORRECCION_PARED'
+    }));
+    store.dispatch({type: 'SET_U_PARED', element: 'PAREDES', material: 'MURO EJEMPLO'});
+
+    store.dispatch({type: 'SET_CLTD_TECHO'});
+    store.dispatch(Object.assign({}, dataTemp, {
+        type: 'SET_CLTD_CORRECCION_TECHO'
+    }));
+    store.dispatch({type: 'SET_LM_TECHO'});
+    store.dispatch({type: 'SET_U_TECHO', element: 'TECHO', material: 'CUBIERTA DE EJEMPLO'});
+
+    store.dispatch({type: 'SET_U_PUERTA', element: 'PUERTA', material: 'PUERTA EJEMPLO'});
+
+    store.dispatch({type: 'SET_U_PISO', element: 'PISO', material: 'PISO EJEMPLO'});
+    store.dispatch({type: 'SET_CLTD_CORRECCION_PISO', Δtemp: dataTemp.Δtemp});
+
+    const Carga = getCargaEnfriamiento2(store.getState(), data);
+    console.log('Carga final', Carga);
     //=========================================
 
     setCLTD_vidrio(data.elementos.vidrios, tablaVidrio);
