@@ -53,6 +53,12 @@ export function techo(techoState={}, action){
         case 'SET_CLTD_TECHO':
             return setCLTD_techo(techoState);
         case 'SET_CLTD_CORRECCION_TECHO':
+            if (!techoState.correcion_latitud_mes_LM) {
+                console.error(
+                    `For CLDT_correccion in techo,
+                    correcion_latitud_mes_LM is needed`, techoState
+                );
+            }
             return setCLDT_correccion(techoState, action);
         case 'SET_LM_TECHO':
             return LM.techo(techoState);

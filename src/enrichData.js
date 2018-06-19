@@ -8,7 +8,7 @@ import tablaSC      from '../json/SC_tabla_6_7';
 import tablaLM      from '../json/LM_6_4';
 import tablaUtechosParedesParticiones from '../json/U_techos_paredes_particiones';
 
-import {getCargaEnfriamiento2} from './cargaEnfriamiento.js';
+import {getCargaEnfriamiento} from './cargaEnfriamiento.js';
 import initState from './model.js';
 import * as reducers from './reducers/setCLTD.js';
 import { createStore, combineReducers } from 'redux';
@@ -51,10 +51,10 @@ export default function enrichData(data) {
     store.dispatch({type: 'SET_U_PARED', element: 'PAREDES', material: 'MURO EJEMPLO'});
 
     store.dispatch({type: 'SET_CLTD_TECHO'});
+    store.dispatch({type: 'SET_LM_TECHO'});
     store.dispatch(Object.assign({}, dataTemp, {
         type: 'SET_CLTD_CORRECCION_TECHO'
     }));
-    store.dispatch({type: 'SET_LM_TECHO'});
     store.dispatch({type: 'SET_U_TECHO', element: 'TECHO', material: 'CUBIERTA DE EJEMPLO'});
 
     store.dispatch({type: 'SET_U_PUERTA', element: 'PUERTA', material: 'PUERTA EJEMPLO'});
@@ -62,7 +62,7 @@ export default function enrichData(data) {
     store.dispatch({type: 'SET_U_PISO', element: 'PISO', material: 'PISO EJEMPLO'});
     store.dispatch({type: 'SET_CLTD_CORRECCION_PISO', Δtemp: dataTemp.Δtemp});
 
-    const Carga = getCargaEnfriamiento2(store.getState(), data);
+    const Carga = getCargaEnfriamiento(store.getState(), data);
     console.log('Carga final', Carga);
     //=========================================
 
