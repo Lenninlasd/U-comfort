@@ -25,14 +25,13 @@ function getMetricData(props) {
     const vidrios = getWindowList(props);
     const paredes = getWalls(props, vidrios);
 
-    const cargaEnfriamiento = getCargaEnfriamiento2(enrichData(props.globalData));
+    enrichData(props.globalData);
     return {
         perimetro,
         height,
         paredes,
         vidrios,
-        piso,
-        cargaEnfriamiento
+        piso
     }
 }
 

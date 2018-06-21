@@ -1,6 +1,6 @@
 /*
-[ ] crear reducers para el modelo
-    [ ]
+[x] crear reducers para el modelo
+
 
 
 [ ] memoria para los datos de las ventanas

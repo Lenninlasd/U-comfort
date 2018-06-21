@@ -6,6 +6,7 @@ import CanvasElement from './roomCanvasElement';
 
 import globalData from '../model.js';
 
+
 function CardForm(props) {
     return (
         <div className='card u-card'>
@@ -36,7 +37,6 @@ class TodoApp extends React.Component {
             height: 14,
             numberWindows: globalData.elementos.vidrios.length,
             vidrios: globalData.elementos.vidrios,
-            cargaEnfriamiento: null,
             globalData: globalData
         };
         this.handleChange = this.handleChange.bind(this);
@@ -66,7 +66,6 @@ class TodoApp extends React.Component {
         const data = u.getMetricData(this.state);
         this.setState(data);
         console.log('data', data);
-        console.log('globalData', globalData);
     }
 
     render() {
@@ -78,10 +77,6 @@ class TodoApp extends React.Component {
 
         return (
             <div className='row'>
-                <div className='col-lg-12'>
-                    <h1> Carga de enfriamiento (tons): </h1>
-                    <h2>{this.state.cargaEnfriamiento}</h2>
-                </div>
                 <div className='col-lg-7 col-md-6'>
                     <CanvasElement id='cubeContainer' size={size}/>
                 </div>
