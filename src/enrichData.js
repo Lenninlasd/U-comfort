@@ -1,26 +1,16 @@
-import tablaVidrio  from '../json/CLTD_vidrio';
-import tablaPared   from '../json/CLTD_pared';
-import tablaTecho   from '../json/CLTD_techo';
-import tablaSHGF    from '../json/SHGF_lat_40';
-import tablaCLF     from '../json/CLF_6_8_min';
-import tablaUvidr   from '../json/U_vidrios';
-import tablaSC      from '../json/SC_tabla_6_7';
-import tablaLM      from '../json/LM_6_4';
-import tablaUtechosParedesParticiones from '../json/U_techos_paredes_particiones';
-
 import {getCargaEnfriamiento} from './cargaEnfriamiento.js';
 import initState from './model.js';
-import * as reducers from './reducers/setCLTD.js';
+import * as reducers from './reducers/prepareData.js';
 import { createStore, combineReducers } from 'redux';
 
 const confortApp = combineReducers(reducers);
 
 const store = createStore(confortApp, {
-    vidrios: initState.elementos.vidrios.map(el => Object.assign({}, el)),
-    paredes: initState.elementos.paredes.map(el => Object.assign({}, el)),
-    techo:   Object.assign({}, initState.elementos.techo),
-    puertas: initState.elementos.puerta.map(el => Object.assign({}, el)),
-    piso:    Object.assign({}, initState.elementos.piso)
+    vidrios: initState.elementos.vidrios,
+    paredes: initState.elementos.paredes,
+    techo:   initState.elementos.techo,
+    puertas: initState.elementos.puerta,
+    piso:    initState.elementos.piso,
 });
 
 // store.subscribe(() => console.log('store', store.getState()) );

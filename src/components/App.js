@@ -5,7 +5,7 @@ import {CardForm} from './cardForm.js';
 
 import globalData from '../model.js';
 
-class TodoApp extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,27 +46,23 @@ class TodoApp extends React.Component {
     }
 
     render() {
-        const size = {
-            width: this.state.width,
-            height: this.state.height,
-            depth: this.state.depth
-        };
-
+        const st = this.state;
         return (
-            <div className='row'>
-                <div className='col-lg-7 col-md-6'>
-                    <CanvasElement id='cubeContainer' size={size}/>
-                </div>
-                <div className='col-lg-5 col-md-6'>
-                    <CardForm state={this.state}
-                              handleChange={this.handleChange}
-                              handleWindows={this.handleWindows}
-                              handleSubmit={this.handleSubmit} />
+            <div className='container-fluid'>
+                <div className='row'>
+                    <div className='col-lg-7 col-md-6'>
+                        <CanvasElement id='cubeContainer' size={({
+                            width: st.width, height: st.height, depth: st.depth
+                        })}/>
+                    </div>
+                    <div className='col-lg-5 col-md-6'>
+                        <CardForm state={this.state}
+                                  handleChange={this.handleChange}
+                                  handleWindows={this.handleWindows}
+                                  handleSubmit={this.handleSubmit} />
+                    </div>
                 </div>
             </div>
         );
     }
 }
-
-
-export default TodoApp;
