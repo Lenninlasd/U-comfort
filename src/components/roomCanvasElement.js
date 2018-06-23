@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import React from 'react';
+import { connect } from 'react-redux';
 
 const OrbitControls = require('three-orbit-controls')(THREE);
 
@@ -102,7 +103,7 @@ function initCube(id, size) {
 
 
 
-export default class CanvasElement extends  React.Component {
+class CanvasElement extends  React.Component {
     constructor(props){
         super(props);
         this.meshes = {};
@@ -131,3 +132,13 @@ export default class CanvasElement extends  React.Component {
         return <div id={this.props.id} className='threedmodel'></div>;
     }
 }
+
+const mapStateToProps = state => ({
+  size: {
+      width: state.width,
+      height: state.height,
+      depth: state.depth
+  }
+})
+
+export default connect(mapStateToProps)(CanvasElement);

@@ -1,21 +1,6 @@
 import {getCargaEnfriamiento} from './cargaEnfriamiento.js';
-import initState from './model.js';
-import * as reducers from './reducers/prepareData.js';
-import { createStore, combineReducers } from 'redux';
 
-const confortApp = combineReducers(reducers);
-
-const store = createStore(confortApp, {
-    vidrios: initState.elementos.vidrios,
-    paredes: initState.elementos.paredes,
-    techo:   initState.elementos.techo,
-    puertas: initState.elementos.puerta,
-    piso:    initState.elementos.piso,
-});
-
-// store.subscribe(() => console.log('store', store.getState()) );
-
-export default function enrichData(data) {
+export default function enrichData(data, store) {
     const dataTemp = {
         tempExterior: data.exterior.bulbo_seco,
         tempInterior: data.recinto.bulbo_seco,
@@ -55,5 +40,3 @@ export default function enrichData(data) {
     const Carga = getCargaEnfriamiento(store.getState(), data);
     console.log('Carga final', Carga);
 }
-
-export { data };

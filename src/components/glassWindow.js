@@ -1,27 +1,24 @@
 import React from 'react';
 import u from '../reactData';
+import { connect } from 'react-redux';
 
-function SelectWinProps(props) {
-    return (
-        <select id={`window-${props.type}-${props.tag}`} data-group={props.tag}
-                data-type={props.type} className='form-control' onChange={props.handleChange}
-                value={props.value}>
-            <option hidden >{props.title}</option>
-            {props.optionList}
-        </select>
-    );
-}
+const SelectWinProps = props => (
+    <select id={`window-${props.type}-${props.tag}`} data-group={props.tag}
+            data-type={props.type} className='form-control' onChange={props.handleChange}
+            value={props.value}>
+        <option hidden >{props.title}</option>
+        {props.optionList}
+    </select>
+);
 
-function InputWinProps(props) {
-    return (
-        <input id={`window-${props.type}-${props.tag}`} data-group={props.tag}
-               data-type={props.type} className='form-control' type="number"
-               value={props.value} placeholder={props.title} onChange={props.handleChange}
-               min='0'/>
-    );
-}
+const InputWinProps = props => (
+    <input id={`window-${props.type}-${props.tag}`} data-group={props.tag}
+           data-type={props.type} className='form-control' type="number"
+           value={props.value} placeholder={props.title} onChange={props.handleChange}
+           min='0'/>
+);
 
-export default class GlassWindows extends React.Component {
+class GlassWindows extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -46,9 +43,7 @@ export default class GlassWindows extends React.Component {
     render() {
         const windows = this.props.vidrios.length;
 
-        const inputList = this.props.vidrios.map( (vidrio, key) => {
-            // console.log('vidrio', vidrio);
-            return (
+        const inputList = this.props.vidrios.map( (vidrio, key) => (
             <div key={key.toString()} className='form-group'>
                 <div className='form-row'>
                     <div className='col'>
@@ -69,24 +64,37 @@ export default class GlassWindows extends React.Component {
                 </div>
                 <div className='form-row'>
                     <div className='col'>
-                        <SelectWinProps tag={key} value={vidrio.sombra} type='sombra' handleChange={this.handleChange} title='Sombra'
+                        <SelectWinProps
+                            tag={key} value={vidrio.sombra}
+                            type='sombra'
+                            handleChange={this.handleChange}
+                            title='Sombra'
                             optionList={[
                                 <option key='yes' value='yes'>Yes</option>,
                                 <option key='no' value='no'>No</option>
                             ]}/>
                     </div>
                     <div className='col'>
-                        <SelectWinProps tag={key} value={vidrio.espesor_nominal} type='espesor_nominal' handleChange={this.handleChange}
-                                        title='Espesor nominal' optionList={this.nominalThickness}/>
+                        <SelectWinProps
+                            tag={key}
+                            value={vidrio.espesor_nominal}
+                            type='espesor_nominal'
+                            handleChange={this.handleChange}
+                            title='Espesor nominal'
+                            optionList={this.nominalThickness}/>
                     </div>
                     <div className='col'>
-                        <SelectWinProps tag={key} value={vidrio.tipo_de_vidrio} type='tipo_de_vidrio' handleChange={this.handleChange}
-                                        title='Tipo de vidrio' optionList={this.typeofGlass}/>
+                        <SelectWinProps
+                            tag={key}
+                            value={vidrio.tipo_de_vidrio}
+                            type='tipo_de_vidrio'
+                            handleChange={this.handleChange}
+                            title='Tipo de vidrio'
+                            optionList={this.typeofGlass}/>
                     </div>
                 </div>
             </div>
-        );
-        });
+        ));
 
         return (
             <div className="glass-windows form-group">
@@ -96,3 +104,19 @@ export default class GlassWindows extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    numberWindows: 3,
+    vidrios: state.vidrios
+});
+
+const mapDispatchToProps = dispatch => ({
+    onWindowsChange: dataTarget => {
+        console.log(dataTarget);
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(GlassWindows);
