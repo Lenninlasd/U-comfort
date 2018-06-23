@@ -1,7 +1,7 @@
 import React from 'react';
 import u from '../reactData';
 import CanvasElement from './roomCanvasElement';
-import {CardForm} from './cardForm.js';
+import { CardForm } from './cardForm.js';
 
 import globalData from '../model.js';
 

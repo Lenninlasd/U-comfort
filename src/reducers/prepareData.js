@@ -28,6 +28,8 @@ export function vidrios(glassState=[], action) {
             return glassState.map(el => Object.assign({}, el, {
                 areaNeta: el.width * el.height
             }));
+        case 'UPDATE_PROP':
+            return updatePropGlass(glassState, action.data);
         default:
             return glassState;
     }
@@ -214,4 +216,13 @@ function setLM(mes="JUL") {
             });
         }
     };
+}
+
+function updatePropGlass(glassState, data) {
+    return glassState.map( (glass, key) => {
+        if (key === data.id) {
+            return Object.assign({}, glass, data);
+        }
+        return glass;
+    });
 }

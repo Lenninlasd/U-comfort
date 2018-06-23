@@ -8,10 +8,6 @@ export const CardForm = props => (
             <SizeDataForm />
             <GlassWindows />
 
-            {/* <GlassWindows numberWindows={props.state.numberWindows}
-                          vidrios={props.state.vidrios}
-                          onWindowsChange={props.handleWindows}/> */}
-
             {/* <button type="button"
                     className="btn btn-primary"
                     onClick={props.handleSubmit}>Calcular</button> */}

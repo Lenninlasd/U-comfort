@@ -111,9 +111,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onWindowsChange: dataTarget => {
-        console.log(dataTarget);
-    }
+    onWindowsChange: dataTarget => dispatch({
+        type: 'UPDATE_PROP',
+        data: dataTarget
+    })
 });
 
 export default connect(
