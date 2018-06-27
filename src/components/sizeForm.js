@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-const SizeDataForm = ({depth, width, height, numberWindows, onSizeChange}) => (
+export const SizeDataForm = ({depth, width, height, numberWindows, onSizeChange}) => (
     <form>
         <div className='form-row form-group'>
             <div className="col-md-4 col-sm-12">
@@ -24,31 +23,3 @@ const SizeDataForm = ({depth, width, height, numberWindows, onSizeChange}) => (
         </div>
     </form>
 );
-
-const actionSizeFrom = target => {
-    const value = Number(target.value);
-    switch (target.id) {
-        case 'depth':
-            return { type: 'SET_DEPTH', value: value};
-        case 'width':
-            return { type: 'SET_WIDTH', value: value };
-        case 'height':
-            return { type: 'SET_HEIGHT', value: value };
-    }
-}
-
-const mapStateToProps = state => ({
-    width: state.width,
-    height: state.height,
-    depth: state.depth,
-    numberWindows: 3
-});
-
-const mapDispatchToProps = dispatch => ({
-    onSizeChange: event => dispatch(actionSizeFrom(event.target))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SizeDataForm);

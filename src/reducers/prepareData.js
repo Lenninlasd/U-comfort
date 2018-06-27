@@ -66,6 +66,10 @@ export function techo(techoState={}, action){
             return LM.techo(techoState);
         case 'SET_U_TECHO':
             return setU(techoState, action.element, action.material);
+        case 'CALC_AREA_TECHO':
+            return Object.assign({}, techoState, {
+                areaNeta: action.size.width * action.size.depth
+            });
         default:
             return techoState;
     }
@@ -87,6 +91,10 @@ export function piso(pisoState={}, action) {
         case 'SET_CLTD_CORRECCION_PISO':
             return Object.assign({}, pisoState, {
                 CLDT_correccion: action.Δtemp
+            });
+        case 'CALC_AREA_PISO':
+            return Object.assign({}, pisoState, {
+                areaNeta: action.size.width * action.size.depth
             });
         default:
             return pisoState;
