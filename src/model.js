@@ -1,9 +1,8 @@
 /*
-[x] crear reducers para el modelo
+[ ] crear reducers para el modelo calcular area bruta/neta de las paredes
+[ ] puertas
 
 
-
-[ ] memoria para los datos de las ventanas
 [ ] opcion eliminar ventana: una vez se crea no se puede reducir el numero de ventanas
 con el input, debera hacer clic en un link elimar, este eliminara el state, y cambiara
 el min del input.

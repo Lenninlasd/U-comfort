@@ -33,11 +33,17 @@ class GlassWindows extends React.Component {
 
     handleChange(event){
         const el = event.target;
+        const id = Number(el.dataset.group);
+        const type = el.dataset.type
         const dataTarget = {
-            id: Number(el.dataset.group),
-            [el.dataset.type]: el.value
+            id,
+            [type]: el.value
         }
-        this.props.onWindowsChange(dataTarget);
+        this.props.updateGlassProp(dataTarget);
+
+        // if (type === 'height' || type === 'width') {
+            this.props.updateAreaGlass(id);
+        // }
     }
 
     render() {
@@ -111,10 +117,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onWindowsChange: dataTarget => dispatch({
+    updateGlassProp: data => dispatch({
         type: 'UPDATE_PROP',
-        data: dataTarget
-    })
+        data
+    }),
+    updateAreaGlass: id => {
+        dispatch({
+        type: 'CALC_AREA_VIDRIO',
+        id})
+    }
 });
 
 export default connect(

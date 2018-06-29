@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import SizeDataForm from '../containers/calcAreasSizeForm.js';
 import GlassWindows from './glassWindow';
 
-import u from '../reactData';
-
-const CardForm = props => (
+const CardForm = ({ submit }) => (
     <div className='card u-card'>
         <div className='card-body'>
             <SizeDataForm />
@@ -13,17 +11,32 @@ const CardForm = props => (
 
             <button type="button"
                     className="btn btn-primary"
-                    onClick={props.submit}>Calcular</button>
+                    onClick={submit}>Calcular</button>
         </div>
     </div>
 );
 
-const mapStateToProps = state => ({
-    submit: event => {
-        const data = u.getMetricData(state);
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = dispatch => ({
+    submit: state => {
         console.log('state', state);
-        console.log('data', data);
+        const {depth, height, width, vidrios} = state;
+
+        dispatch({
+            type: 'CALC_AREA_NETA_PARED',
+            glassState: vidrios,
+            size: {depth, height, width}
+        });
     }
 });
 
-export default connect(mapStateToProps)(CardForm);
+const mergeProps = (stateProps, dispatchProps) => ({
+    submit: () => dispatchProps.submit(stateProps)
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+    mergeProps
+)(CardForm);

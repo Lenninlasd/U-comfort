@@ -24,10 +24,12 @@ export function vidrios(glassState=[], action) {
             return setCLF(glassState, action.glassCapacity);
         case 'SET_SC_VIDRIO':
             return setSC(glassState, action.glassDescription);
-        case 'CALC_AREA_VIDRIO':
+        case 'CALC_AREA_VIDRIO_ALL':
             return glassState.map(el => Object.assign({}, el, {
                 areaNeta: el.width * el.height
             }));
+        case 'CALC_AREA_VIDRIO':
+            return updateAreaGlass(glassState, action.id);
         case 'UPDATE_PROP':
             return updatePropGlass(glassState, action.data);
         default:
@@ -45,6 +47,8 @@ export function paredes(paredesState=[], action){
             return setCLDT_correccion(paredesState, action);
         case 'SET_U_PARED':
             return setU(paredesState, action.element, action.material);
+        case 'CALC_AREA_NETA_PARED':
+            return calcAreaNetaPared(paredesState, action.glassState, action.size);
         default:
             return paredesState;
     }
@@ -100,6 +104,16 @@ export function piso(pisoState={}, action) {
             return pisoState;
     }
 }
+
+export function cargaEnfriamiento(state=null, action) {
+    switch (action.type) {
+        case 'SET_CARGA_EMFRIAMIENTO':
+            return action.value;
+        default:
+            return state
+    }
+}
+
 
 function setCLDT_vidrio(glassState) {
     const peakHour = '17';
@@ -232,5 +246,40 @@ function updatePropGlass(glassState, data) {
             return Object.assign({}, glass, data);
         }
         return glass;
+    });
+}
+
+function updateAreaGlass(glassState, id) {
+    return glassState.map( (glass, key) => {
+        if (key === id) {
+            return Object.assign({}, glass, {
+                areaNeta: glass.width * glass.height
+            });
+        }
+        return glass;
+    });
+}
+
+function calcAreaNetaPared(paredesState, glassState, size){
+    const glassHash = {};
+    for (const glass of glassState) {
+        glassHash[glass.orientacion] = (glassHash[glass.orientacion] || 0) + glass.areaNeta;
+    }
+
+    const areaBruta = {
+        N: size.width * size.height,
+        S: size.width * size.height,
+        E: size.depth * size.height,
+        W: size.depth * size.height
+    };
+
+    return paredesState.map(pared => {
+        const gross = areaBruta[pared.orientacion];
+        const glassArea = glassHash[pared.orientacion] || 0;
+        const areaNeta = gross - glassArea;
+
+        return Object.assign({}, pared, {
+            areaNeta: areaNeta > 0 ? areaNeta : 0
+        });
     });
 }

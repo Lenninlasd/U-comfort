@@ -16,7 +16,7 @@ export default function enrichData(data, store) {
     store.dispatch({type: 'SET_U_VIDRIO'});
     store.dispatch({type: 'SET_CLF_VIDRIO'});
     store.dispatch({type: 'SET_SC_VIDRIO'});
-    store.dispatch({type: 'CALC_AREA_VIDRIO'});
+    store.dispatch({type: 'CALC_AREA_VIDRIO_ALL'});
 
     store.dispatch({type: 'SET_CLTD_PARED'});
     store.dispatch({type: 'SET_LM_PARED'});
@@ -38,5 +38,5 @@ export default function enrichData(data, store) {
     store.dispatch({type: 'SET_CLTD_CORRECCION_PISO', Δtemp: dataTemp.Δtemp});
 
     const Carga = getCargaEnfriamiento(store.getState(), data);
-    console.log('Carga final', Carga);
+    store.dispatch({type: 'SET_CARGA_EMFRIAMIENTO', value: Carga});
 }
