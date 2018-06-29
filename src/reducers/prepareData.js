@@ -7,6 +7,8 @@ import TABLA_SC       from '../../json/SC_tabla_6_7';
 import TABLA_PARED    from '../../json/CLTD_pared';
 import TABLA_LM       from '../../json/LM_6_4';
 import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
+import { getCargaEnfriamiento } from '../cargaEnfriamiento.js';
+
 
 const LM = setLM();
 
@@ -37,7 +39,7 @@ export function vidrios(glassState=[], action) {
     }
 }
 
-export function paredes(paredesState=[], action){
+export function paredes(paredesState=[], action, state){
     switch (action.type) {
         case 'SET_CLTD_PARED':
             return setCLTD_pared(paredesState);
@@ -105,14 +107,23 @@ export function piso(pisoState={}, action) {
     }
 }
 
-export function cargaEnfriamiento(state=null, action) {
+export function cargaEnfriamiento(cargaState=null, action, state) {
     switch (action.type) {
         case 'SET_CARGA_EMFRIAMIENTO':
-            return action.value;
+            return getCargaEnfriamiento(state);
         default:
-            return state
+            return cargaState
     }
 }
+
+export const luces = (lucesState={}, action) => lucesState;
+
+export const numberOfPeople = (numberOfPeopleState={}, action) => {
+    return numberOfPeopleState;
+}
+
+export const exterior = (exteriorState={}, action) => exteriorState;
+export const recinto = (interiorState={}, action) => interiorState;
 
 
 function setCLDT_vidrio(glassState) {

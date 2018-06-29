@@ -16,11 +16,13 @@ const CardForm = ({ submit }) => (
     </div>
 );
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => {
+    console.log('mapStateToProps__');
+    return state
+};
 
 const mapDispatchToProps = dispatch => ({
     submit: state => {
-        console.log('state', state);
         const {depth, height, width, vidrios} = state;
 
         dispatch({
@@ -28,12 +30,16 @@ const mapDispatchToProps = dispatch => ({
             glassState: vidrios,
             size: {depth, height, width}
         });
+        dispatch({type: 'SET_CARGA_EMFRIAMIENTO'});
     }
 });
 
-const mergeProps = (stateProps, dispatchProps) => ({
-    submit: () => dispatchProps.submit(stateProps)
-});
+const mergeProps = (stateProps, dispatchProps) => {
+    console.log('stateProps', stateProps);
+    return {
+        submit: () => dispatchProps.submit(stateProps)
+    }
+};
 
 export default connect(
     mapStateToProps,

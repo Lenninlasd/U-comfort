@@ -14,12 +14,18 @@ const store = createStore(rootReducer, {
     techo:   initState.elementos.techo,
     puertas: initState.elementos.puerta,
     piso:    initState.elementos.piso,
-    depth: 90,
-    width: 60,
-    height: 14,
+    luces:   initState.elementos.luces,
+    depth:   initState.depth,
+    width:   initState.width,
+    height:  initState.height,
+    numberOfPeople: initState.numberOfPeople,
+    exterior: initState.exterior,
+    recinto: initState.recinto
 });
 
-enrichData(initState, store);
+enrichData(initState, store.dispatch);
+
+store.dispatch({type: 'SET_CARGA_EMFRIAMIENTO'});
 
 ReactDOM.render(
     <Provider store={store}>

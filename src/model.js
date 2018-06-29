@@ -16,9 +16,11 @@ import condicionesClimaticas from '../json/condiciones_climaticas';
 export default {
     ubicacion: "Indianapolis, Ind",
     latitud : 39,
-    numero_personas: 60,
+    numberOfPeople: 60,
     perimetro: 300,
-    altura: 14,
+    height: 14,
+    depth: 90,
+    width: 60,
     exterior: {
         bulbo_seco: 90, // A.9 condiciones exteriores de diseño
         bulbo_humedo: 74, // A.9
