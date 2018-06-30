@@ -119,10 +119,6 @@ export function cargaEnfriamiento(cargaState=null, action, state) {
 
 export const luces = (lucesState={}, action) => lucesState;
 
-export const numberOfPeople = (numberOfPeopleState={}, action) => {
-    return numberOfPeopleState;
-}
-
 export const exterior = (exteriorState={}, action) => exteriorState;
 export const recinto = (interiorState={}, action) => interiorState;
 

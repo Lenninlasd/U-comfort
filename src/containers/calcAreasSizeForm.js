@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import {
-    setDepth, setHeight, setWidth, calcAreaPiso, calcAreaTecho
+    setDepth, setHeight, setWidth,
+    calcAreaPiso, calcAreaTecho, setNumberOfPeople
 } from '../actions';
 import { SizeDataForm } from '../components/sizeForm.js';
 
@@ -14,6 +15,8 @@ const actionSizeFrom = target => {
             return setWidth(value);
         case 'height':
             return setHeight(value);
+        case 'numberOfPeople':
+            return setNumberOfPeople(value);
     }
 }
 
@@ -21,6 +24,7 @@ const mapStateToProps = state => ({
     width: state.width,
     height: state.height,
     depth: state.depth,
+    numberOfPeople: state.numberOfPeople,
     numberWindows: 3
 });
 

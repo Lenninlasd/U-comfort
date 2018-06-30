@@ -1,10 +1,10 @@
 import {
     vidrios, paredes, techo, puertas,
-    piso, luces, cargaEnfriamiento, numberOfPeople,
+    piso, luces, cargaEnfriamiento,
     exterior, recinto
 } from './prepareData.js';
 
-import {depth, width, height} from './size.js';
+import {depth, width, height, numberOfPeople} from './size.js';
 
 export default (state = {}, action) => {
   return {

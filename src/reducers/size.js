@@ -24,3 +24,12 @@ export function height(state=0, action){
             return state;
     }
 }
+
+export function numberOfPeople(state=0, action){
+    switch (action.type) {
+        case 'SET_NUMBER_OF_PEOPLE':
+            return action.value;
+        default:
+            return state;
+    }
+}
