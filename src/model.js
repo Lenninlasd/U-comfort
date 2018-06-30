@@ -1,6 +1,10 @@
 /*
-[ ] crear reducers para el modelo calcular area bruta/neta de las paredes
+[ ] numberOfPeople
 [ ] puertas
+[ ] luces
+[ ] ubicacion/latitud
+
+[ ] intefaz para puertas y ventanas
 
 
 [ ] opcion eliminar ventana: una vez se crea no se puede reducir el numero de ventanas

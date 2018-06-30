@@ -50,7 +50,8 @@ export function paredes(paredesState=[], action, state){
         case 'SET_U_PARED':
             return setU(paredesState, action.element, action.material);
         case 'CALC_AREA_NETA_PARED':
-            return calcAreaNetaPared(paredesState, action.glassState, action.size);
+            const {depth, height, width, vidrios} = state;
+            return calcAreaNetaPared(paredesState, vidrios, depth, height, width);
         default:
             return paredesState;
     }
@@ -271,17 +272,17 @@ function updateAreaGlass(glassState, id) {
     });
 }
 
-function calcAreaNetaPared(paredesState, glassState, size){
+function calcAreaNetaPared(paredesState, glassState, depth, height, width){
     const glassHash = {};
     for (const glass of glassState) {
         glassHash[glass.orientacion] = (glassHash[glass.orientacion] || 0) + glass.areaNeta;
     }
 
     const areaBruta = {
-        N: size.width * size.height,
-        S: size.width * size.height,
-        E: size.depth * size.height,
-        W: size.depth * size.height
+        N: width * height,
+        S: width * height,
+        E: depth * height,
+        W: depth * height
     };
 
     return paredesState.map(pared => {
