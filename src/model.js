@@ -1,9 +1,12 @@
 /*
-[ ] crear reducers para el modelo
-    [ ]
+[ ] numberOfPeople
+[ ] puertas
+[ ] luces
+[ ] ubicacion/latitud
+
+[ ] intefaz para puertas y ventanas
 
 
-[ ] memoria para los datos de las ventanas
 [ ] opcion eliminar ventana: una vez se crea no se puede reducir el numero de ventanas
 con el input, debera hacer clic en un link elimar, este eliminara el state, y cambiara
 el min del input.
@@ -17,9 +20,11 @@ import condicionesClimaticas from '../json/condiciones_climaticas';
 export default {
     ubicacion: "Indianapolis, Ind",
     latitud : 39,
-    numero_personas: 60,
+    numberOfPeople: 60,
     perimetro: 300,
-    altura: 14,
+    height: 14,
+    depth: 90,
+    width: 60,
     exterior: {
         bulbo_seco: 90, // A.9 condiciones exteriores de diseño
         bulbo_humedo: 74, // A.9
