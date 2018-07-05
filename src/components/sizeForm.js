@@ -21,6 +21,11 @@ export const SizeDataForm = props => (
                        placeholder='No. DE PERSONAS' onChange={props.onSizeChange} />
             </div>
             <div className="col-md-12 col-sm-12">
+                <small><strong>No. DE LUCES:</strong></small>
+                <input id='numberOfLights' className="form-control"  type="number" value={props.numberOfLights}
+                       placeholder='No. DE LUCES' onChange={props.onSizeChange} />
+            </div>
+            <div className="col-md-12 col-sm-12">
                 <small><strong>No. VENTANAS:</strong></small>
                 <input id='numberWindows' className="form-control" type="number" value={props.numberWindows}
                     placeholder='numero de ventanas' min='0' max='20' readOnly/>

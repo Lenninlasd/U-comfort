@@ -113,11 +113,20 @@ export function cargaEnfriamiento(cargaState=null, action, state) {
         case 'SET_CARGA_EMFRIAMIENTO':
             return getCargaEnfriamiento(state);
         default:
-            return cargaState
+            return cargaState;
     }
 }
 
-export const luces = (lucesState={}, action) => lucesState;
+export const luces = (lucesState={}, action) => {
+    switch (action.type){
+        case 'SET_NUMBER_OF_LIGHTS':
+            return Object.assign({}, lucesState, {
+                numberOfLights: action.value
+            })
+        default:
+            return lucesState;
+    }
+}
 
 export const exterior = (exteriorState={}, action) => exteriorState;
 export const recinto = (interiorState={}, action) => interiorState;

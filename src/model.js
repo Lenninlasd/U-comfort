@@ -1,7 +1,7 @@
 /*
-[ ] numberOfPeople
-[ ] puertas
+[x] numberOfPeople
 [ ] luces
+[ ] puertas
 [ ] ubicacion/latitud
 
 [ ] intefaz para puertas y ventanas
@@ -12,7 +12,7 @@ con el input, debera hacer clic en un link elimar, este eliminara el state, y ca
 el min del input.
 luces:
 ** estimar #luces
-numeroLuces: 135,
+numberOfLights: 135,
 wattsPorLampara: 120,
 */
 import condicionesClimaticas from '../json/condiciones_climaticas';
@@ -115,7 +115,7 @@ export default {
 		    }
 		],
         luces: {
-            numeroLuces: 135,
+            numberOfLights: 135,
             wattsPorLampara: 120,
             factConv: 3.41
         }

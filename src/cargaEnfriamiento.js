@@ -25,7 +25,7 @@ export function getCargaEnfriamiento(state) {
     );
 
     const calorLuces = state.luces.wattsPorLampara *
-                       state.luces.numeroLuces *
+                       state.luces.numberOfLights *
                        state.luces.factConv *
                        factorCorrecionCalorSensible;
 
