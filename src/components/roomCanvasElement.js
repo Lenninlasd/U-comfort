@@ -1,20 +1,58 @@
 import * as THREE from 'three';
 import React from 'react';
 import { connect } from 'react-redux';
+import { BufferGeometryUtils } from '../../libs/BufferGeometryUtils.js';
 
 const OrbitControls = require('three-orbit-controls')(THREE);
 
+function createBulbLightGeometry(size, lights){
+    if (lights <= 0) {
+        return;
+    }
 
-function createBulbLight() {
-    const bulbGeometry = new THREE.SphereBufferGeometry( 0.5, 8, 8 );
-    const bulbLight = new THREE.PointLight( 0xffee88, 1, 30, 2 );
+    const mesh = Math.ceil(Math.sqrt(lights));
+    const stepDepth = size.depth/mesh;
+    const stepWidth = size.width/mesh;
+    const startDepth = -size.depth/2 + stepDepth/2;
+    const startWidth = -size.width/2 + stepWidth/2;
+
+    const bulbGeometry = new THREE.SphereBufferGeometry( 0.4, 6, 6 );
+    const bulbList = [];
+    let lightCounter = 0;
+    for (let i = 0; i < mesh && lightCounter < lights; i++) {
+        for (let j = 0; j < mesh && lightCounter < lights; j++) {
+
+            let position = new THREE.Vector3();
+            position.x = startWidth + i*stepWidth;
+            position.z = startDepth + j*stepDepth;
+
+            let copyGeometry = bulbGeometry.clone();
+            copyGeometry.translate(position.x, position.y, position.z);
+            bulbList.push(copyGeometry);
+
+            lightCounter++;
+        }
+    }
+
+    return BufferGeometryUtils.mergeBufferGeometries( bulbList );
+}
+
+function createBulbLight(size, lights) {
+    if (lights <= 0) {
+        return;
+    }
+
     const bulbMat = new THREE.MeshStandardMaterial( {
                     emissive: 0xffffee,
                     emissiveIntensity: 1,
                     color: 0x000000
                 });
-    bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
-    bulbLight.position.set( 0, 0, 0 );
+
+    const groupGeometry = createBulbLightGeometry(size, lights);
+
+    const bulbLight = new THREE.PointLight( 0xffee88, 0.5, 100, 1.5 );
+    bulbLight.add( new THREE.Mesh( groupGeometry, bulbMat ) );
+    bulbLight.position.set(0,0,0);
     bulbLight.castShadow = true;
     return bulbLight;
 }
@@ -53,7 +91,7 @@ function createRectangleGeometry(size){
     return new THREE.ExtrudeGeometry( rectShape, extrudeSettings );
 }
 
-function initCube(id, size) {
+function initCube(id, size, numberOfLights) {
     const element = document.getElementById(id);
 
     const camera      = new THREE.PerspectiveCamera( 45, 1, 1, 1000 );
@@ -79,9 +117,14 @@ function initCube(id, size) {
 
     // LIGHTS
     const {hemiLight, hemiLightHelper} = createHemisphereLight();
+
     scene.add( hemiLight );
     scene.add( hemiLightHelper );
-    scene.add( createBulbLight() );
+
+    const bulbLight = createBulbLight(size, numberOfLights);
+    if(bulbLight){
+        scene.add( bulbLight );
+    }
 
     const renderer = new THREE.WebGLRenderer( { alpha: true, antialias: true } );
     renderer.setClearColor( 0x000000, 0);
@@ -93,7 +136,7 @@ function initCube(id, size) {
     element.appendChild( renderer.domElement );
     animate();
 
-    return {meshFloor, meshWall};
+    return {meshFloor, meshWall, bulbLight};
 
     function animate() {
         requestAnimationFrame( animate );
@@ -110,11 +153,27 @@ class CanvasElement extends  React.Component {
     }
 
     componentDidMount(){
-        this.meshes = initCube(this.props.id, this.props.size);
+        this.meshes = initCube(
+            this.props.id,
+            this.props.size,
+            this.props.numberOfLights
+        );
     }
 
-    updateGeometry(size) {
-        const {width, height, depth} = size;
+    updateLights(size, numberOfLights=0){
+        if(numberOfLights <= 0){
+            return;
+        }
+        const lightGeometry = createBulbLightGeometry(size, numberOfLights);
+        const lightDistance = numberOfLights ? numberOfLights + 50 : 0;
+
+        this.meshes.bulbLight.children[0].geometry.dispose();
+        this.meshes.bulbLight.children[0].geometry = lightGeometry;
+        this.meshes.bulbLight.distance = lightDistance;
+    }
+
+    updateGeometry(size, numberOfLights) {
+        const {width, depth} = size;
         const floorGeometry = new THREE.BoxBufferGeometry(width, 0, depth);
         const wallGeometry = createRectangleGeometry(size);
 
@@ -123,11 +182,12 @@ class CanvasElement extends  React.Component {
 
         this.meshes.meshWall.geometry.dispose();
         this.meshes.meshWall.geometry = wallGeometry;
+        this.updateLights(size, numberOfLights);
     }
 
     render(){
         if (this.meshes.meshFloor) {
-            this.updateGeometry(this.props.size);
+            this.updateGeometry(this.props.size, this.props.numberOfLights);
         }
         return <div id={this.props.id} className='threedmodel'></div>;
     }
@@ -138,7 +198,8 @@ const mapStateToProps = state => ({
       width: state.width,
       height: state.height,
       depth: state.depth
-  }
+  },
+  numberOfLights: state.luces.numberOfLights
 })
 
 export default connect(mapStateToProps)(CanvasElement);

@@ -1,6 +1,8 @@
 /*
 [x] numberOfPeople
-[ ] luces
+[x] luces
+[x] luces 3D
+[ ] bug de calculo
 [ ] puertas
 [ ] ubicacion/latitud
 
