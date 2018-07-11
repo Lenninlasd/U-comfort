@@ -32,7 +32,7 @@ export function vidrios(glassState=[], action) {
             }));
         case 'CALC_AREA_VIDRIO':
             return updateAreaGlass(glassState, action.id);
-        case 'UPDATE_PROP':
+        case 'UPDATE_PROP_VIDRIO':
             return updatePropGlass(glassState, action.data);
         default:
             return glassState;
@@ -50,8 +50,8 @@ export function paredes(paredesState=[], action, state){
         case 'SET_U_PARED':
             return setU(paredesState, action.element, action.material);
         case 'CALC_AREA_NETA_PARED':
-            const {depth, height, width, vidrios} = state;
-            return calcAreaNetaPared(paredesState, vidrios, depth, height, width);
+            const {depth, height, width, vidrios, puertas} = state;
+            return calcAreaNetaPared(paredesState, vidrios, puertas, depth, height, width);
         default:
             return paredesState;
     }
@@ -86,6 +86,14 @@ export function puertas(puertasState=[], action){
     switch (action.type) {
         case 'SET_U_PUERTA':
             return setU(puertasState, action.element, action.material);
+        case 'UPDATE_PROP_PUERTA':
+            return updatePropGlass(puertasState, action.data);
+        case 'CALC_AREA_PUERTA_ALL':
+            return puertasState.map(el => Object.assign({}, el, {
+                areaNeta: el.width * el.height
+            }));
+        case 'CALC_AREA_PUERTA':
+            return updateAreaGlass(puertasState, action.id);
         default:
             return puertasState;
     }
@@ -277,10 +285,14 @@ function updateAreaGlass(glassState, id) {
     });
 }
 
-function calcAreaNetaPared(paredesState, glassState, depth, height, width){
+function calcAreaNetaPared(paredesState, glassState, doors, depth, height, width){
     const glassHash = {};
+    const doorsHash = {};
     for (const glass of glassState) {
         glassHash[glass.orientacion] = (glassHash[glass.orientacion] || 0) + glass.areaNeta;
+    }
+    for (const door of doors) {
+        doorsHash[door.orientacion] = (doorsHash[door.orientacion] || 0) + door.areaNeta;
     }
 
     const areaBruta = {
@@ -293,7 +305,8 @@ function calcAreaNetaPared(paredesState, glassState, depth, height, width){
     return paredesState.map(pared => {
         const gross = areaBruta[pared.orientacion];
         const glassArea = glassHash[pared.orientacion] || 0;
-        const areaNeta = gross - glassArea;
+        const doorArea = doorsHash[pared.orientacion] || 0;
+        const areaNeta = gross - glassArea - doorArea;
 
         return Object.assign({}, pared, {
             areaNeta: areaNeta > 0 ? areaNeta : 0

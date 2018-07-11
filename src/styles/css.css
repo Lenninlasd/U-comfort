@@ -17,7 +17,6 @@ input.form-control, select.form-control {
 }
 
 .glass-windows {
-    height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -25,4 +24,8 @@ input.form-control, select.form-control {
 .threedmodel canvas{
     margin: 10px;
     border-radius: 2px;
+    transition: background-color linear 0.5s;
+}
+.threedmodel canvas:hover{
+    background-color: #00000018;
 }

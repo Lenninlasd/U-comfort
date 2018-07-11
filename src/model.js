@@ -2,21 +2,28 @@
 [x] numberOfPeople
 [x] luces
 [x] luces 3D
-[ ] bug de calculo
+[x] bug de calculo
 [ ] puertas
+	-[x] Forms
+	-[x] Recalcular Area pared
+	-[x] calcular area puerta by default
+[ ] Area Techo
 [ ] ubicacion/latitud
 
 [ ] intefaz para puertas y ventanas
+
+[ ] Resize 3D model
+[ ] hover model
+[ ] Brujula 3D
+[ ] Default position 3D buttons
 
 
 [ ] opcion eliminar ventana: una vez se crea no se puede reducir el numero de ventanas
 con el input, debera hacer clic en un link elimar, este eliminara el state, y cambiara
 el min del input.
-luces:
-** estimar #luces
-numberOfLights: 135,
-wattsPorLampara: 120,
+
 */
+// Latidud
 import condicionesClimaticas from '../json/condiciones_climaticas';
 
 export default {
@@ -87,7 +94,7 @@ export default {
 		        orientacion: "E",
 		        color: "D",
 		        area_bruta: 1260,
-		        areaNeta: 1176, //ft^2
+		        areaNeta: 1176, //ft^2 Pared-vidrio-puerta
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    },{
@@ -110,8 +117,9 @@ export default {
 		},
 		puerta: [
 		    {
+                width: 6,
+                height: 7,
 		        orientacion: "E",
-		        areaNeta: 42, //ft^2
 		        CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
 		        CLDT_correccion: 22, // ºF
 		    }

@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SizeDataForm from '../containers/calcAreasSizeForm.js';
 import GlassWindows from './glassWindow';
+import Doors from './doors.js';
 
 const CardForm = ({ submit }) => (
     <div className='card u-card'>
         <div className='card-body'>
             <SizeDataForm />
             <GlassWindows />
-
+            <Doors />
             <button type="button"
                     className="btn btn-primary"
                     onClick={submit}>Calcular</button>

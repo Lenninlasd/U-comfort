@@ -31,6 +31,7 @@ export default function enrichData(data, dispatch) {
     dispatch({type: 'SET_U_TECHO', element: 'TECHO', material: 'CUBIERTA DE EJEMPLO'});
 
     dispatch({type: 'SET_U_PUERTA', element: 'PUERTA', material: 'PUERTA EJEMPLO'});
+    dispatch({type: 'CALC_AREA_PUERTA_ALL'});
 
     dispatch({type: 'SET_U_PISO', element: 'PISO', material: 'PISO EJEMPLO'});
     dispatch({type: 'SET_CLTD_CORRECCION_PISO', Δtemp: dataTemp.Δtemp});

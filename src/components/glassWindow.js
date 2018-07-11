@@ -41,14 +41,10 @@ class GlassWindows extends React.Component {
         }
         this.props.updateGlassProp(dataTarget);
 
-        // if (type === 'height' || type === 'width') {
-            this.props.updateAreaGlass(id);
-        // }
+        this.props.updateAreaGlass(id);
     }
 
     render() {
-        const windows = this.props.vidrios.length;
-
         const inputList = this.props.vidrios.map( (vidrio, key) => (
             <div key={key.toString()} className='form-group'>
                 <div className='form-row'>
@@ -118,7 +114,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     updateGlassProp: data => dispatch({
-        type: 'UPDATE_PROP',
+        type: 'UPDATE_PROP_VIDRIO',
         data
     }),
     updateAreaGlass: id => {
