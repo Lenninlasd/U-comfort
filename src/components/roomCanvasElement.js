@@ -129,11 +129,14 @@ function initCube(id, size, numberOfLights) {
     const renderer = new THREE.WebGLRenderer( { alpha: true, antialias: true } );
     renderer.setClearColor( 0x000000, 0);
 
-	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( element.offsetWidth, element.offsetWidth);
+    renderer.setPixelRatio( window.devicePixelRatio );
+    const offsetWidth = getWidth(window.innerHeight, element.offsetWidth);
+	renderer.setSize( offsetWidth, offsetWidth);
     renderer.render( scene, camera );
 
     element.appendChild( renderer.domElement );
+
+    window.addEventListener('resize', onWindowResize, false);
     animate();
 
     return {meshFloor, meshWall, bulbLight};
@@ -141,6 +144,16 @@ function initCube(id, size, numberOfLights) {
     function animate() {
         requestAnimationFrame( animate );
         renderer.render( scene, camera );
+    }
+
+    function onWindowResize() {
+        const offsetWidth = getWidth(window.innerHeight, element.offsetWidth);
+        renderer.setSize( offsetWidth, offsetWidth );
+    }
+
+    function getWidth(windowHeight, elementWidth){
+        const height = Math.abs(windowHeight - 100);
+        return elementWidth > height ? height : elementWidth;
     }
 }
 

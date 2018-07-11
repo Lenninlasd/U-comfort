@@ -3,16 +3,16 @@
 [x] luces
 [x] luces 3D
 [x] bug de calculo
-[ ] puertas
+[x] puertas
 	-[x] Forms
 	-[x] Recalcular Area pared
 	-[x] calcular area puerta by default
-[ ] Area Techo
+[ ] Area Techo y Paredes
 [ ] ubicacion/latitud
 
 [ ] intefaz para puertas y ventanas
 
-[ ] Resize 3D model
+[x] Resize 3D model
 [ ] hover model
 [ ] Brujula 3D
 [ ] Default position 3D buttons
