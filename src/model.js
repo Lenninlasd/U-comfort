@@ -13,13 +13,13 @@
 [ ] intefaz para puertas y ventanas
 
 [x] Resize 3D model
-[ ] hover model
+[x] hover model
 [ ] Brujula 3D
 [ ] Default position 3D buttons
 
 
-[ ] opcion eliminar ventana: una vez se crea no se puede reducir el numero de ventanas
-con el input, debera hacer clic en un link elimar, este eliminara el state, y cambiara
+[ ] opcion eliminar ventana: una vez se crea no se puede reducir el número de ventanas
+con el input, debera hacer clic en un link eliminar, este eliminará el state, y cambiara
 el min del input.
 
 */
