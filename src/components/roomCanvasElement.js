@@ -49,8 +49,7 @@ function createBulbLight(size, lights) {
                 });
 
     const groupGeometry = createBulbLightGeometry(size, lights);
-
-    const bulbLight = new THREE.PointLight( 0xffee88, 0.5, 100, 1.5 );
+    const bulbLight = new THREE.PointLight( 0xffee88, 0.5, lights + 50, 1.5 );
     bulbLight.add( new THREE.Mesh( groupGeometry, bulbMat ) );
     bulbLight.position.set(0,0,0);
     bulbLight.castShadow = true;

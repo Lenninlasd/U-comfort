@@ -7,7 +7,7 @@
 	-[x] Forms
 	-[x] Recalcular Area pared
 	-[x] calcular area puerta by default
-[ ] Area Techo y Paredes
+[x] Area Techo y Paredes
 [ ] ubicacion/latitud
 
 [ ] intefaz para puertas y ventanas
