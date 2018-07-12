@@ -57,7 +57,7 @@ export function paredes(paredesState=[], action, state){
     }
 }
 
-export function techo(techoState={}, action){
+export function techo(techoState={}, action, state){
     switch (action.type) {
         case 'SET_CLTD_TECHO':
             return setCLTD_techo(techoState);
@@ -75,7 +75,7 @@ export function techo(techoState={}, action){
             return setU(techoState, action.element, action.material);
         case 'CALC_AREA_TECHO':
             return Object.assign({}, techoState, {
-                areaNeta: action.size.width * action.size.depth
+                areaNeta: state.width * state.depth
             });
         default:
             return techoState;
@@ -99,7 +99,7 @@ export function puertas(puertasState=[], action){
     }
 }
 
-export function piso(pisoState={}, action) {
+export function piso(pisoState={}, action, state) {
     switch (action.type) {
         case 'SET_U_PISO':
             return setU(pisoState, action.element, action.material);
@@ -109,7 +109,7 @@ export function piso(pisoState={}, action) {
             });
         case 'CALC_AREA_PISO':
             return Object.assign({}, pisoState, {
-                areaNeta: action.size.width * action.size.depth
+                areaNeta: state.width * state.depth
             });
         default:
             return pisoState;
@@ -119,6 +119,7 @@ export function piso(pisoState={}, action) {
 export function cargaEnfriamiento(cargaState=null, action, state) {
     switch (action.type) {
         case 'SET_CARGA_EMFRIAMIENTO':
+            console.log(state);
             return getCargaEnfriamiento(state);
         default:
             return cargaState;

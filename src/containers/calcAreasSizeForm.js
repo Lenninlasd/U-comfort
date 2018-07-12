@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-    setDepth, setHeight, setWidth, calcAreaPiso, 
+    setDepth, setHeight, setWidth, calcAreaPiso, calcAreaTecho,
     setNumberOfPeople, setNumberOfLights
 } from '../actions';
 import { SizeDataForm } from '../components/sizeForm.js';
@@ -27,30 +27,18 @@ const mapStateToProps = state => ({
     height: state.height,
     depth: state.depth,
     numberOfPeople: state.numberOfPeople,
-    numberOfLights: state.luces.numberOfLights,
-    numberWindows: 3
+    numberOfLights: state.luces.numberOfLights
 });
 
 const mapDispatchToProps = dispatch => ({
     onSizeChange: event => {
         dispatch(actionSizeFrom(event.target));
-    },
-    calcAreas: size => {
-        dispatch(calcAreaPiso(size));
-        dispatch(calcAreaPiso(size));
+        dispatch(calcAreaPiso());
+        dispatch(calcAreaTecho());
     }
 });
 
-const mergeProps = (stateProps, dispatchProps) => {
-    dispatchProps.calcAreas(stateProps);
-
-    return Object.assign({},  stateProps, {
-        onSizeChange: event => dispatchProps.onSizeChange(event, stateProps)
-    });
-}
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
-    mergeProps
+    mapDispatchToProps
 )(SizeDataForm);

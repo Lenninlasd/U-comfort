@@ -21,11 +21,11 @@ input.form-control, select.form-control {
     overflow-x: hidden;
 }
 
-.threedmodel canvas{
+.threedmodel {
     margin: 10px;
     border-radius: 2px;
     transition: background-color linear 0.5s;
 }
-.threedmodel canvas:hover{
+.threedmodel:hover{
     background-color: #00000018;
 }

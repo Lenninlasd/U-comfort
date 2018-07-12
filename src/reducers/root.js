@@ -10,9 +10,9 @@ export default (state = {}, action) => {
   return {
     vidrios: vidrios(state.vidrios, action),
     paredes: paredes(state.paredes, action, state),
-    techo: techo(state.techo, action),
+    techo: techo(state.techo, action, state),
     puertas: puertas(state.puertas, action),
-    piso: piso(state.piso, action),
+    piso: piso(state.piso, action, state),
     luces: luces(state.luces, action),
     cargaEnfriamiento: cargaEnfriamiento(state.cargaEnfriamiento, action, state),
     depth: depth(state.depth, action),

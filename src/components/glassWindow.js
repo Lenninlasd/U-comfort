@@ -108,7 +108,6 @@ class GlassWindows extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    numberWindows: 3,
     vidrios: state.vidrios
 });
 

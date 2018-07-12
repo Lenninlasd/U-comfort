@@ -81,40 +81,31 @@ export default {
 		    {
 		        orientacion: "N",
 		        color: "D",
-		        areaNeta: 840, //ft^2
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    },{
 		        orientacion: "S",
 		        color: "D",
-		        areaNeta: 840, //ft^2
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    },{
 		        orientacion: "E",
 		        color: "D",
-		        area_bruta: 1260,
-		        areaNeta: 1176, //ft^2 Pared-vidrio-puerta
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    },{
 		        orientacion: "W",
 		        color: "D",
-		        area_bruta: 1260,
-		        areaNeta: 388, //ft^2
 		        correcion_color_K: 1,
                 type: "superficie_oscura"
 		    }
 		],
 		techo: {
 		    color: "D",
-		    areaNeta: 5400, //ft^2
 		    correcion_color_K: 1,
             type: "superficie_oscura"
 		},
-		piso: {
-		    areaNeta: 5400, //ft^2
-		},
+		piso: {},
 		puerta: [
 		    {
                 width: 6,

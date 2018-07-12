@@ -4,9 +4,9 @@ export const setHeight = value => ({ type: 'SET_HEIGHT', value });
 
 export const setWidth = value => ({ type: 'SET_WIDTH', value });
 
-export const calcAreaPiso = size => ({ type: 'CALC_AREA_PISO', size });
+export const calcAreaPiso = () => ({ type: 'CALC_AREA_PISO' });
 
-export const calcAreaTecho = size => ({ type: 'CALC_AREA_TECHO', size });
+export const calcAreaTecho = () => ({ type: 'CALC_AREA_TECHO' });
 
 export const setNumberOfPeople = value => ({ 
     type: 'SET_NUMBER_OF_PEOPLE', value 
