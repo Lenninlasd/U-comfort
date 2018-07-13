@@ -9,7 +9,7 @@
 	-[x] calcular area puerta by default
 [x] Area Techo y Paredes
 [x] ubicacion/latitud
-[ ] cero luces 
+[x] cero luces 
 
 [ ] intefaz para puertas y ventanas
 

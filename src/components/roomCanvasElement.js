@@ -7,7 +7,7 @@ const OrbitControls = require('three-orbit-controls')(THREE);
 
 function createBulbLightGeometry(size, lights){
     if (lights <= 0) {
-        return;
+        return (new THREE.BoxBufferGeometry(0,0,0 ));
     }
 
     const mesh = Math.ceil(Math.sqrt(lights));
@@ -93,7 +93,10 @@ function createRectangleGeometry(size){
 function initCube(id, size, numberOfLights) {
     const element = document.getElementById(id);
 
-    const camera      = new THREE.PerspectiveCamera( 45, 1, 1, 1000 );
+    const elementSize = getSize(element);
+    const camera      = new THREE.PerspectiveCamera( 
+        45, elementSize.width/elementSize.height, 1, 1000 
+    );
     camera.position.z = 100;
     camera.position.x = 100 * Math.sin( 30 );
     camera.position.y = 100;
@@ -121,6 +124,7 @@ function initCube(id, size, numberOfLights) {
     scene.add( hemiLightHelper );
 
     const bulbLight = createBulbLight(size, numberOfLights);
+    
     if(bulbLight){
         scene.add( bulbLight );
     }
@@ -128,9 +132,8 @@ function initCube(id, size, numberOfLights) {
     const renderer = new THREE.WebGLRenderer( { alpha: true, antialias: true } );
     renderer.setClearColor( 0x000000, 0);
 
-    renderer.setPixelRatio( window.devicePixelRatio );
-    const offsetWidth = getWidth(window.innerHeight, element.offsetWidth);
-	renderer.setSize( offsetWidth, offsetWidth);
+    renderer.setPixelRatio( window.devicePixelRatio ); 
+	renderer.setSize( elementSize.width,elementSize.height);
     renderer.render( scene, camera );
 
     element.appendChild( renderer.domElement );
@@ -146,13 +149,17 @@ function initCube(id, size, numberOfLights) {
     }
 
     function onWindowResize() {
-        const offsetWidth = getWidth(window.innerHeight, element.offsetWidth);
-        renderer.setSize( offsetWidth, offsetWidth );
+        const {width, height} = getSize(element);
+        camera.aspect = width/height;
+		camera.updateProjectionMatrix();
+        renderer.setSize( width, height);
     }
 
-    function getWidth(windowHeight, elementWidth){
-        const height = Math.abs(windowHeight - 100);
-        return elementWidth > height ? height : elementWidth;
+    function getSize(element){
+        return { 
+            width: element.offsetWidth, 
+            height: Math.abs(window.innerHeight - 100)
+        };
     }
 }
 
@@ -173,15 +180,14 @@ class CanvasElement extends  React.Component {
     }
 
     updateLights(size, numberOfLights=0){
-        if(numberOfLights <= 0){
-            return;
-        }
         const lightGeometry = createBulbLightGeometry(size, numberOfLights);
-        const lightDistance = numberOfLights ? numberOfLights + 50 : 0;
-
+        const lightDistance = numberOfLights > 0 ? numberOfLights + 50 : 0;
+        const visibleLight = numberOfLights > 0 ? true : false;
+        
         this.meshes.bulbLight.children[0].geometry.dispose();
         this.meshes.bulbLight.children[0].geometry = lightGeometry;
         this.meshes.bulbLight.distance = lightDistance;
+        this.meshes.bulbLight.visible = visibleLight;
     }
 
     updateGeometry(size, numberOfLights) {
