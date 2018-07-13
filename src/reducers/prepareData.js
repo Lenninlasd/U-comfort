@@ -119,7 +119,6 @@ export function piso(pisoState={}, action, state) {
 export function cargaEnfriamiento(cargaState=null, action, state) {
     switch (action.type) {
         case 'SET_CARGA_EMFRIAMIENTO':
-            console.log(state);
             return getCargaEnfriamiento(state);
         default:
             return cargaState;
@@ -137,9 +136,28 @@ export const luces = (lucesState={}, action) => {
     }
 }
 
-export const exterior = (exteriorState={}, action) => exteriorState;
+export const exterior = (exteriorState={}, action) => {
+    switch (action.type) {
+        case 'SET_EXTERIOR_CONDITIONS':
+            return setExteriorConditions(exteriorState, action.exterior);
+        default:
+            return exteriorState;
+    }
+};
+
 export const recinto = (interiorState={}, action) => interiorState;
 
+
+function setExteriorConditions(state, exterior){
+    return Object.assign({}, state, {
+        id: Number(exterior.id),
+        ciudad: exterior.ciudad,
+        latitud : Number(exterior.latitud),
+        bulbo_seco: Number(exterior.bulbo_seco),
+        bulbo_humedo: Number(exterior.bulbo_humedo),
+        humedad_especifica: Number(exterior.humedad_especifica)
+    });
+}
 
 function setCLDT_vidrio(glassState) {
     const peakHour = '17';

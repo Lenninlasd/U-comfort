@@ -8,7 +8,8 @@
 	-[x] Recalcular Area pared
 	-[x] calcular area puerta by default
 [x] Area Techo y Paredes
-[ ] ubicacion/latitud
+[x] ubicacion/latitud
+[ ] cero luces 
 
 [ ] intefaz para puertas y ventanas
 
@@ -23,20 +24,20 @@ con el input, debera hacer clic en un link eliminar, este eliminará el state, y
 el min del input.
 
 */
-// Latidud
-import condicionesClimaticas from '../json/condiciones_climaticas';
+
 
 export default {
-    ubicacion: "Indianapolis, Ind",
-    latitud : 39,
     numberOfPeople: 60,
     perimetro: 300,
     height: 14,
     depth: 90,
     width: 60,
     exterior: {
-        bulbo_seco: 90, // A.9 condiciones exteriores de diseño
-        bulbo_humedo: 74, // A.9
+        id: 7,
+        ciudad: "Indianapolis",
+        latitud : 39,
+        bulbo_seco: 90,
+        bulbo_humedo: 74,
         humedad_especifica: 101 // formula pendiente
     },
     recinto: {
@@ -48,7 +49,7 @@ export default {
 	cargaPico: {
 	    rangoDiario : 22, // Fahrenheit no va a cambiar
 	    fecha: "21-07-xxxx", // julio, no va a cambiar
-	    hora: "17", // no va a cambiar
+	    hora: 17, // no va a cambiar
 	    promedio: 79, // Fahrenheit
 	},
 	elementos:  {

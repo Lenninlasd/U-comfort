@@ -19,7 +19,7 @@ export default (state = {}, action) => {
     width: width(state.width, action),
     height: height(state.height, action),
     numberOfPeople: numberOfPeople(state.numberOfPeople, action),
-    exterior: exterior(state.exterior),
+    exterior: exterior(state.exterior, action),
     recinto: recinto(state.recinto)
   };
 };

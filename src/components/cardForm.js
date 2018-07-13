@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ExteriorConditions from './exteriorConditions.js'
 import SizeDataForm from '../containers/calcAreasSizeForm.js';
 import GlassWindows from './glassWindow';
 import Doors from './doors.js';
@@ -7,6 +8,7 @@ import Doors from './doors.js';
 const CardForm = ({ submit }) => (
     <div className='card u-card'>
         <div className='card-body'>
+            <ExteriorConditions />
             <SizeDataForm />
             <GlassWindows />
             <Doors />
