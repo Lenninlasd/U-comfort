@@ -34,6 +34,11 @@ export function vidrios(glassState=[], action) {
             return updateAreaGlass(glassState, action.id);
         case 'UPDATE_PROP_VIDRIO':
             return updatePropGlass(glassState, action.data);
+        case 'REMOVE_VIDRIO':
+            return [
+                ...glassState.slice(0, action.key),
+                ...glassState.slice(action.key + 1)
+            ];
         default:
             return glassState;
     }

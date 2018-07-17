@@ -25,9 +25,10 @@ const typeofGlass = u.getTypeofGlass().map(el =>
     <option key={el} value={el}>{el}</option>
 );
 
-export const ListOfElements = ({vidrios, handleChange, handleBackButton}) => {
+export const ListOfElements = ({vidrios, removeItem, handleChange, handleBackButton}) => {
     const inputList = vidrios.map( (vidrio, key) => (
         <div key={key.toString()} className='form-group list-of-elements'>
+            <div className="remove-item" onClick={() => removeItem(key)}>&times;</div>
             <div className='form-row'>
                 <div className='col'>
                     <small><strong>ALTO:</strong></small>
@@ -89,11 +90,13 @@ export const ListOfElements = ({vidrios, handleChange, handleBackButton}) => {
         <div>
             <small><strong>PROPIEDADES DE LAS VENTANAS:</strong></small>
             { inputList }
-            <button type="button" 
-                    className="btn btn-outline-primary list-back-button"
-                    onClick={handleBackButton}>
-                    Atrás
-            </button>
+            <div>
+                <button type="button"
+                        className="btn btn-outline-primary list-back-button"
+                        onClick={handleBackButton}>
+                        Atrás
+                </button>
+            </div>
         </div>
     );
 }
@@ -117,6 +120,10 @@ const mapDispatchToProps = dispatch => ({
             id
         });
     },
+    removeItem: key => dispatch({
+        type: 'REMOVE_VIDRIO',
+        key
+    }),
     handleBackButton: () => dispatch({
         type: 'HIDE_WINDOWS_PROPS'
     })

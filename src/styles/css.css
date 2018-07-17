@@ -31,17 +31,13 @@ input.form-control, select.form-control {
 }
 
 .list-of-elements {
-    margin-left: -20px;
-    margin-right: -20px;
-    margin-bottom: 0px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 1rem;
+    margin: 0px -20px 0px -20px;
+    padding: 15px 20px 15px 20px;
 }
 .list-of-elements:hover{
     background: #f1f1f1;
 }
-.list-of-elements input {
+.list-of-elements input, .list-of-elements select {
     background: transparent;
 }
 .list-of-elements small {
@@ -50,4 +46,17 @@ input.form-control, select.form-control {
 
 .list-back-button {
     margin-top: 16px;
+}
+
+.remove-item {
+    cursor: pointer;
+    width: fit-content;
+    position: absolute;
+    right: 20px;
+    margin-top: -15px;
+}
+
+.list-of-elements:hover .remove-item {
+    font-weight: bold;
+    color: red;
 }

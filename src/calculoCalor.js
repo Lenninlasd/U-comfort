@@ -13,8 +13,8 @@ function setCalorPersonas(n_personas, correcion, tablaCalorPersonas, aplicacion=
     const calorLatente = filtered.find( x => x['CALOR'] === 'CALOR LATENTE');
 
     return {
-    	sensible: calorSensible['BTUH'] * n_personas * 1.0 * correcion,
-    	latente: calorLatente['BTUH'] * n_personas
+        sensible: calorSensible['BTUH'] * n_personas * 1.0 * correcion,
+        latente: calorLatente['BTUH'] * n_personas
     };
 }
 
@@ -26,8 +26,8 @@ function setCalorVentilacion(n_personas, Δtemp, ΔHumedad, tablaCFM){
     const CFM = cfmRecomendado.split('-')[0];
 
     return {
-    	sensible: 1.1 * CFM * n_personas * Δtemp,
-    	latente: 0.68 * CFM * n_personas * ΔHumedad
+        sensible: 1.1 * CFM * n_personas * Δtemp,
+        latente: 0.68 * CFM * n_personas * ΔHumedad
     }
 }
 
@@ -43,41 +43,58 @@ function getCFMCalorNetoSensible(totalSensible, infiltration){
 
 function calculoTotalSensible(vidrios = [{}], paredes = [{}], techo = {}, piso = {}, puerta =[{}], factorCorrecion){
 
-	  	const calorVidrio = getCalorSensibleArray(vidrios);
-	  	const calorPared = getCalorSensibleArray(paredes);
-	  	const calorTecho = getCalorSensible(techo);
-	 	const calorPiso = 	getCalorSensible(piso);
-	  	const calorPuerta = getCalorSensibleArray(puerta);
-	  	const calorRadiacionVidrio = getCalorSensibleVidrio(vidrios);
+        const calorVidrio = getCalorSensibleArray(vidrios);
+        const calorPared = getCalorSensibleArray(paredes);
+        const calorTecho = getCalorSensible(techo);
+        const calorPiso =     getCalorSensible(piso);
+        const calorPuerta = getCalorSensibleArray(puerta);
+        const calorRadiacionVidrio = getCalorSensibleVidrio(vidrios);
 
-		return calorVidrio + calorPared + calorTecho + calorPiso + calorPuerta + calorRadiacionVidrio;
+        return calorVidrio + calorPared + calorTecho + calorPiso + calorPuerta + calorRadiacionVidrio;
 
 
-	    function getCalorSensibleVidrio(el){
-	    	return el.map(i => i.SHGF * i.areaNeta * i.SC * i.CLF * factorCorrecion)
-	          .reduce( (anterior, actual) => {
-	              return anterior + actual;
-	          });
-	    }
+        function getCalorSensibleVidrio(el){
+            if (!el.length) {
+                return 0;
+            }
 
-	    function getCalorSensibleArray(el){ // calculoIndividualSensible
-	    	return el.map(i => getCalorSensible(i))
-	          .reduce( (anterior, actual) => {
-	              return anterior + actual;
-	          });
-	    }
+            return el.map(i => i.SHGF * i.areaNeta * i.SC * i.CLF * factorCorrecion)
+              .reduce( (anterior, actual) => {
+                  return anterior + actual;
+              });
+        }
 
-	    function getCalorSensible(obj) {
-	      return obj.coeficiente_transferencia_calor * obj.areaNeta * obj.CLDT_correccion * factorCorrecion;
-	    }
+        function getCalorSensibleArray(el){ // calculoIndividualSensible
+            if (!el.length) {
+                return 0;
+            }
+
+            return el.map(i => getCalorSensible(i))
+                .reduce( (anterior, actual) => {
+                    return anterior + actual;
+                });
+        }
+
+        function getCalorSensible(obj) {
+          return obj.coeficiente_transferencia_calor * obj.areaNeta * obj.CLDT_correccion * factorCorrecion;
+        }
 }
 
 function getCalor_sensible(vidrios, paredes, perimetro){
-    const transferencia_calor_vidrio = vidrios[0].coeficiente_transferencia_calor;
-    const transferencia_calor_pared = paredes[0].coeficiente_transferencia_calor;
+    let transferencia_calor_vidrio = 0;
+    let transferencia_calor_pared = 0;
+    let area_vidrio = 0;
+    let area_pared = 0;
 
-	const area_vidrio = vidrios.reduce( (a, b) => ({ areaNeta: a.areaNeta + b.areaNeta }) ).areaNeta;
-	const area_pared = paredes.reduce( (a, b) => ({ areaNeta: a.areaNeta + b.areaNeta }) ).areaNeta;
-	const K_= (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / perimetro;
-	return 1 - 0.02 * K_;
+    if (vidrios.length) {
+        transferencia_calor_vidrio = vidrios[0].coeficiente_transferencia_calor;
+        area_vidrio = vidrios.reduce( (a, b) => ({ areaNeta: a.areaNeta + b.areaNeta }) ).areaNeta;
+    }
+    if (paredes.length) {
+        transferencia_calor_pared = paredes[0].coeficiente_transferencia_calor;
+        area_pared = paredes.reduce( (a, b) => ({ areaNeta: a.areaNeta + b.areaNeta }) ).areaNeta;
+    }
+
+    const K_ = (transferencia_calor_vidrio*area_vidrio + transferencia_calor_pared*area_pared) / perimetro;
+    return 1 - 0.02 * K_;
 }
