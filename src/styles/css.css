@@ -29,3 +29,25 @@ input.form-control, select.form-control {
 .threedmodel:hover{
     background-color: #00000018;
 }
+
+.list-of-elements {
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 1rem;
+}
+.list-of-elements:hover{
+    background: #f1f1f1;
+}
+.list-of-elements input {
+    background: transparent;
+}
+.list-of-elements small {
+    font-size: 60%;
+}
+
+.list-back-button {
+    margin-top: 16px;
+}

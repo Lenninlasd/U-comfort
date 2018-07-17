@@ -5,6 +5,7 @@ import {
 } from './prepareData.js';
 
 import {depth, width, height, numberOfPeople} from './size.js';
+import { appConfig } from './config.js'
 
 export default (state = {}, action) => {
   return {
@@ -20,6 +21,7 @@ export default (state = {}, action) => {
     height: height(state.height, action),
     numberOfPeople: numberOfPeople(state.numberOfPeople, action),
     exterior: exterior(state.exterior, action),
-    recinto: recinto(state.recinto)
+    recinto: recinto(state.recinto),
+    appConfig: appConfig(state.appConfig, action)
   };
 };

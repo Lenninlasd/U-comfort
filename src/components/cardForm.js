@@ -4,20 +4,32 @@ import ExteriorConditions from './exteriorConditions.js'
 import SizeDataForm from '../containers/calcAreasSizeForm.js';
 import GlassWindows from './glassWindow';
 import Doors from './doors.js';
+import ListOfElements from './listOfElements.js'
 
-const CardForm = ({ submit }) => (
+
+const CardForm = ({ submit, showWindowsProps }) => (
     <div className='card u-card'>
         <div className='card-body'>
-            <ExteriorConditions />
-            <SizeDataForm />
-            <GlassWindows />
-            <Doors />
-            <button type="button"
-                    className="btn btn-primary"
-                    onClick={submit}>Calcular</button>
+            {
+                showWindowsProps ?
+                <div><ListOfElements /></div> :
+                <div>
+                    <ExteriorConditions />
+                    <SizeDataForm />
+                    <GlassWindows />
+                    <Doors />
+                    <button type="button"
+                            className="btn btn-primary"
+                            onClick={submit}>Calcular</button>
+                </div>
+            }
         </div>
     </div>
 );
+
+const mapStateToProps = state => ({
+    showWindowsProps: state.appConfig.showWindowsProps
+})
 
 const mapDispatchToProps = dispatch => ({
     submit: () => {
@@ -27,6 +39,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(CardForm);

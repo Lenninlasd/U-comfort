@@ -12,10 +12,13 @@
 [x] cero luces 
 
 [ ] intefaz para puertas y ventanas
+[ ] Propiedades del Techo
+[ ] Propiedades paredes
 
 [x] Resize 3D model
 [x] hover model
 [ ] Brujula 3D
+[ ] Visualizar ventanas y puertas
 [ ] Default position 3D buttons
 
 
