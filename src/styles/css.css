@@ -45,7 +45,15 @@ input.form-control, select.form-control {
 }
 
 .list-back-button {
-    margin-top: 16px;
+    margin: -10px 0 10px 0;
+    border-radius: 15px;
+    width: 25px;
+    padding: 0px;
+    height: 25px;
+}
+
+.add-window-button {
+    margin-top: 15px;
 }
 
 .remove-item {

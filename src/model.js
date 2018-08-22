@@ -9,9 +9,18 @@
 	-[x] calcular area puerta by default
 [x] Area Techo y Paredes
 [x] ubicacion/latitud
-[x] cero luces 
+[x] cero luces
 
-[ ] intefaz para puertas y ventanas
+[ ] intefaz para ventanas
+    [x] Lista y boton eliminar/editar
+    [x] opcion eliminar ventana
+    [ ] Añadir ventana
+
+[ ] Intefaz para puertas
+    [ ] Lista y boton eliminar/editar
+    [ ] opcion puerta
+    [ ] Añadir puerta
+
 [ ] Propiedades del Techo
 [ ] Propiedades paredes
 
@@ -22,9 +31,6 @@
 [ ] Default position 3D buttons
 
 
-[ ] opcion eliminar ventana: una vez se crea no se puede reducir el número de ventanas
-con el input, debera hacer clic en un link eliminar, este eliminará el state, y cambiara
-el min del input.
 
 */
 

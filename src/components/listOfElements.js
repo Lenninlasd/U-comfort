@@ -25,7 +25,69 @@ const typeofGlass = u.getTypeofGlass().map(el =>
     <option key={el} value={el}>{el}</option>
 );
 
-export const ListOfElements = ({vidrios, removeItem, handleChange, handleBackButton}) => {
+const generateWindowForm = ( ) => {
+    const inputList = vidrios.map( (vidrio, key) => (
+        <div key={key.toString()} className='form-group list-of-elements'>
+            <div className="remove-item" onClick={() => removeItem(key)}>&times;</div>
+            <div className='form-row'>
+                <div className='col'>
+                    <small><strong>ALTO:</strong></small>
+                    <InputWinProps tag={key} value={vidrio.height} type='height' title='height' handleChange={handleChange}/>
+                </div>
+                <div className='col'>
+                    <small><strong>ANCHO:</strong></small>
+                    <InputWinProps tag={key} value={vidrio.width} type='width' title='width' handleChange={handleChange}/>
+                </div>
+                <div className='col'>
+                    <small><strong>ORIENTACIÓN:</strong></small>
+                    <SelectWinProps tag={key} value={vidrio.orientacion} type='orientacion' handleChange={handleChange} title='Orientación'
+                        optionList={[
+                            <option key='N' value='N'>N</option>,
+                            <option key='S' value='S'>S</option>,
+                            <option key='E' value='E'>E</option>,
+                            <option key='W' value='W'>W</option>,
+                        ]} />
+                </div>
+            </div>
+            <div className='form-row'>
+                <div className='col'>
+                    <small><strong>SOMBRA:</strong></small>
+                    <SelectWinProps
+                        tag={key} value={vidrio.sombra}
+                        type='sombra'
+                        handleChange={handleChange}
+                        title='Sombra'
+                        optionList={[
+                            <option key='yes' value='yes'>Yes</option>,
+                            <option key='no' value='no'>No</option>
+                        ]}/>
+                </div>
+                <div className='col'>
+                    <small><strong>ESPESOR NOMINAL:</strong></small>
+                    <SelectWinProps
+                        tag={key}
+                        value={vidrio.espesor_nominal}
+                        type='espesor_nominal'
+                        handleChange={handleChange}
+                        title='Espesor nominal'
+                        optionList={nominalThickness}/>
+                </div>
+                <div className='col'>
+                    <small><strong>TIPO DE VIDRIO:</strong></small>
+                    <SelectWinProps
+                        tag={key}
+                        value={vidrio.tipo_de_vidrio}
+                        type='tipo_de_vidrio'
+                        handleChange={handleChange}
+                        title='Tipo de vidrio'
+                        optionList={typeofGlass}/>
+                </div>
+            </div>
+        </div>
+    ));
+}
+
+export const ListOfElements = ({vidrios, removeItem, handleChange, handleAddButton, handleBackButton}) => {
     const inputList = vidrios.map( (vidrio, key) => (
         <div key={key.toString()} className='form-group list-of-elements'>
             <div className="remove-item" onClick={() => removeItem(key)}>&times;</div>
@@ -88,13 +150,20 @@ export const ListOfElements = ({vidrios, removeItem, handleChange, handleBackBut
 
     return (
         <div>
-            <small><strong>PROPIEDADES DE LAS VENTANAS:</strong></small>
-            { inputList }
             <div>
                 <button type="button"
-                        className="btn btn-outline-primary list-back-button"
+                        className="btn btn-outline-dark btn-sm list-back-button"
                         onClick={handleBackButton}>
-                        Atrás
+                        <strong>&#8592;</strong>
+                </button>
+            </div>
+            <small><strong>PROPIEDADES DE LAS VENTANAS:</strong></small>
+            { inputList }
+            <div className="add-window-button">
+                <button type="button"
+                        className="btn btn-outline-primary"
+                        onClick={handleAddButton}>
+                        Agregar ventana
                 </button>
             </div>
         </div>
@@ -119,6 +188,9 @@ const mapDispatchToProps = dispatch => ({
             type: 'CALC_AREA_VIDRIO',
             id
         });
+    },
+    handleAddButton: () => {
+        console.log('hello');
     },
     removeItem: key => dispatch({
         type: 'REMOVE_VIDRIO',
