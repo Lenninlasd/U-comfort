@@ -39,6 +39,11 @@ export function vidrios(glassState=[], action) {
                 ...glassState.slice(0, action.key),
                 ...glassState.slice(action.key + 1)
             ];
+        case 'ADD_VIDRIO':
+            return [
+                ...glassState,
+                action.data
+            ];
         default:
             return glassState;
     }

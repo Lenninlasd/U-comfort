@@ -25,127 +25,114 @@ const typeofGlass = u.getTypeofGlass().map(el =>
     <option key={el} value={el}>{el}</option>
 );
 
-const generateWindowForm = ( ) => {
-    const inputList = vidrios.map( (vidrio, key) => (
-        <div key={key.toString()} className='form-group list-of-elements'>
-            <div className="remove-item" onClick={() => removeItem(key)}>&times;</div>
-            <div className='form-row'>
-                <div className='col'>
-                    <small><strong>ALTO:</strong></small>
-                    <InputWinProps tag={key} value={vidrio.height} type='height' title='height' handleChange={handleChange}/>
-                </div>
-                <div className='col'>
-                    <small><strong>ANCHO:</strong></small>
-                    <InputWinProps tag={key} value={vidrio.width} type='width' title='width' handleChange={handleChange}/>
-                </div>
-                <div className='col'>
-                    <small><strong>ORIENTACIÓN:</strong></small>
-                    <SelectWinProps tag={key} value={vidrio.orientacion} type='orientacion' handleChange={handleChange} title='Orientación'
-                        optionList={[
-                            <option key='N' value='N'>N</option>,
-                            <option key='S' value='S'>S</option>,
-                            <option key='E' value='E'>E</option>,
-                            <option key='W' value='W'>W</option>,
-                        ]} />
-                </div>
+const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
+    const deleteItem = typeof removeItem === 'function' ?
+        <div className="remove-item"
+            onClick={() => removeItem(key)}> &times;
+        </div> : null;
+
+    return (
+    <div key={key.toString()} className='form-group list-of-elements'>
+        {deleteItem}
+        <div className='form-row'>
+            <div className='col'>
+                <small><strong>ALTO:</strong></small>
+                <InputWinProps tag={key} value={vidrio.height} type='height' title='height' handleChange={handleChange}/>
             </div>
-            <div className='form-row'>
-                <div className='col'>
-                    <small><strong>SOMBRA:</strong></small>
-                    <SelectWinProps
-                        tag={key} value={vidrio.sombra}
-                        type='sombra'
-                        handleChange={handleChange}
-                        title='Sombra'
-                        optionList={[
-                            <option key='yes' value='yes'>Yes</option>,
-                            <option key='no' value='no'>No</option>
-                        ]}/>
-                </div>
-                <div className='col'>
-                    <small><strong>ESPESOR NOMINAL:</strong></small>
-                    <SelectWinProps
-                        tag={key}
-                        value={vidrio.espesor_nominal}
-                        type='espesor_nominal'
-                        handleChange={handleChange}
-                        title='Espesor nominal'
-                        optionList={nominalThickness}/>
-                </div>
-                <div className='col'>
-                    <small><strong>TIPO DE VIDRIO:</strong></small>
-                    <SelectWinProps
-                        tag={key}
-                        value={vidrio.tipo_de_vidrio}
-                        type='tipo_de_vidrio'
-                        handleChange={handleChange}
-                        title='Tipo de vidrio'
-                        optionList={typeofGlass}/>
-                </div>
+            <div className='col'>
+                <small><strong>ANCHO:</strong></small>
+                <InputWinProps tag={key} value={vidrio.width} type='width' title='width' handleChange={handleChange}/>
+            </div>
+            <div className='col'>
+                <small><strong>ORIENTACIÓN:</strong></small>
+                <SelectWinProps tag={key} value={vidrio.orientacion} type='orientacion' handleChange={handleChange} title='Orientación'
+                    optionList={[
+                        <option key='N' value='N'>N</option>,
+                        <option key='S' value='S'>S</option>,
+                        <option key='E' value='E'>E</option>,
+                        <option key='W' value='W'>W</option>,
+                    ]} />
             </div>
         </div>
-    ));
+        <div className='form-row'>
+            <div className='col'>
+                <small><strong>SOMBRA:</strong></small>
+                <SelectWinProps
+                    tag={key} value={vidrio.sombra}
+                    type='sombra'
+                    handleChange={handleChange}
+                    title='Sombra'
+                    optionList={[
+                        <option key='yes' value='yes'>Yes</option>,
+                        <option key='no' value='no'>No</option>
+                    ]}/>
+            </div>
+            <div className='col'>
+                <small><strong>ESPESOR NOMINAL:</strong></small>
+                <SelectWinProps
+                    tag={key}
+                    value={vidrio.espesor_nominal}
+                    type='espesor_nominal'
+                    handleChange={handleChange}
+                    title='Espesor nominal'
+                    optionList={nominalThickness}/>
+            </div>
+            <div className='col'>
+                <small><strong>TIPO DE VIDRIO:</strong></small>
+                <SelectWinProps
+                    tag={key}
+                    value={vidrio.tipo_de_vidrio}
+                    type='tipo_de_vidrio'
+                    handleChange={handleChange}
+                    title='Tipo de vidrio'
+                    optionList={typeofGlass}/>
+            </div>
+        </div>
+    </div>
+    );
 }
+
+class NewGlassForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.defaultState = {
+            width: '', height: '', orientacion: '', sombra: '', espesor_nominal: '', tipo_de_vidrio:''
+        };
+        this.state = this.defaultState;
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        const el = event.target;
+        const type = el.dataset.type
+        this.setState({[type]: el.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.submit(this.state)
+        this.setState(this.defaultState);
+    }
+
+    render() {
+        const blankForm = GenerateWindowForm(this.state, 4, undefined, this.handleChange);
+        return (
+            <form onSubmit={this.handleSubmit}>
+                { blankForm }
+                <div className="add-window-button">
+                    <button type="submit" className="btn btn-outline-primary">Agregar ventana</button>
+                </div>
+            </form>
+        );
+    }
+}
+
+
 
 export const ListOfElements = ({vidrios, removeItem, handleChange, handleAddButton, handleBackButton}) => {
     const inputList = vidrios.map( (vidrio, key) => (
-        <div key={key.toString()} className='form-group list-of-elements'>
-            <div className="remove-item" onClick={() => removeItem(key)}>&times;</div>
-            <div className='form-row'>
-                <div className='col'>
-                    <small><strong>ALTO:</strong></small>
-                    <InputWinProps tag={key} value={vidrio.height} type='height' title='height' handleChange={handleChange}/>
-                </div>
-                <div className='col'>
-                    <small><strong>ANCHO:</strong></small>
-                    <InputWinProps tag={key} value={vidrio.width} type='width' title='width' handleChange={handleChange}/>
-                </div>
-                <div className='col'>
-                    <small><strong>ORIENTACIÓN:</strong></small>
-                    <SelectWinProps tag={key} value={vidrio.orientacion} type='orientacion' handleChange={handleChange} title='Orientación'
-                        optionList={[
-                            <option key='N' value='N'>N</option>,
-                            <option key='S' value='S'>S</option>,
-                            <option key='E' value='E'>E</option>,
-                            <option key='W' value='W'>W</option>,
-                        ]} />
-                </div>
-            </div>
-            <div className='form-row'>
-                <div className='col'>
-                    <small><strong>SOMBRA:</strong></small>
-                    <SelectWinProps
-                        tag={key} value={vidrio.sombra}
-                        type='sombra'
-                        handleChange={handleChange}
-                        title='Sombra'
-                        optionList={[
-                            <option key='yes' value='yes'>Yes</option>,
-                            <option key='no' value='no'>No</option>
-                        ]}/>
-                </div>
-                <div className='col'>
-                    <small><strong>ESPESOR NOMINAL:</strong></small>
-                    <SelectWinProps
-                        tag={key}
-                        value={vidrio.espesor_nominal}
-                        type='espesor_nominal'
-                        handleChange={handleChange}
-                        title='Espesor nominal'
-                        optionList={nominalThickness}/>
-                </div>
-                <div className='col'>
-                    <small><strong>TIPO DE VIDRIO:</strong></small>
-                    <SelectWinProps
-                        tag={key}
-                        value={vidrio.tipo_de_vidrio}
-                        type='tipo_de_vidrio'
-                        handleChange={handleChange}
-                        title='Tipo de vidrio'
-                        optionList={typeofGlass}/>
-                </div>
-            </div>
-        </div>
+        GenerateWindowForm(vidrio, key, removeItem, handleChange)
     ));
 
     return (
@@ -159,13 +146,7 @@ export const ListOfElements = ({vidrios, removeItem, handleChange, handleAddButt
             </div>
             <small><strong>PROPIEDADES DE LAS VENTANAS:</strong></small>
             { inputList }
-            <div className="add-window-button">
-                <button type="button"
-                        className="btn btn-outline-primary"
-                        onClick={handleAddButton}>
-                        Agregar ventana
-                </button>
-            </div>
+            <NewGlassForm submit={handleAddButton}/>
         </div>
     );
 }
@@ -189,9 +170,10 @@ const mapDispatchToProps = dispatch => ({
             id
         });
     },
-    handleAddButton: () => {
-        console.log('hello');
-    },
+    handleAddButton: data => dispatch({
+        type: 'ADD_VIDRIO',
+        data
+    }),
     removeItem: key => dispatch({
         type: 'REMOVE_VIDRIO',
         key
