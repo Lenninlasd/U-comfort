@@ -71,3 +71,7 @@ input.form-control, select.form-control {
     font-weight: bold;
     color: red;
 }
+
+.new-form-bg .list-of-elements{
+    background: #f7f7f7;
+}

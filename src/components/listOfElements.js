@@ -121,7 +121,7 @@ class NewGlassForm extends React.Component {
     render() {
         const blankForm = GenerateWindowForm(this.state, 4, undefined, this.handleChange);
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className="new-form-bg">
                 { blankForm }
                 <div className="add-window-button">
                     <button type="submit" className="btn btn-outline-primary">Agregar ventana</button>
