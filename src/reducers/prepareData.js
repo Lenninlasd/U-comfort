@@ -12,12 +12,15 @@ import { getCargaEnfriamiento } from '../cargaEnfriamiento.js';
 
 const LM = setLM();
 
-export function vidrios(glassState=[], action) {
+export function vidrios(glassState=[], action, state) {
+
+    const dataTemperature = getDataTemperature(state);
+
     switch (action.type) {
         case 'SET_CLTD_VIDRIO':
-            return setCLDT_vidrio(glassState);
+            return setCLDT_vidrios(glassState);
         case 'SET_CLTD_CORRECCION_VIDRIO':
-            return setCLDT_correccion(glassState, action);
+            return setCLDT_correccion(glassState, dataTemperature);
         case 'SET_SHGF_LAT_40_VIDRIO':
             return setSHGF_lat_40(glassState);
         case 'SET_U_VIDRIO':
@@ -27,9 +30,7 @@ export function vidrios(glassState=[], action) {
         case 'SET_SC_VIDRIO':
             return setSC(glassState, action.glassDescription);
         case 'CALC_AREA_VIDRIO_ALL':
-            return glassState.map(el => Object.assign({}, el, {
-                areaNeta: el.width * el.height
-            }));
+            return calcAreaAllVidrio(glassState);
         case 'CALC_AREA_VIDRIO':
             return updateAreaGlass(glassState, action.id);
         case 'UPDATE_PROP_VIDRIO':
@@ -40,10 +41,7 @@ export function vidrios(glassState=[], action) {
                 ...glassState.slice(action.key + 1)
             ];
         case 'ADD_VIDRIO':
-            return [
-                ...glassState,
-                action.data
-            ];
+            return addNewGlass(glassState, action.data, dataTemperature);
         default:
             return glassState;
     }
@@ -56,7 +54,8 @@ export function paredes(paredesState=[], action, state){
         case 'SET_LM_PARED':
             return LM.paredes(paredesState);
         case 'SET_CLTD_CORRECCION_PARED':
-            return setCLDT_correccion(paredesState, action);
+            const dataTemperature = getDataTemperature(state);
+            return setCLDT_correccion(paredesState, dataTemperature);
         case 'SET_U_PARED':
             return setU(paredesState, action.element, action.material);
         case 'CALC_AREA_NETA_PARED':
@@ -78,7 +77,8 @@ export function techo(techoState={}, action, state){
                     correcion_latitud_mes_LM is needed`, techoState
                 );
             }
-            return setCLDT_correccion(techoState, action);
+            const dataTemperature = getDataTemperature(state);
+            return setCLDT_correccion(techoState, dataTemperature);
         case 'SET_LM_TECHO':
             return LM.techo(techoState);
         case 'SET_U_TECHO':
@@ -114,8 +114,9 @@ export function piso(pisoState={}, action, state) {
         case 'SET_U_PISO':
             return setU(pisoState, action.element, action.material);
         case 'SET_CLTD_CORRECCION_PISO':
+            const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
             return Object.assign({}, pisoState, {
-                CLDT_correccion: action.Δtemp
+                CLDT_correccion: Δtemp
             });
         case 'CALC_AREA_PISO':
             return Object.assign({}, pisoState, {
@@ -157,6 +158,36 @@ export const exterior = (exteriorState={}, action) => {
 
 export const recinto = (interiorState={}, action) => interiorState;
 
+export const cargaPico = (cargaPicoState={}) => cargaPicoState;
+
+function calcAreaAllVidrio(glassState){
+    return glassState.map(el => Object.assign({}, el, {
+        areaNeta: el.width * el.height
+    }));
+}
+
+function getDataTemperature({exterior, recinto, cargaPico}){
+    return {
+        tempExterior: exterior.bulbo_seco,
+        tempInterior: recinto.bulbo_seco,
+        rangoDiario: cargaPico.rangoDiario,
+        Δtemp: exterior.bulbo_seco - recinto.bulbo_seco
+    };
+}
+
+function addNewGlass(glassState, data, dataTemperature) {
+    let newGlass = setCLDT_vidrios( [data] );
+        newGlass = setCLDT_correccion(newGlass, dataTemperature);
+        newGlass = setSHGF_lat_40(newGlass);
+        newGlass = setUvidrio(newGlass);
+        newGlass = setCLF(newGlass);
+        newGlass = setSC(newGlass);
+        newGlass = calcAreaAllVidrio(newGlass);
+    return [
+        ...glassState,
+        ...newGlass
+    ];
+}
 
 function setExteriorConditions(state, exterior){
     return Object.assign({}, state, {
@@ -169,7 +200,7 @@ function setExteriorConditions(state, exterior){
     });
 }
 
-function setCLDT_vidrio(glassState) {
+function setCLDT_vidrios(glassState) {
     const peakHour = '17';
     const d = Number(TABLA_VIDRIO[0][peakHour]);
     return glassState.map(glass => {
@@ -266,6 +297,7 @@ function setCLF(glassState, glassCapacity='M') {
 
 function setSC(glassState, glassDescription='vidrio sencillo') {
     const dataSc = TABLA_SC.filter(x => x.vidrio === glassDescription);
+
     return glassState.map(vidrio => {
         const dataScFiltered = dataSc.find(x => x.tipo_de_vidrio === vidrio.tipo_de_vidrio &&
                                            x.espesor_nominal === vidrio.espesor_nominal);

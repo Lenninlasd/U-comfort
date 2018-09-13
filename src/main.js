@@ -20,10 +20,11 @@ const store = createStore(rootReducer, {
     height:  initState.height,
     numberOfPeople: initState.numberOfPeople,
     exterior: initState.exterior,
-    recinto: initState.recinto
+    recinto: initState.recinto,
+    cargaPico: initState.cargaPico
 });
 
-enrichData(initState, store.dispatch);
+enrichData(store.dispatch);
 
 store.dispatch({type: 'SET_CARGA_EMFRIAMIENTO'});
 

@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 const SelectWinProps = props => (
     <select id={`window-${props.type}-${props.tag}`} data-group={props.tag}
             data-type={props.type} className='form-control form-control-sm' onChange={props.handleChange}
-            value={props.value}>
-        <option hidden >{props.title}</option>
+            value={props.value} required >
+        <option hidden value=''>{props.title}</option>
         {props.optionList}
     </select>
 );
@@ -15,15 +15,18 @@ const InputWinProps = props => (
     <input id={`window-${props.type}-${props.tag}`} data-group={props.tag}
            data-type={props.type} className='form-control form-control-sm' type="number"
            value={props.value} placeholder={props.title} onChange={props.handleChange}
-           min='0'/>
+           min='0' required/>
 );
 
-const nominalThickness = u.getNominalThickness().map(el =>
-    <option key={el} value={el}>{el}</option>
-);
 const typeofGlass = u.getTypeofGlass().map(el =>
     <option key={el} value={el}>{el}</option>
 );
+
+const nominalThickness = type => {
+    return u.getNominalThickness(type).map(el =>
+        <option key={el} value={el}>{el}</option>
+    );
+}
 
 const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
     const deleteItem = typeof removeItem === 'function' ?
@@ -68,16 +71,6 @@ const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
                     ]}/>
             </div>
             <div className='col'>
-                <small><strong>ESPESOR NOMINAL:</strong></small>
-                <SelectWinProps
-                    tag={key}
-                    value={vidrio.espesor_nominal}
-                    type='espesor_nominal'
-                    handleChange={handleChange}
-                    title='Espesor nominal'
-                    optionList={nominalThickness}/>
-            </div>
-            <div className='col'>
                 <small><strong>TIPO DE VIDRIO:</strong></small>
                 <SelectWinProps
                     tag={key}
@@ -86,6 +79,16 @@ const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
                     handleChange={handleChange}
                     title='Tipo de vidrio'
                     optionList={typeofGlass}/>
+            </div>
+            <div className='col'>
+                <small><strong>ESPESOR NOMINAL:</strong></small>
+                <SelectWinProps
+                    tag={key}
+                    value={vidrio.espesor_nominal}
+                    type='espesor_nominal'
+                    handleChange={handleChange}
+                    title='Espesor nominal'
+                    optionList={ nominalThickness(vidrio.tipo_de_vidrio) }/>
             </div>
         </div>
     </div>

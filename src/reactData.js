@@ -3,19 +3,20 @@ import getCargaEnfriamiento2 from './cargaEnfriamiento.js';
 
 const uniqueList = list => [...(new Set(list))];
 
-const nominalThickness = uniqueList(
-    tablaSC.map(i => i['espesor_nominal'])
-           .filter(i => i !== '-')
-);
+const getNominalThickness = glassType => {
+    const filterGlass = glassType ?
+        tablaSC.filter(i => i['tipo_de_vidrio'] === glassType) : tablaSC;
+
+    const thickList = filterGlass.map(i => i['espesor_nominal'])
+                                 .filter(i => i !== '-');
+    return uniqueList(thickList);
+};
 
 const typeofGlass = uniqueList(
     tablaSC.map(i => i['tipo_de_vidrio'])
 );
 
-const getNominalThickness = () => nominalThickness;
-
 const getTypeofGlass = () => typeofGlass;
-
 
 export default {
     getNominalThickness,

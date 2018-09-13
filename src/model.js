@@ -1,4 +1,5 @@
 /*
+MVP:
 [x] numberOfPeople
 [x] luces
 [x] luces 3D
@@ -11,10 +12,11 @@
 [x] ubicacion/latitud
 [x] cero luces
 
-[ ] intefaz para ventanas
+[x] intefaz para ventanas
     [x] Lista y boton eliminar/editar
     [x] opcion eliminar ventana
-    [ ] Añadir ventana
+    [x] Añadir ventana
+    [x] Requires ventana
 
 [ ] Intefaz para puertas
     [ ] Lista y boton eliminar/editar
@@ -29,8 +31,6 @@
 [ ] Brujula 3D
 [ ] Visualizar ventanas y puertas
 [ ] Default position 3D buttons
-
-
 
 */
 
