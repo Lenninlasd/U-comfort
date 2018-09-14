@@ -2,26 +2,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ExteriorConditions from './exteriorConditions.js'
 import SizeDataForm from '../containers/calcAreasSizeForm.js';
-import GlassWindows from './glassWindow';
+import GlassWindows from './glassWindow.js';
+import DoorsCounter from './doorsCounter.js';
 import Doors from './doors.js';
 import ListOfElements from './listOfElements.js'
 
+const switchViews = (showWindowsProps, defaultView) => {
+    switch (showWindowsProps) {
+        case 'glassView':
+            return <div><ListOfElements /></div>
+        case 'doorView':
+            return <Doors />
+        default:
+            return defaultView;
+    }
+}
 
 const CardForm = ({ submit, showWindowsProps }) => (
     <div className='card u-card'>
         <div className='card-body'>
             {
-                showWindowsProps ?
-                <div><ListOfElements /></div> :
-                <div>
-                    <ExteriorConditions />
-                    <SizeDataForm />
-                    <GlassWindows />
-                    <Doors />
-                    <button type="button"
-                            className="btn btn-primary"
-                            onClick={submit}>Calcular</button>
-                </div>
+                switchViews(
+                    showWindowsProps,
+                    (<div>
+                        <ExteriorConditions />
+                        <SizeDataForm />
+                        <GlassWindows />
+                        <DoorsCounter />
+                        <button type="button"
+                                className="btn btn-primary"
+                                onClick={submit}>Calcular</button>
+                    </div>)
+                )
             }
         </div>
     </div>

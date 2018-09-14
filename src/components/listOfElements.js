@@ -1,6 +1,7 @@
 import React from 'react';
 import u from '../reactData';
 import { connect } from 'react-redux';
+import BackButton from './backButton.js';
 
 const SelectWinProps = props => (
     <select id={`window-${props.type}-${props.tag}`} data-group={props.tag}
@@ -28,27 +29,27 @@ const nominalThickness = type => {
     );
 }
 
-const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
+const GenerateWindowForm = ({ vidrio={}, keyForm='', removeItem, handleChange }) => {
     const deleteItem = typeof removeItem === 'function' ?
         <div className="remove-item"
-            onClick={() => removeItem(key)}> &times;
+            onClick={() => removeItem(keyForm)}> &times;
         </div> : null;
 
     return (
-    <div key={key.toString()} className='form-group list-of-elements'>
+    <div className='form-group list-of-elements'>
         {deleteItem}
         <div className='form-row'>
             <div className='col'>
                 <small><strong>ALTO:</strong></small>
-                <InputWinProps tag={key} value={vidrio.height} type='height' title='height' handleChange={handleChange}/>
+                <InputWinProps tag={keyForm} value={vidrio.height} type='height' title='height' handleChange={handleChange}/>
             </div>
             <div className='col'>
                 <small><strong>ANCHO:</strong></small>
-                <InputWinProps tag={key} value={vidrio.width} type='width' title='width' handleChange={handleChange}/>
+                <InputWinProps tag={keyForm} value={vidrio.width} type='width' title='width' handleChange={handleChange}/>
             </div>
             <div className='col'>
                 <small><strong>ORIENTACIÓN:</strong></small>
-                <SelectWinProps tag={key} value={vidrio.orientacion} type='orientacion' handleChange={handleChange} title='Orientación'
+                <SelectWinProps tag={keyForm} value={vidrio.orientacion} type='orientacion' handleChange={handleChange} title='Orientación'
                     optionList={[
                         <option key='N' value='N'>N</option>,
                         <option key='S' value='S'>S</option>,
@@ -61,7 +62,7 @@ const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
             <div className='col'>
                 <small><strong>SOMBRA:</strong></small>
                 <SelectWinProps
-                    tag={key} value={vidrio.sombra}
+                    tag={keyForm} value={vidrio.sombra}
                     type='sombra'
                     handleChange={handleChange}
                     title='Sombra'
@@ -73,7 +74,7 @@ const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
             <div className='col'>
                 <small><strong>TIPO DE VIDRIO:</strong></small>
                 <SelectWinProps
-                    tag={key}
+                    tag={keyForm}
                     value={vidrio.tipo_de_vidrio}
                     type='tipo_de_vidrio'
                     handleChange={handleChange}
@@ -83,7 +84,7 @@ const GenerateWindowForm = ( vidrio={}, key='', removeItem, handleChange ) => {
             <div className='col'>
                 <small><strong>ESPESOR NOMINAL:</strong></small>
                 <SelectWinProps
-                    tag={key}
+                    tag={keyForm}
                     value={vidrio.espesor_nominal}
                     type='espesor_nominal'
                     handleChange={handleChange}
@@ -119,10 +120,9 @@ class NewGlassForm extends React.Component {
     }
 
     render() {
-        const blankForm = GenerateWindowForm(this.state, 4, undefined, this.handleChange);
         return (
             <form onSubmit={this.handleSubmit} className="new-form-bg">
-                { blankForm }
+                <GenerateWindowForm  vidrio={this.state} keyForm={4} handleChange={this.handleChange}/>
                 <div className="add-window-button">
                     <button type="submit" className="btn btn-outline-primary">Agregar ventana</button>
                 </div>
@@ -135,17 +135,14 @@ class NewGlassForm extends React.Component {
 
 export const ListOfElements = ({vidrios, removeItem, handleChange, handleAddButton, handleBackButton}) => {
     const inputList = vidrios.map( (vidrio, key) => (
-        GenerateWindowForm(vidrio, key, removeItem, handleChange)
+        <GenerateWindowForm  vidrio={vidrio} removeItem={removeItem} key={key}
+                             keyForm={key}   handleChange={handleChange} />
     ));
 
     return (
         <div>
             <div>
-                <button type="button"
-                        className="btn btn-outline-dark btn-sm list-back-button"
-                        onClick={handleBackButton}>
-                        <strong>&#8592;</strong>
-                </button>
+                <BackButton onClick={handleBackButton}/>
             </div>
             <small><strong>PROPIEDADES DE LAS VENTANAS:</strong></small>
             { inputList }

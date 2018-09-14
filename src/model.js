@@ -116,7 +116,7 @@ export default {
             type: "superficie_oscura"
 		},
 		piso: {},
-		puerta: [
+		puertas: [
 		    {
                 width: 6,
                 height: 7,

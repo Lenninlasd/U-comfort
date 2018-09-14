@@ -12,7 +12,7 @@ const store = createStore(rootReducer, {
     vidrios: initState.elementos.vidrios,
     paredes: initState.elementos.paredes,
     techo:   initState.elementos.techo,
-    puertas: initState.elementos.puerta,
+    puertas: initState.elementos.puertas,
     piso:    initState.elementos.piso,
     luces:   initState.elementos.luces,
     depth:   initState.depth,
