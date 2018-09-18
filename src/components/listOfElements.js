@@ -122,7 +122,7 @@ class NewGlassForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="new-form-bg">
-                <GenerateWindowForm  vidrio={this.state} keyForm={4} handleChange={this.handleChange}/>
+                <GenerateWindowForm  vidrio={this.state} keyForm={100} handleChange={this.handleChange}/>
                 <div className="add-window-button">
                     <button type="submit" className="btn btn-outline-primary">Agregar ventana</button>
                 </div>

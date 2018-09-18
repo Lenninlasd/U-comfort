@@ -30,7 +30,7 @@ export function vidrios(glassState=[], action, state) {
         case 'SET_SC_VIDRIO':
             return setSC(glassState, action.glassDescription);
         case 'CALC_AREA_VIDRIO_ALL':
-            return calcAreaAllVidrio(glassState);
+            return calcAreaAll(glassState);
         case 'CALC_AREA_VIDRIO':
             return updateAreaGlass(glassState, action.id);
         case 'UPDATE_PROP_VIDRIO':
@@ -99,9 +99,7 @@ export function puertas(puertasState=[], action){
         case 'UPDATE_PROP_PUERTA':
             return updatePropGlass(puertasState, action.data);
         case 'CALC_AREA_PUERTA_ALL':
-            return puertasState.map(el => Object.assign({}, el, {
-                areaNeta: el.width * el.height
-            }));
+            return calcAreaAll(puertasState);
         case 'CALC_AREA_PUERTA':
             return updateAreaGlass(puertasState, action.id);
         case 'REMOVE_DOOR':
@@ -109,6 +107,8 @@ export function puertas(puertasState=[], action){
                 ...puertasState.slice(0, action.key),
                 ...puertasState.slice(action.key + 1)
             ];
+        case 'ADD_PUERTA':
+            return addNewDoor(puertasState, action.data);
         default:
             return puertasState;
     }
@@ -165,8 +165,8 @@ export const recinto = (interiorState={}, action) => interiorState;
 
 export const cargaPico = (cargaPicoState={}) => cargaPicoState;
 
-function calcAreaAllVidrio(glassState){
-    return glassState.map(el => Object.assign({}, el, {
+function calcAreaAll(state){
+    return state.map(el => Object.assign({}, el, {
         areaNeta: el.width * el.height
     }));
 }
@@ -187,10 +187,23 @@ function addNewGlass(glassState, data, dataTemperature) {
         newGlass = setUvidrio(newGlass);
         newGlass = setCLF(newGlass);
         newGlass = setSC(newGlass);
-        newGlass = calcAreaAllVidrio(newGlass);
+        newGlass = calcAreaAll(newGlass);
     return [
         ...glassState,
         ...newGlass
+    ];
+}
+
+function addNewDoor(puertasState, data) {
+    /** TODO: REMOVE HARDCODE **/
+    data.CLDT_tabla = 27; // ºF Aun no se tiene esa tabla
+    data.CLDT_correccion = 22; // ºF
+    /** **/
+    let newDoor = setU([data], 'PUERTA', 'PUERTA EJEMPLO');
+        newDoor = calcAreaAll(newDoor);
+    return [
+        ...puertasState,
+        ...newDoor
     ];
 }
 

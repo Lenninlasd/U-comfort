@@ -52,7 +52,40 @@ const GenerateDoors = ({ puerta={}, keyForm='', removeItem, handleChange }) => {
     );
 }
 
-const Doors = ({puertas, handleChange, handleBackButton, removeItem}) => {
+class NewDoorForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.defaultState = { width: '', height: '', orientacion: '' };
+        this.state = this.defaultState;
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        const el = event.target;
+        const type = el.dataset.type
+        this.setState({[type]: el.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.submit(this.state)
+        this.setState(this.defaultState);
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit} className="new-form-bg">
+                <GenerateDoors  puerta={this.state} keyForm={100} handleChange={this.handleChange}/>
+                <div className="add-window-button">
+                    <button type="submit" className="btn btn-outline-primary">Agregar puerta</button>
+                </div>
+            </form>
+        );
+    }
+}
+
+const Doors = ({puertas, handleChange, handleBackButton, removeItem, handleAddButton}) => {
 
     const inputList = puertas.map( (puerta, key) => (
         <GenerateDoors puerta={puerta} keyForm={key} key={key}
@@ -66,6 +99,7 @@ const Doors = ({puertas, handleChange, handleBackButton, removeItem}) => {
             </div>
             <small><strong>PROPIEDADES DE LAS PUERTAS:</strong></small>
             { inputList }
+            <NewDoorForm submit={handleAddButton}/>
         </div>
     )
 }
@@ -99,6 +133,10 @@ const mapDispatchToProps = dispatch => ({
     removeItem: key => dispatch({
         type: 'REMOVE_DOOR',
         key
+    }),
+    handleAddButton: data => dispatch({
+        type: 'ADD_PUERTA',
+        data
     }),
 });
 

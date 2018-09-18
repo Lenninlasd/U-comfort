@@ -18,13 +18,15 @@ MVP:
     [x] Añadir ventana
     [x] Requires ventana
 
-[ ] Intefaz para puertas
-    [ ] Lista y boton eliminar/editar
-    [ ] opcion puerta
-    [ ] Añadir puerta
+[x] Intefaz para puertas
+    [x] Lista y boton eliminar/editar
+    [x] opcion puerta
+    [x] Añadir puerta
+
+[ ] check if la pared se recalcula
+[ ] Propiedades paredes
 
 [ ] Propiedades del Techo
-[ ] Propiedades paredes
 
 [x] Resize 3D model
 [x] hover model
