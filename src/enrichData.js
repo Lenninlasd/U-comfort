@@ -2,8 +2,8 @@ import {calcAreaPiso, calcAreaTecho} from './actions';
 
 export default function enrichData(dispatch) {
 
-    dispatch({ type: 'SET_CLTD_VIDRIO' });
-    dispatch({ type: 'SET_CLTD_CORRECCION_VIDRIO' });
+    dispatch({type: 'SET_CLTD_VIDRIO' });
+    dispatch({type: 'SET_CLTD_CORRECCION_VIDRIO' });
     dispatch({type: 'SET_SHGF_LAT_40_VIDRIO'});
     dispatch({type: 'SET_U_VIDRIO'});
     dispatch({type: 'SET_CLF_VIDRIO'});

@@ -104,6 +104,11 @@ export function puertas(puertasState=[], action){
             }));
         case 'CALC_AREA_PUERTA':
             return updateAreaGlass(puertasState, action.id);
+        case 'REMOVE_DOOR':
+            return [
+                ...puertasState.slice(0, action.key),
+                ...puertasState.slice(action.key + 1)
+            ];
         default:
             return puertasState;
     }

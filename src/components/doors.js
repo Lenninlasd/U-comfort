@@ -18,20 +18,27 @@ const SelectDoorProps = props => (
     </select>
 );
 
+const GenerateDoors = ({ puerta={}, keyForm='', removeItem, handleChange }) => {
+    const deleteItem = typeof removeItem === 'function' ?
+        <div className="remove-item"
+            onClick={() => removeItem(keyForm)}> &times;
+        </div> : null;
 
-const Doors = ({puertas, handleChange, handleBackButton}) => {
-
-    const inputList = puertas.map( (puerta, key) => (
-        <div key={key.toString()} className='form-group'>
+    return (
+        <div className='form-group list-of-elements'>
+            { deleteItem }
             <div className='form-row'>
                 <div className='col'>
-                    <InputDoorProps tag={key} value={puerta.height} type='height' title='height' handleChange={handleChange}/>
+                    <small><strong>ALTO:</strong></small>
+                    <InputDoorProps tag={keyForm} value={puerta.height} type='height' title='height' handleChange={handleChange}/>
                 </div>
                 <div className='col'>
-                    <InputDoorProps tag={key} value={puerta.width} type='width' title='width' handleChange={handleChange}/>
+                    <small><strong>ANCHO:</strong></small>
+                    <InputDoorProps tag={keyForm} value={puerta.width} type='width' title='width' handleChange={handleChange}/>
                 </div>
                 <div className='col'>
-                    <SelectDoorProps tag={key} value={puerta.orientacion} type='orientacion'
+                    <small><strong>ORIENTACIÓN:</strong></small>
+                    <SelectDoorProps tag={keyForm} value={puerta.orientacion} type='orientacion'
                                      handleChange={handleChange} title='Orientación'
                         optionList={[
                             <option key='N' value='N'>N</option>,
@@ -42,6 +49,14 @@ const Doors = ({puertas, handleChange, handleBackButton}) => {
                     </div>
             </div>
         </div>
+    );
+}
+
+const Doors = ({puertas, handleChange, handleBackButton, removeItem}) => {
+
+    const inputList = puertas.map( (puerta, key) => (
+        <GenerateDoors puerta={puerta} keyForm={key} key={key}
+                       removeItem={removeItem} handleChange={handleChange} />
     ));
 
     return (
@@ -49,10 +64,8 @@ const Doors = ({puertas, handleChange, handleBackButton}) => {
             <div>
                 <BackButton onClick={handleBackButton}/>
             </div>
-            <div className="glass-windows form-group">
-                <small><strong>PROPIEDADES DE LAS PUERTAS:</strong></small>
-                { inputList }
-            </div>
+            <small><strong>PROPIEDADES DE LAS PUERTAS:</strong></small>
+            { inputList }
         </div>
     )
 }
@@ -82,7 +95,11 @@ const mapDispatchToProps = dispatch => ({
     handleChange: event => getDispatchData(event, dispatch),
     handleBackButton: () => dispatch({
         type: 'HIDE_WINDOWS_PROPS'
-    })
+    }),
+    removeItem: key => dispatch({
+        type: 'REMOVE_DOOR',
+        key
+    }),
 });
 
 export default connect(
