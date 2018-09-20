@@ -23,14 +23,15 @@ MVP:
     [x] opcion puerta
     [x] Añadir puerta
 
-[ ] check if la pared se recalcula
-[ ] Propiedades paredes
-
-[ ] Propiedades del Techo
+[x] check if la pared se recalcula
+[ ] Propiedades paredes (?)
+[ ] Propiedades del Techo (?)
 
 [x] Resize 3D model
 [x] hover model
 [ ] Brujula 3D
+[ ] Export/Import Info
+
 [ ] Visualizar ventanas y puertas
 [ ] Default position 3D buttons
 

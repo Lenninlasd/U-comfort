@@ -169,15 +169,22 @@ const mapDispatchToProps = dispatch => ({
             type: 'CALC_AREA_VIDRIO',
             id
         });
+        dispatch({ type: 'CALC_AREA_NETA_PARED' });
     },
-    handleAddButton: data => dispatch({
-        type: 'ADD_VIDRIO',
-        data
-    }),
-    removeItem: key => dispatch({
-        type: 'REMOVE_VIDRIO',
-        key
-    }),
+    handleAddButton: data => {
+        dispatch({
+            type: 'ADD_VIDRIO',
+            data
+        })
+        dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    },
+    removeItem: key => {
+        dispatch({
+            type: 'REMOVE_VIDRIO',
+            key
+        })
+        dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    },
     handleBackButton: () => dispatch({
         type: 'HIDE_WINDOWS_PROPS'
     })

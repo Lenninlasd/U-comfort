@@ -119,6 +119,7 @@ const getDispatchData = (event, dispatch) => {
         type: 'CALC_AREA_PUERTA',
         id
     });
+    dispatch({type: 'CALC_AREA_NETA_PARED'});
 }
 
 const mapStateToProps = state => ({
@@ -130,14 +131,20 @@ const mapDispatchToProps = dispatch => ({
     handleBackButton: () => dispatch({
         type: 'HIDE_WINDOWS_PROPS'
     }),
-    removeItem: key => dispatch({
-        type: 'REMOVE_DOOR',
-        key
-    }),
-    handleAddButton: data => dispatch({
-        type: 'ADD_PUERTA',
-        data
-    }),
+    removeItem: key => {
+        dispatch({
+            type: 'REMOVE_DOOR',
+            key
+        });
+        dispatch({type: 'CALC_AREA_NETA_PARED'});
+    },
+    handleAddButton: data => {
+        dispatch({
+            type: 'ADD_PUERTA',
+            data
+        });
+        dispatch({type: 'CALC_AREA_NETA_PARED'});
+    }
 });
 
 export default connect(
