@@ -94,17 +94,18 @@ function initCube(id, size, numberOfLights) {
     const element = document.getElementById(id);
 
     const elementSize = getSize(element);
-    const camera      = new THREE.PerspectiveCamera( 
-        45, elementSize.width/elementSize.height, 1, 1000 
+    const camera      = new THREE.PerspectiveCamera(
+        45, elementSize.width/elementSize.height, 1, 1000
     );
     camera.position.z = 100;
-    camera.position.x = 100 * Math.sin( 30 );
+    camera.position.x =  0;//100 * Math.sin( 30 );
     camera.position.y = 100;
 
     const scene    = new THREE.Scene();
     const geometry = new THREE.BoxBufferGeometry( size.width, 0, size.depth );
     const material = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x050505, side: THREE.DoubleSide } );
     const meshFloor = new THREE.Mesh( geometry, material );
+
     const controls = new OrbitControls( camera, element );
     controls.enableKeys = false;
 
@@ -124,7 +125,7 @@ function initCube(id, size, numberOfLights) {
     scene.add( hemiLightHelper );
 
     const bulbLight = createBulbLight(size, numberOfLights);
-    
+
     if(bulbLight){
         scene.add( bulbLight );
     }
@@ -132,7 +133,7 @@ function initCube(id, size, numberOfLights) {
     const renderer = new THREE.WebGLRenderer( { alpha: true, antialias: true } );
     renderer.setClearColor( 0x000000, 0);
 
-    renderer.setPixelRatio( window.devicePixelRatio ); 
+    renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( elementSize.width,elementSize.height);
     renderer.render( scene, camera );
 
@@ -141,7 +142,7 @@ function initCube(id, size, numberOfLights) {
     window.addEventListener('resize', onWindowResize, false);
     animate();
 
-    return {meshFloor, meshWall, bulbLight};
+    return {meshFloor, meshWall, bulbLight, controls};
 
     function animate() {
         requestAnimationFrame( animate );
@@ -156,19 +157,27 @@ function initCube(id, size, numberOfLights) {
     }
 
     function getSize(element){
-        return { 
-            width: element.offsetWidth, 
+        return {
+            width: element.offsetWidth,
             height: Math.abs(window.innerHeight - 100)
         };
     }
 }
 
-
+const CompassElement = ({ angle }) => {
+    return (
+        <div className="compass" style={{transform: `rotate(${angle}deg)`}} >
+            <img height="60" width="60" src="./img/compass.svg"/>
+        </div>
+    );
+}
 
 class CanvasElement extends  React.Component {
     constructor(props){
         super(props);
         this.meshes = {};
+        this.state = { angle: 0 };
+        this.changeOrbit = this.changeOrbit.bind(this);
     }
 
     componentDidMount(){
@@ -177,13 +186,14 @@ class CanvasElement extends  React.Component {
             this.props.size,
             this.props.numberOfLights
         );
+        this.meshes.controls.addEventListener( 'change', this.changeOrbit );
     }
 
     updateLights(size, numberOfLights=0){
         const lightGeometry = createBulbLightGeometry(size, numberOfLights);
         const lightDistance = numberOfLights > 0 ? numberOfLights + 50 : 0;
         const visibleLight = numberOfLights > 0 ? true : false;
-        
+
         this.meshes.bulbLight.children[0].geometry.dispose();
         this.meshes.bulbLight.children[0].geometry = lightGeometry;
         this.meshes.bulbLight.distance = lightDistance;
@@ -203,11 +213,23 @@ class CanvasElement extends  React.Component {
         this.updateLights(size, numberOfLights);
     }
 
+    changeOrbit(event) {
+        const rotationZ = event.target.object.rotation.z;
+        const angle = (rotationZ * 180) / Math.PI
+        this.setState(state => ({
+            angle
+        }));
+    }
+
     render(){
         if (this.meshes.meshFloor) {
             this.updateGeometry(this.props.size, this.props.numberOfLights);
         }
-        return <div id={this.props.id} className='threedmodel'></div>;
+        return (
+            <div id={this.props.id} className='threedmodel'>
+                <CompassElement angle={this.state.angle} />
+            </div>
+        );
     }
 }
 

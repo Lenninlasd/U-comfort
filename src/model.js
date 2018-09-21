@@ -29,7 +29,11 @@ MVP:
 
 [x] Resize 3D model
 [x] hover model
-[ ] Brujula 3D
+[x] Brujula 3D
+    [x] discover 3D rotation
+    [x] expose controls on the CanvasElement component
+    [x] create svg compass indicator
+    [x] connet compass indicator with angle state
 [ ] Export/Import Info
 
 [ ] Visualizar ventanas y puertas
