@@ -49,7 +49,6 @@ export function getCargaEnfriamiento(state) {
         ΔHumedad,
         tablaCFM
     );
-
     //Calculo final
     const sensibleEl = calculoTotalSensible(
         state.vidrios,

@@ -61,7 +61,6 @@ export const calculoTotalSensible = (
         puerta =[{}],
         factorCorrecion
     ) => {
-
         const getCalorSensibleVidrio = element => {
             if (!element.length) return 0;
 

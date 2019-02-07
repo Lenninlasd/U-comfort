@@ -1,10 +1,13 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
     devtool: 'source-map',
     entry: ['./src/main.js'],
     output: {
-        filename: './confort.min.js'
+        filename: './confort.min.js',
+        path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
@@ -16,5 +19,11 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            filename: './index.html'
+        })
+    ]
 };
