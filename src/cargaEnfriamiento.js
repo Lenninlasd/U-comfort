@@ -1,5 +1,13 @@
 import getCalorPorInfiltracion from './infiltration';
-import heat from './calculoCalor';
+import {
+    getCalor_sensible,
+    setCalorPersonas,
+    setCalorVentilacion,
+    calculoTotalSensible,
+    cargaEnfriamiento,
+    getCFMCalorNetoSensible,
+    calcularHumedadEntradaSerp
+} from './calculoCalor';
 
 import tablaCalorPersonas from "../json/calor_personas_6_11";
 import tablaCFM from "../json/CFM_6_15";
@@ -18,7 +26,7 @@ export function getCargaEnfriamiento(state) {
     );
 
     const perimeter = 2*state.width + 2*state.depth;
-    const factorCorrecionCalorSensible = heat.getCalor_sensible(
+    const factorCorrecionCalorSensible = getCalor_sensible(
         state.vidrios,
         state.paredes,
         perimeter
@@ -29,13 +37,13 @@ export function getCargaEnfriamiento(state) {
                        state.luces.factConv *
                        factorCorrecionCalorSensible;
 
-    const calorPersonas = heat.setCalorPersonas(
+    const calorPersonas = setCalorPersonas(
         state.numberOfPeople,
         factorCorrecionCalorSensible,
         tablaCalorPersonas
     );
 
-    const calorVentilacion = heat.setCalorVentilacion(
+    const calorVentilacion = setCalorVentilacion(
         state.numberOfPeople,
         Δtemp,
         ΔHumedad,
@@ -43,7 +51,7 @@ export function getCargaEnfriamiento(state) {
     );
 
     //Calculo final
-    const sensibleEl = heat.calculoTotalSensible(
+    const sensibleEl = calculoTotalSensible(
         state.vidrios,
         state.paredes,
         state.techo,
@@ -56,10 +64,34 @@ export function getCargaEnfriamiento(state) {
 
     const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
-    const total_sensible = ganancia_calor_recinto + calorVentilacion.sensible + ganancia_ventilador_forzado;
+    const totalSensible = ganancia_calor_recinto      +
+                          calorVentilacion.sensible   +
+                          ganancia_ventilador_forzado +
+                          infiltration.sensible;
 
-    return heat.cargaEnfriamiento(
-        total_sensible,
+    const CFMnetoSensible = getCFMCalorNetoSensible(totalSensible, infiltration);
+
+    const tempEntradaSerpentin = getTempEntradaSerpentin(
+        CFMnetoSensible,
+        calorVentilacion.CFMventilacion,
+        state.exterior,
+        state.recinto
+    );
+
+    const humedadEntradaSerp = calcularHumedadEntradaSerp(state, tempEntradaSerpentin);
+
+    const { QS, QL } = calorTotal(
+        tempEntradaSerpentin,
+        CFMnetoSensible,
+        state.recinto,
+        humedadEntradaSerp
+    );
+
+    console.log('QS', QS);
+    console.log('QL', QL);
+
+    return cargaEnfriamiento(
+        totalSensible,
         calorPersonas,
         calorVentilacion,
         infiltration
@@ -73,6 +105,15 @@ function getTempEntradaSerpentin(CFMnetoSensible, CFMventilacion, exterior, reci
     return (aireExterior +  aireRetorno ) / CFMnetoSensible;
 }
 
-function LineaSerpentin(tempEntradaSerpentin, CFTtotal) {
-
+function calorTotal(
+        tempEntradaSerpentin,
+        CFMnetoSensible,//=11189,
+        recinto,
+        humedadEntradaSerp
+    ) {
+    const tempSalidaSerp = recinto.bulbo_seco - 20;
+    const humedadSalidaSerp = 65;
+    const QS = 1.1  * CFMnetoSensible * (tempEntradaSerpentin - tempSalidaSerp);
+    const QL = 0.68 * CFMnetoSensible * (humedadEntradaSerp - humedadSalidaSerp);
+    return { QS, QL };
 }
