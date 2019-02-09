@@ -12,7 +12,7 @@ export const setCalorPersonas = (
 
     return {
         sensible: calorSensible['BTUH'] * n_personas * 1.0 * correcion,
-        latente: calorLatente['BTUH'] * n_personas
+        latente:  calorLatente['BTUH']  * n_personas
     };
 };
 

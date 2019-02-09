@@ -54,7 +54,9 @@ export default {
         latitud : 39,
         bulbo_seco: 90,
         bulbo_humedo: 74,
-        humedad_especifica: 101 // formula pendiente
+        humedad_especifica: 101, // formula pendiente
+        mes_carga_de_enfriamiento: "julio",
+        rango_diario: 22 // Fahrenheit
     },
     recinto: {
       // Estas condiciones no varian
@@ -63,7 +65,6 @@ export default {
         humedad_especifica: 72
     },
 	cargaPico: {
-	    rangoDiario : 22, // Fahrenheit no va a cambiar
 	    fecha: "21-07-xxxx", // julio, no va a cambiar
 	    hora: 17, // no va a cambiar
 	    promedio: 79, // Fahrenheit
@@ -121,7 +122,7 @@ export default {
 		    color: "D",
 		    correcion_color_K: 1,
             type: "superficie_oscura"
-		},
+        },
 		piso: {},
 		puertas: [
 		    {

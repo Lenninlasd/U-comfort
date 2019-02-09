@@ -36,14 +36,12 @@ const calcAreaAll = state => (
     }))
 );
 
-const getDataTemperature = ({exterior, recinto, cargaPico}) => (
-    {
-        tempExterior: exterior.bulbo_seco,
-        tempInterior: recinto.bulbo_seco,
-        rangoDiario: cargaPico.rangoDiario,
-        Δtemp: exterior.bulbo_seco - recinto.bulbo_seco
-    }
-);
+const getDataTemperature = ({exterior, recinto}) => ({
+    tempExterior: exterior.bulbo_seco,
+    tempInterior: recinto.bulbo_seco,
+    rango_diario: exterior.rango_diario,
+    Δtemp: exterior.bulbo_seco - recinto.bulbo_seco
+});
 
 const setCLDT_vidrios = glassState => {
     const peakHour = '17';
@@ -66,7 +64,7 @@ const setCLDT_correccion = (state, action) => {
 
         return Object.assign({}, el, {
             CLDT_correccion: CLDT_temp + DeltaTempDiseno +
-                action.tempExterior - 0.5*action.rangoDiario - action.tempInterior
+                action.tempExterior - 0.5*action.rango_diario - action.tempInterior
         });
     };
     return Array.isArray(state) ? state.map(CLDT_Obj) : CLDT_Obj(state);
@@ -103,7 +101,9 @@ const setExteriorConditions = (state, exterior) => (
         latitud : Number(exterior.latitud),
         bulbo_seco: Number(exterior.bulbo_seco),
         bulbo_humedo: Number(exterior.bulbo_humedo),
-        humedad_especifica: Number(exterior.humedad_especifica)
+        humedad_especifica: Number(exterior.humedad_especifica),
+        mes_carga_de_enfriamiento: exterior.mes_carga_de_enfriamiento,
+		rango_diario : Number(exterior.rango_diario)
     })
 );
 
