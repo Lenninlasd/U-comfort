@@ -4,11 +4,11 @@ export const setCalorPersonas = (
         n_personas,
         correcion,
         tablaCalorPersonas,
-        aplicacion='TIENDAS MINORISTAS, BANCOS'
+        aplicacion
     ) => {
     const filtered = tablaCalorPersonas.filter(x => x['APLICACIONES_TIPICAS'] === aplicacion);
     const calorSensible = filtered.find( x => x['CALOR'] === 'CALOR SENSIBLE');
-    const calorLatente = filtered.find( x => x['CALOR'] === 'CALOR LATENTE');
+    const calorLatente  = filtered.find( x => x['CALOR'] === 'CALOR LATENTE');
 
     return {
         sensible: calorSensible['BTUH'] * n_personas * 1.0 * correcion,

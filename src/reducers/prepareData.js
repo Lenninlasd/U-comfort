@@ -45,10 +45,10 @@ const getDataTemperature = ({exterior, recinto}) => ({
 
 const setCLDT_vidrios = glassState => {
     const peakHour = '17';
-    const d = Number(TABLA_VIDRIO[0][peakHour]);
+    const CLDT_tabla = Number(TABLA_VIDRIO[0][peakHour]);
     return glassState.map(glass => {
         return Object.assign({}, glass, {
-            CLDT_tabla: d
+            CLDT_tabla
         });
     });
 };
@@ -397,6 +397,15 @@ export const exterior = (exteriorState={}, action) => {
     }
 };
 
-export const recinto = (interiorState={}, action) => interiorState;
+export const recinto = (recintoState={}, action) => {
+    switch (action.type) {
+        case 'SET_ACTIVIDAD_RECINTO':
+            return Object.assign({}, recintoState, {
+                actividad_recinto: action.value
+            });
+        default:
+            return recintoState;
+    }
+};
 
 export const cargaPico = (cargaPicoState={}) => cargaPicoState;

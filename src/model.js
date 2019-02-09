@@ -62,7 +62,8 @@ export default {
       // Estas condiciones no varian
         bulbo_seco: 78,
         humedad_relativa: 50,
-        humedad_especifica: 72
+        humedad_especifica: 72,
+        actividad_recinto: 'TIENDAS MINORISTAS, BANCOS'
     },
 	cargaPico: {
 	    fecha: "21-07-xxxx", // julio, no va a cambiar

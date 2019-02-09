@@ -65,7 +65,8 @@ export const getCargaEnfriamiento = state => {
     const calorPersonas = setCalorPersonas(
         state.numberOfPeople,
         factorCorrecionCalorSensible,
-        tablaCalorPersonas
+        tablaCalorPersonas,
+        state.recinto.actividad_recinto
     );
 
     const calorVentilacion = setCalorVentilacion(

@@ -57,7 +57,7 @@ export default [
 	},
 	{
 		"ACTIVIDAD": "BOLICHE",
-		"APLICACIONES_TIPICAS": "",
+		"APLICACIONES_TIPICAS": "BOLICHE",
 		"CALOR": "CALOR TOTAL POR ADULTO MASCULINO",
 		"WATTS": "350",
 		"BTUH": "1200",
@@ -145,7 +145,7 @@ export default [
 	},
 	{
 		"ACTIVIDAD": "BOLICHE",
-		"APLICACIONES_TIPICAS": "",
+		"APLICACIONES_TIPICAS": "BOLICHE",
 		"CALOR": "CALOR TOTAL AJUSTADO",
 		"WATTS": "280",
 		"BTUH": "960",
@@ -233,7 +233,7 @@ export default [
 	},
 	{
 		"ACTIVIDAD": "BOLICHE",
-		"APLICACIONES_TIPICAS": "",
+		"APLICACIONES_TIPICAS": "BOLICHE",
 		"CALOR": "CALOR SENSIBLE",
 		"WATTS": "100",
 		"BTUH": "345",
@@ -321,7 +321,7 @@ export default [
 	},
 	{
 		"ACTIVIDAD": "BOLICHE",
-		"APLICACIONES_TIPICAS": "",
+		"APLICACIONES_TIPICAS": "BOLICHE",
 		"CALOR": "CALOR LATENTE",
 		"WATTS": "180",
 		"BTUH": "615",
