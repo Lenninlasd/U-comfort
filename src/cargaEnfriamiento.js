@@ -4,7 +4,6 @@ import {
     setCalorPersonas,
     setCalorVentilacion,
     calculoTotalSensible,
-    cargaEnfriamiento,
     getCFMCalorNetoSensible,
     calcularHumedadEntradaSerp
 } from './calculoCalor';
@@ -112,13 +111,15 @@ export const getCargaEnfriamiento = state => {
         humedadEntradaSerp
     );
 
-    console.log('QS', QS);
-    console.log('QL', QL);
+    const cargaEnfriamiento = totalSensible            +
+                              calorPersonas.latente    +
+                              calorVentilacion.latente +
+                              infiltration.sensible    +
+                              infiltration.latente;
 
-    return cargaEnfriamiento(
-        totalSensible,
-        calorPersonas,
-        calorVentilacion,
-        infiltration
-    ); // Tons
+    return {
+        cargaEnfriamiento,
+        CFMnetoSensible,
+        QS_QL: QS + QL
+    };
 }

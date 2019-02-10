@@ -11,7 +11,7 @@ const Result = ({cargaEnfriamiento}) => (
 
 
 const mapStateToProps = state => ({
-    cargaEnfriamiento: state.cargaEnfriamiento
+    cargaEnfriamiento: state.results.cargaEnfriamiento
 });
 
 export default connect(mapStateToProps)(Result);

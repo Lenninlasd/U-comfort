@@ -32,22 +32,6 @@ export const setCalorVentilacion = (n_personas, Δtemp, ΔHumedad, tablaCFM) => 
     }
 };
 
-export const cargaEnfriamiento = (
-        totalSensible,
-        calorPersonas,
-        calorVentilacion,
-        infiltration
-    ) => {
-
-    const totalCalor = totalSensible            +
-                       calorPersonas.latente    +
-                       calorVentilacion.latente +
-                       infiltration.sensible    +
-                       infiltration.latente;
-
-    return (totalCalor).toFixed(3); // Tons
-};
-
 export const getCFMCalorNetoSensible = (totalSensible, infiltration) => {
     const ΔtempAireSuministro = 20;
     return (totalSensible + infiltration.sensible) / ( ΔtempAireSuministro * 1.1 );

@@ -7,7 +7,8 @@ module.exports = {
     entry: ['./src/main.js'],
     output: {
         filename: './confort.min.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -19,6 +20,9 @@ module.exports = {
                 }
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     plugins: [
         new HtmlWebpackPlugin({

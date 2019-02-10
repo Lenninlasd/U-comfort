@@ -368,12 +368,12 @@ export const piso = (pisoState={}, action, state) => {
     }
 };
 
-export const cargaEnfriamiento = (cargaState=null, action, state) => {
+export const results = (resultsState={}, action, state) => {
     switch (action.type) {
         case 'SET_CARGA_EMFRIAMIENTO':
-            return getCargaEnfriamiento(state);
+            return Object.assign({}, resultsState, getCargaEnfriamiento(state) );
         default:
-            return cargaState;
+            return resultsState;
     }
 }
 
