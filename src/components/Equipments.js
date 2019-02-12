@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import LISTADO_DE_EQUIPOS from '../../json/Listado_de_equipos.js';
+import BackButton from './backButton.js';
 
 const btuList = [...new Set(
     LISTADO_DE_EQUIPOS.map(eq => Number(eq.capacidad_BTU) )
@@ -19,25 +21,25 @@ const chooseBTU = (Q, btuList) => {
 const ListEq = equipments => {
     return (
         <ul className="list-group list-group-flush">
-        {equipments.map(eq => (
-            <li className='list-group-item' key={eq.marca + eq.modelo + eq.proveedor}>
-                <div>SEER: {eq.SEER}</div>
-                <div>Capacidad: {eq.capacidad_BTU} btu</div>
-                <div>cfm_max: {eq.cfm_max}</div>
-                <div>conex_liquido: {eq.conex_liquido}</div>
-                <div>onex_succion: {eq.conex_succion}</div>
-                <div>datos_electricos: {eq.datos_electricos}</div>
-                <div>Equipo: {eq.equipo}</div>
-                <div>Marca: {eq.marca}</div>
-                <div>Modelo: {eq.modelo}</div>
-                <div>Proveedor: {eq.proveedor}</div>
+        {equipments.map( (eq, index) => (
+            <li className='list-group-item' key={index + eq.marca + eq.modelo + eq.proveedor}>
+                <div><strong>SEER:</strong> {eq.SEER}</div>
+                <div><strong>Capacidad:</strong> {eq.capacidad_BTU} btu</div>
+                <div><strong>cfm_max:</strong> {eq.cfm_max}</div>
+                <div><strong>conex_liquido:</strong> {eq.conex_liquido}</div>
+                <div><strong>onex_succion:</strong> {eq.conex_succion}</div>
+                <div><strong>datos_electricos:</strong> {eq.datos_electricos}</div>
+                <div><strong>Equipo:</strong> {eq.equipo}</div>
+                <div><strong>Marca:</strong> {eq.marca}</div>
+                <div><strong>Modelo:</strong> {eq.modelo}</div>
+                <div><strong>Proveedor:</strong> {eq.proveedor}</div>
             </li>
         ))}
         </ul>
     );
 };
 
-const EquipmentsView = ({cargaEnfriamiento, QS_QL, CFMnetoSensible}) => {
+const EquipmentsView = ({history, cargaEnfriamiento, QS_QL, CFMnetoSensible}) => {
     
     const choosenQ = chooseBTU(QS_QL, btuList);
     
@@ -46,25 +48,37 @@ const EquipmentsView = ({cargaEnfriamiento, QS_QL, CFMnetoSensible}) => {
             return eq.capacidad_BTU == choosenQ[1] && Number(eq.cfm_max)*0.9 >= CFMnetoSensible;
         }) : [];
 
-    return (
-      <div className='card u-card'>
-          <div className='card-body'>
-              <div><strong>Carga de enfriamiento:</strong> {cargaEnfriamiento.toFixed(2)}</div>
-              <div><strong>QS_QL: </strong> {QS_QL.toFixed(2)}</div>
-              <div><strong>CFMnetoSensible: </strong> {CFMnetoSensible.toFixed(2)}</div>
+    const handleBackButton = () => history.push('/');
 
-                {availableEquip.length ? (
-                    ListEq(availableEquip)
-                ) : (
-                    <div className="alert alert-warning" role="alert">
-                        No hay equipos disponibles
+    return (
+        <div className='container-fluid'>
+            <div className='row justify-content-sm-center'>
+                <div className='card u-card col-xl-5 col-lg-6 col-md-8 col-sm-9'>
+                    <div className='card-body'>
+                        <div className='row'>
+                            <BackButton className='col-1' onClick={handleBackButton}/>
+                            <div className='col-2 back-button-text'>Atrás</div>
+                        </div>
+                        <div><strong>Carga de enfriamiento:</strong> {cargaEnfriamiento.toFixed(2)}</div>
+                        <div><strong>QS_QL: </strong> {QS_QL.toFixed(2)}</div>
+                        <div><strong>CFMnetoSensible: </strong> {CFMnetoSensible.toFixed(2)}</div>
+
+                        {availableEquip.length ? (
+                            ListEq(availableEquip)
+                        ) : (
+                            <div className="alert alert-warning" role="alert">
+                                No hay equipos disponibles
+                            </div>
+                        )}
                     </div>
-                )}
-          </div>
-      </div>
+                </div>
+            </div>
+        </div>
   );
 }
 
 const mapStateToProps = state => state.results
 
-export default connect(mapStateToProps)(EquipmentsView);
+export default withRouter(
+    connect(mapStateToProps)(EquipmentsView)
+);

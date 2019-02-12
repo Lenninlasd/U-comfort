@@ -1,43 +1,57 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import ExteriorConditions from './exteriorConditions.js'
 import SizeDataForm from '../containers/calcAreasSizeForm.js';
 import GlassWindows from './glassWindow.js';
+import Walls from './Walls.js';
 import DoorsCounter from './doorsCounter.js';
 import Doors from './doors.js';
+import WallsConfig from './WallsConfig.js';
 import ListOfElements from './listOfElements.js'
 
 const switchViews = (showWindowsProps, defaultView) => {
     switch (showWindowsProps) {
         case 'glassView':
-            return <div><ListOfElements /></div>
+            return <div><ListOfElements /></div>;
         case 'doorView':
-            return <Doors />
+            return <Doors />;
+        case 'wallsView':
+            return <WallsConfig />;
         default:
             return defaultView;
     }
 }
 
-const CardForm = ({ submit, showWindowsProps }) => (
-    <div className='card u-card'>
-        <div className='card-body'>
-            {
-                switchViews(
-                    showWindowsProps,
-                    (<div>
-                        <ExteriorConditions />
-                        <SizeDataForm />
-                        <GlassWindows />
-                        <DoorsCounter />
-                        <button type="button"
-                                className="btn btn-primary"
-                                onClick={submit}>Calcular</button>
-                    </div>)
-                )
-            }
+const CardForm = ({ history, submit, showWindowsProps }) => {
+    const handleClick = () => {
+        submit();
+        history.push('/equipment');
+    };
+
+    return (
+        <div className='card u-card'>
+            <div className='card-body'>
+                {
+                    switchViews(
+                        showWindowsProps,
+                        (<div>
+                            <ExteriorConditions />
+                            <SizeDataForm />
+                            <Walls />
+                            <GlassWindows />
+                            <DoorsCounter />
+                            <button type="button"
+                                    className="btn btn-primary"
+                                    onClick={handleClick}>Calcular</button>
+                        </div>)
+                    )
+                }
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 const mapStateToProps = state => ({
     showWindowsProps: state.appConfig.showWindowsProps
@@ -50,7 +64,7 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(CardForm);
+)(CardForm));

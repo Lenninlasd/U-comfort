@@ -133,10 +133,21 @@ class NewGlassForm extends React.Component {
 
 
 
-export const ListOfElements = ({vidrios, removeItem, handleChange, handleAddButton, handleBackButton}) => {
+export const ListOfElements = ({
+    vidrios,
+    removeItem,
+    handleChange,
+    handleAddButton,
+    handleBackButton
+}) => {
     const inputList = vidrios.map( (vidrio, key) => (
-        <GenerateWindowForm  vidrio={vidrio} removeItem={removeItem} key={key}
-                             keyForm={key}   handleChange={handleChange} />
+        <GenerateWindowForm
+            vidrio={vidrio}
+            removeItem={removeItem}
+            key={key}
+            keyForm={key}
+            handleChange={handleChange}
+        />
     ));
 
     return (

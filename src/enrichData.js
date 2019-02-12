@@ -13,20 +13,20 @@ export default function enrichData(dispatch) {
     dispatch({type: 'SET_CLTD_PARED'});
     dispatch({type: 'SET_LM_PARED'});
     dispatch({ type: 'SET_CLTD_CORRECCION_PARED' });
-    dispatch({type: 'SET_U_PARED', element: 'PAREDES', material: 'MURO EJEMPLO'});
+    dispatch({type: 'SET_U_PARED', element: 'PAREDES', material: 'MURO_EJEMPLO'});
 
     dispatch(calcAreaTecho());
     dispatch({type: 'SET_CLTD_TECHO'});
     dispatch({type: 'SET_LM_TECHO'});
-    dispatch({ type: 'SET_CLTD_CORRECCION_TECHO' });
-    dispatch({type: 'SET_U_TECHO', element: 'TECHO', material: 'CUBIERTA DE EJEMPLO'});
+    dispatch({type: 'SET_CLTD_CORRECCION_TECHO' });
+    dispatch({type: 'SET_U_TECHO', element: 'TECHO', material: 'CUBIERTA_DE_EJEMPLO'});
 
-    dispatch({type: 'SET_U_PUERTA', element: 'PUERTA', material: 'PUERTA EJEMPLO'});
+    dispatch({type: 'SET_U_PUERTA', element: 'PUERTA', material: 'PUERTA_EJEMPLO'});
     dispatch({type: 'CALC_AREA_PUERTA_ALL'});
 
     dispatch({type: 'CALC_AREA_NETA_PARED'});
 
     dispatch(calcAreaPiso());
-    dispatch({type: 'SET_U_PISO', element: 'PISO', material: 'PISO EJEMPLO'});
+    dispatch({type: 'SET_U_PISO', element: 'PISO', material: 'PISO_EJEMPLO'});
     dispatch({type: 'SET_CLTD_CORRECCION_PISO'});
 }

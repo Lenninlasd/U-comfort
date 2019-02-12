@@ -135,10 +135,15 @@ const setCLTD_techo = techoState => {
     });
 };
 
-const setU = (elState, type='TECHO', material='CUBIERTA DE EJEMPLO') => {
+const setU = (
+        elState,
+        type='TECHO',
+        material='CUBIERTA_DE_EJEMPLO'
+    ) => {
+
     const Utechos = TABLA_U_TECHO_PARED_PARTICION.find(
-                        x => x.tipo === type && x.material === material
-                    );
+        x => x.tipo === type && x.material === material
+    );
 
     const setUobj = el => Object.assign({}, el, {
         coeficiente_transferencia_calor: Number(Utechos.U)
@@ -208,7 +213,7 @@ const addNewDoor = (puertasState, data) => {
     data.CLDT_tabla = 27; // ºF Aun no se tiene esa tabla
     data.CLDT_correccion = 22; // ºF
     /** **/
-    let newDoor = setU([data], 'PUERTA', 'PUERTA EJEMPLO');
+    let newDoor = setU([data], 'PUERTA', 'PUERTA_EJEMPLO');
         newDoor = calcAreaAll(newDoor);
     return [
         ...puertasState,

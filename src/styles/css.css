@@ -51,6 +51,9 @@ input.form-control, select.form-control {
     padding: 0px;
     height: 25px;
 }
+.back-button-text {
+    margin: -10px 0 10px 0;
+}
 
 .add-window-button {
     background: #f7f7f7;

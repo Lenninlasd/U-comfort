@@ -530,7 +530,7 @@ export default [
 	{
 		"equipo": "MINISPLIT",
 		"modelo": "SAMSUNG_BORACAY_INVERTER",
-		"capacidad_BTU": "9000",
+		"capacidad_BTU": "8991",
 		"SEER": "",
 		"datos_electricos": "220_1_60",
 		"cfm_max": "300",
