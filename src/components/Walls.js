@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Walls = ({paredes, showWindowsProps}) => (
+const Walls = ({showWindowsProps}) => (
     <div className="glass-windows form-group">
         <div>
             <small>

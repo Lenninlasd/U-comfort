@@ -101,22 +101,30 @@ export default {
                 orientacion: 'N',
                 color: 'D',
                 correcion_color_K: 1,
-                type: 'superficie_oscura'
+                type: 'superficie_oscura',
+                material: 'MURO_EJEMPLO',
+                tipo: 'PAREDES'
             },{
                 orientacion: 'S',
                 color: 'D',
                 correcion_color_K: 1,
-                type: 'superficie_oscura'
+                type: 'superficie_oscura',
+                material: 'MURO_EJEMPLO',
+                tipo: 'PAREDES'
             },{
                 orientacion: 'E',
                 color: 'D',
                 correcion_color_K: 1,
-                type: 'superficie_oscura'
+                type: 'superficie_oscura',
+                material: 'MURO_EJEMPLO',
+                tipo: 'PAREDES'
             },{
                 orientacion: 'W',
                 color: 'D',
                 correcion_color_K: 1,
-                type: 'superficie_oscura'
+                type: 'superficie_oscura',
+                material: 'MURO_EJEMPLO',
+                tipo: 'PAREDES'
             }
         ],
         techo: {

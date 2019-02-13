@@ -177,8 +177,7 @@ const setSC = (glassState, glassDescription='vidrio sencillo') => {
 
 const updatePropGlass = (glassState, data) => (
     glassState.map( (glass, key) => {
-        if (key === data.id) Object.assign({}, glass, data);
-
+        if (key === data.id) return Object.assign({}, glass, data);
         return glass;
     })
 );
@@ -252,6 +251,22 @@ const calcAreaNetaPared = (paredesState, glassState, doors, depth, height, width
     });
 };
 
+const setU_One = (paredesState, data) => {
+    const paredTabla = TABLA_U_TECHO_PARED_PARTICION.find(element => {
+        return element.material === data.material;
+    });
+
+    return paredesState.map( (pared, i) => {
+        if (i === data.id) {
+            return Object.assign({}, pared, {
+                material: paredTabla.material,
+                coeficiente_transferencia_calor: Number(paredTabla.U),
+                tipo: paredTabla.tipo
+            });
+        }
+        return pared;
+    });
+};
 
 export const vidrios = (glassState=[], action, state) => {
 
@@ -304,6 +319,8 @@ export const paredes = (paredesState=[], action, state) => {
         const {depth, height, width, vidrios, puertas} = state;
         return calcAreaNetaPared(paredesState, vidrios, puertas, depth, height, width);
     }
+    case 'SET_U_1_PARED':
+        return setU_One(paredesState, action.data);
     default:
         return paredesState;
     }
