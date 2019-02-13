@@ -10,13 +10,13 @@ const ConfigWalls = ({paredes, handleBackButton}) => {
             </div>
             <div>hello</div>
         </div>
-    )
+    );
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleBackButton: () => dispatch({
-      type: 'HIDE_WINDOWS_PROPS'
-  })
+    handleBackButton: () => dispatch({
+        type: 'HIDE_WINDOWS_PROPS'
+    })
 });
 
 const mapStateToProps = state => ({

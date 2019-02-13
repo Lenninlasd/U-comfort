@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import CanvasElement from './roomCanvasElement';
 import CardForm from './cardForm.js';
@@ -27,4 +27,4 @@ export const App = () => (
             <Route path="/equipment" component={EquipmentsView} />
         </div>
     </Router>
-)
+);

@@ -1,11 +1,11 @@
 import tablaPsat from '../json/Psat_tabla_A4E_simp.js';
 
 export const setCalorPersonas = (
-        n_personas,
-        correcion,
-        tablaCalorPersonas,
-        aplicacion
-    ) => {
+    n_personas,
+    correcion,
+    tablaCalorPersonas,
+    aplicacion
+) => {
     const filtered = tablaCalorPersonas.filter(x => x['APLICACIONES_TIPICAS'] === aplicacion);
     const calorSensible = filtered.find( x => x['CALOR'] === 'CALOR SENSIBLE');
     const calorLatente  = filtered.find( x => x['CALOR'] === 'CALOR LATENTE');
@@ -29,7 +29,7 @@ export const setCalorVentilacion = (n_personas, Δtemp, ΔHumedad, tablaCFM) => 
         sensible: 1.1 * CFMventilacion * Δtemp,
         latente: 0.68 * CFMventilacion * ΔHumedad,
         CFMventilacion
-    }
+    };
 };
 
 export const getCFMCalorNetoSensible = (totalSensible, infiltration) => {
@@ -38,52 +38,52 @@ export const getCFMCalorNetoSensible = (totalSensible, infiltration) => {
 };
 
 export const calculoTotalSensible = (
-        vidrios = [{}],
-        paredes = [{}],
-        techo = {},
-        piso = {},
-        puerta =[{}],
-        factorCorrecion
-    ) => {
-        const getCalorSensibleVidrio = element => {
-            if (!element.length) return 0;
+    vidrios = [{}],
+    paredes = [{}],
+    techo = {},
+    piso = {},
+    puerta =[{}],
+    factorCorrecion
+) => {
+    const getCalorSensibleVidrio = element => {
+        if (!element.length) return 0;
 
-            return element
-                .map(
-                    i => i.SHGF * i.areaNeta * i.SC * i.CLF * factorCorrecion
-                )
-                .reduce( (acc, actual) => acc + actual);
-        };
+        return element
+            .map(
+                i => i.SHGF * i.areaNeta * i.SC * i.CLF * factorCorrecion
+            )
+            .reduce( (acc, actual) => acc + actual);
+    };
 
-        // calculoIndividualSensible
-        const getCalorSensibleArray = element => {
-            if (!element.length) return 0;
+    // calculoIndividualSensible
+    const getCalorSensibleArray = element => {
+        if (!element.length) return 0;
 
-            return element
-                .map(i => getCalorSensible(i))
-                .reduce( (anterior, actual) => anterior + actual );
-        };
+        return element
+            .map(i => getCalorSensible(i))
+            .reduce( (anterior, actual) => anterior + actual );
+    };
 
-        const getCalorSensible = obj => {
-            return obj.coeficiente_transferencia_calor *
-                   obj.areaNeta                        *
-                   obj.CLDT_correccion                 *
+    const getCalorSensible = obj => {
+        return obj.coeficiente_transferencia_calor *
+                   obj.areaNeta                    *
+                   obj.CLDT_correccion             *
                    factorCorrecion;
-        };
+    };
 
-        const calorVidrio          = getCalorSensibleArray(vidrios);
-        const calorPared           = getCalorSensibleArray(paredes);
-        const calorTecho           = getCalorSensible(techo);
-        const calorPiso            = getCalorSensible(piso);
-        const calorPuerta          = getCalorSensibleArray(puerta);
-        const calorRadiacionVidrio = getCalorSensibleVidrio(vidrios);
+    const calorVidrio          = getCalorSensibleArray(vidrios);
+    const calorPared           = getCalorSensibleArray(paredes);
+    const calorTecho           = getCalorSensible(techo);
+    const calorPiso            = getCalorSensible(piso);
+    const calorPuerta          = getCalorSensibleArray(puerta);
+    const calorRadiacionVidrio = getCalorSensibleVidrio(vidrios);
 
-        return calorVidrio  +
-               calorPared   +
-               calorTecho   +
-               calorPiso    +
-               calorPuerta  +
-               calorRadiacionVidrio;
+    return  calorVidrio  +
+            calorPared   +
+            calorTecho   +
+            calorPiso    +
+            calorPuerta  +
+            calorRadiacionVidrio;
 };
 
 export const getCalor_sensible = (vidrios, paredes, perimetro) => {
@@ -127,7 +127,7 @@ const getPresionSat = tempBulbSecRecinto => {
     const tempRatio = (tempBulbSecRecinto - tempLimiteInferior) / 5;
 
     return tempRatio * (presSuperior - presInferior) + presInferior;
-}
+};
 
 export const calcularHumedadEntradaSerp = ( {recinto, exterior}, tempEntradaSerp) => {
 
@@ -143,4 +143,4 @@ export const calcularHumedadEntradaSerp = ( {recinto, exterior}, tempEntradaSerp
         (tempEntradaSerp - recinto.bulbo_seco) *
         (exterior.humedad_especifica - humedadAbsInterior) /
         (exterior.bulbo_seco - recinto.bulbo_seco);
-}
+};

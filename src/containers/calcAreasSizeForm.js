@@ -9,25 +9,25 @@ import { SizeDataForm } from '../components/sizeForm.js';
 const actionSizeForm = target => {
     const value = Number(target.value);
     switch (target.id) {
-        case 'depth':
-            return setDepth(value);
-        case 'width':
-            return setWidth(value);
-        case 'height':
-            return setHeight(value);
+    case 'depth':
+        return setDepth(value);
+    case 'width':
+        return setWidth(value);
+    case 'height':
+        return setHeight(value);
     }
-}
+};
 
 const actionEnclosure = ({value, id}) => {
     switch (id) {
-        case 'tipoRecinto':
-            return setActividadRecinto(value);
-        case 'numberOfPeople':
-            return setNumberOfPeople(Number(value));
-        case 'numberOfLights':
-            return setNumberOfLights(Number(value));
+    case 'tipoRecinto':
+        return setActividadRecinto(value);
+    case 'numberOfPeople':
+        return setNumberOfPeople(Number(value));
+    case 'numberOfLights':
+        return setNumberOfLights(Number(value));
     }
-}
+};
 
 const mapStateToProps = state => ({
     width: state.width,

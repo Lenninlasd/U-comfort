@@ -6,8 +6,7 @@ import BackButton from './backButton.js';
 
 const btuList = [...new Set(
     LISTADO_DE_EQUIPOS.map(eq => Number(eq.capacidad_BTU) )
-)]
-.sort( (a, b) => a - b);
+)].sort( (a, b) => a - b);
 
 const chooseBTU = (Q, btuList) => {
     for (let [i, q] of btuList.entries() ) {
@@ -20,21 +19,21 @@ const chooseBTU = (Q, btuList) => {
 
 const ListEq = equipments => {
     return (
-        <ul className="list-group list-group-flush">
-        {equipments.map( (eq, index) => (
-            <li className='list-group-item' key={index + eq.marca + eq.modelo + eq.proveedor}>
-                <div><strong>SEER:</strong> {eq.SEER}</div>
-                <div><strong>Capacidad:</strong> {eq.capacidad_BTU} btu</div>
-                <div><strong>cfm_max:</strong> {eq.cfm_max}</div>
-                <div><strong>conex_liquido:</strong> {eq.conex_liquido}</div>
-                <div><strong>onex_succion:</strong> {eq.conex_succion}</div>
-                <div><strong>datos_electricos:</strong> {eq.datos_electricos}</div>
-                <div><strong>Equipo:</strong> {eq.equipo}</div>
-                <div><strong>Marca:</strong> {eq.marca}</div>
-                <div><strong>Modelo:</strong> {eq.modelo}</div>
-                <div><strong>Proveedor:</strong> {eq.proveedor}</div>
-            </li>
-        ))}
+        <ul className='list-group list-group-flush'>
+            {equipments.map( (eq, index) => (
+                <li className='list-group-item' key={index + eq.marca + eq.modelo + eq.proveedor}>
+                    <div><strong>SEER:</strong> {eq.SEER}</div>
+                    <div><strong>Capacidad:</strong> {eq.capacidad_BTU} btu</div>
+                    <div><strong>cfm_max:</strong> {eq.cfm_max}</div>
+                    <div><strong>conex_liquido:</strong> {eq.conex_liquido}</div>
+                    <div><strong>onex_succion:</strong> {eq.conex_succion}</div>
+                    <div><strong>datos_electricos:</strong> {eq.datos_electricos}</div>
+                    <div><strong>Equipo:</strong> {eq.equipo}</div>
+                    <div><strong>Marca:</strong> {eq.marca}</div>
+                    <div><strong>Modelo:</strong> {eq.modelo}</div>
+                    <div><strong>Proveedor:</strong> {eq.proveedor}</div>
+                </li>
+            ))}
         </ul>
     );
 };
@@ -66,7 +65,7 @@ const EquipmentsView = ({history, cargaEnfriamiento, QS_QL, CFMnetoSensible}) =>
                         {availableEquip.length ? (
                             ListEq(availableEquip)
                         ) : (
-                            <div className="alert alert-warning" role="alert">
+                            <div className='alert alert-warning' role='alert'>
                                 No hay equipos disponibles
                             </div>
                         )}
@@ -74,10 +73,10 @@ const EquipmentsView = ({history, cargaEnfriamiento, QS_QL, CFMnetoSensible}) =>
                 </div>
             </div>
         </div>
-  );
-}
+    );
+};
 
-const mapStateToProps = state => state.results
+const mapStateToProps = state => state.results;
 
 export default withRouter(
     connect(mapStateToProps)(EquipmentsView)

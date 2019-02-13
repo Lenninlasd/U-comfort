@@ -5,7 +5,7 @@ import {
 } from './prepareData.js';
 
 import {depth, width, height, numberOfPeople} from './size.js';
-import { appConfig } from './config.js'
+import { appConfig } from './config.js';
 
 export default (state = {}, action) => ({
     vidrios: vidrios(state.vidrios, action, state),

@@ -7,7 +7,7 @@ const getNominalThickness = glassType => {
         tablaSC.filter(i => i.tipo_de_vidrio === glassType) : tablaSC;
 
     const thickList = filterGlass.map(i => i.espesor_nominal)
-                                 .filter(i => i !== '-');
+        .filter(i => i !== '-');
     return uniqueList(thickList);
 };
 
@@ -20,4 +20,4 @@ const getTypeofGlass = () => typeofGlass;
 export default {
     getNominalThickness,
     getTypeofGlass
-}
+};

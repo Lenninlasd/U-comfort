@@ -6,7 +6,7 @@ import condicionesClimaticas from '../../json/condiciones_climaticas';
 
 const ExteriorConditions = ({exterior, handleChange}) => {
     const optionList = condicionesClimaticas.map( item => {
-        return  <option key={item.id} value={item.id}>{item.ciudad}</option>
+        return  <option key={item.id} value={item.id}>{item.ciudad}</option>;
     });
 
     return (
@@ -15,17 +15,17 @@ const ExteriorConditions = ({exterior, handleChange}) => {
                 <div className="col-md-12 col-sm-12">
                     <small><strong>CIUDAD:</strong></small>
                     <select id='ciudad'
-                            className='form-control' 
-                            onChange={handleChange}
-                            value={exterior.id}>
-                            <option hidden >CIUDAD</option>
-                            {optionList}
+                        className='form-control' 
+                        onChange={handleChange}
+                        value={exterior.id}>
+                        <option hidden >CIUDAD</option>
+                        {optionList}
                     </select>
                 </div>
             </div>
         </form>
     );
-}
+};
 
 const mapStateToProps = state => ({
     exterior: state.exterior
@@ -37,9 +37,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch({
             type: 'SET_EXTERIOR_CONDITIONS',
             exterior: condicionesClimaticas[value]
-        })
+        });
     }
-})
+});
 
 export default connect(
     mapStateToProps,

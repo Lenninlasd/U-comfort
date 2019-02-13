@@ -1,5 +1,5 @@
 const fs = require('fs');
-const d3 = require("d3");
+const d3 = require('d3');
 const path = require('path');
 global.fetch = require('node-fetch');
 
@@ -22,6 +22,7 @@ function writeJson(csvName) {
     //es6 export
     const jsondataStr = 'export default ' + JSON.stringify(jsondata, undefined, '\t');
     fs.writeFileSync(targetPath, jsondataStr);
+    /*eslint no-console: ['error', { allow: ['log', 'warn', 'error'] }] */
     console.log(targetName + ' generated!');
 }
 

@@ -43,10 +43,10 @@ function createBulbLight(size, lights) {
     }
 
     const bulbMat = new THREE.MeshStandardMaterial( {
-                    emissive: 0xffffee,
-                    emissiveIntensity: 1,
-                    color: 0x000000
-                });
+        emissive: 0xffffee,
+        emissiveIntensity: 1,
+        color: 0x000000
+    });
 
     const groupGeometry = createBulbLightGeometry(size, lights);
     const bulbLight = new THREE.PointLight( 0xffee88, 0.5, lights + 50, 1.5 );
@@ -61,7 +61,7 @@ function createHemisphereLight() {
     hemiLight.color.setHSL( 0.6, 0.1, 0.6 );
     hemiLight.position.set( 0, 100, 0 );
     const hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 10, 0x000000 );
-    return {hemiLight, hemiLightHelper}
+    return {hemiLight, hemiLightHelper};
 }
 
 function createRectangleGeometry(size){
@@ -134,7 +134,7 @@ function initCube(id, size, numberOfLights) {
     renderer.setClearColor( 0x000000, 0);
 
     renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( elementSize.width,elementSize.height);
+    renderer.setSize( elementSize.width,elementSize.height);
     renderer.render( scene, camera );
 
     element.appendChild( renderer.domElement );
@@ -152,7 +152,7 @@ function initCube(id, size, numberOfLights) {
     function onWindowResize() {
         const {width, height} = getSize(element);
         camera.aspect = width/height;
-		camera.updateProjectionMatrix();
+        camera.updateProjectionMatrix();
         renderer.setSize( width, height);
     }
 
@@ -170,7 +170,7 @@ const CompassElement = ({ angle }) => {
             <img height="60" width="60" src="./img/compass.svg"/>
         </div>
     );
-}
+};
 
 class CanvasElement extends  React.Component {
     constructor(props){
@@ -215,10 +215,10 @@ class CanvasElement extends  React.Component {
 
     changeOrbit(event) {
         const rotationZ = event.target.object.rotation.z;
-        const angle = (rotationZ * 180) / Math.PI
-        this.setState(state => ({
+        const angle = (rotationZ * 180) / Math.PI;
+        this.setState({
             angle
-        }));
+        });
     }
 
     render(){
@@ -234,12 +234,12 @@ class CanvasElement extends  React.Component {
 }
 
 const mapStateToProps = state => ({
-  size: {
-      width: state.width,
-      height: state.height,
-      depth: state.depth
-  },
-  numberOfLights: state.luces.numberOfLights
-})
+    size: {
+        width: state.width,
+        height: state.height,
+        depth: state.depth
+    },
+    numberOfLights: state.luces.numberOfLights
+});
 
 export default connect(mapStateToProps)(CanvasElement);

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
 import rootReducer from './reducers/root.js';
 import initState from './model.js';
 import { App } from './components/App.js';
-import enrichData from "./enrichData.js";
+import enrichData from './enrichData.js';
 
 const store = createStore(rootReducer, {
     vidrios: initState.elementos.vidrios,

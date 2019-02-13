@@ -4,15 +4,15 @@ import BackButton from './backButton.js';
 
 const InputDoorProps = props => (
     <input id={`door-${props.type}-${props.tag}`} data-group={props.tag}
-           data-type={props.type} className='form-control' type="number"
-           value={props.value} placeholder={props.title} onChange={props.handleChange}
-           min='0' required/>
+        data-type={props.type} className='form-control' type="number"
+        value={props.value} placeholder={props.title} onChange={props.handleChange}
+        min='0' required/>
 );
 
 const SelectDoorProps = props => (
     <select id={`door-${props.type}-${props.tag}`} data-group={props.tag}
-            data-type={props.type} className='form-control' onChange={props.handleChange}
-            value={props.value} required>
+        data-type={props.type} className='form-control' onChange={props.handleChange}
+        value={props.value} required>
         <option hidden value=''>{props.title}</option>
         {props.optionList}
     </select>
@@ -39,18 +39,18 @@ const GenerateDoors = ({ puerta={}, keyForm='', removeItem, handleChange }) => {
                 <div className='col'>
                     <small><strong>ORIENTACIÓN:</strong></small>
                     <SelectDoorProps tag={keyForm} value={puerta.orientacion} type='orientacion'
-                                     handleChange={handleChange} title='Orientación'
+                        handleChange={handleChange} title='Orientación'
                         optionList={[
                             <option key='N' value='N'>N</option>,
                             <option key='S' value='S'>S</option>,
                             <option key='E' value='E'>E</option>,
                             <option key='W' value='W'>W</option>,
                         ]} />
-                    </div>
+                </div>
             </div>
         </div>
     );
-}
+};
 
 class NewDoorForm extends React.Component {
     constructor(props) {
@@ -63,13 +63,13 @@ class NewDoorForm extends React.Component {
 
     handleChange(event) {
         const el = event.target;
-        const type = el.dataset.type
+        const type = el.dataset.type;
         this.setState({[type]: el.value});
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.submit(this.state)
+        this.props.submit(this.state);
         this.setState(this.defaultState);
     }
 
@@ -89,7 +89,7 @@ const Doors = ({puertas, handleChange, handleBackButton, removeItem, handleAddBu
 
     const inputList = puertas.map( (puerta, key) => (
         <GenerateDoors puerta={puerta} keyForm={key} key={key}
-                       removeItem={removeItem} handleChange={handleChange} />
+            removeItem={removeItem} handleChange={handleChange} />
     ));
 
     return (
@@ -101,14 +101,14 @@ const Doors = ({puertas, handleChange, handleBackButton, removeItem, handleAddBu
             { inputList }
             <NewDoorForm submit={handleAddButton}/>
         </div>
-    )
-}
+    );
+};
 
 const getDispatchData = (event, dispatch) => {
     const el = event.target;
     const value = el.type === 'number' ? Number(el.value) : el.value;
     const id = Number(el.dataset.group);
-    const type = el.dataset.type
+    const type = el.dataset.type;
 
     dispatch({
         type: 'UPDATE_PROP_PUERTA',
@@ -120,7 +120,7 @@ const getDispatchData = (event, dispatch) => {
         id
     });
     dispatch({type: 'CALC_AREA_NETA_PARED'});
-}
+};
 
 const mapStateToProps = state => ({
     puertas: state.puertas
