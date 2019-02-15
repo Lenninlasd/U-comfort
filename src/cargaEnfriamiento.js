@@ -20,7 +20,7 @@ const getTempEntradaSerpentin = (CFMnetoSensible, CFMventilacion, exterior, reci
 
 const calorTotal = (
   tempEntradaSerpentin,
-  CFMnetoSensible, //=11189,
+  CFMnetoSensible, //= 11189,
   recinto,
   humedadEntradaSerp
 ) => {
@@ -55,7 +55,7 @@ export const getCargaEnfriamiento = state => {
   )
 
   const calorVentilacion = setCalorVentilacion(state.numberOfPeople, Δtemp, ΔHumedad, tablaCFM)
-  //Calculo final
+  // Calculo final
   const sensibleEl = calculoTotalSensible(
     state.vidrios,
     state.paredes,

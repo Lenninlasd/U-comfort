@@ -18,7 +18,7 @@ export const BufferGeometryUtils = {
       attributes.normal === undefined ||
       attributes.uv === undefined
     ) {
-      /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
+      /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
       console.warn(
         'THREE.BufferGeometry: Missing required attributes (index, position, normal or uv) in BufferGeometry.computeTangents()'
       )

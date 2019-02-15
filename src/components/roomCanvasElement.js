@@ -94,7 +94,7 @@ function initCube(id, size, numberOfLights) {
   const elementSize = getSize(element)
   const camera = new THREE.PerspectiveCamera(45, elementSize.width / elementSize.height, 1, 1000)
   camera.position.z = 100
-  camera.position.x = 0 //100 * Math.sin( 30 );
+  camera.position.x = 0 // 100 * Math.sin( 30 );
   camera.position.y = 100
 
   const scene = new THREE.Scene()
@@ -188,7 +188,7 @@ class CanvasElement extends React.Component {
   updateLights(size, numberOfLights = 0) {
     const lightGeometry = createBulbLightGeometry(size, numberOfLights)
     const lightDistance = numberOfLights > 0 ? numberOfLights + 50 : 0
-    const visibleLight = numberOfLights > 0 ? true : false
+    const visibleLight = numberOfLights > 0
 
     this.meshes.bulbLight.children[0].geometry.dispose()
     this.meshes.bulbLight.children[0].geometry = lightGeometry

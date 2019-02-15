@@ -317,7 +317,7 @@ export const techo = (techoState = {}, action, state) => {
     case 'SET_CLTD_TECHO':
       return setCLTD_techo(techoState)
     case 'SET_CLTD_CORRECCION_TECHO': {
-      /*eslint no-console: ["error", { allow: ["error"] }] */
+      /* eslint no-console: ["error", { allow: ["error"] }] */
       if (!techoState.correcion_latitud_mes_LM) {
         console.error(
           `For CLDT_correccion in techo,
