@@ -12,61 +12,63 @@ import WallsConfig from './WallsConfig.js';
 import ListOfElements from './listOfElements.js';
 
 const switchViews = (showWindowsProps, defaultView) => {
-    switch (showWindowsProps) {
+  switch (showWindowsProps) {
     case 'glassView':
-        return (<div>
-            <ListOfElements />
-        </div>);
+      return (
+        <div>
+          <ListOfElements />
+        </div>
+      );
     case 'doorView':
-        return <Doors />;
+      return <Doors />;
     case 'wallsView':
-        return <WallsConfig />;
+      return <WallsConfig />;
     default:
-        return defaultView;
-    }
+      return defaultView;
+  }
 };
 
 const CardForm = ({ history, submit, showWindowsProps }) => {
-    const handleClick = () => {
-        submit();
-        history.push('/equipment');
-    };
+  const handleClick = () => {
+    submit();
+    history.push('/equipment');
+  };
 
-    return (
-        <div className='card u-card'>
-            <div className='card-body'>
-                {
-                    switchViews(
-                        showWindowsProps,
-                        (<div>
-                            <ExteriorConditions />
-                            <SizeDataForm />
-                            <Walls />
-                            <GlassWindows />
-                            <DoorsCounter />
-                            <button type="button"
-                                className="btn btn-primary"
-                                onClick={handleClick}>Calcular</button>
-                        </div>)
-                    )
-                }
-            </div>
-        </div>
-    );
+  return (
+    <div className="card u-card">
+      <div className="card-body">
+        {switchViews(
+          showWindowsProps,
+          <div>
+            <ExteriorConditions />
+            <SizeDataForm />
+            <Walls />
+            <GlassWindows />
+            <DoorsCounter />
+            <button type="button" className="btn btn-primary" onClick={handleClick}>
+              Calcular
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 const mapStateToProps = state => ({
-    showWindowsProps: state.appConfig.showWindowsProps
+  showWindowsProps: state.appConfig.showWindowsProps
 });
 
 const mapDispatchToProps = dispatch => ({
-    submit: () => {
-        dispatch({type: 'CALC_AREA_NETA_PARED'});
-        dispatch({type: 'SET_CARGA_EMFRIAMIENTO'});
-    }
+  submit: () => {
+    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    dispatch({ type: 'SET_CARGA_EMFRIAMIENTO' });
+  }
 });
 
-export default withRouter(connect(
+export default withRouter(
+  connect(
     mapStateToProps,
     mapDispatchToProps
-)(CardForm));
+  )(CardForm)
+);

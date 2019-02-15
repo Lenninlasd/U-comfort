@@ -1,0 +1,4 @@
+dist/*
+json/*
+libs/*
+package.json
