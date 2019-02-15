@@ -41,111 +41,115 @@ MVP:
 
 */
 
-
 export default {
-    numberOfPeople: 60,
-    perimetro: 300,
-    height: 14,
-    depth: 90,
-    width: 60,
-    exterior: {
-        id: 7,
-        ciudad: 'Indianapolis',
-        latitud : 39,
-        bulbo_seco: 90,
-        bulbo_humedo: 74,
-        humedad_especifica: 101, // formula pendiente
-        mes_carga_de_enfriamiento: 'julio',
-        rango_diario: 22 // Fahrenheit
-    },
-    recinto: {
+  numberOfPeople: 60,
+  perimetro: 300,
+  height: 14,
+  depth: 90,
+  width: 60,
+  exterior: {
+    id: 7,
+    ciudad: 'Indianapolis',
+    latitud: 39,
+    bulbo_seco: 90,
+    bulbo_humedo: 74,
+    humedad_especifica: 101, // formula pendiente
+    mes_carga_de_enfriamiento: 'julio',
+    rango_diario: 22 // Fahrenheit
+  },
+  recinto: {
     // Estas condiciones no varian
-        bulbo_seco: 78,
-        humedad_relativa: 50,
-        humedad_especifica: 72,
-        actividad_recinto: 'TIENDAS MINORISTAS, BANCOS'
-    },
-    cargaPico: {
-        fecha: '21-07-xxxx', // julio, no va a cambiar
-        hora: 17, // no va a cambiar
-        promedio: 79, // Fahrenheit
-    },
-    elementos:  {
+    bulbo_seco: 78,
+    humedad_relativa: 50,
+    humedad_especifica: 72,
+    actividad_recinto: 'TIENDAS MINORISTAS, BANCOS'
+  },
+  cargaPico: {
+    fecha: '21-07-xxxx', // julio, no va a cambiar
+    hora: 17, // no va a cambiar
+    promedio: 79 // Fahrenheit
+  },
+  elementos: {
     /* md`## Elementos del cuarto. Materiales en el cual se esta haciendo la conducción de exterior a interior.` */
-        vidrios: [
-            {
-                orientacion: 'W',
-                sombra: 'no', // usuario
-                width: 83,
-                height: 10,
-                espesor_nominal: '3/16 a 1/4',
-                tipo_de_vidrio: 'absorbente de calor'
-            },{
-                orientacion: 'W',
-                sombra: 'no',
-                width: 7,
-                height: 6,
-                espesor_nominal: '3/32 a 1/4',
-                tipo_de_vidrio: 'claro'
-            },{
-                orientacion: 'E',
-                sombra: 'no',
-                width: 7,
-                height: 6,
-                espesor_nominal: '3/32 a 1/4',
-                tipo_de_vidrio: 'claro'
-            }
-        ],
-        paredes: [
-            {
-                orientacion: 'N',
-                color: 'D',
-                correcion_color_K: 1,
-                type: 'superficie_oscura',
-                material: 'MURO_EJEMPLO',
-                tipo: 'PAREDES'
-            },{
-                orientacion: 'S',
-                color: 'D',
-                correcion_color_K: 1,
-                type: 'superficie_oscura',
-                material: 'MURO_EJEMPLO',
-                tipo: 'PAREDES'
-            },{
-                orientacion: 'E',
-                color: 'D',
-                correcion_color_K: 1,
-                type: 'superficie_oscura',
-                material: 'MURO_EJEMPLO',
-                tipo: 'PAREDES'
-            },{
-                orientacion: 'W',
-                color: 'D',
-                correcion_color_K: 1,
-                type: 'superficie_oscura',
-                material: 'MURO_EJEMPLO',
-                tipo: 'PAREDES'
-            }
-        ],
-        techo: {
-            color: 'D',
-            correcion_color_K: 1,
-            type: 'superficie_oscura'
-        },
-        piso: {},
-        puertas: [
-            {
-                width: 6,
-                height: 7,
-                orientacion: 'E',
-                CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
-                CLDT_correccion: 22, // ºF
-            }
-        ],
-        luces: {
-            numberOfLights: 135,
-            wattsPorLampara: 120,
-            factConv: 3.41
-        }
+    vidrios: [
+      {
+        orientacion: 'W',
+        sombra: 'no', // usuario
+        width: 83,
+        height: 10,
+        espesor_nominal: '3/16 a 1/4',
+        tipo_de_vidrio: 'absorbente de calor'
+      },
+      {
+        orientacion: 'W',
+        sombra: 'no',
+        width: 7,
+        height: 6,
+        espesor_nominal: '3/32 a 1/4',
+        tipo_de_vidrio: 'claro'
+      },
+      {
+        orientacion: 'E',
+        sombra: 'no',
+        width: 7,
+        height: 6,
+        espesor_nominal: '3/32 a 1/4',
+        tipo_de_vidrio: 'claro'
+      }
+    ],
+    paredes: [
+      {
+        orientacion: 'N',
+        color: 'D',
+        correcion_color_K: 1,
+        type: 'superficie_oscura',
+        material: 'MURO_EJEMPLO',
+        tipo: 'PAREDES'
+      },
+      {
+        orientacion: 'S',
+        color: 'D',
+        correcion_color_K: 1,
+        type: 'superficie_oscura',
+        material: 'MURO_EJEMPLO',
+        tipo: 'PAREDES'
+      },
+      {
+        orientacion: 'E',
+        color: 'D',
+        correcion_color_K: 1,
+        type: 'superficie_oscura',
+        material: 'MURO_EJEMPLO',
+        tipo: 'PAREDES'
+      },
+      {
+        orientacion: 'W',
+        color: 'D',
+        correcion_color_K: 1,
+        type: 'superficie_oscura',
+        material: 'MURO_EJEMPLO',
+        tipo: 'PAREDES'
+      }
+    ],
+    techo: {
+      color: 'D',
+      correcion_color_K: 1,
+      type: 'superficie_oscura'
+    },
+    piso: {},
+    puertas: [
+      {
+        width: 6,
+        height: 7,
+        orientacion: 'E',
+        CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
+        CLDT_correccion: 22 // ºF
+      }
+    ],
+    luces: {
+      numberOfLights: 135,
+      wattsPorLampara: 120,
+      factConv: 3.41
     }
+  }
 };
