@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import tablaCalorPersonas from '../../json/calor_personas_6_11';
 
 const apliacionesTipicas = [... new Set(
@@ -69,3 +70,13 @@ export const SizeDataForm = props => (
         </div>
     </form>
 );
+SizeDataForm.propTypes = {
+    depth:              PropTypes.number.isRequired,
+    height:             PropTypes.number.isRequired,
+    width:              PropTypes.number.isRequired,
+    numberOfLights:     PropTypes.number.isRequired,
+    numberOfPeople:     PropTypes.number.isRequired,
+    onSizeChange:       PropTypes.func.isRequired,
+    onEnclosureChange:  PropTypes.func.isRequired,
+    actividadRecinto:   PropTypes.string.isRequired
+};

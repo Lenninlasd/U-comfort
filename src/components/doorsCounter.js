@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const DoorsCounter = ({ puertas, showWindowsProps }) => (
     <div className="glass-windows form-group">
@@ -16,6 +17,10 @@ const DoorsCounter = ({ puertas, showWindowsProps }) => (
         </div>
     </div>
 );
+DoorsCounter.propTypes = {
+    puertas: PropTypes.array.isRequired,
+    showWindowsProps: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
     puertas: state.puertas

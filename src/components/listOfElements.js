@@ -1,7 +1,16 @@
 import React from 'react';
 import u from '../reactData';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import BackButton from './backButton.js';
+
+const formPropTypes = {
+    type:           PropTypes.string.isRequired,
+    tag:            PropTypes.number.isRequired,
+    handleChange:   PropTypes.func.isRequired,
+    value:          PropTypes.number.isRequired,
+    title:          PropTypes.string.isRequired
+};
 
 const SelectWinProps = props => (
     <select id={`window-${props.type}-${props.tag}`} data-group={props.tag}
@@ -11,6 +20,11 @@ const SelectWinProps = props => (
         {props.optionList}
     </select>
 );
+SelectWinProps.propTypes = { 
+    ...formPropTypes,
+    value: PropTypes.string.isRequired,
+    optionList: PropTypes.array.isRequired
+};
 
 const InputWinProps = props => (
     <input id={`window-${props.type}-${props.tag}`} data-group={props.tag}
@@ -18,6 +32,7 @@ const InputWinProps = props => (
         value={props.value} placeholder={props.title} onChange={props.handleChange}
         min='0' required/>
 );
+InputWinProps.propTypes = { ...formPropTypes };
 
 const typeofGlass = u.getTypeofGlass().map(el =>
     <option key={el} value={el}>{el}</option>
@@ -95,12 +110,29 @@ const GenerateWindowForm = ({ vidrio={}, keyForm='', removeItem, handleChange })
         </div>
     );
 };
+GenerateWindowForm.propTypes = {
+    vidrio: PropTypes.shape({
+        height: PropTypes.number.isRequired,
+        width:  PropTypes.number.isRequired,
+        orientacion: PropTypes.string.isRequired,
+        sombra: PropTypes.string.isRequired,
+        tipo_de_vidrio: PropTypes.string.isRequired
+    }).isRequired,
+    keyForm:      PropTypes.number.isRequired,
+    removeItem:   PropTypes.func,
+    handleChange: PropTypes.func.isRequired
+};
 
 class NewGlassForm extends React.Component {
     constructor(props) {
         super(props);
         this.defaultState = {
-            width: '', height: '', orientacion: '', sombra: '', espesor_nominal: '', tipo_de_vidrio:''
+            width: 0,
+            height: 0,
+            orientacion: '',
+            sombra: '',
+            espesor_nominal: '',
+            tipo_de_vidrio:''
         };
         this.state = this.defaultState;
         this.handleChange = this.handleChange.bind(this);
@@ -130,7 +162,9 @@ class NewGlassForm extends React.Component {
         );
     }
 }
-
+NewGlassForm.propTypes = {
+    submit: PropTypes.func.isRequired
+};
 
 
 export const ListOfElements = ({
@@ -160,6 +194,13 @@ export const ListOfElements = ({
             <NewGlassForm submit={handleAddButton}/>
         </div>
     );
+};
+ListOfElements.propTypes = {
+    vidrios:          PropTypes.array.isRequired,
+    removeItem:       PropTypes.func.isRequired,
+    handleChange:     PropTypes.func.isRequired,
+    handleAddButton:  PropTypes.func.isRequired,
+    handleBackButton: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

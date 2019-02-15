@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import BackButton from './backButton.js';
 
 import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
@@ -18,6 +19,14 @@ const SelectWinProps = props => (
         {props.optionList}
     </select>
 );
+SelectWinProps.propTypes = {
+    type:           PropTypes.string.isRequired,
+    tag:            PropTypes.number.isRequired,
+    handleChange:   PropTypes.func.isRequired,
+    value:          PropTypes.string.isRequired,
+    title:          PropTypes.string.isRequired,
+    optionList:     PropTypes.array.isRequired
+};
 
 const GenerateWallForm = ({ pared={}, keyForm='', handleChange }) => {
 
@@ -45,6 +54,14 @@ const GenerateWallForm = ({ pared={}, keyForm='', handleChange }) => {
         </div>
     );
 };
+GenerateWallForm.propTypes = {
+    pared: PropTypes.shape({
+        orientacion: PropTypes.string.isRequired,
+        material:    PropTypes.string.isRequired
+    }).isRequired, 
+    keyForm:      PropTypes.number.isRequired,
+    handleChange: PropTypes.func.isRequired,
+};
 
 const ConfigWalls = ({paredes, handleBackButton, handleChange}) => {
     return (
@@ -63,6 +80,11 @@ const ConfigWalls = ({paredes, handleBackButton, handleChange}) => {
             ))}
         </div>
     );
+};
+ConfigWalls.propTypes = {
+    paredes:          PropTypes.array.isRequired,
+    handleBackButton: PropTypes.func.isRequired,
+    handleChange:     PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({

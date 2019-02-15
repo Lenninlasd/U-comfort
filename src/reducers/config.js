@@ -2,11 +2,11 @@ export const appConfig = (appConfig={}, action) => {
     switch (action.type) {
     case 'SHOW_WINDOWS_PROPS':
         return Object.assign({}, appConfig, {
-            showWindowsProps: action.view
+            windowsView: action.view
         });
     case 'HIDE_WINDOWS_PROPS':
         return Object.assign({}, appConfig, {
-            showWindowsProps: false
+            windowsView: null
         });
     default:
         return appConfig;

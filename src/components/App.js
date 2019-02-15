@@ -18,8 +18,6 @@ const MainView = () => (
     </div>
 );
 
-
-
 export const App = () => (
     <Router>
         <div>
