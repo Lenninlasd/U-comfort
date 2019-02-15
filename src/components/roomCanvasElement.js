@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { BufferGeometryUtils } from '../../libs/BufferGeometryUtils.js';
 
 const OrbitControls = require('three-orbit-controls')(THREE);
@@ -171,6 +172,9 @@ const CompassElement = ({ angle }) => {
     </div>
   );
 };
+CompassElement.propTypes = {
+  angle: PropTypes.number.isRequired
+};
 
 class CanvasElement extends React.Component {
   constructor(props) {
@@ -228,6 +232,15 @@ class CanvasElement extends React.Component {
     );
   }
 }
+CanvasElement.propTypes = {
+  id: PropTypes.string.isRequired,
+  size: PropTypes.shape({
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    depth: PropTypes.number.isRequired
+  }).isRequired,
+  numberOfLights: PropTypes.number.isRequired
+};
 
 const mapStateToProps = state => ({
   size: {

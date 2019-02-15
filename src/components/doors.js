@@ -1,6 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import BackButton from './backButton.js';
+import PropTypes from 'prop-types';
+
+const formPropTypes = {
+  type: PropTypes.string.isRequired,
+  tag: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  value: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired
+};
 
 const InputDoorProps = props => (
   <input
@@ -16,6 +25,7 @@ const InputDoorProps = props => (
     required
   />
 );
+InputDoorProps.propTypes = { ...formPropTypes };
 
 const SelectDoorProps = props => (
   <select
@@ -33,6 +43,11 @@ const SelectDoorProps = props => (
     {props.optionList}
   </select>
 );
+SelectDoorProps.propTypes = {
+  ...formPropTypes,
+  value: PropTypes.string.isRequired,
+  optionList: PropTypes.array.isRequired
+};
 
 const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) => {
   const deleteItem =
@@ -101,11 +116,21 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
     </div>
   );
 };
+GenerateDoors.propTypes = {
+  puerta: PropTypes.shape({
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    orientacion: PropTypes.string.isRequired
+  }).isRequired,
+  keyForm: PropTypes.number.isRequired,
+  removeItem: PropTypes.func,
+  handleChange: PropTypes.func.isRequired
+};
 
 class NewDoorForm extends React.Component {
   constructor(props) {
     super(props);
-    this.defaultState = { width: '', height: '', orientacion: '' };
+    this.defaultState = { width: 0, height: 0, orientacion: '' };
     this.state = this.defaultState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -114,7 +139,8 @@ class NewDoorForm extends React.Component {
   handleChange(event) {
     const el = event.target;
     const type = el.dataset.type;
-    this.setState({ [type]: el.value });
+    const value = type === 'orientacion' ? el.value : Number(el.value);
+    this.setState({ [type]: value });
   }
 
   handleSubmit(event) {
@@ -136,6 +162,9 @@ class NewDoorForm extends React.Component {
     );
   }
 }
+NewDoorForm.propTypes = {
+  submit: PropTypes.func.isRequired
+};
 
 const Doors = ({ puertas, handleChange, handleBackButton, removeItem, handleAddButton }) => {
   const inputList = puertas.map((puerta, key) => (
@@ -160,6 +189,13 @@ const Doors = ({ puertas, handleChange, handleBackButton, removeItem, handleAddB
       <NewDoorForm submit={handleAddButton} />
     </div>
   );
+};
+Doors.propTypes = {
+  puertas: PropTypes.array.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleBackButton: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired,
+  handleAddButton: PropTypes.func.isRequired
 };
 
 const getDispatchData = (event, dispatch) => {

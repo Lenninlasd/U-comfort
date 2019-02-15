@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const BackButton = ({ onClick }) => {
   return (
@@ -10,6 +11,9 @@ const BackButton = ({ onClick }) => {
       <strong>&#8592;</strong>
     </button>
   );
+};
+BackButton.propTypes = {
+  onClick: PropTypes.func.isRequired
 };
 
 export default BackButton;

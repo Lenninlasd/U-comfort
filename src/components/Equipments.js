@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import LISTADO_DE_EQUIPOS from '../../json/Listado_de_equipos.js';
 import BackButton from './backButton.js';
 
@@ -100,6 +101,12 @@ const EquipmentsView = ({ history, cargaEnfriamiento, QS_QL, CFMnetoSensible }) 
       </div>
     </div>
   );
+};
+EquipmentsView.propTypes = {
+  history: PropTypes.object.isRequired,
+  cargaEnfriamiento: PropTypes.number.isRequired,
+  QS_QL: PropTypes.number.isRequired,
+  CFMnetoSensible: PropTypes.number.isRequired
 };
 
 const mapStateToProps = state => state.results;

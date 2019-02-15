@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Walls = ({ showWindowsProps }) => (
   <div className="glass-windows form-group">
@@ -16,6 +17,9 @@ const Walls = ({ showWindowsProps }) => (
     </div>
   </div>
 );
+Walls.propTypes = {
+  showWindowsProps: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => ({
   paredes: state.paredes

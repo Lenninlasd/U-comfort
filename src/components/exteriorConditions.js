@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // Latidud
 import condicionesClimaticas from '../../json/condiciones_climaticas';
@@ -28,6 +29,12 @@ const ExteriorConditions = ({ exterior, handleChange }) => {
       </div>
     </form>
   );
+};
+ExteriorConditions.propTypes = {
+  exterior: PropTypes.shape({
+    id: PropTypes.number.isRequired
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

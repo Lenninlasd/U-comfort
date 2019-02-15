@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack --mode production",
+    "build": "webpack --mode production",
     "dev": "webpack-dev-server --disable-host-check --mode development --compress --open",
     "start": "http-server -p 8000",
     "test": "jest",
@@ -45,6 +45,7 @@
     "jest": "^23.6.0",
     "lint-staged": "^8.1.4",
     "node-fetch": "^2.1.2",
+    "prop-types": "^15.7.2",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
     "webpack": "^4.29.2",

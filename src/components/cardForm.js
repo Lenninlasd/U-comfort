@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import ExteriorConditions from './exteriorConditions.js';
 import SizeDataForm from '../containers/calcAreasSizeForm.js';
@@ -11,8 +12,8 @@ import Doors from './doors.js';
 import WallsConfig from './WallsConfig.js';
 import ListOfElements from './listOfElements.js';
 
-const switchViews = (showWindowsProps, defaultView) => {
-  switch (showWindowsProps) {
+const switchViews = (windowsView, defaultView) => {
+  switch (windowsView) {
     case 'glassView':
       return (
         <div>
@@ -28,7 +29,7 @@ const switchViews = (showWindowsProps, defaultView) => {
   }
 };
 
-const CardForm = ({ history, submit, showWindowsProps }) => {
+const CardForm = ({ history, submit, windowsView }) => {
   const handleClick = () => {
     submit();
     history.push('/equipment');
@@ -38,7 +39,7 @@ const CardForm = ({ history, submit, showWindowsProps }) => {
     <div className="card u-card">
       <div className="card-body">
         {switchViews(
-          showWindowsProps,
+          windowsView,
           <div>
             <ExteriorConditions />
             <SizeDataForm />
@@ -54,9 +55,14 @@ const CardForm = ({ history, submit, showWindowsProps }) => {
     </div>
   );
 };
+CardForm.propTypes = {
+  history: PropTypes.object.isRequired,
+  submit: PropTypes.func.isRequired,
+  windowsView: PropTypes.string
+};
 
 const mapStateToProps = state => ({
-  showWindowsProps: state.appConfig.showWindowsProps
+  windowsView: state.appConfig.windowsView
 });
 
 const mapDispatchToProps = dispatch => ({
