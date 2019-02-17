@@ -19,7 +19,7 @@ const ExteriorConditions = ({ exterior, handleChange }) => {
       <div className="form-row form-group">
         <div className="col-md-12 col-sm-12">
           <small>
-            <strong>CIUDAD:</strong>
+            <strong>CIUDAD</strong>
           </small>
           <select id="ciudad" className="form-control" onChange={handleChange} value={exterior.id}>
             <option hidden>CIUDAD</option>

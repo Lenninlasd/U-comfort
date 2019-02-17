@@ -47,11 +47,11 @@ const getDataTemperature = ({ exterior, recinto }) => ({
 const setCLDT_vidrios = glassState => {
   const peakHour = '17';
   const CLDT_tabla = Number(TABLA_VIDRIO[0][peakHour]);
-  return glassState.map(glass => {
-    return Object.assign({}, glass, {
+  return glassState.map(glass =>
+    Object.assign({}, glass, {
       CLDT_tabla
-    });
-  });
+    })
+  );
 };
 
 const setCLDT_correccion = (state, action) => {
@@ -92,11 +92,11 @@ const setUvidrio = (glassState, glassDescription = 'vidrio sencillo') => {
   // Fix impure TABLA_U_VIDRIO
   const Uv_sencillo = TABLA_U_VIDRIO.find(x => x.descripcion === glassDescription);
 
-  return glassState.map(vidrio => {
-    return Object.assign({}, vidrio, {
+  return glassState.map(vidrio =>
+    Object.assign({}, vidrio, {
       coeficiente_transferencia_calor: Number(Uv_sencillo.U_exterior)
-    });
-  });
+    })
+  );
 };
 
 const setExteriorConditions = (state, exterior) =>
@@ -243,9 +243,9 @@ const calcAreaNetaPared = (paredesState, glassState, doors, depth, height, width
 };
 
 const setU_One = (paredesState, data) => {
-  const paredTabla = TABLA_U_TECHO_PARED_PARTICION.find(element => {
-    return element.material === data.material;
-  });
+  const paredTabla = TABLA_U_TECHO_PARED_PARTICION.find(
+    element => element.material === data.material
+  );
 
   return paredesState.map((pared, i) => {
     if (i === data.id) {
@@ -258,6 +258,17 @@ const setU_One = (paredesState, data) => {
     return pared;
   });
 };
+
+const setColorK = (paredesState, data) =>
+  paredesState.map((pared, i) => {
+    if (i === data.id) {
+      return Object.assign({}, pared, {
+        correcion_color_K: Number(data.k)
+      });
+    } else {
+      return pared;
+    }
+  });
 
 export const vidrios = (glassState = [], action, state) => {
   const dataTemperature = getDataTemperature(state);
@@ -308,6 +319,9 @@ export const paredes = (paredesState = [], action, state) => {
     }
     case 'SET_U_1_PARED':
       return setU_One(paredesState, action.data);
+    case 'SET_COLOR_K': {
+      return setColorK(paredesState, action.data);
+    }
     default:
       return paredesState;
   }

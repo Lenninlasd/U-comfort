@@ -79,7 +79,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
       <div className="form-row">
         <div className="col">
           <small>
-            <strong>ALTO:</strong>
+            <strong>ALTO</strong>
           </small>
           <InputWinProps
             tag={keyForm}
@@ -91,7 +91,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
         </div>
         <div className="col">
           <small>
-            <strong>ANCHO:</strong>
+            <strong>ANCHO</strong>
           </small>
           <InputWinProps
             tag={keyForm}
@@ -103,7 +103,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
         </div>
         <div className="col">
           <small>
-            <strong>ORIENTACIÓN:</strong>
+            <strong>ORIENTACIÓN</strong>
           </small>
           <SelectWinProps
             tag={keyForm}
@@ -131,7 +131,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
       <div className="form-row">
         <div className="col">
           <small>
-            <strong>SOMBRA:</strong>
+            <strong>SOMBRA</strong>
           </small>
           <SelectWinProps
             tag={keyForm}
@@ -151,7 +151,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
         </div>
         <div className="col">
           <small>
-            <strong>TIPO DE VIDRIO:</strong>
+            <strong>TIPO DE VIDRIO</strong>
           </small>
           <SelectWinProps
             tag={keyForm}
@@ -164,7 +164,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
         </div>
         <div className="col">
           <small>
-            <strong>ESPESOR NOMINAL:</strong>
+            <strong>ESPESOR NOMINAL</strong>
           </small>
           <SelectWinProps
             tag={keyForm}

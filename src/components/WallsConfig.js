@@ -40,10 +40,10 @@ SelectWinProps.propTypes = {
 
 const GenerateWallForm = ({ pared = {}, keyForm = '', handleChange }) => {
   const cardinalPoints = {
-    N: 'NORTE',
-    S: 'SUR',
-    E: 'ESTE',
-    W: 'OESTE (W)'
+    N: 'PARED NORTE',
+    S: 'PARED SUR',
+    E: 'PARED ESTE',
+    W: 'PARED OESTE (W)'
   };
 
   return (
@@ -51,16 +51,43 @@ const GenerateWallForm = ({ pared = {}, keyForm = '', handleChange }) => {
       <div className="form-row">
         <div className="col">
           <small>
-            <strong>{cardinalPoints[pared.orientacion]}:</strong>
+            <strong>{cardinalPoints[pared.orientacion]}</strong>
           </small>
-          <SelectWinProps
-            tag={keyForm}
-            value={pared.material}
-            type="material"
-            handleChange={handleChange}
-            title="Material"
-            optionList={optionsWall}
-          />
+          <div className="row">
+            <div className="col">
+              <small>
+                <strong>MATERIAL</strong>
+              </small>
+              <SelectWinProps
+                tag={keyForm}
+                value={pared.material}
+                type="material"
+                handleChange={handleChange}
+                title="Material"
+                optionList={optionsWall}
+              />
+            </div>
+            <div className="col">
+              <small>
+                <strong>COLOR</strong>
+              </small>
+              <SelectWinProps
+                tag={keyForm}
+                value={String(pared.correcion_color_K)}
+                type="correcion_color_K"
+                handleChange={handleChange}
+                title="Color pared"
+                optionList={[
+                  <option key="oscuras" value={1}>
+                    Superficies oscuras o áreas industriales
+                  </option>,
+                  <option key="claro" value={0.65}>
+                    Paredes de color claro en zonas rurales
+                  </option>
+                ]}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -82,7 +109,7 @@ const ConfigWalls = ({ paredes, handleBackButton, handleChange }) => {
         <BackButton onClick={handleBackButton} />
       </div>
       <small>
-        <strong>PROPIEDADES DE LOS MUROS:</strong>
+        <strong>PROPIEDADES DE LOS MUROS</strong>
       </small>
       {paredes.map((pared, key) => (
         <GenerateWallForm pared={pared} key={key} keyForm={key} handleChange={handleChange} />
@@ -106,10 +133,18 @@ const mapDispatchToProps = dispatch => ({
     const id = Number(el.dataset.group);
     const type = el.dataset.type;
 
-    dispatch({
-      type: 'SET_U_1_PARED',
-      data: { id, [type]: el.value }
-    });
+    switch (type) {
+      case 'material':
+        return dispatch({
+          type: 'SET_U_1_PARED',
+          data: { id, [type]: el.value }
+        });
+      case 'correcion_color_K':
+        return dispatch({
+          type: 'SET_COLOR_K',
+          data: { id, k: el.value }
+        });
+    }
   }
 });
 

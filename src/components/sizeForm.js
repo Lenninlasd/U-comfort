@@ -15,7 +15,7 @@ export const SizeDataForm = props => (
     <div className="form-row form-group">
       <div className="col-md-4 col-sm-12">
         <small>
-          <strong>LARGO:</strong>
+          <strong>LARGO</strong>
         </small>
         <input
           id="depth"
@@ -28,7 +28,7 @@ export const SizeDataForm = props => (
       </div>
       <div className="col-md-4 col-sm-12">
         <small>
-          <strong>ANCHO:</strong>
+          <strong>ANCHO</strong>
         </small>
         <input
           id="width"
@@ -41,7 +41,7 @@ export const SizeDataForm = props => (
       </div>
       <div className="col-md-4 col-sm-12">
         <small>
-          <strong>ALTO:</strong>
+          <strong>ALTO</strong>
         </small>
         <input
           id="height"
@@ -54,7 +54,7 @@ export const SizeDataForm = props => (
       </div>
       <div className="col-md-12 col-sm-12">
         <small>
-          <strong>No. DE PERSONAS:</strong>
+          <strong>No. DE PERSONAS</strong>
         </small>
         <input
           id="numberOfPeople"
@@ -67,7 +67,7 @@ export const SizeDataForm = props => (
       </div>
       <div className="col-md-12 col-sm-12">
         <small>
-          <strong>No. DE LUCES:</strong>
+          <strong>No. DE LUCES</strong>
         </small>
         <input
           id="numberOfLights"
