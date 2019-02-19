@@ -1,89 +1,102 @@
 .Playground {
-    overflow: hidden;
-    background: linear-gradient(-90deg,rgba(0,0,0,.02) 1px,transparent 0),linear-gradient(rgba(0,0,0,.02) 1px,transparent 0),linear-gradient(-90deg,rgba(0,0,0,.03) 1px,transparent 0),linear-gradient(rgba(0,0,0,.03) 1px,transparent 0),linear-gradient(transparent 4px,#f5f5f5 0,#f5f5f5 97px,transparent 0),linear-gradient(-90deg,#e5e5e5 1px,transparent 0),linear-gradient(-90deg,transparent 4px,#f5f5f5 0,#f5f5f5 97px,transparent 0),linear-gradient(#e5e5e5 1px,transparent 0),#f5f5f5;
-    background-size: 10px 10px,10px 10px,100px 100px,100px 100px,100px 100px,100px 100px,100px 100px,100px 100px;
-    height: 100%;
-    min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0.02) 1px, transparent 0),
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0),
+    linear-gradient(-90deg, rgba(0, 0, 0, 0.03) 1px, transparent 0),
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 0),
+    linear-gradient(transparent 4px, #f5f5f5 0, #f5f5f5 97px, transparent 0),
+    linear-gradient(-90deg, #e5e5e5 1px, transparent 0),
+    linear-gradient(-90deg, transparent 4px, #f5f5f5 0, #f5f5f5 97px, transparent 0),
+    linear-gradient(#e5e5e5 1px, transparent 0), #f5f5f5;
+  background-size: 10px 10px, 10px 10px, 100px 100px, 100px 100px, 100px 100px, 100px 100px,
+    100px 100px, 100px 100px;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .u-card {
-    box-shadow: 3px 3px 15px rgba(0,0,0,.15);
-    border-radius: 6px;
-    margin: 10px;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  margin: 10px;
 }
 
-input.form-control, select.form-control {
-    font-size: 0.8rem;
+input.form-control,
+select.form-control {
+  font-size: 0.8rem;
 }
 
 .glass-windows {
-    overflow-y: auto;
-    overflow-x: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .threedmodel {
-    margin: 10px;
-    border-radius: 2px;
-    transition: background-color linear 0.5s;
+  margin: 10px;
+  border-radius: 2px;
+  transition: background-color linear 0.5s;
 }
-.threedmodel:hover{
-    background-color: #00000018;
+.threedmodel:hover {
+  background-color: #00000018;
 }
 
 .list-of-elements {
-    margin: 0px -20px 0px -20px;
-    padding: 15px 20px 15px 20px;
+  margin: 0px -20px 0px -20px;
+  padding: 15px 20px 15px 20px;
 }
-.list-of-elements:hover{
-    background: #f1f1f1;
+.list-of-elements:hover {
+  background: #f1f1f1;
 }
-.list-of-elements input, .list-of-elements select {
-    background: transparent;
+.list-of-elements input,
+.list-of-elements select {
+  background: transparent;
 }
 .list-of-elements small {
-    font-size: 60%;
+  font-size: 60%;
 }
 
 .list-back-button {
-    margin: -10px 0 10px 0;
-    border-radius: 15px;
-    width: 25px;
-    padding: 0px;
-    height: 25px;
+  margin: -10px 0 10px 0;
+  border-radius: 15px;
+  width: 25px;
+  padding: 0px;
+  height: 25px;
 }
 .back-button-text {
-    margin: -10px 0 10px 0;
+  margin: -10px 0 10px 0;
 }
 
 .add-window-button {
-    background: #f7f7f7;
-    margin: 0px -20px -20px;
-    padding: 20px;
-    border-radius: 0px 0px 6px 6px;
+  background: #e8f9fb70;
+  margin: 0px -20px -20px;
+  padding: 20px;
+  border-radius: 0px 0px 6px 6px;
 }
 
 .remove-item {
-    cursor: pointer;
-    width: fit-content;
-    position: absolute;
-    right: 20px;
-    margin-top: -15px;
+  cursor: pointer;
+  width: fit-content;
+  position: absolute;
+  right: 20px;
+  margin-top: -15px;
 }
 
 .list-of-elements:hover .remove-item {
-    font-weight: bold;
-    color: red;
+  font-weight: bold;
+  color: red;
 }
 
-.new-form-bg .list-of-elements{
-    background: #f7f7f7;
+.new-form-bg .list-of-elements {
+  background: #ebf8fa70;
+  border-top: solid #a9d3d8 1px;
+  padding-top: 16px;
+  margin-top: 20px;
 }
 
 .compass {
-    position: absolute;
-    box-shadow: 3px 3px 15px rgba(0,0,0,.15);
-    border-radius: 50%;
-    padding: 5px;
-    background: white;
-    margin: 10px;
+  position: absolute;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  padding: 5px;
+  background: white;
+  margin: 10px;
 }

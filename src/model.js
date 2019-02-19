@@ -142,6 +142,8 @@ export default {
         width: 6,
         height: 7,
         orientacion: 'E',
+        tipo: 'PUERTA',
+        material: 'PUERTA_EJEMPLO',
         CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
         CLDT_correccion: 22 // ºF
       }

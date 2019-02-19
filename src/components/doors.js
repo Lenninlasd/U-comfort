@@ -2,12 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import BackButton from './backButton.js';
 import PropTypes from 'prop-types';
+import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
+
+const optionsDoors = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
+  element.tipo.includes('PUERTA')
+).map(el => (
+  <option key={el.material} value={el.material}>
+    {`${el.tipo} - ${el.material}`}
+  </option>
+));
 
 const formPropTypes = {
   type: PropTypes.string.isRequired,
   tag: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired
 };
 
@@ -45,7 +54,6 @@ const SelectDoorProps = props => (
 );
 SelectDoorProps.propTypes = {
   ...formPropTypes,
-  value: PropTypes.string.isRequired,
   optionList: PropTypes.array.isRequired
 };
 
@@ -68,7 +76,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
           </small>
           <InputDoorProps
             tag={keyForm}
-            value={puerta.height}
+            value={String(puerta.height)}
             type="height"
             title="height"
             handleChange={handleChange}
@@ -80,12 +88,14 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
           </small>
           <InputDoorProps
             tag={keyForm}
-            value={puerta.width}
+            value={String(puerta.width)}
             type="width"
             title="width"
             handleChange={handleChange}
           />
         </div>
+      </div>
+      <div className="form-row">
         <div className="col">
           <small>
             <strong>ORIENTACIÓN</strong>
@@ -112,16 +122,25 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
             ]}
           />
         </div>
+        <div className="col">
+          <small>
+            <strong>MATERIAL</strong>
+          </small>
+          <SelectDoorProps
+            tag={keyForm}
+            value={puerta.material}
+            type="material"
+            handleChange={handleChange}
+            title="Material"
+            optionList={optionsDoors}
+          />
+        </div>
       </div>
     </div>
   );
 };
 GenerateDoors.propTypes = {
-  puerta: PropTypes.shape({
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    orientacion: PropTypes.string.isRequired
-  }).isRequired,
+  puerta: PropTypes.object.isRequired,
   keyForm: PropTypes.number.isRequired,
   removeItem: PropTypes.func,
   handleChange: PropTypes.func.isRequired
@@ -130,7 +149,7 @@ GenerateDoors.propTypes = {
 class NewDoorForm extends React.Component {
   constructor(props) {
     super(props);
-    this.defaultState = { width: 0, height: 0, orientacion: '' };
+    this.defaultState = { width: '', height: '', orientacion: '', material: '' };
     this.state = this.defaultState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -139,7 +158,8 @@ class NewDoorForm extends React.Component {
   handleChange(event) {
     const el = event.target;
     const type = el.dataset.type;
-    const value = type === 'orientacion' ? el.value : Number(el.value);
+    const numericValue = Number(el.value);
+    const value = Number.isNaN(numericValue) ? el.value : numericValue;
     this.setState({ [type]: value });
   }
 
@@ -204,16 +224,23 @@ const getDispatchData = (event, dispatch) => {
   const id = Number(el.dataset.group);
   const type = el.dataset.type;
 
-  dispatch({
-    type: 'UPDATE_PROP_PUERTA',
-    data: { id, [type]: value }
-  });
+  if (type === 'material') {
+    dispatch({
+      type: 'SET_U_1_PUERTA',
+      data: { id, [type]: value }
+    });
+  } else {
+    dispatch({
+      type: 'UPDATE_PROP_PUERTA',
+      data: { id, [type]: value }
+    });
 
-  dispatch({
-    type: 'CALC_AREA_PUERTA',
-    id
-  });
-  dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    dispatch({
+      type: 'CALC_AREA_PUERTA',
+      id
+    });
+    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+  }
 };
 
 const mapStateToProps = state => ({

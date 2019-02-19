@@ -8,7 +8,7 @@ const formPropTypes = {
   type: PropTypes.string.isRequired,
   tag: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired
 };
 
@@ -30,7 +30,6 @@ const SelectWinProps = props => (
 );
 SelectWinProps.propTypes = {
   ...formPropTypes,
-  value: PropTypes.string.isRequired,
   optionList: PropTypes.array.isRequired
 };
 
@@ -83,7 +82,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <InputWinProps
             tag={keyForm}
-            value={vidrio.height}
+            value={String(vidrio.height)}
             type="height"
             title="height"
             handleChange={handleChange}
@@ -95,7 +94,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <InputWinProps
             tag={keyForm}
-            value={vidrio.width}
+            value={String(vidrio.width)}
             type="width"
             title="width"
             handleChange={handleChange}
@@ -180,13 +179,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
   );
 };
 GenerateWindowForm.propTypes = {
-  vidrio: PropTypes.shape({
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    orientacion: PropTypes.string.isRequired,
-    sombra: PropTypes.string.isRequired,
-    tipo_de_vidrio: PropTypes.string.isRequired
-  }).isRequired,
+  vidrio: PropTypes.object.isRequired,
   keyForm: PropTypes.number.isRequired,
   removeItem: PropTypes.func,
   handleChange: PropTypes.func.isRequired
@@ -196,8 +189,8 @@ class NewGlassForm extends React.Component {
   constructor(props) {
     super(props);
     this.defaultState = {
-      width: 0,
-      height: 0,
+      width: '',
+      height: '',
       orientacion: '',
       sombra: '',
       espesor_nominal: '',

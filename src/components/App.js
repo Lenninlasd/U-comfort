@@ -8,10 +8,10 @@ import EquipmentsView from './Equipments.js';
 const MainView = () => (
   <div className="container-fluid">
     <div className="row">
-      <div className="col-lg-7 col-md-6">
+      <div className="col-xl-8 col-lg-7 col-md-5">
         <CanvasElement id="cubeContainer" />
       </div>
-      <div className="col-lg-5 col-md-6">
+      <div className="col-xl-4 col-lg-5 col-md-7">
         <CardForm />
       </div>
     </div>

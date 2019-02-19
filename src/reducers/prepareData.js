@@ -149,6 +149,23 @@ const setU = (elState, type = 'TECHO', material = 'CUBIERTA_DE_EJEMPLO') => {
   return Array.isArray(elState) ? elState.map(setUobj) : setUobj(elState);
 };
 
+const setU_One = (paredesState, data) => {
+  const paredTabla = TABLA_U_TECHO_PARED_PARTICION.find(
+    element => element.material === data.material
+  );
+
+  return paredesState.map((pared, i) => {
+    if (i === data.id) {
+      return Object.assign({}, pared, {
+        material: paredTabla.material,
+        coeficiente_transferencia_calor: Number(paredTabla.U),
+        tipo: paredTabla.tipo
+      });
+    }
+    return pared;
+  });
+};
+
 const setCLF = (glassState, glassCapacity = 'M') => {
   const CLF_ = TABLA_CLF.filter(x => x.CAPACIDAD === glassCapacity);
 
@@ -201,14 +218,14 @@ const addNewGlass = (glassState, data, dataTemperature) => {
   return [...glassState, ...newGlass];
 };
 
-const addNewDoor = (puertasState, data) => {
+const addNewDoor = (puertasState, door) => {
   /** TODO: REMOVE HARDCODE **/
-  data.CLDT_tabla = 27; // ºF Aun no se tiene esa tabla
-  data.CLDT_correccion = 22; // ºF
+  door.CLDT_tabla = 27; // ºF Aun no se tiene esa tabla
+  door.CLDT_correccion = 22; // ºF
   /** **/
-  let newDoor = setU([data], 'PUERTA', 'PUERTA_EJEMPLO');
-  newDoor = calcAreaAll(newDoor);
-  return [...puertasState, ...newDoor];
+
+  const newDoor = setU_One([door], { id: 0, material: door.material });
+  return [...puertasState, ...calcAreaAll(newDoor)];
 };
 
 const calcAreaNetaPared = (paredesState, glassState, doors, depth, height, width) => {
@@ -239,23 +256,6 @@ const calcAreaNetaPared = (paredesState, glassState, doors, depth, height, width
     return Object.assign({}, pared, {
       areaNeta: areaNeta > 0 ? areaNeta : 0
     });
-  });
-};
-
-const setU_One = (paredesState, data) => {
-  const paredTabla = TABLA_U_TECHO_PARED_PARTICION.find(
-    element => element.material === data.material
-  );
-
-  return paredesState.map((pared, i) => {
-    if (i === data.id) {
-      return Object.assign({}, pared, {
-        material: paredTabla.material,
-        coeficiente_transferencia_calor: Number(paredTabla.U),
-        tipo: paredTabla.tipo
-      });
-    }
-    return pared;
   });
 };
 
@@ -358,6 +358,8 @@ export const techo = (techoState = {}, action, state) => {
 
 export const puertas = (puertasState = [], action) => {
   switch (action.type) {
+    case 'SET_U_1_PUERTA':
+      return setU_One(puertasState, action.data);
     case 'SET_U_PUERTA':
       return setU(puertasState, action.element, action.material);
     case 'UPDATE_PROP_PUERTA':
