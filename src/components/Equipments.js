@@ -79,14 +79,16 @@ const EquipmentsView = ({ history, cargaEnfriamiento, QS_QL, CFMnetoSensible }) 
               <BackButton className="col-1" onClick={handleBackButton} />
               <div className="col-2 back-button-text">Atrás</div>
             </div>
+            {false && (
+              <div>
+                <strong>Carga de enfriamiento:</strong> {cargaEnfriamiento.toFixed(0)}
+              </div>
+            )}
             <div>
-              <strong>Carga de enfriamiento:</strong> {cargaEnfriamiento.toFixed(2)}
+              <strong>Carga térmica de climatización: </strong> {QS_QL.toFixed(0)} Btu/h
             </div>
             <div>
-              <strong>QS_QL: </strong> {QS_QL.toFixed(2)}
-            </div>
-            <div>
-              <strong>CFMnetoSensible: </strong> {CFMnetoSensible.toFixed(2)}
+              <strong>CFM: </strong> {CFMnetoSensible.toFixed(0)}
             </div>
 
             {availableEquip.length ? (

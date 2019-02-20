@@ -38,9 +38,7 @@ function createBulbLightGeometry(size, lights) {
 }
 
 function createBulbLight(size, lights) {
-  if (lights <= 0) {
-    return;
-  }
+  if (lights <= 0) return;
 
   const bulbMat = new THREE.MeshStandardMaterial({
     emissive: 0xffffee,
@@ -160,7 +158,7 @@ function initCube(id, size, numberOfLights) {
   function getSize(element) {
     return {
       width: element.offsetWidth,
-      height: Math.abs(window.innerHeight - 100)
+      height: Math.abs(window.innerHeight - 200)
     };
   }
 }

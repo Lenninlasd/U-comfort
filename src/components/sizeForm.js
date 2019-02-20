@@ -11,8 +11,12 @@ const apliacionesTipicas = [
 ));
 
 export const SizeDataForm = props => (
-  <form>
+  <form className="size-data-form">
     <div className="form-row form-group">
+      <div className="col-sm-12">
+        <h6>INFORMACIÓN DE RECINTO</h6>
+      </div>
+
       <div className="col-md-4 col-sm-12">
         <small>
           <strong>LARGO</strong>

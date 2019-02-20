@@ -6,7 +6,7 @@ const Walls = ({ showWindowsProps }) => (
   <div className="glass-windows form-group">
     <div>
       <small>
-        <strong> PAREDES: </strong>
+        <strong> PAREDES </strong>
       </small>
     </div>
     <div>

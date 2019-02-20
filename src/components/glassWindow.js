@@ -6,7 +6,7 @@ const GlassWindows = ({ vidrios, showWindowsProps }) => (
   <div className="glass-windows form-group">
     <div>
       <small>
-        <strong> VENTANAS INSTALADAS {vidrios.length}</strong>
+        <strong> VENTANAS INSTALADAS: {vidrios.length}</strong>
       </small>
     </div>
     <div>
