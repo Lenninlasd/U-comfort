@@ -9,8 +9,12 @@
     "start": "http-server -p 8000",
     "test": "jest",
     "test:watch": "jest --watch",    
-    "test:coverage": "jest --coverage --colors", 
-    "precommit": "lint-staged"
+    "test:coverage": "jest --coverage --colors"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{js,jsx}": [
