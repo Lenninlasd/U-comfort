@@ -8,6 +8,8 @@
     "dev": "webpack-dev-server --disable-host-check --mode development --compress --open",
     "start": "http-server -p 8000",
     "test": "jest",
+    "test:watch": "jest --watch",    
+    "test:coverage": "jest --coverage --colors", 
     "precommit": "lint-staged"
   },
   "lint-staged": {
