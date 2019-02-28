@@ -2,7 +2,7 @@ import React from 'react';
 import u from '../reactData';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import BackButton from './backButton.js';
+import { SaveAndCancel } from './backButton.js';
 
 const formPropTypes = {
   type: PropTypes.string.isRequired,
@@ -217,10 +217,12 @@ class NewGlassForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} className="new-form-bg">
         <GenerateWindowForm vidrio={this.state} keyForm={100} handleChange={this.handleChange} />
-        <div className="add-window-button">
-          <button type="submit" className="btn btn-outline-primary">
-            Agregar ventana
-          </button>
+        <div className="add-window-button row">
+          <div className="col-sm">
+            <button type="submit" className="btn btn-outline-primary float-right">
+              Agregar ventana
+            </button>
+          </div>
         </div>
       </form>
     );
@@ -235,7 +237,8 @@ export const ListOfElements = ({
   removeItem,
   handleChange,
   handleAddButton,
-  handleBackButton
+  handleBackButton,
+  handleCancel
 }) => {
   const inputList = vidrios.map((vidrio, key) => (
     <GenerateWindowForm
@@ -249,14 +252,12 @@ export const ListOfElements = ({
 
   return (
     <div>
-      <div>
-        <BackButton onClick={handleBackButton} />
-      </div>
       <small>
         <strong>PROPIEDADES DE LAS VENTANAS:</strong>
       </small>
       {inputList}
       <NewGlassForm submit={handleAddButton} />
+      <SaveAndCancel handleAccept={handleBackButton} handleCancel={handleCancel} />
     </div>
   );
 };
@@ -265,7 +266,8 @@ ListOfElements.propTypes = {
   removeItem: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleAddButton: PropTypes.func.isRequired,
-  handleBackButton: PropTypes.func.isRequired
+  handleBackButton: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -305,7 +307,11 @@ const mapDispatchToProps = dispatch => ({
   handleBackButton: () =>
     dispatch({
       type: 'HIDE_WINDOWS_PROPS'
-    })
+    }),
+  handleCancel: () => {
+    dispatch({ type: 'HIDE_WINDOWS_PROPS' });
+    dispatch({ type: 'SET_UNDO_WINDOWS' });
+  }
 });
 
 export default connect(

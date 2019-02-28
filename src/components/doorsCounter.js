@@ -27,11 +27,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  showWindowsProps: () =>
+  showWindowsProps: () => {
     dispatch({
       type: 'SHOW_WINDOWS_PROPS',
       view: 'doorView'
-    })
+    });
+    dispatch({
+      type: 'SET_DOORS_HISTORY'
+    });
+  }
 });
 
 export default connect(

@@ -296,6 +296,8 @@ export const vidrios = (glassState = [], action, state) => {
       return [...glassState.slice(0, action.key), ...glassState.slice(action.key + 1)];
     case 'ADD_VIDRIO':
       return addNewGlass(glassState, action.data, dataTemperature);
+    case 'SET_UNDO_WINDOWS':
+      return state.past;
     default:
       return glassState;
   }
@@ -322,6 +324,8 @@ export const paredes = (paredesState = [], action, state) => {
     case 'SET_COLOR_K': {
       return setColorK(paredesState, action.data);
     }
+    case 'SET_UNDO_WALL':
+      return state.past;
     default:
       return paredesState;
   }
@@ -356,7 +360,7 @@ export const techo = (techoState = {}, action, state) => {
   }
 };
 
-export const puertas = (puertasState = [], action) => {
+export const puertas = (puertasState = [], action, state) => {
   switch (action.type) {
     case 'SET_U_1_PUERTA':
       return setU_One(puertasState, action.data);
@@ -372,6 +376,8 @@ export const puertas = (puertasState = [], action) => {
       return [...puertasState.slice(0, action.key), ...puertasState.slice(action.key + 1)];
     case 'ADD_PUERTA':
       return addNewDoor(puertasState, action.data);
+    case 'SET_UNDO_DOORS':
+      return state.past;
     default:
       return puertasState;
   }
@@ -437,3 +443,22 @@ export const recinto = (recintoState = {}, action) => {
 };
 
 export const cargaPico = (cargaPicoState = {}) => cargaPicoState;
+
+const CLEAR_HISTORY = 'CLEAR_HISTORY';
+const SET_WALL_HISTORY = 'SET_WALL_HISTORY';
+const SET_WINDOWS_HISTORY = 'SET_WINDOWS_HISTORY';
+const SET_DOORS_HISTORY = 'SET_DOORS_HISTORY';
+export const past = (past = null, action, state) => {
+  switch (action.type) {
+    case SET_WALL_HISTORY:
+      return state.paredes;
+    case SET_WINDOWS_HISTORY:
+      return state.vidrios;
+    case SET_DOORS_HISTORY:
+      return state.puertas;
+    case CLEAR_HISTORY:
+      return null;
+    default:
+      return past;
+  }
+};

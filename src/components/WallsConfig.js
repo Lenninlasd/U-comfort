@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import BackButton from './backButton.js';
 
+import { SaveAndCancel } from './backButton.js';
 import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
 
 const optionsWall = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
@@ -102,18 +102,16 @@ GenerateWallForm.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
-const ConfigWalls = ({ paredes, handleBackButton, handleChange }) => {
+const ConfigWalls = ({ paredes, handleBackButton, handleChange, handleCancel }) => {
   return (
     <div>
-      <div>
-        <BackButton onClick={handleBackButton} />
-      </div>
       <small>
         <strong>PROPIEDADES DE LOS MUROS</strong>
       </small>
       {paredes.map((pared, key) => (
         <GenerateWallForm pared={pared} key={key} keyForm={key} handleChange={handleChange} />
       ))}
+      <SaveAndCancel handleAccept={handleBackButton} handleCancel={handleCancel} />
     </div>
   );
 };
@@ -124,10 +122,7 @@ ConfigWalls.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleBackButton: () =>
-    dispatch({
-      type: 'HIDE_WINDOWS_PROPS'
-    }),
+  handleBackButton: () => dispatch({ type: 'HIDE_WINDOWS_PROPS' }),
   handleChange: event => {
     const el = event.target;
     const id = Number(el.dataset.group);
@@ -145,6 +140,10 @@ const mapDispatchToProps = dispatch => ({
           data: { id, k: el.value }
         });
     }
+  },
+  handleCancel: () => {
+    dispatch({ type: 'HIDE_WINDOWS_PROPS' });
+    dispatch({ type: 'SET_UNDO_WALL' });
   }
 });
 

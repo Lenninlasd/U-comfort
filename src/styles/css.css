@@ -76,8 +76,8 @@ select.form-control {
 .add-window-button {
   background: #e8f9fb70;
   margin: 0px -20px -20px;
-  padding: 20px;
-  border-radius: 0px 0px 6px 6px;
+  padding: 20px 5px;
+  border-bottom: solid #a9d3d8 1px;
 }
 
 .remove-item {

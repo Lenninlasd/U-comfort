@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import BackButton from './backButton.js';
+import { SaveAndCancel } from './backButton.js';
 import PropTypes from 'prop-types';
 import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
 
@@ -173,10 +173,12 @@ class NewDoorForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} className="new-form-bg">
         <GenerateDoors puerta={this.state} keyForm={100} handleChange={this.handleChange} />
-        <div className="add-window-button">
-          <button type="submit" className="btn btn-outline-primary">
-            Agregar puerta
-          </button>
+        <div className="add-window-button row">
+          <div className="col-sm">
+            <button type="submit" className="btn btn-outline-primary float-right">
+              Agregar puerta
+            </button>
+          </div>
         </div>
       </form>
     );
@@ -186,7 +188,14 @@ NewDoorForm.propTypes = {
   submit: PropTypes.func.isRequired
 };
 
-const Doors = ({ puertas, handleChange, handleBackButton, removeItem, handleAddButton }) => {
+const Doors = ({
+  puertas,
+  handleChange,
+  handleBackButton,
+  removeItem,
+  handleAddButton,
+  handleCancel
+}) => {
   const inputList = puertas.map((puerta, key) => (
     <GenerateDoors
       puerta={puerta}
@@ -199,23 +208,22 @@ const Doors = ({ puertas, handleChange, handleBackButton, removeItem, handleAddB
 
   return (
     <div>
-      <div>
-        <BackButton onClick={handleBackButton} />
-      </div>
       <small>
         <strong>PROPIEDADES DE LAS PUERTAS:</strong>
       </small>
       {inputList}
       <NewDoorForm submit={handleAddButton} />
+      <SaveAndCancel handleAccept={handleBackButton} handleCancel={handleCancel} />
     </div>
   );
 };
 Doors.propTypes = {
   puertas: PropTypes.array.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleBackButton: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
-  handleAddButton: PropTypes.func.isRequired
+  handleAddButton: PropTypes.func.isRequired,
+  handleBackButton: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired
 };
 
 const getDispatchData = (event, dispatch) => {
@@ -249,10 +257,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleChange: event => getDispatchData(event, dispatch),
-  handleBackButton: () =>
-    dispatch({
-      type: 'HIDE_WINDOWS_PROPS'
-    }),
   removeItem: key => {
     dispatch({
       type: 'REMOVE_DOOR',
@@ -266,6 +270,14 @@ const mapDispatchToProps = dispatch => ({
       data
     });
     dispatch({ type: 'CALC_AREA_NETA_PARED' });
+  },
+  handleBackButton: () =>
+    dispatch({
+      type: 'HIDE_WINDOWS_PROPS'
+    }),
+  handleCancel: () => {
+    dispatch({ type: 'HIDE_WINDOWS_PROPS' });
+    dispatch({ type: 'SET_UNDO_DOORS' });
   }
 });
 

@@ -8,17 +8,19 @@ import {
   results,
   exterior,
   recinto,
-  cargaPico
+  cargaPico,
+  past
 } from './prepareData.js';
 
 import { depth, width, height, numberOfPeople } from './size.js';
 import { appConfig } from './config.js';
 
 export default (state = {}, action) => ({
+  past: past(state.past, action, state),
   vidrios: vidrios(state.vidrios, action, state),
   paredes: paredes(state.paredes, action, state),
   techo: techo(state.techo, action, state),
-  puertas: puertas(state.puertas, action),
+  puertas: puertas(state.puertas, action, state),
   piso: piso(state.piso, action, state),
   luces: luces(state.luces, action),
   results: results(state.results, action, state),
