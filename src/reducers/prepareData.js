@@ -351,6 +351,8 @@ export const techo = (techoState = {}, action, state) => {
       return LM.techo(techoState);
     case 'SET_U_TECHO':
       return setU(techoState, action.element, action.material);
+    case 'SET_U_1_TECHO':
+      return setU_One([techoState], { material: action.material, id: 0 })[0];
     case 'CALC_AREA_TECHO':
       return Object.assign({}, techoState, {
         areaNeta: state.width * state.depth

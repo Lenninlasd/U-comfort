@@ -11,6 +11,7 @@ import DoorsCounter from './doorsCounter.js';
 import Doors from './doors.js';
 import WallsConfig from './WallsConfig.js';
 import ListOfElements from './listOfElements.js';
+import Roof from './roof/';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -46,6 +47,7 @@ const CardForm = ({ history, submit, windowsView }) => {
             <Walls />
             <GlassWindows />
             <DoorsCounter />
+            <Roof />
             <button type="button" className="btn btn-primary" onClick={handleClick}>
               Calcular
             </button>

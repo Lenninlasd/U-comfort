@@ -134,7 +134,9 @@ export default {
     techo: {
       color: 'D',
       correcion_color_K: 1,
-      type: 'superficie_oscura'
+      type: 'superficie_oscura',
+      material: 'CUBIERTA_DE_EJEMPLO',
+      tipo: 'TECHO'
     },
     piso: {},
     puertas: [
