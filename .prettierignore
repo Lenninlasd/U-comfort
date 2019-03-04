@@ -2,3 +2,4 @@ dist/*
 json/*
 libs/*
 package.json
+coverage/
