@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SaveAndCancel } from './backButton.js';
+import { SaveAndCancel } from '../BackButton';
 import PropTypes from 'prop-types';
-import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
+import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
 
 const optionsDoors = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
   element.tipo.includes('PUERTA')

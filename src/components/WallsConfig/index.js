@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { SaveAndCancel } from '../backButton.js';
+import { SaveAndCancel } from '../BackButton';
 import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
 
 const optionsWall = TABLA_U_TECHO_PARED_PARTICION.filter(element =>

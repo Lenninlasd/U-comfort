@@ -8,9 +8,9 @@ import SizeDataForm from '../../containers/calcAreasSizeForm.js';
 import GlassWindows from '../glassWindow.js';
 import Walls from '../Walls.js';
 import DoorsCounter from '../doorsCounter.js';
-import Doors from '../doors.js';
+import Doors from '../Doors';
 import WallsConfig from '../WallsConfig';
-import ListOfElements from '../listOfElements.js';
+import ListOfElements from '../WindowsConfig';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
