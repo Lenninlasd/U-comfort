@@ -9,7 +9,7 @@ import GlassWindows from '../glassWindow.js';
 import Walls from '../Walls.js';
 import DoorsCounter from '../doorsCounter.js';
 import Doors from '../doors.js';
-import WallsConfig from '../WallsConfig.js';
+import WallsConfig from '../WallsConfig';
 import ListOfElements from '../listOfElements.js';
 
 const switchViews = (windowsView, defaultView) => {
