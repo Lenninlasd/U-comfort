@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import ExteriorConditions from './exteriorConditions.js';
-import SizeDataForm from '../containers/calcAreasSizeForm.js';
-import GlassWindows from './glassWindow.js';
-import Walls from './Walls.js';
-import DoorsCounter from './doorsCounter.js';
-import Doors from './doors.js';
-import WallsConfig from './WallsConfig.js';
-import ListOfElements from './listOfElements.js';
-import Roof from './roof/';
+import ExteriorConditions from '../exteriorConditions.js';
+import SizeDataForm from '../../containers/calcAreasSizeForm.js';
+import GlassWindows from '../glassWindow.js';
+import Walls from '../Walls.js';
+import DoorsCounter from '../doorsCounter.js';
+import Doors from '../doors.js';
+import WallsConfig from '../WallsConfig.js';
+import ListOfElements from '../listOfElements.js';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -47,7 +46,6 @@ const CardForm = ({ history, submit, windowsView }) => {
             <Walls />
             <GlassWindows />
             <DoorsCounter />
-            <Roof />
             <button type="button" className="btn btn-primary" onClick={handleClick}>
               Calcular
             </button>
