@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Latidud
-import condicionesClimaticas from '../../json/condiciones_climaticas';
+import condicionesClimaticas from '../../../json/condiciones_climaticas';
 
-const ExteriorConditions = ({ exterior, handleChange }) => {
-  const optionList = condicionesClimaticas.map(item => {
-    return (
+const OptionList = () => (
+  <>
+    {condicionesClimaticas.map(item => (
       <option key={item.id} value={item.id}>
         {item.ciudad}
       </option>
-    );
-  });
+    ))}
+  </>
+);
 
+const ExteriorConditions = ({ exterior, handleChange }) => {
   return (
     <form>
       <div className="form-row form-group">
@@ -23,7 +25,7 @@ const ExteriorConditions = ({ exterior, handleChange }) => {
           </small>
           <select id="ciudad" className="form-control" onChange={handleChange} value={exterior.id}>
             <option hidden>CIUDAD</option>
-            {optionList}
+            <OptionList />
           </select>
         </div>
       </div>

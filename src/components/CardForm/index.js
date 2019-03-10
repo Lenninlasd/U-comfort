@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import ExteriorConditions from '../exteriorConditions.js';
+import ExteriorConditions from '../ExteriorConditions';
 import SizeDataForm from '../../containers/calcAreasSizeForm.js';
 import GlassWindows from '../glassWindow.js';
 import Walls from '../Walls.js';

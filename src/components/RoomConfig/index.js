@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import tablaCalorPersonas from '../../json/calor_personas_6_11';
+import tablaCalorPersonas from '../../../json/calor_personas_6_11';
 
 const apliacionesTipicas = [
   ...new Set(tablaCalorPersonas.map(element => element.APLICACIONES_TIPICAS))

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import CanvasElement from '../roomCanvasElement';
+import CanvasElement from '../RoomCanvas';
 import CardForm from '../CardForm';
 import EquipmentsView from '../Equipments';
 import { Footer } from '../footer';
