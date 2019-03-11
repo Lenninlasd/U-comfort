@@ -5,12 +5,10 @@ import PropTypes from 'prop-types';
 
 import ExteriorConditions from '../ExteriorConditions';
 import SizeDataForm from '../../containers/calcAreasSizeForm.js';
-import GlassWindows from '../glassWindow.js';
-import Walls from '../Walls.js';
-import DoorsCounter from '../doorsCounter.js';
 import Doors from '../Doors';
 import WallsConfig from '../WallsConfig';
 import ListOfElements from '../WindowsConfig';
+import CustomButton from '../CustomButton';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -29,6 +27,32 @@ const switchViews = (windowsView, defaultView) => {
   }
 };
 
+{
+  /*TODO: Normalizar estos nombres en toda la app */
+}
+const buttonsList = [
+  { title: 'PAREDES', typeElement: 'paredes', buttonText: 'Configurar paredes' },
+  {
+    title: 'VENTANAS INSTALADAS',
+    typeElement: 'vidrios',
+    buttonText: 'Agregar o eliminar ventanas'
+  },
+  { title: 'PUERTAS', typeElement: 'puertas', buttonText: 'Agregar o eliminar puertas' }
+];
+
+const CustomButtons = () => (
+  <>
+    {buttonsList.map((item, idx) => (
+      <CustomButton
+        key={idx}
+        title={item.title}
+        buttonText={item.buttonText}
+        typeElement={item.typeElement}
+      />
+    ))}
+  </>
+);
+
 const CardForm = ({ history, submit, windowsView }) => {
   const handleClick = () => {
     submit();
@@ -43,9 +67,7 @@ const CardForm = ({ history, submit, windowsView }) => {
           <div>
             <ExteriorConditions />
             <SizeDataForm />
-            <Walls />
-            <GlassWindows />
-            <DoorsCounter />
+            <CustomButtons />
             <button type="button" className="btn btn-primary" onClick={handleClick}>
               Calcular
             </button>
