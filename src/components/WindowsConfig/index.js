@@ -1,8 +1,8 @@
 import React from 'react';
-import u from '../reactData';
+import u from '../../reactData';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { SaveAndCancel } from './backButton.js';
+import { SaveAndCancel } from '../BackButton';
 
 const formPropTypes = {
   type: PropTypes.string.isRequired,

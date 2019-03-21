@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import rootReducer from './reducers/root.js';
 import initState from './model.js';
-import { App } from './components/App.js';
+import { App } from './components/App';
 import enrichData from './enrichData.js';
 
 const store = createStore(rootReducer, {

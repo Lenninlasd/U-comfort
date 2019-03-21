@@ -9,7 +9,7 @@ import {
   setNumberOfLights,
   setActividadRecinto
 } from '../actions';
-import { SizeDataForm } from '../components/sizeForm.js';
+import { SizeDataForm } from '../components/RoomConfig';
 
 const actionSizeForm = target => {
   const value = Number(target.value);

@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import CanvasElement from './roomCanvasElement';
-import CardForm from './cardForm.js';
-import EquipmentsView from './Equipments.js';
-import { Footer } from './footer.js';
+import CanvasElement from '../RoomCanvas';
+import CardForm from '../CardForm';
+import EquipmentsView from '../Equipments';
+import { Footer } from '../footer';
 
 const MainView = () => (
   <div className="container-fluid">

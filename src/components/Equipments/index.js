@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import LISTADO_DE_EQUIPOS from '../../json/Listado_de_equipos.js';
-import BackButton from './backButton.js';
+import LISTADO_DE_EQUIPOS from '../../../json/Listado_de_equipos.js';
+import BackButton from '../BackButton';
 
 const btuList = [...new Set(LISTADO_DE_EQUIPOS.map(eq => Number(eq.capacidad_BTU)))].sort(
   (a, b) => a - b

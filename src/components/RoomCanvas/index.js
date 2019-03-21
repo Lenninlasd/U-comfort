@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { BufferGeometryUtils } from '../../libs/BufferGeometryUtils.js';
+import { BufferGeometryUtils } from '../../../libs/BufferGeometryUtils.js';
 
 const OrbitControls = require('three-orbit-controls')(THREE);
 
