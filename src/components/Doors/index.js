@@ -72,7 +72,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
       <div className="form-row">
         <div className="col">
           <small>
-            <strong>ALTO</strong>
+            <strong>ALTO (m)</strong>
           </small>
           <InputDoorProps
             tag={keyForm}
@@ -84,7 +84,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
         </div>
         <div className="col">
           <small>
-            <strong>ANCHO</strong>
+            <strong>ANCHO (m)</strong>
           </small>
           <InputDoorProps
             tag={keyForm}

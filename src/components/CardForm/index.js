@@ -9,6 +9,7 @@ import Doors from '../Doors';
 import WallsConfig from '../WallsConfig';
 import ListOfElements from '../WindowsConfig';
 import CustomButton from '../CustomButton';
+import Roof from '../Roof';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -31,13 +32,21 @@ const switchViews = (windowsView, defaultView) => {
   /*TODO: Normalizar estos nombres en toda la app */
 }
 const buttonsList = [
-  { title: 'PAREDES', typeElement: 'paredes', buttonText: 'Configurar paredes' },
+  {
+    title: 'PAREDES',
+    typeElement: 'paredes',
+    buttonText: 'Configurar paredes'
+  },
   {
     title: 'VENTANAS INSTALADAS',
     typeElement: 'vidrios',
     buttonText: 'Agregar o eliminar ventanas'
   },
-  { title: 'PUERTAS', typeElement: 'puertas', buttonText: 'Agregar o eliminar puertas' }
+  {
+    title: 'PUERTAS',
+    typeElement: 'puertas',
+    buttonText: 'Agregar o eliminar puertas'
+  }
 ];
 
 const CustomButtons = () => (
@@ -68,6 +77,7 @@ const CardForm = ({ history, submit, windowsView }) => {
             <ExteriorConditions />
             <SizeDataForm />
             <CustomButtons />
+            <Roof />
             <button type="button" className="btn btn-primary" onClick={handleClick}>
               Calcular
             </button>

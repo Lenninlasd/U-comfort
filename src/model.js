@@ -43,10 +43,9 @@ MVP:
 
 export default {
   numberOfPeople: 60,
-  perimetro: 300,
-  height: 14,
-  depth: 90,
-  width: 60,
+  height: 4.3,
+  depth: 27.4,
+  width: 18.3,
   exterior: {
     id: 7,
     ciudad: 'Indianapolis',
@@ -75,24 +74,24 @@ export default {
       {
         orientacion: 'W',
         sombra: 'no', // usuario
-        width: 83,
-        height: 10,
+        width: 25.3,
+        height: 3,
         espesor_nominal: '3/16 a 1/4',
         tipo_de_vidrio: 'absorbente de calor'
       },
       {
         orientacion: 'W',
         sombra: 'no',
-        width: 7,
-        height: 6,
+        width: 2,
+        height: 1.8,
         espesor_nominal: '3/32 a 1/4',
         tipo_de_vidrio: 'claro'
       },
       {
         orientacion: 'E',
         sombra: 'no',
-        width: 7,
-        height: 6,
+        width: 2,
+        height: 1.8,
         espesor_nominal: '3/32 a 1/4',
         tipo_de_vidrio: 'claro'
       }
@@ -141,8 +140,8 @@ export default {
     piso: {},
     puertas: [
       {
-        width: 6,
-        height: 7,
+        width: 1.8,
+        height: 2,
         orientacion: 'E',
         tipo: 'PUERTA',
         material: 'PUERTA_EJEMPLO',

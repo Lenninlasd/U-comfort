@@ -78,7 +78,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
       <div className="form-row">
         <div className="col">
           <small>
-            <strong>ALTO</strong>
+            <strong>ALTO (m)</strong>
           </small>
           <InputWinProps
             tag={keyForm}
@@ -90,7 +90,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
         </div>
         <div className="col">
           <small>
-            <strong>ANCHO</strong>
+            <strong>ANCHO (m)</strong>
           </small>
           <InputWinProps
             tag={keyForm}

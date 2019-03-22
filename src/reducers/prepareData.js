@@ -9,6 +9,8 @@ import TABLA_LM from '../../json/LM_6_4';
 import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
 import { getCargaEnfriamiento } from '../cargaEnfriamiento.js';
 
+const sqrFEET = 3.28084 * 3.28084;
+
 const setLM = (mes = 'JUL') => {
   const datoLM = TABLA_LM.find(x => Number(x.LATITUD) === 40 && x.MES === mes);
 
@@ -33,7 +35,7 @@ const LM = setLM();
 const calcAreaAll = state =>
   state.map(el =>
     Object.assign({}, el, {
-      areaNeta: el.width * el.height
+      areaNeta: el.width * el.height * sqrFEET
     })
   );
 
@@ -201,7 +203,7 @@ const updateAreaGlass = (glassState, id) =>
   glassState.map((glass, key) => {
     if (key === id) {
       return Object.assign({}, glass, {
-        areaNeta: glass.width * glass.height
+        areaNeta: glass.width * glass.height * sqrFEET
       });
     }
     return glass;
@@ -241,10 +243,10 @@ const calcAreaNetaPared = (paredesState, glassState, doors, depth, height, width
   }
 
   const areaBruta = {
-    N: width * height,
-    S: width * height,
-    E: depth * height,
-    W: depth * height
+    N: width * height * sqrFEET,
+    S: width * height * sqrFEET,
+    E: depth * height * sqrFEET,
+    W: depth * height * sqrFEET
   };
 
   return paredesState.map(pared => {
@@ -355,7 +357,7 @@ export const techo = (techoState = {}, action, state) => {
       return setU_One([techoState], { material: action.material, id: 0 })[0];
     case 'CALC_AREA_TECHO':
       return Object.assign({}, techoState, {
-        areaNeta: state.width * state.depth
+        areaNeta: state.width * state.depth * sqrFEET
       });
     default:
       return techoState;
@@ -397,7 +399,7 @@ export const piso = (pisoState = {}, action, state) => {
     }
     case 'CALC_AREA_PISO':
       return Object.assign({}, pisoState, {
-        areaNeta: state.width * state.depth
+        areaNeta: state.width * state.depth * sqrFEET
       });
     default:
       return pisoState;
