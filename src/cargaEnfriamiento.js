@@ -32,13 +32,20 @@ const calorTotal = (
 };
 
 export const getCargaEnfriamiento = state => {
+  const FEET = 3.28084;
+
   const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
   const ΔHumedad = state.exterior.humedad_especifica - state.recinto.humedad_especifica;
 
   // Calculo de calor
-  const infiltration = getCalorPorInfiltracion(state.piso.areaNeta, state.height, Δtemp, ΔHumedad);
+  const infiltration = getCalorPorInfiltracion(
+    state.piso.areaNeta,
+    state.height * FEET,
+    Δtemp,
+    ΔHumedad
+  );
 
-  const perimeter = 2 * state.width + 2 * state.depth;
+  const perimeter = 2 * FEET * (state.width + state.depth);
   const factorCorrecionCalorSensible = getCalor_sensible(state.vidrios, state.paredes, perimeter);
 
   const calorLuces =

@@ -115,7 +115,7 @@ const setExteriorConditions = (state, exterior) =>
 
 const setCLTD_pared = paredesState => {
   // el grupo es dado en la seleccion de los datos
-  const dataPared = TABLA_PARED.filter(x => x.grupo === 'b').map(x => ({
+  const dataPared = TABLA_PARED.filter(x => x.grupo === 'd').map(x => ({
     orientacion: x.orientacion,
     CLTD: Number(x[17])
   }));
