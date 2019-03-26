@@ -22,3 +22,8 @@ export const setActividadRecinto = value => ({
   type: 'SET_ACTIVIDAD_RECINTO',
   value
 });
+
+export const setTipoRecinto = value => ({
+  type: 'SET_TIPO_RECINTO',
+  value
+});

@@ -1,23 +1,20 @@
 import tablaPsat from '../json/Psat_tabla_A4E_simp.js';
 
 export const setCalorPersonas = (n_personas, correcion, tablaCalorPersonas, aplicacion) => {
-  const filtered = tablaCalorPersonas.filter(x => x['APLICACIONES_TIPICAS'] === aplicacion);
+  const filtered = tablaCalorPersonas.filter(x => x['ACTIVIDAD'] === aplicacion);
   const calorSensible = filtered.find(x => x['CALOR'] === 'CALOR SENSIBLE');
   const calorLatente = filtered.find(x => x['CALOR'] === 'CALOR LATENTE');
+  const FCE = 1;
 
   return {
-    sensible: calorSensible['BTUH'] * n_personas * 1.0 * correcion,
+    sensible: calorSensible['BTUH'] * n_personas * FCE * correcion,
     latente: calorLatente['BTUH'] * n_personas
   };
 };
 
-export const setCalorVentilacion = (n_personas, Δtemp, ΔHumedad, tablaCFM) => {
-  const cfmRecomendado = tablaCFM.find(
-    x => x.lugar === 'comercios: pisos de venta (pisos superiores)'
-  )['cfm_recomendado'];
-
+export const setCalorVentilacion = (n_personas, Δtemp, ΔHumedad, cfmMinimo) => {
   // take the first cfm of the range
-  const CFMventilacion = cfmRecomendado.split('-')[0] * n_personas;
+  const CFMventilacion = cfmMinimo * n_personas;
 
   return {
     sensible: 1.1 * CFMventilacion * Δtemp,

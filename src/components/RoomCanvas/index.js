@@ -17,7 +17,7 @@ function createBulbLightGeometry(size, lights) {
   const startDepth = -size.depth / 2 + stepDepth / 2;
   const startWidth = -size.width / 2 + stepWidth / 2;
 
-  const bulbGeometry = new THREE.SphereBufferGeometry(0.4, 6, 6);
+  const bulbGeometry = new THREE.SphereBufferGeometry(0.1, 6, 6);
   const bulbList = [];
   let lightCounter = 0;
   for (let i = 0; i < mesh && lightCounter < lights; i++) {
@@ -74,7 +74,7 @@ function createRectangleGeometry(size) {
   rectShape.lineTo(rectLength / 2, rectWidth / 2);
 
   const extrusionPath = new THREE.Path();
-  const padding = 0.5;
+  const padding = 0.2;
   extrusionPath.moveTo(rectLength / 2 - padding, rectWidth / 2 - padding);
   extrusionPath.lineTo(rectLength / 2 - padding, -rectWidth / 2 + padding);
   extrusionPath.lineTo(-rectLength / 2 + padding, -rectWidth / 2 + padding);
@@ -92,9 +92,9 @@ function initCube(id, size, numberOfLights) {
 
   const elementSize = getSize(element);
   const camera = new THREE.PerspectiveCamera(45, elementSize.width / elementSize.height, 1, 1000);
-  camera.position.z = 100;
+  camera.position.z = 30;
   camera.position.x = 0; //100 * Math.sin( 30 );
-  camera.position.y = 100;
+  camera.position.y = 30;
 
   const scene = new THREE.Scene();
   const geometry = new THREE.BoxBufferGeometry(size.width, 0, size.depth);

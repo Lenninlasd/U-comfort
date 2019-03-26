@@ -29,6 +29,7 @@ const ExteriorConditions = ({ exterior, handleChange }) => {
           </select>
         </div>
       </div>
+      <hr />
     </form>
   );
 };

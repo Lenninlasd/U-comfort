@@ -1,46 +1,3 @@
-/*
-MVP:
-[x] numberOfPeople
-[x] luces
-[x] luces 3D
-[x] bug de calculo
-[x] puertas
-	-[x] Forms
-	-[x] Recalcular Area pared
-	-[x] calcular area puerta by default
-[x] Area Techo y Paredes
-[x] ubicacion/latitud
-[x] cero luces
-
-[x] intefaz para ventanas
-    [x] Lista y boton eliminar/editar
-    [x] opcion eliminar ventana
-    [x] Añadir ventana
-    [x] Requires ventana
-
-[x] Intefaz para puertas
-    [x] Lista y boton eliminar/editar
-    [x] opcion puerta
-    [x] Añadir puerta
-
-[x] check if la pared se recalcula
-[ ] Propiedades paredes (?)
-[ ] Propiedades del Techo (?)
-
-[x] Resize 3D model
-[x] hover model
-[x] Brujula 3D
-    [x] discover 3D rotation
-    [x] expose controls on the CanvasElement component
-    [x] create svg compass indicator
-    [x] connet compass indicator with angle state
-[ ] Export/Import Info
-
-[ ] Visualizar ventanas y puertas
-[ ] Default position 3D buttons
-
-*/
-
 export default {
   numberOfPeople: 60,
   height: 4.267,
@@ -61,7 +18,8 @@ export default {
     bulbo_seco: 78,
     humedad_relativa: 50,
     humedad_especifica: 72,
-    actividad_recinto: 'TIENDAS MINORISTAS, BANCOS'
+    actividad_recinto: 'PARADO, TRABAJO LIGERO O CAMINA DESPACIO',
+    tipo_recinto: 'comercios: pisos de venta (pisos superiores)'
   },
   cargaPico: {
     fecha: '21-07-xxxx', // julio, no va a cambiar

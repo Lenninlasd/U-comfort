@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tablaCalorPersonas from '../../../json/calor_personas_6_11';
+import tablaCFM from '../../../json/CFM_6_15';
 
-const apliacionesTipicas = [
-  ...new Set(tablaCalorPersonas.map(element => element.APLICACIONES_TIPICAS))
-].map((item, i) => (
-  <option key={i} value={item}>
-    {item}
+const apliacionesTipicas = [...new Set(tablaCalorPersonas.map(element => element.ACTIVIDAD))].map(
+  (item, i) => (
+    <option key={i} value={item}>
+      {item}
+    </option>
+  )
+);
+
+const tiposRecinto = tablaCFM.map((item, i) => (
+  <option key={i} value={item.lugar}>
+    {item.lugar}
   </option>
 ));
 
@@ -83,20 +90,39 @@ export const SizeDataForm = props => (
         />
       </div>
       <div className="col-md-12 col-sm-12">
-        <small>
-          <strong>ACTIVIDAD DEL RECINTO</strong>
-        </small>
-        <select
-          id="tipoRecinto"
-          className="form-control"
-          onChange={props.onEnclosureChange}
-          value={props.actividadRecinto}
-        >
-          <option hidden>ACTIVIDAD DEL RECINTO</option>
-          {apliacionesTipicas}
-        </select>
+        <div className="row">
+          <div className="col">
+            <small>
+              <strong>ACTIVIDAD DEL RECINTO</strong>
+            </small>
+            <select
+              id="actividadRecinto"
+              className="form-control"
+              onChange={props.onEnclosureChange}
+              value={props.actividadRecinto}
+            >
+              <option hidden>ACTIVIDAD DEL RECINTO</option>
+              {apliacionesTipicas}
+            </select>
+          </div>
+          <div className="col">
+            <small>
+              <strong>TIPO DE RECINTO</strong>
+            </small>
+            <select
+              id="tipoRecinto"
+              className="form-control"
+              onChange={props.onEnclosureChange}
+              value={props.tipoRecinto}
+            >
+              <option hidden>TIPO DE RECINTO</option>
+              {tiposRecinto}
+            </select>
+          </div>
+        </div>
       </div>
     </div>
+    <hr />
   </form>
 );
 SizeDataForm.propTypes = {

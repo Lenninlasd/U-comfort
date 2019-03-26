@@ -151,6 +151,7 @@ const setU = (elState, type = 'TECHO', material = 'CUBIERTA_DE_EJEMPLO') => {
   return Array.isArray(elState) ? elState.map(setUobj) : setUobj(elState);
 };
 
+// TODO: refactor
 const setU_One = (paredesState, data) => {
   const paredTabla = TABLA_U_TECHO_PARED_PARTICION.find(
     element => element.material === data.material
@@ -161,7 +162,8 @@ const setU_One = (paredesState, data) => {
       return Object.assign({}, pared, {
         material: paredTabla.material,
         coeficiente_transferencia_calor: Number(paredTabla.U),
-        tipo: paredTabla.tipo
+        tipo: paredTabla.tipo,
+        CLDT_tabla: Number(paredTabla.CLTD) || pared.CLDT_tabla
       });
     }
     return pared;
@@ -323,9 +325,8 @@ export const paredes = (paredesState = [], action, state) => {
     }
     case 'SET_U_1_PARED':
       return setU_One(paredesState, action.data);
-    case 'SET_COLOR_K': {
+    case 'SET_COLOR_K':
       return setColorK(paredesState, action.data);
-    }
     case 'SET_UNDO_WALL':
       return state.past;
     default:
@@ -353,8 +354,15 @@ export const techo = (techoState = {}, action, state) => {
       return LM.techo(techoState);
     case 'SET_U_TECHO':
       return setU(techoState, action.element, action.material);
-    case 'SET_U_1_TECHO':
-      return setU_One([techoState], { material: action.material, id: 0 })[0];
+    case 'SET_U_1_TECHO': {
+      const dataTemperature = getDataTemperature(state);
+      return setCLDT_correccion(
+        setU_One([techoState], { material: action.material, id: 0 })[0],
+        dataTemperature
+      );
+    }
+    case 'SET_COLOR_K_TECHO':
+      return setColorK([techoState], { k: action.k, id: 0 })[0];
     case 'CALC_AREA_TECHO':
       return Object.assign({}, techoState, {
         areaNeta: state.width * state.depth * sqrFEET
@@ -440,6 +448,10 @@ export const recinto = (recintoState = {}, action) => {
     case 'SET_ACTIVIDAD_RECINTO':
       return Object.assign({}, recintoState, {
         actividad_recinto: action.value
+      });
+    case 'SET_TIPO_RECINTO':
+      return Object.assign({}, recintoState, {
+        tipo_recinto: action.value
       });
     default:
       return recintoState;
