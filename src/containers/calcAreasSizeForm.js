@@ -7,7 +7,8 @@ import {
   calcAreaTecho,
   setNumberOfPeople,
   setNumberOfLights,
-  setActividadRecinto
+  setActividadRecinto,
+  setTipoRecinto
 } from '../actions';
 import { SizeDataForm } from '../components/RoomConfig';
 
@@ -25,12 +26,14 @@ const actionSizeForm = target => {
 
 const actionEnclosure = ({ value, id }) => {
   switch (id) {
-    case 'tipoRecinto':
+    case 'actividadRecinto':
       return setActividadRecinto(value);
     case 'numberOfPeople':
       return setNumberOfPeople(Number(value));
     case 'numberOfLights':
       return setNumberOfLights(Number(value));
+    case 'tipoRecinto':
+      return setTipoRecinto(value);
   }
 };
 
@@ -39,6 +42,7 @@ const mapStateToProps = state => ({
   height: state.height,
   depth: state.depth,
   actividadRecinto: state.recinto.actividad_recinto,
+  tipoRecinto: state.recinto.tipo_recinto,
   numberOfPeople: state.numberOfPeople,
   numberOfLights: state.luces.numberOfLights
 });

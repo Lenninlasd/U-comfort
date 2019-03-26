@@ -12,25 +12,49 @@ const optionsRoof = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
   </option>
 ));
 
-const Roof = ({ roof = {}, handleChange }) => {
+const Roof = ({ roof = {}, handleChange, changeColorK }) => {
   return (
     <div className="form-group">
-      <div>
-        <small>
-          <strong> TIPO DE TECHO</strong>
-        </small>
+      <div className="row">
+        <div className="col">
+          <div>
+            <small>
+              <strong> TIPO DE TECHO</strong>
+            </small>
+          </div>
+          <select
+            id="typeofRoof"
+            className="form-control"
+            value={roof.material}
+            onChange={handleChange}
+          >
+            <option hidden value="">
+              TIPO DE TECHO
+            </option>
+            {optionsRoof}
+          </select>
+        </div>
+        <div className="col">
+          <div>
+            <small>
+              <strong> COLOR</strong>
+            </small>
+          </div>
+          <select
+            id="correcion_color_K"
+            className="form-control"
+            value={String(roof.correcion_color_K)}
+            onChange={changeColorK}
+          >
+            <option key="oscuras" value={1}>
+              Superficies oscuras o áreas industriales
+            </option>
+            <option key="claro" value={0.5}>
+              Paredes de color claro en zonas rurales
+            </option>
+          </select>
+        </div>
       </div>
-      <select
-        id="typeofRoof"
-        className="form-control"
-        value={roof.material}
-        onChange={handleChange}
-      >
-        <option hidden value="">
-          TIPO DE TECHO
-        </option>
-        {optionsRoof}
-      </select>
     </div>
   );
 };
@@ -38,7 +62,8 @@ Roof.propTypes = {
   roof: PropTypes.shape({
     material: PropTypes.string.isRequired
   }).isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  changeColorK: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -50,6 +75,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: 'SET_U_1_TECHO',
       material: event.target.value
+    });
+  },
+  changeColorK: event => {
+    dispatch({
+      type: 'SET_COLOR_K_TECHO',
+      k: event.target.value
     });
   }
 });

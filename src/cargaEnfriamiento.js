@@ -61,7 +61,12 @@ export const getCargaEnfriamiento = state => {
     state.recinto.actividad_recinto
   );
 
-  const calorVentilacion = setCalorVentilacion(state.numberOfPeople, Δtemp, ΔHumedad, tablaCFM);
+  const cfmMinimo = Number(
+    tablaCFM.find(x => x.lugar === state.recinto.tipo_recinto)['cfm_minimo']
+  );
+
+  const calorVentilacion = setCalorVentilacion(state.numberOfPeople, Δtemp, ΔHumedad, cfmMinimo);
+
   //Calculo final
   const sensibleEl = calculoTotalSensible(
     state.vidrios,
