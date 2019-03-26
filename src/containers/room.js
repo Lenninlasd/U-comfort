@@ -10,7 +10,7 @@ import {
   setActividadRecinto,
   setTipoRecinto
 } from '../actions';
-import { SizeDataForm } from '../components/RoomConfig';
+import { RoomForm } from '../components/RoomConfig';
 
 const actionSizeForm = target => {
   const value = Number(target.value);
@@ -59,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SizeDataForm);
+)(RoomForm);

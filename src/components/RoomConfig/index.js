@@ -17,7 +17,7 @@ const tiposRecinto = tablaCFM.map((item, i) => (
   </option>
 ));
 
-export const SizeDataForm = props => (
+export const RoomForm = props => (
   <form className="size-data-form">
     <div className="form-row form-group">
       <div className="col-sm-12">
@@ -125,7 +125,7 @@ export const SizeDataForm = props => (
     <hr />
   </form>
 );
-SizeDataForm.propTypes = {
+RoomForm.propTypes = {
   depth: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,

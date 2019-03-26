@@ -4,12 +4,14 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ExteriorConditions from '../ExteriorConditions';
-import SizeDataForm from '../../containers/calcAreasSizeForm.js';
+import Enclosure from '../../containers/room.js';
 import Doors from '../Doors';
 import WallsConfig from '../WallsConfig';
 import ListOfElements from '../WindowsConfig';
 import CustomButton from '../CustomButton';
 import Roof from '../Roof';
+
+import { calcAreaNetPared, setCargaEnfriamiento } from '../../actions';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -75,7 +77,7 @@ const CardForm = ({ history, submit, windowsView }) => {
           windowsView,
           <div>
             <ExteriorConditions />
-            <SizeDataForm />
+            <Enclosure />
             <CustomButtons />
             <Roof />
             <button type="button" className="btn btn-primary" onClick={handleClick}>
@@ -99,8 +101,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   submit: () => {
-    dispatch({ type: 'CALC_AREA_NETA_PARED' });
-    dispatch({ type: 'SET_CARGA_EMFRIAMIENTO' });
+    dispatch(calcAreaNetPared());
+    dispatch(setCargaEnfriamiento());
   }
 });
 

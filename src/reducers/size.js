@@ -1,3 +1,5 @@
+import { SET_DEPTH, SET_WIDTH, SET_HEIGHT, SET_NUMBER_OF_PEOPLE } from '../actions';
+
 const setValue = (state, action, type) => {
   switch (action.type) {
     case type:
@@ -8,17 +10,17 @@ const setValue = (state, action, type) => {
 };
 
 export const depth = (state = 0, action) => {
-  return setValue(state, action, 'SET_DEPTH');
+  return setValue(state, action, SET_DEPTH);
 };
 
 export const width = (state = 0, action) => {
-  return setValue(state, action, 'SET_WIDTH');
+  return setValue(state, action, SET_WIDTH);
 };
 
 export const height = (state = 0, action) => {
-  return setValue(state, action, 'SET_HEIGHT');
+  return setValue(state, action, SET_HEIGHT);
 };
 
 export const numberOfPeople = (state = 0, action) => {
-  return setValue(state, action, 'SET_NUMBER_OF_PEOPLE');
+  return setValue(state, action, SET_NUMBER_OF_PEOPLE);
 };

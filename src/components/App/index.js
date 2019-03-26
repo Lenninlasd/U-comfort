@@ -38,7 +38,7 @@ export const App = () => (
     <div>
       <Route exact path="/" component={MainView} />
       <Route path="/equipment" component={EquipmentsView} />
-      <Footer />
+      {<Footer /> && false}
     </div>
   </Router>
 );

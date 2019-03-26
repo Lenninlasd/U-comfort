@@ -9,6 +9,19 @@ import TABLA_LM from '../../json/LM_6_4';
 import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
 import { getCargaEnfriamiento } from '../cargaEnfriamiento.js';
 
+import {
+  CALC_AREA_PISO,
+  CALC_AREA_TECHO,
+  SET_NUMBER_OF_LIGHTS,
+  SET_ACTIVIDAD_RECINTO,
+  SET_TIPO_RECINTO,
+  CALC_AREA_NETA_PARED,
+  SET_CARGA_ENFRIAMIENTO,
+  SET_U_1_DOOR,
+  UPDATE_PROP_DOOR,
+  CALC_AREA_DOOR
+} from '../actions';
+
 const sqrFEET = 3.28084 * 3.28084;
 
 const setLM = (mes = 'JUL') => {
@@ -319,7 +332,7 @@ export const paredes = (paredesState = [], action, state) => {
     }
     case 'SET_U_PARED':
       return setU(paredesState, action.element, action.material);
-    case 'CALC_AREA_NETA_PARED': {
+    case CALC_AREA_NETA_PARED: {
       const { depth, height, width, vidrios, puertas } = state;
       return calcAreaNetaPared(paredesState, vidrios, puertas, depth, height, width);
     }
@@ -363,7 +376,7 @@ export const techo = (techoState = {}, action, state) => {
     }
     case 'SET_COLOR_K_TECHO':
       return setColorK([techoState], { k: action.k, id: 0 })[0];
-    case 'CALC_AREA_TECHO':
+    case CALC_AREA_TECHO:
       return Object.assign({}, techoState, {
         areaNeta: state.width * state.depth * sqrFEET
       });
@@ -374,19 +387,19 @@ export const techo = (techoState = {}, action, state) => {
 
 export const puertas = (puertasState = [], action, state) => {
   switch (action.type) {
-    case 'SET_U_1_PUERTA':
+    case SET_U_1_DOOR:
       return setU_One(puertasState, action.data);
     case 'SET_U_PUERTA':
       return setU(puertasState, action.element, action.material);
-    case 'UPDATE_PROP_PUERTA':
+    case UPDATE_PROP_DOOR:
       return updatePropGlass(puertasState, action.data);
-    case 'CALC_AREA_PUERTA_ALL':
+    case 'CALC_AREA_DOOR_ALL':
       return calcAreaAll(puertasState);
-    case 'CALC_AREA_PUERTA':
+    case CALC_AREA_DOOR:
       return updateAreaGlass(puertasState, action.id);
     case 'REMOVE_DOOR':
       return [...puertasState.slice(0, action.key), ...puertasState.slice(action.key + 1)];
-    case 'ADD_PUERTA':
+    case 'ADD_DOOR':
       return addNewDoor(puertasState, action.data);
     case 'SET_UNDO_DOORS':
       return state.past;
@@ -405,7 +418,7 @@ export const piso = (pisoState = {}, action, state) => {
         CLDT_correccion: Δtemp
       });
     }
-    case 'CALC_AREA_PISO':
+    case CALC_AREA_PISO:
       return Object.assign({}, pisoState, {
         areaNeta: state.width * state.depth * sqrFEET
       });
@@ -416,7 +429,7 @@ export const piso = (pisoState = {}, action, state) => {
 
 export const results = (resultsState = {}, action, state) => {
   switch (action.type) {
-    case 'SET_CARGA_EMFRIAMIENTO':
+    case SET_CARGA_ENFRIAMIENTO:
       return Object.assign({}, resultsState, getCargaEnfriamiento(state));
     default:
       return resultsState;
@@ -425,7 +438,7 @@ export const results = (resultsState = {}, action, state) => {
 
 export const luces = (lucesState = {}, action) => {
   switch (action.type) {
-    case 'SET_NUMBER_OF_LIGHTS':
+    case SET_NUMBER_OF_LIGHTS:
       return Object.assign({}, lucesState, {
         numberOfLights: action.value
       });
@@ -445,11 +458,11 @@ export const exterior = (exteriorState = {}, action) => {
 
 export const recinto = (recintoState = {}, action) => {
   switch (action.type) {
-    case 'SET_ACTIVIDAD_RECINTO':
+    case SET_ACTIVIDAD_RECINTO:
       return Object.assign({}, recintoState, {
         actividad_recinto: action.value
       });
-    case 'SET_TIPO_RECINTO':
+    case SET_TIPO_RECINTO:
       return Object.assign({}, recintoState, {
         tipo_recinto: action.value
       });

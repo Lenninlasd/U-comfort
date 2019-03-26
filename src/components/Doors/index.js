@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { SaveAndCancel } from '../BackButton';
 import PropTypes from 'prop-types';
 import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
+import { calcAreaNetPared, setUoneDoor, updatePropDoor, calcAreaDoor } from '../../actions';
 
 const optionsDoors = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
   element.tipo.includes('PUERTA')
@@ -232,22 +233,14 @@ const getDispatchData = (event, dispatch) => {
   const id = Number(el.dataset.group);
   const type = el.dataset.type;
 
-  if (type === 'material') {
-    dispatch({
-      type: 'SET_U_1_PUERTA',
-      data: { id, [type]: value }
-    });
-  } else {
-    dispatch({
-      type: 'UPDATE_PROP_PUERTA',
-      data: { id, [type]: value }
-    });
+  const data = { id, [type]: value };
 
-    dispatch({
-      type: 'CALC_AREA_PUERTA',
-      id
-    });
-    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+  if (type === 'material') {
+    dispatch(setUoneDoor(data));
+  } else {
+    dispatch(updatePropDoor(data));
+    dispatch(calcAreaDoor(id));
+    dispatch(calcAreaNetPared());
   }
 };
 
@@ -262,14 +255,14 @@ const mapDispatchToProps = dispatch => ({
       type: 'REMOVE_DOOR',
       key
     });
-    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    dispatch(calcAreaNetPared());
   },
   handleAddButton: data => {
     dispatch({
-      type: 'ADD_PUERTA',
+      type: 'ADD_DOOR',
       data
     });
-    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    dispatch(calcAreaNetPared());
   },
   handleBackButton: () =>
     dispatch({

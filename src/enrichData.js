@@ -21,7 +21,7 @@ export default function enrichData(dispatch) {
   dispatch({ type: 'SET_U_TECHO', element: 'TECHO', material: 'CUBIERTA_DE_EJEMPLO' });
 
   dispatch({ type: 'SET_U_PUERTA', element: 'PUERTA', material: 'PUERTA_EJEMPLO' });
-  dispatch({ type: 'CALC_AREA_PUERTA_ALL' });
+  dispatch({ type: 'CALC_AREA_DOOR_ALL' });
 
   dispatch({ type: 'CALC_AREA_NETA_PARED' });
 

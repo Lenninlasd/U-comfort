@@ -26,7 +26,7 @@ const store = createStore(rootReducer, {
 
 enrichData(store.dispatch);
 
-store.dispatch({ type: 'SET_CARGA_EMFRIAMIENTO' });
+store.dispatch({ type: 'SET_CARGA_ENFRIAMIENTO' });
 
 ReactDOM.render(
   <Provider store={store}>
