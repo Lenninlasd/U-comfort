@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { SaveAndCancel } from '../BackButton';
 import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
+import { hideMainFormLayout, setUoneWall, setColorkWall, setUndoWall } from '../../actions';
 
 const optionsWall = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
   element.tipo.includes('PAREDES')
@@ -122,7 +123,7 @@ ConfigWalls.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleBackButton: () => dispatch({ type: 'HIDE_WINDOWS_PROPS' }),
+  handleBackButton: () => dispatch(hideMainFormLayout()),
   handleChange: event => {
     const el = event.target;
     const id = Number(el.dataset.group);
@@ -130,20 +131,14 @@ const mapDispatchToProps = dispatch => ({
 
     switch (type) {
       case 'material':
-        return dispatch({
-          type: 'SET_U_1_PARED',
-          data: { id, [type]: el.value }
-        });
+        return dispatch(setUoneWall({ id, [type]: el.value }));
       case 'correcion_color_K':
-        return dispatch({
-          type: 'SET_COLOR_K',
-          data: { id, k: el.value }
-        });
+        return dispatch(setColorkWall({ id, k: el.value }));
     }
   },
   handleCancel: () => {
-    dispatch({ type: 'HIDE_WINDOWS_PROPS' });
-    dispatch({ type: 'SET_UNDO_WALL' });
+    dispatch(hideMainFormLayout());
+    dispatch(setUndoWall());
   }
 });
 
