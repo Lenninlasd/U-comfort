@@ -10,7 +10,7 @@ export const CALC_AREA_FLOOR = 'CALC_AREA_FLOOR';
 export const CALC_AREA_ROOF = 'CALC_AREA_ROOF';
 export const SET_NUMBER_OF_PEOPLE = 'SET_NUMBER_OF_PEOPLE';
 export const SET_NUMBER_OF_LIGHTS = 'SET_NUMBER_OF_LIGHTS';
-export const SET_ACTIVIDAD_ROOM = 'SET_ACTIVIDAD_ROOM';
+export const SET_ROOM_ACTIVITY = 'SET_ROOM_ACTIVITY';
 export const SET_ROOM_TYPE = 'SET_ROOM_TYPE';
 
 export const SET_U_FLOOR = 'SET_U_FLOOR';
@@ -39,7 +39,7 @@ export const setNumberOfLights = value => ({
 });
 
 export const setRoomActivity = value => ({
-  type: SET_ACTIVIDAD_ROOM,
+  type: SET_ROOM_ACTIVITY,
   value
 });
 

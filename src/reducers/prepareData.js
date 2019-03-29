@@ -15,7 +15,7 @@ import {
   SET_FLOOR_CLTD_CORRECTION,
   CALC_AREA_ROOF,
   SET_NUMBER_OF_LIGHTS,
-  SET_ACTIVIDAD_ROOM,
+  SET_ROOM_ACTIVITY,
   SET_ROOM_TYPE,
   CALC_GROSS_WALL_AREA,
   SET_CARGA_ENFRIAMIENTO,
@@ -491,7 +491,7 @@ export const exterior = (exteriorState = {}, action) => {
 
 export const recinto = (recintoState = {}, action) => {
   switch (action.type) {
-    case SET_ACTIVIDAD_ROOM:
+    case SET_ROOM_ACTIVITY:
       return Object.assign({}, recintoState, {
         actividad_recinto: action.value
       });
