@@ -3,12 +3,12 @@ import {
   setDepth,
   setHeight,
   setWidth,
-  calcAreaPiso,
-  calcAreaTecho,
+  calcAreaFloor,
+  calcAreaRoof,
   setNumberOfPeople,
   setNumberOfLights,
-  setActividadRecinto,
-  setTipoRecinto
+  setRoomActivity,
+  setRoomType
 } from '../actions';
 import { RoomForm } from '../components/RoomConfig';
 
@@ -27,13 +27,13 @@ const actionSizeForm = target => {
 const actionEnclosure = ({ value, id }) => {
   switch (id) {
     case 'actividadRecinto':
-      return setActividadRecinto(value);
+      return setRoomActivity(value);
     case 'numberOfPeople':
       return setNumberOfPeople(Number(value));
     case 'numberOfLights':
       return setNumberOfLights(Number(value));
     case 'tipoRecinto':
-      return setTipoRecinto(value);
+      return setRoomType(value);
   }
 };
 
@@ -50,8 +50,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onSizeChange: event => {
     dispatch(actionSizeForm(event.target));
-    dispatch(calcAreaPiso());
-    dispatch(calcAreaTecho());
+    dispatch(calcAreaFloor());
+    dispatch(calcAreaRoof());
   },
   onEnclosureChange: event => dispatch(actionEnclosure(event.target))
 });

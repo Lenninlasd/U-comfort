@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setExteriorConditions } from '../../actions';
 
 // Latidud
 import condicionesClimaticas from '../../../json/condiciones_climaticas';
@@ -47,10 +48,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleChange: event => {
     const value = event.target.value;
-    dispatch({
-      type: 'SET_EXTERIOR_CONDITIONS',
-      exterior: condicionesClimaticas[value]
-    });
+    dispatch(setExteriorConditions(condicionesClimaticas[value]));
   }
 });
 

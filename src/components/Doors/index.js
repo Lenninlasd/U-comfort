@@ -3,7 +3,16 @@ import { connect } from 'react-redux';
 import { SaveAndCancel } from '../BackButton';
 import PropTypes from 'prop-types';
 import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
-import { calcAreaNetPared, setUoneDoor, updatePropDoor, calcAreaDoor } from '../../actions';
+import {
+  calcGrossWallArea,
+  setUoneDoor,
+  updatePropDoor,
+  calcAreaDoor,
+  removeDoor,
+  addDoor,
+  hideMainFormLayout,
+  setUndoDoors
+} from '../../actions';
 
 const optionsDoors = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
   element.tipo.includes('PUERTA')
@@ -240,7 +249,7 @@ const getDispatchData = (event, dispatch) => {
   } else {
     dispatch(updatePropDoor(data));
     dispatch(calcAreaDoor(id));
-    dispatch(calcAreaNetPared());
+    dispatch(calcGrossWallArea());
   }
 };
 
@@ -251,26 +260,17 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleChange: event => getDispatchData(event, dispatch),
   removeItem: key => {
-    dispatch({
-      type: 'REMOVE_DOOR',
-      key
-    });
-    dispatch(calcAreaNetPared());
+    dispatch(removeDoor(key));
+    dispatch(calcGrossWallArea());
   },
   handleAddButton: data => {
-    dispatch({
-      type: 'ADD_DOOR',
-      data
-    });
-    dispatch(calcAreaNetPared());
+    dispatch(addDoor(data));
+    dispatch(calcGrossWallArea());
   },
-  handleBackButton: () =>
-    dispatch({
-      type: 'HIDE_WINDOWS_PROPS'
-    }),
+  handleBackButton: () => dispatch(hideMainFormLayout()),
   handleCancel: () => {
-    dispatch({ type: 'HIDE_WINDOWS_PROPS' });
-    dispatch({ type: 'SET_UNDO_DOORS' });
+    dispatch(hideMainFormLayout());
+    dispatch(setUndoDoors());
   }
 });
 

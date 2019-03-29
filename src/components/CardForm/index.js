@@ -11,7 +11,7 @@ import ListOfElements from '../WindowsConfig';
 import CustomButton from '../CustomButton';
 import Roof from '../Roof';
 
-import { calcAreaNetPared, setCargaEnfriamiento } from '../../actions';
+import { calcGrossWallArea, setCargaEnfriamiento } from '../../actions';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -101,7 +101,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   submit: () => {
-    dispatch(calcAreaNetPared());
+    dispatch(calcGrossWallArea());
     dispatch(setCargaEnfriamiento());
   }
 });

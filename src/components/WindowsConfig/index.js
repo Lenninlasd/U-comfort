@@ -3,6 +3,15 @@ import u from '../../reactData';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SaveAndCancel } from '../BackButton';
+import {
+  hideMainFormLayout,
+  updatePropWindow,
+  calcAreaWindow,
+  addWindow,
+  removeWindow,
+  setUndoWindows,
+  calcGrossWallArea
+} from '../../actions';
 
 const formPropTypes = {
   type: PropTypes.string.isRequired,
@@ -150,7 +159,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
         </div>
         <div className="col">
           <small>
-            <strong>TIPO DE VIDRIO</strong>
+            <strong>TIPO DE WINDOW</strong>
           </small>
           <SelectWinProps
             tag={keyForm}
@@ -280,37 +289,22 @@ const mapDispatchToProps = dispatch => ({
     const id = Number(el.dataset.group);
     const type = el.dataset.type;
 
-    dispatch({
-      type: 'UPDATE_PROP_VIDRIO',
-      data: { id, [type]: el.value }
-    });
-    dispatch({
-      type: 'CALC_AREA_VIDRIO',
-      id
-    });
-    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    dispatch(updatePropWindow({ id, [type]: el.value }));
+    dispatch(calcAreaWindow(id));
+    dispatch(calcGrossWallArea());
   },
   handleAddButton: data => {
-    dispatch({
-      type: 'ADD_VIDRIO',
-      data
-    });
-    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    dispatch(addWindow(data));
+    dispatch(calcGrossWallArea());
   },
   removeItem: key => {
-    dispatch({
-      type: 'REMOVE_VIDRIO',
-      key
-    });
-    dispatch({ type: 'CALC_AREA_NETA_PARED' });
+    dispatch(removeWindow(key));
+    dispatch(calcGrossWallArea());
   },
-  handleBackButton: () =>
-    dispatch({
-      type: 'HIDE_WINDOWS_PROPS'
-    }),
+  handleBackButton: () => dispatch(hideMainFormLayout()),
   handleCancel: () => {
-    dispatch({ type: 'HIDE_WINDOWS_PROPS' });
-    dispatch({ type: 'SET_UNDO_WINDOWS' });
+    dispatch(hideMainFormLayout());
+    dispatch(setUndoWindows());
   }
 });
 

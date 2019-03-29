@@ -109,7 +109,7 @@ export default {
     ],
     luces: {
       numberOfLights: 135,
-      wattsPorLampara: 120,
+      wattsPorLampara: 60,
       factConv: 3.41
     }
   }
