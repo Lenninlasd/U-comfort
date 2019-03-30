@@ -21,7 +21,7 @@ import {
   calcAreaDoorAll,
   setUFloor,
   setFloorCLTDCorrection
-} from './actions';
+} from '../actions';
 
 export default function enrichData(dispatch) {
   dispatch(setCLTDWindow());

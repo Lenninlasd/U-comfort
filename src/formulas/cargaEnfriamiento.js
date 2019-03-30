@@ -8,11 +8,11 @@ import {
   calcularHumedadEntradaSerp
 } from './calculoCalor';
 
-import tablaCalorPersonas from '../json/calor_personas_6_11';
-import tablaCFM from '../json/CFM_6_15';
+import tablaCalorPersonas from '../../json/calor_personas_6_11';
+import tablaCFM from '../../json/CFM_6_15';
 
 // CFMventilacion = CFM_tabla * Numero de personas (ver function setCalorVentilacion)
-const getTempEntradaSerpentin = (CFMnetoSensible, CFMventilacion, exterior, recinto) => {
+export const getTempEntradaSerpentin = (CFMnetoSensible, CFMventilacion, exterior, recinto) => {
   const aireExterior = CFMventilacion * exterior.bulbo_seco;
   const aireRetorno = recinto.bulbo_seco * (CFMnetoSensible - CFMventilacion);
   return (aireExterior + aireRetorno) / CFMnetoSensible;

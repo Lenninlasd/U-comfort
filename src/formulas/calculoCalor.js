@@ -1,4 +1,4 @@
-import tablaPsat from '../json/Psat_tabla_A4E_simp.js';
+import tablaPsat from '../../json/Psat_tabla_A4E_simp.js';
 
 export const setCalorPersonas = (n_personas, correcion, tablaCalorPersonas, aplicacion) => {
   const filtered = tablaCalorPersonas.filter(x => x['ACTIVIDAD'] === aplicacion);

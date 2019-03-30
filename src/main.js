@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import rootReducer from './reducers/root.js';
 import initState from './model.js';
 import { App } from './components/App';
-import enrichData from './enrichData.js';
+import enrichData from './formulas/enrichData.js';
 
 const store = createStore(rootReducer, {
   vidrios: initState.elementos.vidrios,

@@ -7,7 +7,7 @@ import TABLA_SC from '../../json/SC_tabla_6_7';
 import TABLA_PARED from '../../json/CLTD_pared';
 import TABLA_LM from '../../json/LM_6_4';
 import TABLA_U_TECHO_PARED_PARTICION from '../../json/U_techos_paredes_particiones';
-import { getCargaEnfriamiento } from '../cargaEnfriamiento.js';
+import { getCargaEnfriamiento } from '../formulas/cargaEnfriamiento.js';
 
 import {
   CALC_AREA_FLOOR,
