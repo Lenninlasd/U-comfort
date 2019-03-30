@@ -6,11 +6,11 @@ export default {
   exterior: {
     id: 7,
     ciudad: 'Indianapolis',
-    latitud: 39,
+    latitud: 40,
     bulbo_seco: 90,
     bulbo_humedo: 74,
     humedad_especifica: 101, // formula pendiente
-    mes_carga_de_enfriamiento: 'julio',
+    mes_carga_de_enfriamiento: 'JUL',
     rango_diario: 22 // Fahrenheit
   },
   recinto: {

@@ -57,26 +57,22 @@ import {
 
 const sqrFEET = 3.28084 * 3.28084;
 
-const setLM = (mes = 'JUL') => {
-  const datoLM = TABLA_LM.find(x => Number(x.LATITUD) === 40 && x.MES === mes);
+const setLM = (mes = 'JUL', lat = 40) =>
+  TABLA_LM.find(x => Number(x.LATITUD) === lat && x.MES === mes);
 
-  return {
-    paredes(paredesState) {
-      return paredesState.map(pared =>
-        Object.assign({}, pared, {
-          correcion_latitud_mes_LM: Number(datoLM[pared.orientacion])
-        })
-      );
-    },
-    techo(techoState) {
-      return Object.assign({}, techoState, {
-        correcion_latitud_mes_LM: Number(datoLM['HORA'])
-      });
-    }
-  };
+const setLMparedes = (paredesState, dataLM) => {
+  return paredesState.map(pared =>
+    Object.assign({}, pared, {
+      correcion_latitud_mes_LM: Number(dataLM[pared.orientacion])
+    })
+  );
 };
 
-const LM = setLM();
+const setLMtecho = (techoState, dataLM) => {
+  return Object.assign({}, techoState, {
+    correcion_latitud_mes_LM: Number(dataLM['HORA'])
+  });
+};
 
 const calcAreaAll = state =>
   state.map(el =>
@@ -357,8 +353,10 @@ export const paredes = (paredesState = [], action, state) => {
   switch (action.type) {
     case SET_CLTD_WALL:
       return setCLTD_pared(paredesState);
-    case SET_LM_WALL:
-      return LM.paredes(paredesState);
+    case SET_LM_WALL: {
+      const { mes_carga_de_enfriamiento, latitud } = state.exterior;
+      return setLMparedes(paredesState, setLM(mes_carga_de_enfriamiento, latitud));
+    }
     case SET_CLTD_CORRECCION_WALL: {
       const dataTemperature = getDataTemperature(state);
       return setCLDT_correccion(paredesState, dataTemperature);
@@ -396,8 +394,10 @@ export const techo = (techoState = {}, action, state) => {
       const dataTemperature = getDataTemperature(state);
       return setCLDT_correccion(techoState, dataTemperature);
     }
-    case SET_LM_ROOF:
-      return LM.techo(techoState);
+    case SET_LM_ROOF: {
+      const { mes_carga_de_enfriamiento, latitud } = state.exterior;
+      return setLMtecho(techoState, setLM(mes_carga_de_enfriamiento, latitud));
+    }
     case SET_U_ROOF:
       return setU(techoState, action.element, action.material);
     case SET_U_1_ROOF: {
