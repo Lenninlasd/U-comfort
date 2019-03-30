@@ -99,7 +99,7 @@ const setCLDT_vidrios = glassState => {
 };
 
 const setCLDT_correccion = (state, action) => {
-  const DeltaTempDiseno = 78 - 85;
+  const DeltaTempDiseno = 85 - 78;
 
   const CLDT_Obj = el => {
     const LM = el.correcion_latitud_mes_LM;

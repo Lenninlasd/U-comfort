@@ -17,7 +17,7 @@ function createBulbLightGeometry(size, lights) {
   const startDepth = -size.depth / 2 + stepDepth / 2;
   const startWidth = -size.width / 2 + stepWidth / 2;
 
-  const bulbGeometry = new THREE.SphereBufferGeometry(0.1, 6, 6);
+  const bulbGeometry = new THREE.SphereBufferGeometry(0.05, 6, 6);
   const bulbList = [];
   let lightCounter = 0;
   for (let i = 0; i < mesh && lightCounter < lights; i++) {
@@ -74,7 +74,7 @@ function createRectangleGeometry(size) {
   rectShape.lineTo(rectLength / 2, rectWidth / 2);
 
   const extrusionPath = new THREE.Path();
-  const padding = 0.2;
+  const padding = 0.1;
   extrusionPath.moveTo(rectLength / 2 - padding, rectWidth / 2 - padding);
   extrusionPath.lineTo(rectLength / 2 - padding, -rectWidth / 2 + padding);
   extrusionPath.lineTo(-rectLength / 2 + padding, -rectWidth / 2 + padding);

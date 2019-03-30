@@ -54,6 +54,8 @@ export const getCargaEnfriamiento = state => {
     state.luces.factConv *
     factorCorrecionCalorSensible;
 
+  const heatEquipments = state.piso.areaNeta * state.luces.factConv * 1.5;
+
   const calorPersonas = setCalorPersonas(
     state.numberOfPeople,
     factorCorrecionCalorSensible,
@@ -77,7 +79,7 @@ export const getCargaEnfriamiento = state => {
     factorCorrecionCalorSensible
   );
 
-  const ganancia_calor_recinto = sensibleEl + calorLuces + calorPersonas.sensible;
+  const ganancia_calor_recinto = sensibleEl + calorLuces + calorPersonas.sensible + heatEquipments;
 
   const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
