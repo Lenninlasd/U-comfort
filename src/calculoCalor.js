@@ -1,14 +1,12 @@
 import tablaPsat from '../json/Psat_tabla_A4E_simp.js';
 
 export const setCalorPersonas = (n_personas, correcion, tablaCalorPersonas, aplicacion) => {
-  const filtered = tablaCalorPersonas.filter(x => x['ACTIVIDAD'] === aplicacion);
-  const calorSensible = filtered.find(x => x['CALOR'] === 'CALOR SENSIBLE');
-  const calorLatente = filtered.find(x => x['CALOR'] === 'CALOR LATENTE');
+  const heat = tablaCalorPersonas.find(x => x['ACTIVIDAD'] === aplicacion);
   const FCE = 1;
 
   return {
-    sensible: calorSensible['BTUH'] * n_personas * FCE * correcion,
-    latente: calorLatente['BTUH'] * n_personas
+    sensible: heat.CALOR_SENSIBLE * n_personas * FCE * correcion,
+    latente: heat.CALOR_LATENTE * n_personas
   };
 };
 
@@ -23,16 +21,15 @@ export const setCalorVentilacion = (n_personas, Δtemp, ΔHumedad, cfmMinimo) =>
   };
 };
 
-export const getCFMCalorNetoSensible = (totalSensible, infiltration) => {
+export const getCFMCalorNetoSensible = totalSensible => {
   const ΔtempAireSuministro = 20;
-  return (totalSensible + infiltration.sensible) / (ΔtempAireSuministro * 1.1);
+  return totalSensible / (ΔtempAireSuministro * 1.1);
 };
 
 export const calculoTotalSensible = (
   vidrios = [{}],
   paredes = [{}],
   techo = {},
-  piso = {},
   puerta = [{}],
   factorCorrecion
 ) => {
@@ -53,18 +50,17 @@ export const calculoTotalSensible = (
 
   const getCalorSensible = obj => {
     return (
-      obj.coeficiente_transferencia_calor * obj.areaNeta * obj.CLDT_correccion * factorCorrecion
+      obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_correccion
     );
   };
 
   const calorVidrio = getCalorSensibleArray(vidrios);
   const calorPared = getCalorSensibleArray(paredes);
   const calorTecho = getCalorSensible(techo);
-  const calorPiso = getCalorSensible(piso);
   const calorPuerta = getCalorSensibleArray(puerta);
   const calorRadiacionVidrio = getCalorSensibleVidrio(vidrios);
 
-  return calorVidrio + calorPared + calorTecho + calorPiso + calorPuerta + calorRadiacionVidrio;
+  return calorVidrio + calorPared + calorTecho + calorPuerta + calorRadiacionVidrio;
 };
 
 export const getCalor_sensible = (vidrios, paredes, perimetro) => {

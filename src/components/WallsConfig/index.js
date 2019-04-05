@@ -4,7 +4,13 @@ import PropTypes from 'prop-types';
 
 import { SaveAndCancel } from '../BackButton';
 import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
-import { hideMainFormLayout, setUoneWall, setColorkWall, setUndoWall } from '../../actions';
+import {
+  hideMainFormLayout,
+  setUoneWall,
+  setColorkWall,
+  setUndoWall,
+  setWallCLTDCorretion
+} from '../../actions';
 
 const optionsWall = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
   element.tipo.includes('PAREDES')
@@ -131,7 +137,9 @@ const mapDispatchToProps = dispatch => ({
 
     switch (type) {
       case 'material':
-        return dispatch(setUoneWall({ id, [type]: el.value }));
+        dispatch(setUoneWall({ id, [type]: el.value }));
+        dispatch(setWallCLTDCorretion());
+        return;
       case 'correcion_color_K':
         return dispatch(setColorkWall({ id, k: el.value }));
     }

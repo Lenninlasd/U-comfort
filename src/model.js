@@ -18,8 +18,8 @@ export default {
     bulbo_seco: 78,
     humedad_relativa: 50,
     humedad_especifica: 72,
-    actividad_recinto: 'PARADO, TRABAJO LIGERO O CAMINA DESPACIO',
-    tipo_recinto: 'comercios: pisos de venta (pisos superiores)'
+    actividad_recinto: 'Parado, trabajo ligero, caminando',
+    tipo_recinto: 'Supermercados'
   },
   cargaPico: {
     fecha: '21-07-xxxx', // julio, no va a cambiar
@@ -103,8 +103,8 @@ export default {
         orientacion: 'E',
         tipo: 'PUERTA',
         material: 'PUERTA_EJEMPLO',
-        CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
-        CLDT_correccion: 22 // ºF
+        CLTD_tabla: 27, // ºF Aun no se tiene esa tabla
+        CLTD_correccion: 22 // ºF
       }
     ],
     luces: {

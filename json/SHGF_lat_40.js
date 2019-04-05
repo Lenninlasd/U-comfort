@@ -336,7 +336,511 @@ export default [
 		"HORA": "265"
 	},
 	{
-		"MES": "ene",
+		"MES": "ENE",
+		"LATITUD": "9",
+		"N": "32",
+		"NNE/NNW": "",
+		"NE/NW": "69",
+		"ENE/WNW": "",
+		"E/W": "222",
+		"ESE/WSW": "",
+		"SE/SW": "243",
+		"SEE/SSW": "",
+		"S": "167",
+		"HORA": ""
+	},
+	{
+		"MES": "FEB",
+		"LATITUD": "9",
+		"N": "34",
+		"NNE/NNW": "",
+		"NE/NW": "112",
+		"ENE/WNW": "",
+		"E/W": "238",
+		"ESE/WSW": "",
+		"SE/SW": "221",
+		"SEE/SSW": "",
+		"S": "116",
+		"HORA": ""
+	},
+	{
+		"MES": "MAR",
+		"LATITUD": "9",
+		"N": "37",
+		"NNE/NNW": "",
+		"NE/NW": "154",
+		"ENE/WNW": "",
+		"E/W": "241",
+		"ESE/WSW": "",
+		"SE/SW": "186",
+		"SEE/SSW": "",
+		"S": "60",
+		"HORA": ""
+	},
+	{
+		"MES": "ABR",
+		"LATITUD": "9",
+		"N": "43",
+		"NNE/NNW": "",
+		"NE/NW": "183",
+		"ENE/WNW": "",
+		"E/W": "226",
+		"ESE/WSW": "",
+		"SE/SW": "136",
+		"SEE/SSW": "",
+		"S": "39",
+		"HORA": ""
+	},
+	{
+		"MES": "MAY",
+		"LATITUD": "9",
+		"N": "71",
+		"NNE/NNW": "",
+		"NE/NW": "197",
+		"ENE/WNW": "",
+		"E/W": "210",
+		"ESE/WSW": "",
+		"SE/SW": "99",
+		"SEE/SSW": "",
+		"S": "39",
+		"HORA": ""
+	},
+	{
+		"MES": "JUN",
+		"LATITUD": "9",
+		"N": "86",
+		"NNE/NNW": "",
+		"NE/NW": "200",
+		"ENE/WNW": "",
+		"E/W": "201",
+		"ESE/WSW": "",
+		"SE/SW": "84",
+		"SEE/SSW": "",
+		"S": "29",
+		"HORA": ""
+	},
+	{
+		"MES": "JUL",
+		"LATITUD": "9",
+		"N": "74",
+		"NNE/NNW": "",
+		"NE/NW": "194",
+		"ENE/WNW": "",
+		"E/W": "205",
+		"ESE/WSW": "",
+		"SE/SW": "95",
+		"SEE/SSW": "",
+		"S": "41",
+		"HORA": ""
+	},
+	{
+		"MES": "AGO",
+		"LATITUD": "9",
+		"N": "46",
+		"NNE/NNW": "",
+		"NE/NW": "178",
+		"ENE/WNW": "",
+		"E/W": "217",
+		"ESE/WSW": "",
+		"SE/SW": "130",
+		"SEE/SSW": "",
+		"S": "78",
+		"HORA": ""
+	},
+	{
+		"MES": "SEP",
+		"LATITUD": "9",
+		"N": "38",
+		"NNE/NNW": "",
+		"NE/NW": "147",
+		"ENE/WNW": "",
+		"E/W": "230",
+		"ESE/WSW": "",
+		"SE/SW": "178",
+		"SEE/SSW": "",
+		"S": "99",
+		"HORA": ""
+	},
+	{
+		"MES": "OCT",
+		"LATITUD": "9",
+		"N": "35",
+		"NNE/NNW": "",
+		"NE/NW": "110",
+		"ENE/WNW": "",
+		"E/W": "230",
+		"ESE/WSW": "",
+		"SE/SW": "213",
+		"SEE/SSW": "",
+		"S": "114",
+		"HORA": ""
+	},
+	{
+		"MES": "NOV",
+		"LATITUD": "9",
+		"N": "33",
+		"NNE/NNW": "",
+		"NE/NW": "69",
+		"ENE/WNW": "",
+		"E/W": "219",
+		"ESE/WSW": "",
+		"SE/SW": "236",
+		"SEE/SSW": "",
+		"S": "165",
+		"HORA": ""
+	},
+	{
+		"MES": "DIC",
+		"LATITUD": "9",
+		"N": "31",
+		"NNE/NNW": "",
+		"NE/NW": "53",
+		"ENE/WNW": "",
+		"E/W": "213",
+		"ESE/WSW": "",
+		"SE/SW": "248",
+		"SEE/SSW": "",
+		"S": "184",
+		"HORA": ""
+	},
+	{
+		"MES": "ENE",
+		"LATITUD": "10",
+		"N": "32",
+		"NNE/NNW": "",
+		"NE/NW": "67",
+		"ENE/WNW": "",
+		"E/W": "221",
+		"ESE/WSW": "",
+		"SE/SW": "245",
+		"SEE/SSW": "",
+		"S": "172",
+		"HORA": ""
+	},
+	{
+		"MES": "FEB",
+		"LATITUD": "10",
+		"N": "34",
+		"NNE/NNW": "",
+		"NE/NW": "110",
+		"ENE/WNW": "",
+		"E/W": "237",
+		"ESE/WSW": "",
+		"SE/SW": "223",
+		"SEE/SSW": "",
+		"S": "122",
+		"HORA": ""
+	},
+	{
+		"MES": "MAR",
+		"LATITUD": "10",
+		"N": "37",
+		"NNE/NNW": "",
+		"NE/NW": "152",
+		"ENE/WNW": "",
+		"E/W": "241",
+		"ESE/WSW": "",
+		"SE/SW": "187",
+		"SEE/SSW": "",
+		"S": "64",
+		"HORA": ""
+	},
+	{
+		"MES": "ABR",
+		"LATITUD": "10",
+		"N": "42",
+		"NNE/NNW": "",
+		"NE/NW": "181",
+		"ENE/WNW": "",
+		"E/W": "226",
+		"ESE/WSW": "",
+		"SE/SW": "138",
+		"SEE/SSW": "",
+		"S": "40",
+		"HORA": ""
+	},
+	{
+		"MES": "MAY",
+		"LATITUD": "10",
+		"N": "67",
+		"NNE/NNW": "",
+		"NE/NW": "196",
+		"ENE/WNW": "",
+		"E/W": "211",
+		"ESE/WSW": "",
+		"SE/SW": "102",
+		"SEE/SSW": "",
+		"S": "39",
+		"HORA": ""
+	},
+	{
+		"MES": "JUN",
+		"LATITUD": "10",
+		"N": "83",
+		"NNE/NNW": "",
+		"NE/NW": "199",
+		"ENE/WNW": "",
+		"E/W": "202",
+		"ESE/WSW": "",
+		"SE/SW": "86",
+		"SEE/SSW": "",
+		"S": "20",
+		"HORA": ""
+	},
+	{
+		"MES": "JUL",
+		"LATITUD": "10",
+		"N": "70",
+		"NNE/NNW": "",
+		"NE/NW": "193",
+		"ENE/WNW": "",
+		"E/W": "206",
+		"ESE/WSW": "",
+		"SE/SW": "98",
+		"SEE/SSW": "",
+		"S": "41",
+		"HORA": ""
+	},
+	{
+		"MES": "AGO",
+		"LATITUD": "10",
+		"N": "45",
+		"NNE/NNW": "",
+		"NE/NW": "177",
+		"ENE/WNW": "",
+		"E/W": "217",
+		"ESE/WSW": "",
+		"SE/SW": "132",
+		"SEE/SSW": "",
+		"S": "99",
+		"HORA": ""
+	},
+	{
+		"MES": "SEP",
+		"LATITUD": "10",
+		"N": "38",
+		"NNE/NNW": "",
+		"NE/NW": "146",
+		"ENE/WNW": "",
+		"E/W": "230",
+		"ESE/WSW": "",
+		"SE/SW": "179",
+		"SEE/SSW": "",
+		"S": "91",
+		"HORA": ""
+	},
+	{
+		"MES": "OCT",
+		"LATITUD": "10",
+		"N": "35",
+		"NNE/NNW": "",
+		"NE/NW": "108",
+		"ENE/WNW": "",
+		"E/W": "229",
+		"ESE/WSW": "",
+		"SE/SW": "215",
+		"SEE/SSW": "",
+		"S": "119",
+		"HORA": ""
+	},
+	{
+		"MES": "NOV",
+		"LATITUD": "10",
+		"N": "33",
+		"NNE/NNW": "",
+		"NE/NW": "67",
+		"ENE/WNW": "",
+		"E/W": "217",
+		"ESE/WSW": "",
+		"SE/SW": "238",
+		"SEE/SSW": "",
+		"S": "170",
+		"HORA": ""
+	},
+	{
+		"MES": "DIC",
+		"LATITUD": "10",
+		"N": "31",
+		"NNE/NNW": "",
+		"NE/NW": "51",
+		"ENE/WNW": "",
+		"E/W": "211",
+		"ESE/WSW": "",
+		"SE/SW": "249",
+		"SEE/SSW": "",
+		"S": "188",
+		"HORA": ""
+	},
+	{
+		"MES": "ENE",
+		"LATITUD": "11",
+		"N": "31",
+		"NNE/NNW": "",
+		"NE/NW": "65",
+		"ENE/WNW": "",
+		"E/W": "219",
+		"ESE/WSW": "",
+		"SE/SW": "246",
+		"SEE/SSW": "",
+		"S": "177",
+		"HORA": ""
+	},
+	{
+		"MES": "FEB",
+		"LATITUD": "11",
+		"N": "34",
+		"NNE/NNW": "",
+		"NE/NW": "107",
+		"ENE/WNW": "",
+		"E/W": "236",
+		"ESE/WSW": "",
+		"SE/SW": "224",
+		"SEE/SSW": "",
+		"S": "127",
+		"HORA": ""
+	},
+	{
+		"MES": "MAR",
+		"LATITUD": "11",
+		"N": "36",
+		"NNE/NNW": "",
+		"NE/NW": "150",
+		"ENE/WNW": "",
+		"E/W": "240",
+		"ESE/WSW": "",
+		"SE/SW": "189",
+		"SEE/SSW": "",
+		"S": "69",
+		"HORA": ""
+	},
+	{
+		"MES": "ABR",
+		"LATITUD": "11",
+		"N": "41",
+		"NNE/NNW": "",
+		"NE/NW": "180",
+		"ENE/WNW": "",
+		"E/W": "227",
+		"ESE/WSW": "",
+		"SE/SW": "140",
+		"SEE/SSW": "",
+		"S": "40",
+		"HORA": ""
+	},
+	{
+		"MES": "MAY",
+		"LATITUD": "11",
+		"N": "64",
+		"NNE/NNW": "",
+		"NE/NW": "195",
+		"ENE/WNW": "",
+		"E/W": "211",
+		"ESE/WSW": "",
+		"SE/SW": "104",
+		"SEE/SSW": "",
+		"S": "40",
+		"HORA": ""
+	},
+	{
+		"MES": "JUN",
+		"LATITUD": "11",
+		"N": "79",
+		"NNE/NNW": "",
+		"NE/NW": "199",
+		"ENE/WNW": "",
+		"E/W": "203",
+		"ESE/WSW": "",
+		"SE/SW": "88",
+		"SEE/SSW": "",
+		"S": "10",
+		"HORA": ""
+	},
+	{
+		"MES": "JUL",
+		"LATITUD": "11",
+		"N": "67",
+		"NNE/NNW": "",
+		"NE/NW": "192",
+		"ENE/WNW": "",
+		"E/W": "206",
+		"ESE/WSW": "",
+		"SE/SW": "100",
+		"SEE/SSW": "",
+		"S": "41",
+		"HORA": ""
+	},
+	{
+		"MES": "AGO",
+		"LATITUD": "11",
+		"N": "43",
+		"NNE/NNW": "",
+		"NE/NW": "175",
+		"ENE/WNW": "",
+		"E/W": "218",
+		"ESE/WSW": "",
+		"SE/SW": "133",
+		"SEE/SSW": "",
+		"S": "121",
+		"HORA": ""
+	},
+	{
+		"MES": "SEP",
+		"LATITUD": "11",
+		"N": "37",
+		"NNE/NNW": "",
+		"NE/NW": "144",
+		"ENE/WNW": "",
+		"E/W": "229",
+		"ESE/WSW": "",
+		"SE/SW": "181",
+		"SEE/SSW": "",
+		"S": "82",
+		"HORA": ""
+	},
+	{
+		"MES": "OCT",
+		"LATITUD": "11",
+		"N": "34",
+		"NNE/NNW": "",
+		"NE/NW": "105",
+		"ENE/WNW": "",
+		"E/W": "228",
+		"ESE/WSW": "",
+		"SE/SW": "217",
+		"SEE/SSW": "",
+		"S": "125",
+		"HORA": ""
+	},
+	{
+		"MES": "NOV",
+		"LATITUD": "11",
+		"N": "32",
+		"NNE/NNW": "",
+		"NE/NW": "65",
+		"ENE/WNW": "",
+		"E/W": "216",
+		"ESE/WSW": "",
+		"SE/SW": "241",
+		"SEE/SSW": "",
+		"S": "174",
+		"HORA": ""
+	},
+	{
+		"MES": "DIC",
+		"LATITUD": "11",
+		"N": "30",
+		"NNE/NNW": "",
+		"NE/NW": "49",
+		"ENE/WNW": "",
+		"E/W": "209",
+		"ESE/WSW": "",
+		"SE/SW": "250",
+		"SEE/SSW": "",
+		"S": "193",
+		"HORA": ""
+	},
+	{
+		"MES": "ENE",
 		"LATITUD": "16",
 		"N": "30",
 		"NNE/NNW": "30",
@@ -350,7 +854,7 @@ export default [
 		"HORA": "248"
 	},
 	{
-		"MES": "feb",
+		"MES": "FEB",
 		"LATITUD": "16",
 		"N": "33",
 		"NNE/NNW": "33",
@@ -364,7 +868,7 @@ export default [
 		"HORA": "275"
 	},
 	{
-		"MES": "mar",
+		"MES": "MAR",
 		"LATITUD": "16",
 		"N": "35",
 		"NNE/NNW": "53",
@@ -378,7 +882,7 @@ export default [
 		"HORA": "291"
 	},
 	{
-		"MES": "abr",
+		"MES": "ABR",
 		"LATITUD": "16",
 		"N": "39",
 		"NNE/NNW": "99",
@@ -392,7 +896,7 @@ export default [
 		"HORA": "289"
 	},
 	{
-		"MES": "mayo",
+		"MES": "MAY",
 		"LATITUD": "16",
 		"N": "52",
 		"NNE/NNW": "132",
@@ -406,7 +910,7 @@ export default [
 		"HORA": "282"
 	},
 	{
-		"MES": "jun",
+		"MES": "JUN",
 		"LATITUD": "16",
 		"N": "66",
 		"NNE/NNW": "142",
@@ -420,7 +924,7 @@ export default [
 		"HORA": "277"
 	},
 	{
-		"MES": "jul",
+		"MES": "JUL",
 		"LATITUD": "16",
 		"N": "55",
 		"NNE/NNW": "132",
@@ -434,7 +938,7 @@ export default [
 		"HORA": "277"
 	},
 	{
-		"MES": "ago",
+		"MES": "AGO",
 		"LATITUD": "16",
 		"N": "41",
 		"NNE/NNW": "100",
@@ -448,7 +952,7 @@ export default [
 		"HORA": "282"
 	},
 	{
-		"MES": "sep",
+		"MES": "SEP",
 		"LATITUD": "16",
 		"N": "36",
 		"NNE/NNW": "50",
@@ -462,7 +966,7 @@ export default [
 		"HORA": "282"
 	},
 	{
-		"MES": "oct",
+		"MES": "OCT",
 		"LATITUD": "16",
 		"N": "33",
 		"NNE/NNW": "33",
@@ -476,7 +980,7 @@ export default [
 		"HORA": "270"
 	},
 	{
-		"MES": "nov",
+		"MES": "NOV",
 		"LATITUD": "16",
 		"N": "30",
 		"NNE/NNW": "30",
@@ -490,7 +994,7 @@ export default [
 		"HORA": "246"
 	},
 	{
-		"MES": "dic",
+		"MES": "DIC",
 		"LATITUD": "16",
 		"N": "29",
 		"NNE/NNW": "29",
@@ -504,7 +1008,7 @@ export default [
 		"HORA": "234"
 	},
 	{
-		"MES": "ene",
+		"MES": "ENE",
 		"LATITUD": "24",
 		"N": "27",
 		"NNE/NNW": "27",
@@ -518,7 +1022,7 @@ export default [
 		"HORA": "214"
 	},
 	{
-		"MES": "feb",
+		"MES": "FEB",
 		"LATITUD": "24",
 		"N": "30",
 		"NNE/NNW": "30",
@@ -532,7 +1036,7 @@ export default [
 		"HORA": "249"
 	},
 	{
-		"MES": "mar",
+		"MES": "MAR",
 		"LATITUD": "24",
 		"N": "34",
 		"NNE/NNW": "45",
@@ -546,7 +1050,7 @@ export default [
 		"HORA": "275"
 	},
 	{
-		"MES": "abr",
+		"MES": "ABR",
 		"LATITUD": "24",
 		"N": "37",
 		"NNE/NNW": "88",
@@ -560,7 +1064,7 @@ export default [
 		"HORA": "283"
 	},
 	{
-		"MES": "mayo",
+		"MES": "MAY",
 		"LATITUD": "24",
 		"N": "43",
 		"NNE/NNW": "117",
@@ -574,7 +1078,7 @@ export default [
 		"HORA": "282"
 	},
 	{
-		"MES": "jun",
+		"MES": "JUN",
 		"LATITUD": "24",
 		"N": "55",
 		"NNE/NNW": "127",
@@ -588,7 +1092,7 @@ export default [
 		"HORA": "279"
 	},
 	{
-		"MES": "jul",
+		"MES": "JUL",
 		"LATITUD": "24",
 		"N": "45",
 		"NNE/NNW": "116",
@@ -602,7 +1106,7 @@ export default [
 		"HORA": "278"
 	},
 	{
-		"MES": "ago",
+		"MES": "AGO",
 		"LATITUD": "24",
 		"N": "38",
 		"NNE/NNW": "87",
@@ -616,7 +1120,7 @@ export default [
 		"HORA": "277"
 	},
 	{
-		"MES": "sep",
+		"MES": "SEP",
 		"LATITUD": "24",
 		"N": "35",
 		"NNE/NNW": "42",
@@ -630,7 +1134,7 @@ export default [
 		"HORA": "266"
 	},
 	{
-		"MES": "oct",
+		"MES": "OCT",
 		"LATITUD": "24",
 		"N": "31",
 		"NNE/NNW": "31",
@@ -644,7 +1148,7 @@ export default [
 		"HORA": "244"
 	},
 	{
-		"MES": "nov",
+		"MES": "NOV",
 		"LATITUD": "24",
 		"N": "27",
 		"NNE/NNW": "27",
@@ -658,7 +1162,7 @@ export default [
 		"HORA": "213"
 	},
 	{
-		"MES": "dic",
+		"MES": "DIC",
 		"LATITUD": "24",
 		"N": "26",
 		"NNE/NNW": "26",
@@ -672,7 +1176,7 @@ export default [
 		"HORA": "199"
 	},
 	{
-		"MES": "ene",
+		"MES": "ENE",
 		"LATITUD": "32",
 		"N": "24",
 		"NNE/NNW": "24",
@@ -686,7 +1190,7 @@ export default [
 		"HORA": "176"
 	},
 	{
-		"MES": "feb",
+		"MES": "FEB",
 		"LATITUD": "32",
 		"N": "27",
 		"NNE/NNW": "27",
@@ -700,7 +1204,7 @@ export default [
 		"HORA": "217"
 	},
 	{
-		"MES": "mar",
+		"MES": "MAR",
 		"LATITUD": "32",
 		"N": "32",
 		"NNE/NNW": "37",
@@ -714,7 +1218,7 @@ export default [
 		"HORA": "252"
 	},
 	{
-		"MES": "abr",
+		"MES": "ABR",
 		"LATITUD": "32",
 		"N": "36",
 		"NNE/NNW": "80",
@@ -728,7 +1232,7 @@ export default [
 		"HORA": "271"
 	},
 	{
-		"MES": "mayo",
+		"MES": "MAY",
 		"LATITUD": "32",
 		"N": "38",
 		"NNE/NNW": "111",
@@ -742,7 +1246,7 @@ export default [
 		"HORA": "277"
 	},
 	{
-		"MES": "jun",
+		"MES": "JUN",
 		"LATITUD": "32",
 		"N": "44",
 		"NNE/NNW": "122",
@@ -756,7 +1260,7 @@ export default [
 		"HORA": "276"
 	},
 	{
-		"MES": "jul",
+		"MES": "JUL",
 		"LATITUD": "32",
 		"N": "40",
 		"NNE/NNW": "111",
@@ -770,7 +1274,7 @@ export default [
 		"HORA": "273"
 	},
 	{
-		"MES": "ago",
+		"MES": "AGO",
 		"LATITUD": "32",
 		"N": "37",
 		"NNE/NNW": "79",
@@ -784,7 +1288,7 @@ export default [
 		"HORA": "265"
 	},
 	{
-		"MES": "sep",
+		"MES": "SEP",
 		"LATITUD": "32",
 		"N": "33",
 		"NNE/NNW": "35",
@@ -798,7 +1302,7 @@ export default [
 		"HORA": "244"
 	},
 	{
-		"MES": "oct",
+		"MES": "OCT",
 		"LATITUD": "32",
 		"N": "28",
 		"NNE/NNW": "28",
@@ -812,7 +1316,7 @@ export default [
 		"HORA": "213"
 	},
 	{
-		"MES": "nov",
+		"MES": "NOV",
 		"LATITUD": "32",
 		"N": "24",
 		"NNE/NNW": "24",
@@ -826,7 +1330,7 @@ export default [
 		"HORA": "175"
 	},
 	{
-		"MES": "dic",
+		"MES": "DIC",
 		"LATITUD": "32",
 		"N": "22",
 		"NNE/NNW": "22",
@@ -840,7 +1344,7 @@ export default [
 		"HORA": "158"
 	},
 	{
-		"MES": "ene",
+		"MES": "ENE",
 		"LATITUD": "40",
 		"N": "20",
 		"NNE/NNW": "20",
@@ -854,7 +1358,7 @@ export default [
 		"HORA": "133"
 	},
 	{
-		"MES": "feb",
+		"MES": "FEB",
 		"LATITUD": "40",
 		"N": "24",
 		"NNE/NNW": "24",
@@ -868,7 +1372,7 @@ export default [
 		"HORA": "180"
 	},
 	{
-		"MES": "mar",
+		"MES": "MAR",
 		"LATITUD": "40",
 		"N": "29",
 		"NNE/NNW": "29",
@@ -882,7 +1386,7 @@ export default [
 		"HORA": "223"
 	},
 	{
-		"MES": "abr",
+		"MES": "ABR",
 		"LATITUD": "40",
 		"N": "34",
 		"NNE/NNW": "71",
@@ -896,7 +1400,7 @@ export default [
 		"HORA": "252"
 	},
 	{
-		"MES": "mayo",
+		"MES": "MAY",
 		"LATITUD": "40",
 		"N": "37",
 		"NNE/NNW": "102",
@@ -910,7 +1414,7 @@ export default [
 		"HORA": "262"
 	},
 	{
-		"MES": "jun",
+		"MES": "JUN",
 		"LATITUD": "40",
 		"N": "48",
 		"NNE/NNW": "113",
@@ -924,7 +1428,7 @@ export default [
 		"HORA": "267"
 	},
 	{
-		"MES": "jul",
+		"MES": "JUL",
 		"LATITUD": "40",
 		"N": "38",
 		"NNE/NNW": "102",
@@ -938,7 +1442,7 @@ export default [
 		"HORA": "262"
 	},
 	{
-		"MES": "ago",
+		"MES": "AGO",
 		"LATITUD": "40",
 		"N": "35",
 		"NNE/NNW": "71",
@@ -952,7 +1456,7 @@ export default [
 		"HORA": "247"
 	},
 	{
-		"MES": "sep",
+		"MES": "SEP",
 		"LATITUD": "40",
 		"N": "30",
 		"NNE/NNW": "30",
@@ -966,7 +1470,7 @@ export default [
 		"HORA": "215"
 	},
 	{
-		"MES": "oct",
+		"MES": "OCT",
 		"LATITUD": "40",
 		"N": "25",
 		"NNE/NNW": "25",
@@ -980,7 +1484,7 @@ export default [
 		"HORA": "177"
 	},
 	{
-		"MES": "nov",
+		"MES": "NOV",
 		"LATITUD": "40",
 		"N": "20",
 		"NNE/NNW": "20",
@@ -994,7 +1498,7 @@ export default [
 		"HORA": "132"
 	},
 	{
-		"MES": "dic",
+		"MES": "DIC",
 		"LATITUD": "40",
 		"N": "18",
 		"NNE/NNW": "18",
@@ -1008,7 +1512,7 @@ export default [
 		"HORA": "113"
 	},
 	{
-		"MES": "ene",
+		"MES": "ENE",
 		"LATITUD": "48",
 		"N": "15",
 		"NNE/NNW": "15",
@@ -1022,7 +1526,7 @@ export default [
 		"HORA": "85"
 	},
 	{
-		"MES": "feb",
+		"MES": "FEB",
 		"LATITUD": "48",
 		"N": "20",
 		"NNE/NNW": "20",
@@ -1036,7 +1540,7 @@ export default [
 		"HORA": "138"
 	},
 	{
-		"MES": "mar",
+		"MES": "MAR",
 		"LATITUD": "48",
 		"N": "26",
 		"NNE/NNW": "26",
@@ -1050,7 +1554,7 @@ export default [
 		"HORA": "188"
 	},
 	{
-		"MES": "abr",
+		"MES": "ABR",
 		"LATITUD": "48",
 		"N": "31",
 		"NNE/NNW": "61",
@@ -1064,7 +1568,7 @@ export default [
 		"HORA": "226"
 	},
 	{
-		"MES": "mayo",
+		"MES": "MAY",
 		"LATITUD": "48",
 		"N": "35",
 		"NNE/NNW": "97",
@@ -1078,7 +1582,7 @@ export default [
 		"HORA": "247"
 	},
 	{
-		"MES": "jun",
+		"MES": "JUN",
 		"LATITUD": "48",
 		"N": "46",
 		"NNE/NNW": "110",
@@ -1092,7 +1596,7 @@ export default [
 		"HORA": "252"
 	},
 	{
-		"MES": "jul",
+		"MES": "JUL",
 		"LATITUD": "48",
 		"N": "37",
 		"NNE/NNW": "96",
@@ -1106,7 +1610,7 @@ export default [
 		"HORA": "244"
 	},
 	{
-		"MES": "ago",
+		"MES": "AGO",
 		"LATITUD": "48",
 		"N": "33",
 		"NNE/NNW": "61",
@@ -1120,7 +1624,7 @@ export default [
 		"HORA": "223"
 	},
 	{
-		"MES": "sep",
+		"MES": "SEP",
 		"LATITUD": "48",
 		"N": "27",
 		"NNE/NNW": "27",
@@ -1134,7 +1638,7 @@ export default [
 		"HORA": "282"
 	},
 	{
-		"MES": "oct",
+		"MES": "OCT",
 		"LATITUD": "48",
 		"N": "21",
 		"NNE/NNW": "21",
@@ -1148,7 +1652,7 @@ export default [
 		"HORA": "136"
 	},
 	{
-		"MES": "nov",
+		"MES": "NOV",
 		"LATITUD": "48",
 		"N": "15",
 		"NNE/NNW": "15",
@@ -1162,7 +1666,7 @@ export default [
 		"HORA": "85"
 	},
 	{
-		"MES": "dic",
+		"MES": "DIC",
 		"LATITUD": "48",
 		"N": "13",
 		"NNE/NNW": "13",
@@ -1176,7 +1680,7 @@ export default [
 		"HORA": "65"
 	},
 	{
-		"MES": "ene",
+		"MES": "ENE",
 		"LATITUD": "56",
 		"N": "10",
 		"NNE/NNW": "10",
@@ -1190,7 +1694,7 @@ export default [
 		"HORA": "40"
 	},
 	{
-		"MES": "feb",
+		"MES": "FEB",
 		"LATITUD": "56",
 		"N": "16",
 		"NNE/NNW": "16",
@@ -1204,7 +1708,7 @@ export default [
 		"HORA": "91"
 	},
 	{
-		"MES": "mar",
+		"MES": "MAR",
 		"LATITUD": "56",
 		"N": "22",
 		"NNE/NNW": "22",
@@ -1218,7 +1722,7 @@ export default [
 		"HORA": "149"
 	},
 	{
-		"MES": "abr",
+		"MES": "ABR",
 		"LATITUD": "56",
 		"N": "28",
 		"NNE/NNW": "58",
@@ -1232,7 +1736,7 @@ export default [
 		"HORA": "195"
 	},
 	{
-		"MES": "mayo",
+		"MES": "MAY",
 		"LATITUD": "56",
 		"N": "36",
 		"NNE/NNW": "99",
@@ -1246,7 +1750,7 @@ export default [
 		"HORA": "222"
 	},
 	{
-		"MES": "jun",
+		"MES": "JUN",
 		"LATITUD": "56",
 		"N": "53",
 		"NNE/NNW": "111",
@@ -1260,7 +1764,7 @@ export default [
 		"HORA": "231"
 	},
 	{
-		"MES": "jul",
+		"MES": "JUL",
 		"LATITUD": "56",
 		"N": "37",
 		"NNE/NNW": "98",
@@ -1274,7 +1778,7 @@ export default [
 		"HORA": "221"
 	},
 	{
-		"MES": "ago",
+		"MES": "AGO",
 		"LATITUD": "56",
 		"N": "30",
 		"NNE/NNW": "56",
@@ -1288,7 +1792,7 @@ export default [
 		"HORA": "193"
 	},
 	{
-		"MES": "sep",
+		"MES": "SEP",
 		"LATITUD": "56",
 		"N": "23",
 		"NNE/NNW": "23",
@@ -1302,7 +1806,7 @@ export default [
 		"HORA": "144"
 	},
 	{
-		"MES": "oct",
+		"MES": "OCT",
 		"LATITUD": "56",
 		"N": "16",
 		"NNE/NNW": "16",
@@ -1316,7 +1820,7 @@ export default [
 		"HORA": "91"
 	},
 	{
-		"MES": "nov",
+		"MES": "NOV",
 		"LATITUD": "56",
 		"N": "10",
 		"NNE/NNW": "10",
@@ -1330,7 +1834,7 @@ export default [
 		"HORA": "40"
 	},
 	{
-		"MES": "dic",
+		"MES": "DIC",
 		"LATITUD": "56",
 		"N": "7",
 		"NNE/NNW": "7",

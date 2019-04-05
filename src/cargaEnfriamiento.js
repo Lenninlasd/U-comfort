@@ -1,4 +1,3 @@
-import getCalorPorInfiltracion from './infiltration';
 import {
   getCalor_sensible,
   setCalorPersonas,
@@ -36,15 +35,6 @@ export const getCargaEnfriamiento = state => {
 
   const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
   const ΔHumedad = state.exterior.humedad_especifica - state.recinto.humedad_especifica;
-
-  // Calculo de calor
-  const infiltration = getCalorPorInfiltracion(
-    state.piso.areaNeta,
-    state.height * FEET,
-    Δtemp,
-    ΔHumedad
-  );
-
   const perimeter = 2 * FEET * (state.width + state.depth);
   const factorCorrecionCalorSensible = getCalor_sensible(state.vidrios, state.paredes, perimeter);
 
@@ -84,12 +74,9 @@ export const getCargaEnfriamiento = state => {
   const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
   const totalSensible =
-    ganancia_calor_recinto +
-    calorVentilacion.sensible +
-    ganancia_ventilador_forzado +
-    infiltration.sensible;
+    ganancia_calor_recinto + calorVentilacion.sensible + ganancia_ventilador_forzado;
 
-  const CFMnetoSensible = getCFMCalorNetoSensible(totalSensible, infiltration);
+  const CFMnetoSensible = getCFMCalorNetoSensible(totalSensible);
 
   const tempEntradaSerpentin = getTempEntradaSerpentin(
     CFMnetoSensible,
@@ -107,12 +94,7 @@ export const getCargaEnfriamiento = state => {
     humedadEntradaSerp
   );
 
-  const cargaEnfriamiento =
-    totalSensible +
-    calorPersonas.latente +
-    calorVentilacion.latente +
-    infiltration.sensible +
-    infiltration.latente;
+  const cargaEnfriamiento = totalSensible + calorPersonas.latente + calorVentilacion.latente;
 
   return {
     cargaEnfriamiento,

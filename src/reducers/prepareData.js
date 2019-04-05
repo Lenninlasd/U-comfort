@@ -57,8 +57,7 @@ import {
 
 const sqrFEET = 3.28084 * 3.28084;
 
-const setLM = (mes = 'JUL', lat = 40) =>
-  TABLA_LM.find(x => Number(x.LATITUD) === lat && x.MES === mes);
+const setLM = (month, lat) => TABLA_LM.find(x => Number(x.LATITUD) === lat && x.MES === month);
 
 const setLMparedes = (paredesState, dataLM) => {
   return paredesState.map(pared =>
@@ -88,40 +87,48 @@ const getDataTemperature = ({ exterior, recinto }) => ({
   Δtemp: exterior.bulbo_seco - recinto.bulbo_seco
 });
 
-const setCLDT_vidrios = glassState => {
+const setCLTD_vidrios = glassState => {
   const peakHour = '17';
-  const CLDT_tabla = Number(TABLA_WINDOW[0][peakHour]);
+  const CLTD_tabla = Number(TABLA_WINDOW[0][peakHour]);
   return glassState.map(glass =>
     Object.assign({}, glass, {
-      CLDT_tabla
+      CLTD_tabla
     })
   );
 };
 
-const setCLDT_correccion = (state, action) => {
-  const DeltaTempDiseno = 85 - 78;
-
-  const CLDT_Obj = el => {
+const setCLTD_correccion = (state, dataTemp) => {
+  const DeltaTempDiseno = 78 - 85;
+  const CLTD_Obj = el => {
     const LM = el.correcion_latitud_mes_LM;
     const K = el.correcion_color_K;
-    const CLDT_temp =
-      LM !== undefined && K !== undefined ? (el.CLDT_tabla + LM) * K : el.CLDT_tabla;
+    const CLTD_temp =
+      LM !== undefined && K !== undefined ? (el.CLTD_tabla + LM) * K : el.CLTD_tabla;
 
-    return Object.assign({}, el, {
-      CLDT_correccion:
-        CLDT_temp +
+    if (el.tipo && el.tipo.includes('PARTICION')) {
+      return {
+        ...el,
+        CLTD_correccion: dataTemp.tempExterior - dataTemp.tempInterior - 5
+      };
+    }
+
+    return {
+      ...el,
+      CLTD_correccion:
+        CLTD_temp +
         DeltaTempDiseno +
-        action.tempExterior -
-        0.5 * action.rango_diario -
-        action.tempInterior
-    });
+        dataTemp.tempExterior -
+        dataTemp.tempInterior -
+        0.5 * dataTemp.rango_diario
+    };
   };
-  return Array.isArray(state) ? state.map(CLDT_Obj) : CLDT_Obj(state);
+  return Array.isArray(state) ? state.map(CLTD_Obj) : CLTD_Obj(state);
 };
 
-const setSHGF_lat_40 = glassState => {
-  // Fix impure TABLA_SHGF
-  const dataSHGF = TABLA_SHGF.find(x => x.MES === 'jul' && x.LATITUD === '40');
+const setSHGF_lat_40 = (glassState, exterior) => {
+  const dataSHGF = TABLA_SHGF.find(
+    x => x.MES === exterior.mes_carga_de_enfriamiento && Number(x.LATITUD) === exterior.latitud
+  );
 
   return glassState.map(vidrio => {
     let dir = vidrio.orientacion;
@@ -133,7 +140,6 @@ const setSHGF_lat_40 = glassState => {
 };
 
 const setUvidrio = (glassState, glassDescription = 'vidrio sencillo') => {
-  // Fix impure TABLA_U_WINDOW
   const Uv_sencillo = TABLA_U_WINDOW.find(x => x.descripcion === glassDescription);
 
   return glassState.map(vidrio =>
@@ -165,7 +171,7 @@ const setCLTD_pared = paredesState => {
   return paredesState.map(pared => {
     const CLTD = dataPared.find(x => x.orientacion === pared.orientacion).CLTD;
     return Object.assign({}, pared, {
-      CLDT_tabla: CLTD
+      CLTD_tabla: CLTD
     });
   });
 };
@@ -176,7 +182,7 @@ const setCLTD_techo = techoState => {
   );
 
   return Object.assign({}, techoState, {
-    CLDT_tabla: Number(data_techo['17'])
+    CLTD_tabla: Number(data_techo['17'])
   });
 };
 
@@ -205,7 +211,7 @@ const setU_One = (paredesState, data) => {
         material: paredTabla.material,
         coeficiente_transferencia_calor: Number(paredTabla.U),
         tipo: paredTabla.tipo,
-        CLDT_tabla: Number(paredTabla.CLTD) || pared.CLDT_tabla
+        CLTD_tabla: Number(paredTabla.CLTD) || pared.CLTD_tabla
       });
     }
     return pared;
@@ -253,10 +259,10 @@ const updateAreaGlass = (glassState, id) =>
     return glass;
   });
 
-const addNewGlass = (glassState, data, dataTemperature) => {
-  let newGlass = setCLDT_vidrios([data]);
-  newGlass = setCLDT_correccion(newGlass, dataTemperature);
-  newGlass = setSHGF_lat_40(newGlass);
+const addNewGlass = (glassState, data, dataTemperature, exterior) => {
+  let newGlass = setCLTD_vidrios([data]);
+  newGlass = setCLTD_correccion(newGlass, dataTemperature);
+  newGlass = setSHGF_lat_40(newGlass, exterior);
   newGlass = setUvidrio(newGlass);
   newGlass = setCLF(newGlass);
   newGlass = setSC(newGlass);
@@ -266,8 +272,8 @@ const addNewGlass = (glassState, data, dataTemperature) => {
 
 const addNewDoor = (puertasState, door) => {
   /** TODO: REMOVE HARDCODE **/
-  door.CLDT_tabla = 27; // ºF Aun no se tiene esa tabla
-  door.CLDT_correccion = 22; // ºF
+  door.CLTD_tabla = 27; // ºF Aun no se tiene esa tabla
+  door.CLTD_correccion = 22; // ºF
   /** **/
 
   const newDoor = setU_One([door], { id: 0, material: door.material });
@@ -321,11 +327,11 @@ export const vidrios = (glassState = [], action, state) => {
 
   switch (action.type) {
     case SET_CLTD_WINDOW:
-      return setCLDT_vidrios(glassState);
+      return setCLTD_vidrios(glassState);
     case SET_CLTD_CORRECCION_WINDOW:
-      return setCLDT_correccion(glassState, dataTemperature);
+      return setCLTD_correccion(glassState, dataTemperature);
     case SET_SHGF_LAT_40_WINDOW:
-      return setSHGF_lat_40(glassState);
+      return setSHGF_lat_40(glassState, state.exterior);
     case SET_U_WINDOW:
       return setUvidrio(glassState, action.glassDescription);
     case SET_CLF_WINDOW:
@@ -341,7 +347,7 @@ export const vidrios = (glassState = [], action, state) => {
     case REMOVE_WINDOW:
       return [...glassState.slice(0, action.key), ...glassState.slice(action.key + 1)];
     case ADD_WINDOW:
-      return addNewGlass(glassState, action.data, dataTemperature);
+      return addNewGlass(glassState, action.data, dataTemperature, state.exterior);
     case SET_UNDO_WINDOWS:
       return state.past;
     default:
@@ -359,7 +365,7 @@ export const paredes = (paredesState = [], action, state) => {
     }
     case SET_CLTD_CORRECCION_WALL: {
       const dataTemperature = getDataTemperature(state);
-      return setCLDT_correccion(paredesState, dataTemperature);
+      return setCLTD_correccion(paredesState, dataTemperature);
     }
     case SET_U_WALL:
       return setU(paredesState, action.element, action.material);
@@ -386,13 +392,13 @@ export const techo = (techoState = {}, action, state) => {
       /*eslint no-console: ["error", { allow: ["error"] }] */
       if (!techoState.correcion_latitud_mes_LM) {
         console.error(
-          `For CLDT_correccion in techo,
+          `For CLTD_correccion in techo,
                 correcion_latitud_mes_LM is needed`,
           techoState
         );
       }
       const dataTemperature = getDataTemperature(state);
-      return setCLDT_correccion(techoState, dataTemperature);
+      return setCLTD_correccion(techoState, dataTemperature);
     }
     case SET_LM_ROOF: {
       const { mes_carga_de_enfriamiento, latitud } = state.exterior;
@@ -402,7 +408,7 @@ export const techo = (techoState = {}, action, state) => {
       return setU(techoState, action.element, action.material);
     case SET_U_1_ROOF: {
       const dataTemperature = getDataTemperature(state);
-      return setCLDT_correccion(
+      return setCLTD_correccion(
         setU_One([techoState], { material: action.material, id: 0 })[0],
         dataTemperature
       );
@@ -448,7 +454,7 @@ export const piso = (pisoState = {}, action, state) => {
     case SET_FLOOR_CLTD_CORRECTION: {
       const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
       return Object.assign({}, pisoState, {
-        CLDT_correccion: Δtemp
+        CLTD_correccion: Δtemp
       });
     }
     case CALC_AREA_FLOOR:
@@ -482,8 +488,10 @@ export const luces = (lucesState = {}, action) => {
 
 export const exterior = (exteriorState = {}, action) => {
   switch (action.type) {
-    case SET_EXTERIOR_CONDITIONS:
-      return setExteriorConditions(exteriorState, action.exterior);
+    case SET_EXTERIOR_CONDITIONS: {
+      const exteriorConditions = setExteriorConditions(exteriorState, action.exterior);
+      return exteriorConditions;
+    }
     default:
       return exteriorState;
   }
