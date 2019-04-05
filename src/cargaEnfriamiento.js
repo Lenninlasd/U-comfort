@@ -64,7 +64,6 @@ export const getCargaEnfriamiento = state => {
     state.vidrios,
     state.paredes,
     state.techo,
-    state.piso,
     state.puertas,
     factorCorrecionCalorSensible
   );
