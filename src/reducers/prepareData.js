@@ -52,7 +52,11 @@ import {
   ADD_WINDOW,
   SET_UNDO_WINDOWS,
   SET_U_DOOR,
-  CALC_AREA_DOOR_ALL
+  CALC_AREA_DOOR_ALL,
+  CLEAR_HISTORY,
+  SET_WALL_HISTORY,
+  SET_WINDOWS_HISTORY,
+  SET_DOORS_HISTORY
 } from '../actions';
 
 const sqrFEET = 3.28084 * 3.28084;
@@ -514,10 +518,6 @@ export const recinto = (recintoState = {}, action) => {
 
 export const cargaPico = (cargaPicoState = {}) => cargaPicoState;
 
-const CLEAR_HISTORY = 'CLEAR_HISTORY';
-const SET_WALL_HISTORY = 'SET_WALL_HISTORY';
-const SET_WINDOWS_HISTORY = 'SET_WINDOWS_HISTORY';
-const SET_DOORS_HISTORY = 'SET_DOORS_HISTORY';
 export const past = (past = null, action, state) => {
   switch (action.type) {
     case SET_WALL_HISTORY:

@@ -16,6 +16,12 @@ export const SET_ROOM_TYPE = 'SET_ROOM_TYPE';
 export const SET_U_FLOOR = 'SET_U_FLOOR';
 export const SET_FLOOR_CLTD_CORRECTION = 'SET_FLOOR_CLTD_CORRECTION';
 
+export const SHOW_ELEMENT_VIEW = 'SHOW_ELEMENT_VIEW';
+export const CLEAR_HISTORY = 'CLEAR_HISTORY';
+export const SET_WALL_HISTORY = 'SET_WALL_HISTORY';
+export const SET_WINDOWS_HISTORY = 'SET_WINDOWS_HISTORY';
+export const SET_DOORS_HISTORY = 'SET_DOORS_HISTORY';
+
 /* Room actions creators */
 
 export const setDepth = value => ({ type: SET_DEPTH, value });
@@ -53,6 +59,11 @@ export const setUFloor = (element, material) => ({
   type: SET_U_FLOOR,
   element,
   material
+});
+
+export const showElementView = elementType => ({
+  type: SHOW_ELEMENT_VIEW,
+  elementType
 });
 
 /*

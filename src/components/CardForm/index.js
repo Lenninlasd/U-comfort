@@ -36,17 +36,17 @@ const switchViews = (windowsView, defaultView) => {
 const buttonsList = [
   {
     title: 'PAREDES',
-    typeElement: 'paredes',
+    elementType: 'paredes',
     buttonText: 'Configurar paredes'
   },
   {
     title: 'VENTANAS INSTALADAS',
-    typeElement: 'vidrios',
+    elementType: 'vidrios',
     buttonText: 'Agregar o eliminar ventanas'
   },
   {
     title: 'PUERTAS',
-    typeElement: 'puertas',
+    elementType: 'puertas',
     buttonText: 'Agregar o eliminar puertas'
   }
 ];
@@ -58,7 +58,7 @@ const CustomButtons = () => (
         key={idx}
         title={item.title}
         buttonText={item.buttonText}
-        typeElement={item.typeElement}
+        elementType={item.elementType}
       />
     ))}
   </>
