@@ -66,6 +66,23 @@ export const showElementView = elementType => ({
   elementType
 });
 
+export const setElementHistory = elementType => {
+  switch (elementType) {
+    case 'paredes':
+      return {
+        type: SET_WALL_HISTORY
+      };
+    case 'puertas':
+      return {
+        type: SET_DOORS_HISTORY
+      };
+    default:
+      return {
+        type: SET_WINDOWS_HISTORY
+      };
+  }
+};
+
 /*
  * CardForm action types
  */

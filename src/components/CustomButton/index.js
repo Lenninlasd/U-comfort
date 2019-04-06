@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { showElementView } from '../../actions';
+import { showElementView, setElementHistory } from '../../actions';
 import PropTypes from 'prop-types';
 
 const CustomButton = ({ title, buttonText, elementType, data, showWindowsProps }) => (
@@ -36,33 +36,10 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const { elementType } = ownProps;
-  let view, type;
-
-  switch (elementType) {
-    case 'paredes':
-      view = 'wallsView';
-      type = 'SET_WALL_HISTORY';
-      break;
-    case 'puertas':
-      view = 'doorView';
-      type = 'SET_DOORS_HISTORY';
-      break;
-    default:
-      view = 'glassView';
-      type = 'SET_WINDOWS_HISTORY';
-      break;
-  }
-
   return {
     showWindowsProps: () => {
-      // dispatch(showElementView(elementType));
-      dispatch({
-        type: 'SHOW_WINDOWS_PROPS',
-        view
-      });
-      dispatch({
-        type
-      });
+      dispatch(showElementView(elementType));
+      dispatch(setElementHistory(elementType));
     }
   };
 };
