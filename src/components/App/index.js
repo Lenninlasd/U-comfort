@@ -1,10 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import bootstrap from 'bootstrap/dist/css/bootstrap.min.css'; // eslint-disable-line no-unused-vars
+import styles from '../Styles/css.css'; // eslint-disable-line no-unused-vars
 
 import CanvasElement from '../RoomCanvas';
 import CardForm from '../CardForm';
 import EquipmentsView from '../Equipments';
-import { Footer } from '../footer';
+// import { Footer } from '../footer';
 
 const MainView = () => (
   <div className="container-fluid">
@@ -38,7 +40,7 @@ export const App = () => (
     <div>
       <Route exact path="/" component={MainView} />
       <Route path="/equipment" component={EquipmentsView} />
-      {<Footer /> && false}
+      {/* <Footer /> */}
     </div>
   </Router>
 );

@@ -44,7 +44,8 @@ export const getCargaEnfriamiento = state => {
     state.luces.factConv *
     factorCorrecionCalorSensible;
 
-  const heatEquipments = state.piso.areaNeta * state.luces.factConv * 1.5;
+  const heatEquipments =
+    state.piso.areaNeta * state.luces.factConv * state.recinto.equitmentWattsPerSquaredFoot;
 
   const calorPersonas = setCalorPersonas(
     state.numberOfPeople,

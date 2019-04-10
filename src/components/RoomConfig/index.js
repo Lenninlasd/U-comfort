@@ -93,7 +93,7 @@ export const RoomForm = props => (
         <div className="row">
           <div className="col">
             <small>
-              <strong>ACTIVIDAD DEL RECINTO</strong>
+              <strong style={{ whiteSpace: 'nowrap' }}>ACTIVIDAD DEL RECINTO</strong>
             </small>
             <select
               id="actividadRecinto"
@@ -121,6 +121,27 @@ export const RoomForm = props => (
           </div>
         </div>
       </div>
+      <div className="col-sm-12">
+        <div className="form-row form-group">
+          <div className="col-md-12 col-sm-12">
+            <small>
+              <strong>CANTIDAD DE EQUIPOS EN RECINTO</strong>
+            </small>
+            <select
+              id="amountOfEquipment"
+              className="form-control"
+              onChange={props.onEnclosureChange}
+              value={props.wattsPerSquaredFoot}
+            >
+              <option hidden>CANTIDAD DE EQUIPOS EN RECINTO</option>
+              <option value={0.5}>Bajo</option>
+              <option value={1}>Moderado</option>
+              <option value={1.5}>Medio</option>
+              <option value={2}>Alto</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
     <hr />
   </form>
@@ -133,5 +154,6 @@ RoomForm.propTypes = {
   numberOfPeople: PropTypes.number.isRequired,
   onSizeChange: PropTypes.func.isRequired,
   onEnclosureChange: PropTypes.func.isRequired,
-  actividadRecinto: PropTypes.string.isRequired
+  actividadRecinto: PropTypes.string.isRequired,
+  wattsPerSquaredFoot: PropTypes.number.isRequired
 };

@@ -17,6 +17,7 @@ import {
   SET_NUMBER_OF_LIGHTS,
   SET_ROOM_ACTIVITY,
   SET_ROOM_TYPE,
+  SET_EQUITMENT_WATTS_PER_SQUARED_FOOT,
   CALC_GROSS_WALL_AREA,
   SET_CARGA_ENFRIAMIENTO,
   SET_U_1_DOOR,
@@ -507,6 +508,8 @@ export const recinto = (recintoState = {}, action) => {
       return Object.assign({}, recintoState, {
         tipo_recinto: action.value
       });
+    case SET_EQUITMENT_WATTS_PER_SQUARED_FOOT:
+      return { ...recintoState, equitmentWattsPerSquaredFoot: action.value };
     default:
       return recintoState;
   }

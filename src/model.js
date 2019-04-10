@@ -19,7 +19,8 @@ export default {
     humedad_relativa: 50,
     humedad_especifica: 72,
     actividad_recinto: 'Parado, trabajo ligero, caminando',
-    tipo_recinto: 'Supermercados'
+    tipo_recinto: 'Supermercados',
+    equitmentWattsPerSquaredFoot: 1
   },
   cargaPico: {
     fecha: '21-07-xxxx', // julio, no va a cambiar
