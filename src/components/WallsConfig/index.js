@@ -141,7 +141,9 @@ const mapDispatchToProps = dispatch => ({
         dispatch(setWallCLTDCorretion());
         return;
       case 'correcion_color_K':
-        return dispatch(setColorkWall({ id, k: el.value }));
+        dispatch(setColorkWall({ id, k: el.value }));
+        dispatch(setWallCLTDCorretion());
+        return;
     }
   },
   handleCancel: () => {

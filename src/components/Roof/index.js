@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
-import { setUoneRoof, setColorKRoof } from '../../actions';
+import { setUoneRoof, setColorKRoof, setCLTDRoofCorrection } from '../../actions';
 
 const optionsRoof = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
   element.tipo.includes('TECHO')
@@ -77,6 +77,7 @@ const mapDispatchToProps = dispatch => ({
   },
   changeColorK: event => {
     dispatch(setColorKRoof(event.target.value));
+    dispatch(setCLTDRoofCorrection());
   }
 });
 

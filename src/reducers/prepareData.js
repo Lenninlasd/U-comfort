@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import TABLA_WINDOW from '../../json/CLTD_vidrio';
 import TABLA_TECHO from '../../json/CLTD_techo';
 import TABLA_SHGF from '../../json/SHGF_lat_40';
@@ -177,9 +178,9 @@ const setCLTD_pared = paredesState => {
   });
 };
 
-const setCLTD_techo = techoState => {
+const setCLTDRoof = techoState => {
   const data_techo = TABLA_TECHO.find(
-    x => x.tipo_de_techo === 'sin cielo raso suspendido' && x.numero_techo === '3'
+    x => x.tipo_de_techo === 'con cielo raso suspendido' && x.numero_techo === '3'
   );
 
   return Object.assign({}, techoState, {
@@ -388,7 +389,7 @@ export const paredes = (paredesState = [], action, state) => {
 export const techo = (techoState = {}, action, state) => {
   switch (action.type) {
     case SET_CLTD_ROOF:
-      return setCLTD_techo(techoState);
+      return setCLTDRoof(techoState);
     case SET_CLTD_ROOF_CORRECTION: {
       /*eslint no-console: ["error", { allow: ["error"] }] */
       if (!techoState.correcion_latitud_mes_LM) {
@@ -514,8 +515,6 @@ export const recinto = (recintoState = {}, action) => {
       return recintoState;
   }
 };
-
-export const cargaPico = (cargaPicoState = {}) => cargaPicoState;
 
 const CLEAR_HISTORY = 'CLEAR_HISTORY';
 const SET_WALL_HISTORY = 'SET_WALL_HISTORY';

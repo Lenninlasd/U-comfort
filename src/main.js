@@ -23,8 +23,7 @@ const store = createStore(
     height: initState.height,
     numberOfPeople: initState.numberOfPeople,
     exterior: initState.exterior,
-    recinto: initState.recinto,
-    cargaPico: initState.cargaPico
+    recinto: initState.recinto
   },
   applyMiddleware(logger)
 );
