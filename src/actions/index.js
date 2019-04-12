@@ -12,6 +12,7 @@ export const SET_NUMBER_OF_PEOPLE = 'SET_NUMBER_OF_PEOPLE';
 export const SET_NUMBER_OF_LIGHTS = 'SET_NUMBER_OF_LIGHTS';
 export const SET_ROOM_ACTIVITY = 'SET_ROOM_ACTIVITY';
 export const SET_ROOM_TYPE = 'SET_ROOM_TYPE';
+export const SET_EQUITMENT_WATTS_PER_SQUARED_FOOT = 'SET_EQUITMENT_WATTS_PER_SQUARED_FOOT';
 
 export const SET_U_FLOOR = 'SET_U_FLOOR';
 export const SET_FLOOR_CLTD_CORRECTION = 'SET_FLOOR_CLTD_CORRECTION';
@@ -82,6 +83,11 @@ export const setElementHistory = elementType => {
       };
   }
 };
+
+export const setEquitmentWattsPerSquaredFoot = value => ({
+  type: SET_EQUITMENT_WATTS_PER_SQUARED_FOOT,
+  value
+});
 
 /*
  * CardForm action types

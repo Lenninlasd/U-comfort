@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { showElementView, setElementHistory } from '../../actions';
 import PropTypes from 'prop-types';
 
-const CustomButton = ({ title, buttonText, elementType, data, showWindowsProps }) => (
+const CustomButton = ({ title, buttonText, elementType, src, data, showWindowsProps }) => (
   <div className="glass-windows form-group">
     <div>
       <small>
@@ -11,10 +11,9 @@ const CustomButton = ({ title, buttonText, elementType, data, showWindowsProps }
       </small>
     </div>
     <div>
-      {/* Esto se puede mejorar Adicionando un svg-loader a webpack */}
       {elementType && (
         <button type="button" className="btn btn-light" onClick={showWindowsProps}>
-          <img height="28" width="28" src={`./img/${elementType}.svg`} />
+          <img height="28" width="28" src={src} />
           <span>{` ${buttonText}`}</span>
         </button>
       )}
@@ -26,6 +25,7 @@ CustomButton.propTypes = {
   title: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
   elementType: PropTypes.string.isRequired,
+  src: PropTypes.string,
   data: PropTypes.array,
   showWindowsProps: PropTypes.func.isRequired
 };

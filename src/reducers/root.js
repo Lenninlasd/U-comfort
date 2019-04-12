@@ -8,7 +8,6 @@ import {
   results,
   exterior,
   recinto,
-  cargaPico,
   past
 } from './prepareData.js';
 
@@ -30,6 +29,5 @@ export default (state = {}, action) => ({
   numberOfPeople: numberOfPeople(state.numberOfPeople, action),
   exterior: exterior(state.exterior, action),
   recinto: recinto(state.recinto, action),
-  cargaPico: cargaPico(state.cargaPico),
   appConfig: appConfig(state.appConfig, action)
 });

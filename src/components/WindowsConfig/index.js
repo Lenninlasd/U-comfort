@@ -159,7 +159,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
         </div>
         <div className="col">
           <small>
-            <strong>TIPO DE WINDOW</strong>
+            <strong>TIPO DE VIDRIO</strong>
           </small>
           <SelectWinProps
             tag={keyForm}
