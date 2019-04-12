@@ -6,10 +6,12 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --disable-host-check --mode development --compress --open",
-    "start": "npm run build && http-server ./dist -a localhost -o",
+    "start": "http-server ./dist -a localhost -o",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors"
+    "test:coverage": "jest --coverage --colors",
+    "prepare-folder": "cp -r ./ ../U-confort-dist && rm -rf ../U-confort-dist/.git && rm -rf ../U-confort-dist/node_modules",
+    "zip": "npm run build && npm run prepare-folder && zip -r ../U-confort.zip ../U-confort"
   },
   "husky": {
     "hooks": {
