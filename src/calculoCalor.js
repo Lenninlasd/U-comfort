@@ -11,7 +11,6 @@ export const setCalorPersonas = (n_personas, correcion, tablaCalorPersonas, apli
 };
 
 export const setCalorVentilacion = (n_personas, Δtemp, ΔHumedad, cfmMinimo) => {
-  // take the first cfm of the range
   const CFMventilacion = cfmMinimo * n_personas;
 
   return {
@@ -41,18 +40,14 @@ export const calculoTotalSensible = (
       .reduce((acc, actual) => acc + actual);
   };
 
-  // calculoIndividualSensible
   const getCalorSensibleArray = element => {
     if (!element.length) return 0;
 
     return element.map(i => getCalorSensible(i)).reduce((anterior, actual) => anterior + actual);
   };
 
-  const getCalorSensible = obj => {
-    return (
-      obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_correccion
-    );
-  };
+  const getCalorSensible = obj =>
+    obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_correccion;
 
   const calorVidrio = getCalorSensibleArray(vidrios);
   const calorPared = getCalorSensibleArray(paredes);

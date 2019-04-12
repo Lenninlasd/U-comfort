@@ -1,8 +1,8 @@
 export default {
-  numberOfPeople: 60,
-  height: 4.267,
-  depth: 27.432,
-  width: 18.288,
+  numberOfPeople: 5,
+  height: 2.5,
+  depth: 3,
+  width: 3,
   exterior: {
     id: 7,
     ciudad: 'Indianapolis',
@@ -18,42 +18,13 @@ export default {
     bulbo_seco: 78,
     humedad_relativa: 50,
     humedad_especifica: 72,
-    actividad_recinto: 'Parado, trabajo ligero, caminando',
-    tipo_recinto: 'Supermercados'
-  },
-  cargaPico: {
-    fecha: '21-07-xxxx', // julio, no va a cambiar
-    hora: 17, // no va a cambiar
-    promedio: 79 // Fahrenheit
+    actividad_recinto: 'Sentado, trabajo ligero',
+    tipo_recinto: 'Oficina',
+    equitmentWattsPerSquaredFoot: 1
   },
   elementos: {
     /* md`## Elementos del cuarto. Materiales en el cual se esta haciendo la conducción de exterior a interior.` */
-    vidrios: [
-      {
-        orientacion: 'W',
-        sombra: 'no', // usuario
-        width: 25.298,
-        height: 3.048,
-        espesor_nominal: '3/16 a 1/4',
-        tipo_de_vidrio: 'absorbente de calor'
-      },
-      {
-        orientacion: 'W',
-        sombra: 'no',
-        width: 2.133,
-        height: 1.828,
-        espesor_nominal: '3/32 a 1/4',
-        tipo_de_vidrio: 'claro'
-      },
-      {
-        orientacion: 'E',
-        sombra: 'no',
-        width: 2.133,
-        height: 1.828,
-        espesor_nominal: '3/32 a 1/4',
-        tipo_de_vidrio: 'claro'
-      }
-    ],
+    vidrios: [],
     paredes: [
       {
         orientacion: 'N',
@@ -96,19 +67,9 @@ export default {
       tipo: 'TECHO'
     },
     piso: {},
-    puertas: [
-      {
-        width: 1.828,
-        height: 2.133,
-        orientacion: 'E',
-        tipo: 'PUERTA',
-        material: 'PUERTA_EJEMPLO',
-        CLTD_tabla: 27, // ºF Aun no se tiene esa tabla
-        CLTD_correccion: 22 // ºF
-      }
-    ],
+    puertas: [],
     luces: {
-      numberOfLights: 135,
+      numberOfLights: 1,
       wattsPorLampara: 60,
       factConv: 3.41
     }

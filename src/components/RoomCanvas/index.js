@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BufferGeometryUtils } from '../../../libs/BufferGeometryUtils.js';
 
+import compassImg from '../../../img/compass.svg';
+
 const OrbitControls = require('three-orbit-controls')(THREE);
 
 function createBulbLightGeometry(size, lights) {
@@ -166,7 +168,7 @@ function initCube(id, size, numberOfLights) {
 const CompassElement = ({ angle }) => {
   return (
     <div className="compass" style={{ transform: `rotate(${angle}deg)` }}>
-      <img height="60" width="60" src="./img/compass.svg" />
+      <img height="60" width="60" src={compassImg} />
     </div>
   );
 };
