@@ -2,7 +2,7 @@ import {
   calcAreaFloor,
   calcAreaRoof,
   setCLTDWindow,
-  setCLTDCorreccionWindow,
+  setCLTDCorrectionWindow,
   setSHGFWindow,
   setUWindow,
   setCLFWindow,
@@ -25,7 +25,7 @@ import {
 
 export default function enrichData(dispatch) {
   dispatch(setCLTDWindow());
-  dispatch(setCLTDCorreccionWindow());
+  dispatch(setCLTDCorrectionWindow());
   dispatch(setSHGFWindow());
   dispatch(setUWindow());
   dispatch(setCLFWindow());

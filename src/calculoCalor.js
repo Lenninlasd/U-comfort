@@ -47,7 +47,7 @@ export const calculoTotalSensible = (
   };
 
   const getCalorSensible = obj =>
-    obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_correccion;
+    obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_Correction;
 
   const calorVidrio = getCalorSensibleArray(vidrios);
   const calorPared = getCalorSensibleArray(paredes);

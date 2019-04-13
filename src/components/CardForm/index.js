@@ -11,9 +11,9 @@ import ListOfElements from '../WindowsConfig';
 import CustomButton from '../CustomButton';
 import Roof from '../Roof';
 
-import paredesImg from '../../../img/paredes.svg';
-import vidriosImg from '../../../img/vidrios.svg';
-import puertasImg from '../../../img/puertas.svg';
+import wallsImg from '../../../img/paredes.svg';
+import windowsImg from '../../../img/vidrios.svg';
+import doorsImg from '../../../img/puertas.svg';
 
 import { calcGrossWallArea, setCargaEnfriamiento } from '../../actions';
 
@@ -40,20 +40,20 @@ const switchViews = (windowsView, defaultView) => {
 const buttonsList = [
   {
     title: 'PAREDES',
-    elementType: 'paredes',
-    src: paredesImg,
+    elementType: 'walls',
+    src: wallsImg,
     buttonText: 'Configurar paredes'
   },
   {
     title: 'VENTANAS INSTALADAS',
-    elementType: 'vidrios',
-    src: vidriosImg,
+    elementType: 'windows',
+    src: windowsImg,
     buttonText: 'Agregar o eliminar ventanas'
   },
   {
     title: 'PUERTAS',
     elementType: 'puertas',
-    src: puertasImg,
+    src: doorsImg,
     buttonText: 'Agregar o eliminar puertas'
   }
 ];

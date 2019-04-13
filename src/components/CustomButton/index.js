@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { showElementView, setElementHistory } from '../../actions';
 import PropTypes from 'prop-types';
 
-const CustomButton = ({ title, buttonText, elementType, src, data, showWindowsProps }) => (
+const CustomButton = ({
+  title,
+  buttonText,
+  elementType,
+  src,
+  dataElements = [],
+  showWindowsProps
+}) => (
   <div className="glass-windows form-group">
     <div>
       <small>
-        <strong>{elementType === 'paredes' ? title : `${title}: ${data.length}`}</strong>
+        <strong>{elementType === 'walls' ? title : `${title}: ${dataElements.length}`}</strong>
       </small>
     </div>
     <div>
@@ -26,12 +33,12 @@ CustomButton.propTypes = {
   buttonText: PropTypes.string.isRequired,
   elementType: PropTypes.string.isRequired,
   src: PropTypes.string,
-  data: PropTypes.array,
+  dataElements: PropTypes.array,
   showWindowsProps: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state[ownProps.elementType]
+  dataElements: state[ownProps.elementType]
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {

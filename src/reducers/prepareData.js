@@ -39,10 +39,10 @@ import {
   SET_UNDO_WALL,
   SET_CLTD_WALL,
   SET_LM_WALL,
-  SET_CLTD_CORRECCION_WALL,
+  SET_CLTD_CORRECTION_WALL,
   SET_U_WALL,
   SET_CLTD_WINDOW,
-  SET_CLTD_CORRECCION_WINDOW,
+  SET_CLTD_CORRECTION_WINDOW,
   SET_SHGF_LAT_40_WINDOW,
   SET_U_WINDOW,
   SET_CLF_WINDOW,
@@ -103,7 +103,7 @@ const setCLTD_vidrios = glassState => {
   );
 };
 
-const setCLTD_correccion = (state, dataTemp) => {
+const setCLTD_Correction = (state, dataTemp) => {
   const DeltaTempDiseno = 78 - 85;
   const CLTD_Obj = el => {
     const LM = el.correcion_latitud_mes_LM;
@@ -114,13 +114,13 @@ const setCLTD_correccion = (state, dataTemp) => {
     if (el.tipo && el.tipo.includes('PARTICION')) {
       return {
         ...el,
-        CLTD_correccion: dataTemp.tempExterior - dataTemp.tempInterior - 5
+        CLTD_Correction: dataTemp.tempExterior - dataTemp.tempInterior - 5
       };
     }
 
     return {
       ...el,
-      CLTD_correccion:
+      CLTD_Correction:
         CLTD_temp +
         DeltaTempDiseno +
         dataTemp.tempExterior -
@@ -267,7 +267,7 @@ const updateAreaGlass = (glassState, id) =>
 
 const addNewGlass = (glassState, data, dataTemperature, exterior) => {
   let newGlass = setCLTD_vidrios([data]);
-  newGlass = setCLTD_correccion(newGlass, dataTemperature);
+  newGlass = setCLTD_Correction(newGlass, dataTemperature);
   newGlass = setSHGF_lat_40(newGlass, exterior);
   newGlass = setUvidrio(newGlass);
   newGlass = setCLF(newGlass);
@@ -279,7 +279,7 @@ const addNewGlass = (glassState, data, dataTemperature, exterior) => {
 const addNewDoor = (puertasState, door) => {
   /** TODO: REMOVE HARDCODE **/
   door.CLTD_tabla = 27; // ºF Aun no se tiene esa tabla
-  door.CLTD_correccion = 22; // ºF
+  door.CLTD_Correction = 22; // ºF
   /** **/
 
   const newDoor = setU_One([door], { id: 0, material: door.material });
@@ -334,8 +334,8 @@ export const vidrios = (glassState = [], action, state) => {
   switch (action.type) {
     case SET_CLTD_WINDOW:
       return setCLTD_vidrios(glassState);
-    case SET_CLTD_CORRECCION_WINDOW:
-      return setCLTD_correccion(glassState, dataTemperature);
+    case SET_CLTD_CORRECTION_WINDOW:
+      return setCLTD_Correction(glassState, dataTemperature);
     case SET_SHGF_LAT_40_WINDOW:
       return setSHGF_lat_40(glassState, state.exterior);
     case SET_U_WINDOW:
@@ -369,9 +369,9 @@ export const paredes = (paredesState = [], action, state) => {
       const { mes_carga_de_enfriamiento, latitud } = state.exterior;
       return setLMparedes(paredesState, setLM(mes_carga_de_enfriamiento, latitud));
     }
-    case SET_CLTD_CORRECCION_WALL: {
+    case SET_CLTD_CORRECTION_WALL: {
       const dataTemperature = getDataTemperature(state);
-      return setCLTD_correccion(paredesState, dataTemperature);
+      return setCLTD_Correction(paredesState, dataTemperature);
     }
     case SET_U_WALL:
       return setU(paredesState, action.element, action.material);
@@ -398,13 +398,13 @@ export const techo = (techoState = {}, action, state) => {
       /*eslint no-console: ["error", { allow: ["error"] }] */
       if (!techoState.correcion_latitud_mes_LM) {
         console.error(
-          `For CLTD_correccion in techo,
+          `For CLTD_Correction in techo,
                 correcion_latitud_mes_LM is needed`,
           techoState
         );
       }
       const dataTemperature = getDataTemperature(state);
-      return setCLTD_correccion(techoState, dataTemperature);
+      return setCLTD_Correction(techoState, dataTemperature);
     }
     case SET_LM_ROOF: {
       const { mes_carga_de_enfriamiento, latitud } = state.exterior;
@@ -414,7 +414,7 @@ export const techo = (techoState = {}, action, state) => {
       return setU(techoState, action.element, action.material);
     case SET_U_1_ROOF: {
       const dataTemperature = getDataTemperature(state);
-      return setCLTD_correccion(
+      return setCLTD_Correction(
         setU_One([techoState], { material: action.material, id: 0 })[0],
         dataTemperature
       );
@@ -460,7 +460,7 @@ export const piso = (pisoState = {}, action, state) => {
     case SET_FLOOR_CLTD_CORRECTION: {
       const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
       return Object.assign({}, pisoState, {
-        CLTD_correccion: Δtemp
+        CLTD_Correction: Δtemp
       });
     }
     case CALC_AREA_FLOOR:

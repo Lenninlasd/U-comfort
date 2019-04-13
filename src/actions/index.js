@@ -69,7 +69,7 @@ export const showElementView = elementType => ({
 
 export const setElementHistory = elementType => {
   switch (elementType) {
-    case 'paredes':
+    case 'walls':
       return {
         type: SET_WALL_HISTORY
       };
@@ -194,7 +194,7 @@ export const SET_COLOR_K_WALL = 'SET_COLOR_K_WALL';
 export const SET_UNDO_WALL = 'SET_UNDO_WALL';
 export const SET_CLTD_WALL = 'SET_CLTD_WALL';
 export const SET_LM_WALL = 'SET_LM_WALL';
-export const SET_CLTD_CORRECCION_WALL = 'SET_CLTD_CORRECCION_WALL';
+export const SET_CLTD_CORRECTION_WALL = 'SET_CLTD_CORRECTION_WALL';
 export const SET_U_WALL = 'SET_U_WALL';
 
 export const setUoneWall = data => ({
@@ -210,7 +210,7 @@ export const setColorkWall = data => ({
 export const setUndoWall = () => ({ type: SET_UNDO_WALL });
 export const setCLTDWall = () => ({ type: SET_CLTD_WALL });
 export const setLMWall = () => ({ type: SET_LM_WALL });
-export const setWallCLTDCorretion = () => ({ type: SET_CLTD_CORRECCION_WALL });
+export const setWallCLTDCorretion = () => ({ type: SET_CLTD_CORRECTION_WALL });
 export const setUWall = (element, material) => ({
   type: SET_U_WALL,
   element,
@@ -222,7 +222,7 @@ export const setUWall = (element, material) => ({
  */
 
 export const SET_CLTD_WINDOW = 'SET_CLTD_WINDOW';
-export const SET_CLTD_CORRECCION_WINDOW = 'SET_CLTD_CORRECCION_WINDOW';
+export const SET_CLTD_CORRECTION_WINDOW = 'SET_CLTD_CORRECTION_WINDOW';
 export const SET_SHGF_LAT_40_WINDOW = 'SET_SHGF_LAT_40_WINDOW';
 export const SET_U_WINDOW = 'SET_U_WINDOW';
 export const SET_CLF_WINDOW = 'SET_CLF_WINDOW';
@@ -239,7 +239,7 @@ export const updatePropWindow = data => ({
   data
 });
 export const setCLTDWindow = () => ({ type: SET_CLTD_WINDOW });
-export const setCLTDCorreccionWindow = () => ({ type: SET_CLTD_CORRECCION_WINDOW });
+export const setCLTDCorrectionWindow = () => ({ type: SET_CLTD_CORRECTION_WINDOW });
 export const setSHGFWindow = () => ({ type: SET_SHGF_LAT_40_WINDOW });
 export const setUWindow = () => ({ type: SET_U_WINDOW });
 export const setCLFWindow = () => ({ type: SET_CLF_WINDOW });
