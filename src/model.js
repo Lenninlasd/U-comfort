@@ -24,7 +24,7 @@ export default {
   },
   elementos: {
     /* md`## Elementos del cuarto. Materiales en el cual se esta haciendo la conducción de exterior a interior.` */
-    vidrios: [],
+    windows: [],
     paredes: [
       {
         orientacion: 'N',

@@ -1,5 +1,5 @@
 import {
-  vidrios,
+  windows,
   paredes,
   techo,
   puertas,
@@ -16,7 +16,7 @@ import { appConfig } from './config.js';
 
 export default (state = {}, action) => ({
   past: past(state.past, action, state),
-  vidrios: vidrios(state.vidrios, action, state),
+  windows: windows(state.windows, action, state),
   paredes: paredes(state.paredes, action, state),
   techo: techo(state.techo, action, state),
   puertas: puertas(state.puertas, action, state),

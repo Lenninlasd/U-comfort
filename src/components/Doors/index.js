@@ -10,8 +10,9 @@ import {
   calcAreaDoor,
   removeDoor,
   addDoor,
-  hideMainFormLayout,
-  setUndoDoors
+  hideElementsView,
+  setUndoDoors,
+  clearHistory
 } from '../../actions';
 
 const optionsDoors = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
@@ -267,10 +268,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addDoor(data));
     dispatch(calcGrossWallArea());
   },
-  handleBackButton: () => dispatch(hideMainFormLayout()),
+  handleBackButton: () => dispatch(hideElementsView()),
   handleCancel: () => {
-    dispatch(hideMainFormLayout());
+    dispatch(hideElementsView());
     dispatch(setUndoDoors());
+    dispatch(clearHistory());
   }
 });
 

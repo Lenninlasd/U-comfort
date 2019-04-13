@@ -17,6 +17,12 @@ export const SET_EQUITMENT_WATTS_PER_SQUARED_FOOT = 'SET_EQUITMENT_WATTS_PER_SQU
 export const SET_U_FLOOR = 'SET_U_FLOOR';
 export const SET_FLOOR_CLTD_CORRECTION = 'SET_FLOOR_CLTD_CORRECTION';
 
+export const SHOW_ELEMENTS_VIEW = 'SHOW_ELEMENTS_VIEW';
+export const CLEAR_HISTORY = 'CLEAR_HISTORY';
+export const SET_WALL_HISTORY = 'SET_WALL_HISTORY';
+export const SET_WINDOWS_HISTORY = 'SET_WINDOWS_HISTORY';
+export const SET_DOORS_HISTORY = 'SET_DOORS_HISTORY';
+
 /* Room actions creators */
 
 export const setDepth = value => ({ type: SET_DEPTH, value });
@@ -56,6 +62,30 @@ export const setUFloor = (element, material) => ({
   material
 });
 
+export const showElementView = elementType => ({
+  type: SHOW_ELEMENTS_VIEW,
+  elementType
+});
+
+export const clearHistory = () => ({ type: CLEAR_HISTORY });
+
+export const setElementHistory = elementType => {
+  switch (elementType) {
+    case 'paredes':
+      return {
+        type: SET_WALL_HISTORY
+      };
+    case 'puertas':
+      return {
+        type: SET_DOORS_HISTORY
+      };
+    default:
+      return {
+        type: SET_WINDOWS_HISTORY
+      };
+  }
+};
+
 export const setEquitmentWattsPerSquaredFoot = value => ({
   type: SET_EQUITMENT_WATTS_PER_SQUARED_FOOT,
   value
@@ -80,7 +110,7 @@ export const UPDATE_PROP_DOOR = 'UPDATE_PROP_DOOR';
 export const CALC_AREA_DOOR = 'CALC_AREA_DOOR';
 export const REMOVE_DOOR = 'REMOVE_DOOR';
 export const ADD_DOOR = 'ADD_DOOR';
-export const HIDE_MAIN_FORM_LAYOUT = 'HIDE_MAIN_FORM_LAYOUT';
+export const HIDE_ELEMENTS_VIEW = 'HIDE_ELEMENTS_VIEW';
 export const SET_UNDO_DOORS = 'SET_UNDO_DOORS';
 export const SET_U_DOOR = 'SET_U_DOOR';
 export const CALC_AREA_DOOR_ALL = 'CALC_AREA_DOOR_ALL';
@@ -111,7 +141,7 @@ export const setUDoors = (element, material) => ({
   material
 });
 
-export const hideMainFormLayout = () => ({ type: HIDE_MAIN_FORM_LAYOUT });
+export const hideElementsView = () => ({ type: HIDE_ELEMENTS_VIEW });
 export const setUndoDoors = () => ({ type: SET_UNDO_DOORS });
 export const calcAreaDoorAll = () => ({ type: CALC_AREA_DOOR_ALL });
 
@@ -166,7 +196,7 @@ export const SET_COLOR_K_WALL = 'SET_COLOR_K_WALL';
 export const SET_UNDO_WALL = 'SET_UNDO_WALL';
 export const SET_CLTD_WALL = 'SET_CLTD_WALL';
 export const SET_LM_WALL = 'SET_LM_WALL';
-export const SET_CLTD_CORRECCION_WALL = 'SET_CLTD_CORRECCION_WALL';
+export const SET_CLTD_CORRECTION_WALL = 'SET_CLTD_CORRECTION_WALL';
 export const SET_U_WALL = 'SET_U_WALL';
 
 export const setUoneWall = data => ({
@@ -182,7 +212,7 @@ export const setColorkWall = data => ({
 export const setUndoWall = () => ({ type: SET_UNDO_WALL });
 export const setCLTDWall = () => ({ type: SET_CLTD_WALL });
 export const setLMWall = () => ({ type: SET_LM_WALL });
-export const setWallCLTDCorretion = () => ({ type: SET_CLTD_CORRECCION_WALL });
+export const setWallCLTDCorretion = () => ({ type: SET_CLTD_CORRECTION_WALL });
 export const setUWall = (element, material) => ({
   type: SET_U_WALL,
   element,
@@ -194,7 +224,7 @@ export const setUWall = (element, material) => ({
  */
 
 export const SET_CLTD_WINDOW = 'SET_CLTD_WINDOW';
-export const SET_CLTD_CORRECCION_WINDOW = 'SET_CLTD_CORRECCION_WINDOW';
+export const SET_CLTD_CORRECTION_WINDOW = 'SET_CLTD_CORRECTION_WINDOW';
 export const SET_SHGF_LAT_40_WINDOW = 'SET_SHGF_LAT_40_WINDOW';
 export const SET_U_WINDOW = 'SET_U_WINDOW';
 export const SET_CLF_WINDOW = 'SET_CLF_WINDOW';
@@ -211,7 +241,7 @@ export const updatePropWindow = data => ({
   data
 });
 export const setCLTDWindow = () => ({ type: SET_CLTD_WINDOW });
-export const setCLTDCorreccionWindow = () => ({ type: SET_CLTD_CORRECCION_WINDOW });
+export const setCLTDCorrectionWindow = () => ({ type: SET_CLTD_CORRECTION_WINDOW });
 export const setSHGFWindow = () => ({ type: SET_SHGF_LAT_40_WINDOW });
 export const setUWindow = () => ({ type: SET_U_WINDOW });
 export const setCLFWindow = () => ({ type: SET_CLF_WINDOW });

@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './reducers/root.js';
 import initState from './model.js';
 import { App } from './components/App';
 import enrichData from './enrichData.js';
-import { logger } from './middlewares/logger.js';
 
 const store = createStore(
   rootReducer,
   {
-    vidrios: initState.elementos.vidrios,
+    windows: initState.elementos.windows,
     paredes: initState.elementos.paredes,
     techo: initState.elementos.techo,
     puertas: initState.elementos.puertas,
@@ -23,14 +23,13 @@ const store = createStore(
     height: initState.height,
     numberOfPeople: initState.numberOfPeople,
     exterior: initState.exterior,
-    recinto: initState.recinto
+    recinto: initState.recinto,
+    cargaPico: initState.cargaPico
   },
-  applyMiddleware(logger)
+  composeWithDevTools()
 );
 
 enrichData(store.dispatch);
-
-store.dispatch({ type: 'SET_CARGA_ENFRIAMIENTO' });
 
 ReactDOM.render(
   <Provider store={store}>

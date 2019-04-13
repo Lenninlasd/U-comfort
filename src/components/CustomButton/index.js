@@ -1,17 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { showElementView, setElementHistory } from '../../actions';
 import PropTypes from 'prop-types';
 
-const CustomButton = ({ title, buttonText, typeElement, src, data, showWindowsProps }) => (
+const CustomButton = ({
+  title,
+  buttonText,
+  elementType,
+  src,
+  dataElements = [],
+  showWindowsProps
+}) => (
   <div className="glass-windows form-group">
     <div>
       <small>
-        <strong>{typeElement === 'paredes' ? title : `${title}: ${data.length}`}</strong>
+        <strong>{elementType === 'paredes' ? title : `${title}: ${dataElements.length}`}</strong>
       </small>
     </div>
     <div>
-      {/* Esto se puede mejorar Adicionando un svg-loader a webpack */}
-      {typeElement && (
+      {elementType && (
         <button type="button" className="btn btn-light" onClick={showWindowsProps}>
           <img height="28" width="28" src={src} />
           <span>{` ${buttonText}`}</span>
@@ -24,43 +31,22 @@ const CustomButton = ({ title, buttonText, typeElement, src, data, showWindowsPr
 CustomButton.propTypes = {
   title: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
-  typeElement: PropTypes.string.isRequired,
-  data: PropTypes.array,
+  elementType: PropTypes.string.isRequired,
+  src: PropTypes.string,
+  dataElements: PropTypes.array,
   showWindowsProps: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state[ownProps.typeElement]
+  dataElements: state[ownProps.elementType]
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const { typeElement } = ownProps;
-  let view, type;
-
-  switch (typeElement) {
-    case 'paredes':
-      view = 'wallsView';
-      type = 'SET_WALL_HISTORY';
-      break;
-    case 'puertas':
-      view = 'doorView';
-      type = 'SET_DOORS_HISTORY';
-      break;
-    default:
-      view = 'glassView';
-      type = 'SET_WINDOWS_HISTORY';
-      break;
-  }
-
+  const { elementType } = ownProps;
   return {
     showWindowsProps: () => {
-      dispatch({
-        type: 'SHOW_WINDOWS_PROPS',
-        view
-      });
-      dispatch({
-        type
-      });
+      dispatch(showElementView(elementType));
+      dispatch(setElementHistory(elementType));
     }
   };
 };

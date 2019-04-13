@@ -36,7 +36,7 @@ export const getCargaEnfriamiento = state => {
   const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
   const ΔHumedad = state.exterior.humedad_especifica - state.recinto.humedad_especifica;
   const perimeter = 2 * FEET * (state.width + state.depth);
-  const factorCorrecionCalorSensible = getCalor_sensible(state.vidrios, state.paredes, perimeter);
+  const factorCorrecionCalorSensible = getCalor_sensible(state.windows, state.paredes, perimeter);
 
   const calorLuces =
     state.luces.wattsPorLampara *
@@ -62,7 +62,7 @@ export const getCargaEnfriamiento = state => {
 
   //Calculo final
   const sensibleEl = calculoTotalSensible(
-    state.vidrios,
+    state.windows,
     state.paredes,
     state.techo,
     state.puertas,
