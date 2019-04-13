@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import TABLA_WINDOW from '../../json/CLTD_vidrio';
 import TABLA_TECHO from '../../json/CLTD_techo';
 import TABLA_SHGF from '../../json/SHGF_lat_40';
@@ -93,11 +92,11 @@ const getDataTemperature = ({ exterior, recinto }) => ({
   Δtemp: exterior.bulbo_seco - recinto.bulbo_seco
 });
 
-const setCLTD_vidrios = glassState => {
+const setCLTD_windows = windowsState => {
   const peakHour = '17';
   const CLTD_tabla = Number(TABLA_WINDOW[0][peakHour]);
-  return glassState.map(glass =>
-    Object.assign({}, glass, {
+  return windowsState.map(windows =>
+    Object.assign({}, windows, {
       CLTD_tabla
     })
   );
@@ -131,25 +130,25 @@ const setCLTD_Correction = (state, dataTemp) => {
   return Array.isArray(state) ? state.map(CLTD_Obj) : CLTD_Obj(state);
 };
 
-const setSHGF_lat_40 = (glassState, exterior) => {
+const setSHGF_lat_40 = (windowsState, exterior) => {
   const dataSHGF = TABLA_SHGF.find(
     x => x.MES === exterior.mes_carga_de_enfriamiento && Number(x.LATITUD) === exterior.latitud
   );
 
-  return glassState.map(vidrio => {
-    let dir = vidrio.orientacion;
+  return windowsState.map(window => {
+    let dir = window.orientacion;
     dir = dir === 'E' || dir === 'W' ? 'E/W' : dir;
-    return Object.assign({}, vidrio, {
+    return Object.assign({}, window, {
       SHGF: Number(dataSHGF[dir])
     });
   });
 };
 
-const setUvidrio = (glassState, glassDescription = 'vidrio sencillo') => {
-  const Uv_sencillo = TABLA_U_WINDOW.find(x => x.descripcion === glassDescription);
+const setUwindow = (windowsState, windowsDescription = 'vidrio sencillo') => {
+  const Uv_sencillo = TABLA_U_WINDOW.find(x => x.descripcion === windowsDescription);
 
-  return glassState.map(vidrio =>
-    Object.assign({}, vidrio, {
+  return windowsState.map(window =>
+    Object.assign({}, window, {
       coeficiente_transferencia_calor: Number(Uv_sencillo.U_exterior)
     })
   );
@@ -224,56 +223,56 @@ const setU_One = (paredesState, data) => {
   });
 };
 
-const setCLF = (glassState, glassCapacity = 'M') => {
-  const CLF_ = TABLA_CLF.filter(x => x.CAPACIDAD === glassCapacity);
+const setCLF = (windowsState, windowsCapacity = 'M') => {
+  const CLF_ = TABLA_CLF.filter(x => x.CAPACIDAD === windowsCapacity);
 
-  return glassState.map(vidrio => {
-    const value = CLF_.find(x => x.ORIENTACION === vidrio.orientacion);
-    return Object.assign({}, vidrio, {
+  return windowsState.map(window => {
+    const value = CLF_.find(x => x.ORIENTACION === window.orientacion);
+    return Object.assign({}, window, {
       CLF: Number(value['17'])
     });
   });
 };
 
-const setSC = (glassState, glassDescription = 'vidrio sencillo') => {
-  const dataSc = TABLA_SC.filter(x => x.vidrio === glassDescription);
+const setSC = (windowsState, windowsDescription = 'vidrio sencillo') => {
+  const dataSc = TABLA_SC.filter(x => x.vidrio === windowsDescription);
 
-  return glassState.map(vidrio => {
+  return windowsState.map(window => {
     const dataScFiltered = dataSc.find(
       x =>
-        x.tipo_de_vidrio === vidrio.tipo_de_vidrio && x.espesor_nominal === vidrio.espesor_nominal
+        x.tipo_de_vidrio === window.tipo_de_vidrio && x.espesor_nominal === window.espesor_nominal
     );
-    return Object.assign({}, vidrio, {
+    return Object.assign({}, window, {
       SC: Number(dataScFiltered.sin_sombreado_interior)
     });
   });
 };
 
-const updatePropGlass = (glassState, data) =>
-  glassState.map((glass, key) => {
-    if (key === data.id) return Object.assign({}, glass, data);
-    return glass;
+const updatePropGlass = (windowsState, data) =>
+  windowsState.map((windows, key) => {
+    if (key === data.id) return Object.assign({}, windows, data);
+    return windows;
   });
 
-const updateAreaGlass = (glassState, id) =>
-  glassState.map((glass, key) => {
+const updateAreaGlass = (windowsState, id) =>
+  windowsState.map((windows, key) => {
     if (key === id) {
-      return Object.assign({}, glass, {
-        areaNeta: glass.width * glass.height * sqrFEET
+      return Object.assign({}, windows, {
+        areaNeta: windows.width * windows.height * sqrFEET
       });
     }
-    return glass;
+    return windows;
   });
 
-const addNewGlass = (glassState, data, dataTemperature, exterior) => {
-  let newGlass = setCLTD_vidrios([data]);
+const addNewGlass = (windowsState, data, dataTemperature, exterior) => {
+  let newGlass = setCLTD_windows([data]);
   newGlass = setCLTD_Correction(newGlass, dataTemperature);
   newGlass = setSHGF_lat_40(newGlass, exterior);
-  newGlass = setUvidrio(newGlass);
+  newGlass = setUwindow(newGlass);
   newGlass = setCLF(newGlass);
   newGlass = setSC(newGlass);
   newGlass = calcAreaAll(newGlass);
-  return [...glassState, ...newGlass];
+  return [...windowsState, ...newGlass];
 };
 
 const addNewDoor = (puertasState, door) => {
@@ -286,13 +285,13 @@ const addNewDoor = (puertasState, door) => {
   return [...puertasState, ...calcAreaAll(newDoor)];
 };
 
-const calcAreaNetaPared = (paredesState, glassState, doors, depth, height, width) => {
-  const glassHash = {};
+const calcAreaNetaPared = (paredesState, windowsState, doors, depth, height, width) => {
+  const windowsHash = {};
   const doorsHash = {};
 
   // Reduce refactor
-  for (const glass of glassState) {
-    glassHash[glass.orientacion] = (glassHash[glass.orientacion] || 0) + glass.areaNeta;
+  for (const windows of windowsState) {
+    windowsHash[windows.orientacion] = (windowsHash[windows.orientacion] || 0) + windows.areaNeta;
   }
   for (const door of doors) {
     doorsHash[door.orientacion] = (doorsHash[door.orientacion] || 0) + door.areaNeta;
@@ -307,9 +306,9 @@ const calcAreaNetaPared = (paredesState, glassState, doors, depth, height, width
 
   return paredesState.map(pared => {
     const gross = areaBruta[pared.orientacion];
-    const glassArea = glassHash[pared.orientacion] || 0;
+    const windowsArea = windowsHash[pared.orientacion] || 0;
     const doorArea = doorsHash[pared.orientacion] || 0;
-    const areaNeta = gross - glassArea - doorArea;
+    const areaNeta = gross - windowsArea - doorArea;
 
     return Object.assign({}, pared, {
       areaNeta: areaNeta > 0 ? areaNeta : 0
@@ -328,36 +327,36 @@ const setColorK = (paredesState, data) =>
     }
   });
 
-export const vidrios = (glassState = [], action, state) => {
+export const windows = (windowsState = [], action, state) => {
   const dataTemperature = getDataTemperature(state);
 
   switch (action.type) {
     case SET_CLTD_WINDOW:
-      return setCLTD_vidrios(glassState);
+      return setCLTD_windows(windowsState);
     case SET_CLTD_CORRECTION_WINDOW:
-      return setCLTD_Correction(glassState, dataTemperature);
+      return setCLTD_Correction(windowsState, dataTemperature);
     case SET_SHGF_LAT_40_WINDOW:
-      return setSHGF_lat_40(glassState, state.exterior);
+      return setSHGF_lat_40(windowsState, state.exterior);
     case SET_U_WINDOW:
-      return setUvidrio(glassState, action.glassDescription);
+      return setUwindow(windowsState, action.windowsDescription);
     case SET_CLF_WINDOW:
-      return setCLF(glassState, action.glassCapacity);
+      return setCLF(windowsState, action.windowsCapacity);
     case SET_SC_WINDOW:
-      return setSC(glassState, action.glassDescription);
+      return setSC(windowsState, action.windowsDescription);
     case CALC_AREA_WINDOW_ALL:
-      return calcAreaAll(glassState);
+      return calcAreaAll(windowsState);
     case CALC_AREA_WINDOW:
-      return updateAreaGlass(glassState, action.id);
+      return updateAreaGlass(windowsState, action.id);
     case UPDATE_PROP_WINDOW:
-      return updatePropGlass(glassState, action.data);
+      return updatePropGlass(windowsState, action.data);
     case REMOVE_WINDOW:
-      return [...glassState.slice(0, action.key), ...glassState.slice(action.key + 1)];
+      return [...windowsState.slice(0, action.key), ...windowsState.slice(action.key + 1)];
     case ADD_WINDOW:
-      return addNewGlass(glassState, action.data, dataTemperature, state.exterior);
+      return addNewGlass(windowsState, action.data, dataTemperature, state.exterior);
     case SET_UNDO_WINDOWS:
       return state.past;
     default:
-      return glassState;
+      return windowsState;
   }
 };
 
@@ -376,8 +375,8 @@ export const paredes = (paredesState = [], action, state) => {
     case SET_U_WALL:
       return setU(paredesState, action.element, action.material);
     case CALC_GROSS_WALL_AREA: {
-      const { depth, height, width, vidrios, puertas } = state;
-      return calcAreaNetaPared(paredesState, vidrios, puertas, depth, height, width);
+      const { depth, height, width, windows, puertas } = state;
+      return calcAreaNetaPared(paredesState, windows, puertas, depth, height, width);
     }
     case SET_U_1_WALL:
       return setU_One(paredesState, action.data);
@@ -527,7 +526,7 @@ export const past = (past = null, action, state) => {
     case SET_WALL_HISTORY:
       return state.paredes;
     case SET_WINDOWS_HISTORY:
-      return state.vidrios;
+      return state.windows;
     case SET_DOORS_HISTORY:
       return state.puertas;
     case CLEAR_HISTORY:

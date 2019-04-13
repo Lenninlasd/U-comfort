@@ -26,13 +26,13 @@ export const getCFMCalorNetoSensible = totalSensible => {
 };
 
 export const calculoTotalSensible = (
-  vidrios = [{}],
+  windows = [{}],
   paredes = [{}],
   techo = {},
   puerta = [{}],
   factorCorrecion
 ) => {
-  const getCalorSensibleVidrio = element => {
+  const getCalorSensibleWindow = element => {
     if (!element.length) return 0;
 
     return element
@@ -49,24 +49,24 @@ export const calculoTotalSensible = (
   const getCalorSensible = obj =>
     obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_Correction;
 
-  const calorVidrio = getCalorSensibleArray(vidrios);
+  const calorWindow = getCalorSensibleArray(windows);
   const calorPared = getCalorSensibleArray(paredes);
   const calorTecho = getCalorSensible(techo);
   const calorPuerta = getCalorSensibleArray(puerta);
-  const calorRadiacionVidrio = getCalorSensibleVidrio(vidrios);
+  const calorRadiacionWindow = getCalorSensibleWindow(windows);
 
-  return calorVidrio + calorPared + calorTecho + calorPuerta + calorRadiacionVidrio;
+  return calorWindow + calorPared + calorTecho + calorPuerta + calorRadiacionWindow;
 };
 
-export const getCalor_sensible = (vidrios, paredes, perimetro) => {
-  let transferencia_calor_vidrio = 0;
+export const getCalor_sensible = (windows, paredes, perimetro) => {
+  let windowHeatTransfer = 0;
   let transferencia_calor_pared = 0;
-  let area_vidrio = 0;
+  let window_area = 0;
   let area_pared = 0;
 
-  if (vidrios.length) {
-    transferencia_calor_vidrio = vidrios[0].coeficiente_transferencia_calor;
-    area_vidrio = vidrios.reduce((a, b) => ({ areaNeta: a.areaNeta + b.areaNeta })).areaNeta;
+  if (windows.length) {
+    windowHeatTransfer = windows[0].coeficiente_transferencia_calor;
+    window_area = windows.reduce((a, b) => ({ areaNeta: a.areaNeta + b.areaNeta })).areaNeta;
   }
   if (paredes.length) {
     transferencia_calor_pared = paredes[0].coeficiente_transferencia_calor;
@@ -74,7 +74,7 @@ export const getCalor_sensible = (vidrios, paredes, perimetro) => {
   }
 
   const K_ =
-    (transferencia_calor_vidrio * area_vidrio + transferencia_calor_pared * area_pared) / perimetro;
+    (windowHeatTransfer * window_area + transferencia_calor_pared * area_pared) / perimetro;
   return 1 - 0.02 * K_;
 };
 

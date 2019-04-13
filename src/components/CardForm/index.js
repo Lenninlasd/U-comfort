@@ -40,7 +40,7 @@ const switchViews = (windowsView, defaultView) => {
 const buttonsList = [
   {
     title: 'PAREDES',
-    elementType: 'walls',
+    elementType: 'paredes',
     src: wallsImg,
     buttonText: 'Configurar paredes'
   },

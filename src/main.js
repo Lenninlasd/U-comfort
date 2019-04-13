@@ -12,7 +12,7 @@ import enrichData from './enrichData.js';
 const store = createStore(
   rootReducer,
   {
-    vidrios: initState.elementos.vidrios,
+    windows: initState.elementos.windows,
     paredes: initState.elementos.paredes,
     techo: initState.elementos.techo,
     puertas: initState.elementos.puertas,
@@ -30,8 +30,6 @@ const store = createStore(
 );
 
 enrichData(store.dispatch);
-
-store.dispatch({ type: 'SET_CARGA_ENFRIAMIENTO' });
 
 ReactDOM.render(
   <Provider store={store}>

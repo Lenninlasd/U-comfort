@@ -14,7 +14,7 @@ const CustomButton = ({
   <div className="glass-windows form-group">
     <div>
       <small>
-        <strong>{elementType === 'walls' ? title : `${title}: ${dataElements.length}`}</strong>
+        <strong>{elementType === 'paredes' ? title : `${title}: ${dataElements.length}`}</strong>
       </small>
     </div>
     <div>

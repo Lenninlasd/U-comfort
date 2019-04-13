@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SaveAndCancel } from '../BackButton';
 import {
-  hideMainFormLayout,
+  hideElementsView,
   updatePropWindow,
   calcAreaWindow,
   addWindow,
   removeWindow,
   setUndoWindows,
-  calcGrossWallArea
+  calcGrossWallArea,
+  clearHistory
 } from '../../actions';
 
 const formPropTypes = {
@@ -72,7 +73,7 @@ const nominalThickness = type => {
   ));
 };
 
-const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChange }) => {
+const GenerateWindowForm = ({ window = {}, keyForm = '', removeItem, handleChange }) => {
   const deleteItem =
     typeof removeItem === 'function' ? (
       <div className="remove-item" onClick={() => removeItem(keyForm)}>
@@ -91,7 +92,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <InputWinProps
             tag={keyForm}
-            value={String(vidrio.height)}
+            value={String(window.height)}
             type="height"
             title="height"
             handleChange={handleChange}
@@ -103,7 +104,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <InputWinProps
             tag={keyForm}
-            value={String(vidrio.width)}
+            value={String(window.width)}
             type="width"
             title="width"
             handleChange={handleChange}
@@ -115,7 +116,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <SelectWinProps
             tag={keyForm}
-            value={vidrio.orientacion}
+            value={window.orientacion}
             type="orientacion"
             handleChange={handleChange}
             title="Orientación"
@@ -143,7 +144,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <SelectWinProps
             tag={keyForm}
-            value={vidrio.sombra}
+            value={window.sombra}
             type="sombra"
             handleChange={handleChange}
             title="Sombra"
@@ -163,7 +164,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <SelectWinProps
             tag={keyForm}
-            value={vidrio.tipo_de_vidrio}
+            value={window.tipo_de_vidrio}
             type="tipo_de_vidrio"
             handleChange={handleChange}
             title="Tipo de vidrio"
@@ -176,11 +177,11 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
           </small>
           <SelectWinProps
             tag={keyForm}
-            value={vidrio.espesor_nominal}
+            value={window.espesor_nominal}
             type="espesor_nominal"
             handleChange={handleChange}
             title="Espesor nominal"
-            optionList={nominalThickness(vidrio.tipo_de_vidrio)}
+            optionList={nominalThickness(window.tipo_de_vidrio)}
           />
         </div>
       </div>
@@ -188,7 +189,7 @@ const GenerateWindowForm = ({ vidrio = {}, keyForm = '', removeItem, handleChang
   );
 };
 GenerateWindowForm.propTypes = {
-  vidrio: PropTypes.object.isRequired,
+  window: PropTypes.object.isRequired,
   keyForm: PropTypes.number.isRequired,
   removeItem: PropTypes.func,
   handleChange: PropTypes.func.isRequired
@@ -225,7 +226,7 @@ class NewGlassForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit} className="new-form-bg">
-        <GenerateWindowForm vidrio={this.state} keyForm={100} handleChange={this.handleChange} />
+        <GenerateWindowForm window={this.state} keyForm={100} handleChange={this.handleChange} />
         <div className="add-window-button row">
           <div className="col-sm">
             <button type="submit" className="btn btn-outline-primary float-right">
@@ -241,17 +242,17 @@ NewGlassForm.propTypes = {
   submit: PropTypes.func.isRequired
 };
 
-export const ListOfElements = ({
-  vidrios,
+const ListOfElements = ({
+  windows,
   removeItem,
   handleChange,
   handleAddButton,
   handleBackButton,
   handleCancel
 }) => {
-  const inputList = vidrios.map((vidrio, key) => (
+  const inputList = windows.map((window, key) => (
     <GenerateWindowForm
-      vidrio={vidrio}
+      window={window}
       removeItem={removeItem}
       key={key}
       keyForm={key}
@@ -271,7 +272,7 @@ export const ListOfElements = ({
   );
 };
 ListOfElements.propTypes = {
-  vidrios: PropTypes.array.isRequired,
+  windows: PropTypes.array.isRequired,
   removeItem: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleAddButton: PropTypes.func.isRequired,
@@ -280,7 +281,7 @@ ListOfElements.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  vidrios: state.vidrios
+  windows: state.windows
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -301,10 +302,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(removeWindow(key));
     dispatch(calcGrossWallArea());
   },
-  handleBackButton: () => dispatch(hideMainFormLayout()),
+  handleBackButton: () => dispatch(hideElementsView()),
   handleCancel: () => {
-    dispatch(hideMainFormLayout());
+    dispatch(hideElementsView());
     dispatch(setUndoWindows());
+    dispatch(clearHistory());
   }
 });
 

@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 import { SaveAndCancel } from '../BackButton';
 import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
 import {
-  hideMainFormLayout,
+  hideElementsView,
   setUoneWall,
   setColorkWall,
   setUndoWall,
-  setWallCLTDCorretion
+  setWallCLTDCorretion,
+  clearHistory
 } from '../../actions';
 
 const optionsWall = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
@@ -129,7 +130,7 @@ ConfigWalls.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleBackButton: () => dispatch(hideMainFormLayout()),
+  handleBackButton: () => dispatch(hideElementsView()),
   handleChange: event => {
     const el = event.target;
     const id = Number(el.dataset.group);
@@ -147,8 +148,9 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   handleCancel: () => {
-    dispatch(hideMainFormLayout());
+    dispatch(hideElementsView());
     dispatch(setUndoWall());
+    dispatch(clearHistory());
   }
 });
 
