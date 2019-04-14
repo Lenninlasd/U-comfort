@@ -1,8 +1,8 @@
 import {
   windows,
-  paredes,
+  walls,
   techo,
-  puertas,
+  doors,
   piso,
   luces,
   results,
@@ -17,9 +17,9 @@ import { appConfig } from './config.js';
 export default (state = {}, action) => ({
   past: past(state.past, action, state),
   windows: windows(state.windows, action, state),
-  paredes: paredes(state.paredes, action, state),
+  walls: walls(state.walls, action, state),
   techo: techo(state.techo, action, state),
-  puertas: puertas(state.puertas, action, state),
+  doors: doors(state.doors, action, state),
   piso: piso(state.piso, action, state),
   luces: luces(state.luces, action),
   results: results(state.results, action, state),

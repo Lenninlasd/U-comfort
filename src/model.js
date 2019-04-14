@@ -25,7 +25,7 @@ export default {
   elementos: {
     /* md`## Elementos del cuarto. Materiales en el cual se esta haciendo la conducción de exterior a interior.` */
     windows: [],
-    paredes: [
+    walls: [
       {
         orientacion: 'N',
         color: 'D',
@@ -67,7 +67,7 @@ export default {
       tipo: 'TECHO'
     },
     piso: {},
-    puertas: [],
+    doors: [],
     luces: {
       numberOfLights: 1,
       wattsPorLampara: 60,

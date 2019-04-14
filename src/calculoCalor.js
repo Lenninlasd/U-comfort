@@ -1,17 +1,17 @@
 import tablaPsat from '../json/Psat_tabla_A4E_simp.js';
 
-export const setCalorPersonas = (n_personas, correcion, tablaCalorPersonas, aplicacion) => {
+export const setPeopleHeat = (numberOfPeople, correcion, tablaCalorPersonas, aplicacion) => {
   const heat = tablaCalorPersonas.find(x => x['ACTIVIDAD'] === aplicacion);
   const FCE = 1;
 
   return {
-    sensible: heat.CALOR_SENSIBLE * n_personas * FCE * correcion,
-    latente: heat.CALOR_LATENTE * n_personas
+    sensible: heat.CALOR_SENSIBLE * numberOfPeople * FCE * correcion,
+    latente: heat.CALOR_LATENTE * numberOfPeople
   };
 };
 
-export const setCalorVentilacion = (n_personas, Δtemp, ΔHumedad, cfmMinimo) => {
-  const CFMventilacion = cfmMinimo * n_personas;
+export const setCalorVentilacion = (numberOfPeople, Δtemp, ΔHumedad, cfmMinimo) => {
+  const CFMventilacion = cfmMinimo * numberOfPeople;
 
   return {
     sensible: 1.1 * CFMventilacion * Δtemp,
@@ -27,9 +27,9 @@ export const getCFMCalorNetoSensible = totalSensible => {
 
 export const calculoTotalSensible = (
   windows = [{}],
-  paredes = [{}],
+  walls = [{}],
   techo = {},
-  puerta = [{}],
+  door = [{}],
   factorCorrecion
 ) => {
   const getCalorSensibleWindow = element => {
@@ -49,32 +49,31 @@ export const calculoTotalSensible = (
   const getCalorSensible = obj =>
     obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_Correction;
 
-  const calorWindow = getCalorSensibleArray(windows);
-  const calorPared = getCalorSensibleArray(paredes);
+  const windowHeat = getCalorSensibleArray(windows);
+  const wallHeat = getCalorSensibleArray(walls);
   const calorTecho = getCalorSensible(techo);
-  const calorPuerta = getCalorSensibleArray(puerta);
+  const doorHeat = getCalorSensibleArray(door);
   const calorRadiacionWindow = getCalorSensibleWindow(windows);
 
-  return calorWindow + calorPared + calorTecho + calorPuerta + calorRadiacionWindow;
+  return windowHeat + wallHeat + calorTecho + doorHeat + calorRadiacionWindow;
 };
 
-export const getCalor_sensible = (windows, paredes, perimetro) => {
+export const getCalor_sensible = (windows, walls, perimetro) => {
   let windowHeatTransfer = 0;
-  let transferencia_calor_pared = 0;
+  let wallHeatTransfer = 0;
   let window_area = 0;
-  let area_pared = 0;
+  let wallArea = 0;
 
   if (windows.length) {
     windowHeatTransfer = windows[0].coeficiente_transferencia_calor;
     window_area = windows.reduce((a, b) => ({ areaNeta: a.areaNeta + b.areaNeta })).areaNeta;
   }
-  if (paredes.length) {
-    transferencia_calor_pared = paredes[0].coeficiente_transferencia_calor;
-    area_pared = paredes.reduce((a, b) => ({ areaNeta: a.areaNeta + b.areaNeta })).areaNeta;
+  if (walls.length) {
+    wallHeatTransfer = walls[0].coeficiente_transferencia_calor;
+    wallArea = walls.reduce((a, b) => ({ areaNeta: a.areaNeta + b.areaNeta })).areaNeta;
   }
 
-  const K_ =
-    (windowHeatTransfer * window_area + transferencia_calor_pared * area_pared) / perimetro;
+  const K_ = (windowHeatTransfer * window_area + wallHeatTransfer * wallArea) / perimetro;
   return 1 - 0.02 * K_;
 };
 

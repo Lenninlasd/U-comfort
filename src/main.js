@@ -13,9 +13,9 @@ const store = createStore(
   rootReducer,
   {
     windows: initState.elementos.windows,
-    paredes: initState.elementos.paredes,
+    walls: initState.elementos.walls,
     techo: initState.elementos.techo,
-    puertas: initState.elementos.puertas,
+    doors: initState.elementos.doors,
     piso: initState.elementos.piso,
     luces: initState.elementos.luces,
     depth: initState.depth,

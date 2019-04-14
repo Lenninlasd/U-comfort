@@ -17,9 +17,9 @@ export const appConfig = (appConfig = {}, action) => {
 
 const setElementView = elementType => {
   switch (elementType) {
-    case 'paredes':
+    case 'walls':
       return 'wallsView';
-    case 'puertas':
+    case 'doors':
       return 'doorView';
     default:
       return 'glassView';

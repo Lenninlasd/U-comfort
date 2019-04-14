@@ -71,11 +71,11 @@ export const clearHistory = () => ({ type: CLEAR_HISTORY });
 
 export const setElementHistory = elementType => {
   switch (elementType) {
-    case 'paredes':
+    case 'walls':
       return {
         type: SET_WALL_HISTORY
       };
-    case 'puertas':
+    case 'doors':
       return {
         type: SET_DOORS_HISTORY
       };

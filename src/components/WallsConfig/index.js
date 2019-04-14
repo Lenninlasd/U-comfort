@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { SaveAndCancel } from '../BackButton';
-import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
+import TABLE_U_ROOF_WALL_PARTITION from '../../../json/U_techos_paredes_particiones';
 import {
   hideElementsView,
   setUoneWall,
@@ -13,7 +13,7 @@ import {
   clearHistory
 } from '../../actions';
 
-const optionsWall = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
+const optionsWall = TABLE_U_ROOF_WALL_PARTITION.filter(element =>
   element.tipo.includes('PAREDES')
 ).map(el => (
   <option key={el.material} value={el.material}>
@@ -46,7 +46,7 @@ SelectWinProps.propTypes = {
   optionList: PropTypes.array.isRequired
 };
 
-const GenerateWallForm = ({ pared = {}, keyForm = '', handleChange }) => {
+const GenerateWallForm = ({ wall = {}, keyForm = '', handleChange }) => {
   const cardinalPoints = {
     N: 'PARED NORTE',
     S: 'PARED SUR',
@@ -59,7 +59,7 @@ const GenerateWallForm = ({ pared = {}, keyForm = '', handleChange }) => {
       <div className="form-row">
         <div className="col">
           <small>
-            <strong>{cardinalPoints[pared.orientacion]}</strong>
+            <strong>{cardinalPoints[wall.orientacion]}</strong>
           </small>
           <div className="row">
             <div className="col">
@@ -68,7 +68,7 @@ const GenerateWallForm = ({ pared = {}, keyForm = '', handleChange }) => {
               </small>
               <SelectWinProps
                 tag={keyForm}
-                value={pared.material}
+                value={wall.material}
                 type="material"
                 handleChange={handleChange}
                 title="Material"
@@ -81,7 +81,7 @@ const GenerateWallForm = ({ pared = {}, keyForm = '', handleChange }) => {
               </small>
               <SelectWinProps
                 tag={keyForm}
-                value={String(pared.correcion_color_K)}
+                value={String(wall.correcion_color_K)}
                 type="correcion_color_K"
                 handleChange={handleChange}
                 title="Color pared"
@@ -102,7 +102,7 @@ const GenerateWallForm = ({ pared = {}, keyForm = '', handleChange }) => {
   );
 };
 GenerateWallForm.propTypes = {
-  pared: PropTypes.shape({
+  wall: PropTypes.shape({
     orientacion: PropTypes.string.isRequired,
     material: PropTypes.string.isRequired
   }).isRequired,
@@ -110,21 +110,21 @@ GenerateWallForm.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
-const ConfigWalls = ({ paredes, handleBackButton, handleChange, handleCancel }) => {
+const ConfigWalls = ({ walls, handleBackButton, handleChange, handleCancel }) => {
   return (
     <div>
       <small>
         <strong>PROPIEDADES DE LOS MUROS</strong>
       </small>
-      {paredes.map((pared, key) => (
-        <GenerateWallForm pared={pared} key={key} keyForm={key} handleChange={handleChange} />
+      {walls.map((wall, key) => (
+        <GenerateWallForm wall={wall} key={key} keyForm={key} handleChange={handleChange} />
       ))}
       <SaveAndCancel handleAccept={handleBackButton} handleCancel={handleCancel} />
     </div>
   );
 };
 ConfigWalls.propTypes = {
-  paredes: PropTypes.array.isRequired,
+  walls: PropTypes.array.isRequired,
   handleBackButton: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired
 };
@@ -155,7 +155,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  paredes: state.paredes
+  walls: state.walls
 });
 
 export default connect(

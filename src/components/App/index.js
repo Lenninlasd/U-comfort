@@ -6,6 +6,7 @@ import styles from '../Styles/css.css'; // eslint-disable-line no-unused-vars
 import CanvasElement from '../RoomCanvas';
 import CardForm from '../CardForm';
 import EquipmentsView from '../Equipments';
+import helpDoc from '../../../img/help.pdf';
 // import { Footer } from '../footer';
 
 const MainView = () => (
@@ -16,8 +17,9 @@ const MainView = () => (
         Cálculo de cargas térmicas para selección de equipos en ciudades del caribe colombiano
       </span>
       <a
-        href="../../img/help.pdf"
+        href={helpDoc}
         target="_blank"
+        rel="noopener noreferrer"
         className="btn btn-outline-primary my-2 my-sm-0"
         type="submit"
       >

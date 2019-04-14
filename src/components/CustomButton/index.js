@@ -8,13 +8,13 @@ const CustomButton = ({
   buttonText,
   elementType,
   src,
-  dataElements = [],
+  numberOfElements,
   showWindowsProps
 }) => (
   <div className="glass-windows form-group">
     <div>
       <small>
-        <strong>{elementType === 'paredes' ? title : `${title}: ${dataElements.length}`}</strong>
+        <strong>{`${title}: ${numberOfElements}`}</strong>
       </small>
     </div>
     <div>
@@ -33,12 +33,12 @@ CustomButton.propTypes = {
   buttonText: PropTypes.string.isRequired,
   elementType: PropTypes.string.isRequired,
   src: PropTypes.string,
-  dataElements: PropTypes.array,
+  numberOfElements: PropTypes.number,
   showWindowsProps: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  dataElements: state[ownProps.elementType]
+  numberOfElements: state[ownProps.elementType].length
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
