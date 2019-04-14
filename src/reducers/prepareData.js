@@ -1,5 +1,5 @@
 import TABLE_WINDOW from '../../json/CLTD_vidrio';
-import TABLE_TECHO from '../../json/CLTD_techo';
+import ROOF_TABLE from '../../json/CLTD_techo';
 import TABLE_SHGF from '../../json/SHGF_lat_40';
 import TABLE_U_WINDOW from '../../json/U_vidrios';
 import TABLE_CLF from '../../json/CLF_6_8_min';
@@ -7,7 +7,7 @@ import TABLE_SC from '../../json/SC_tabla_6_7';
 import WALL_TABLE from '../../json/CLTD_pared';
 import TABLE_LM from '../../json/LM_6_4';
 import TABLE_U_ROOF_WALL_PARTITION from '../../json/U_techos_paredes_particiones';
-import { getCargaEnfriamiento } from '../cargaEnfriamiento.js';
+import { getcoolingLoad } from '../coolingLoad.js';
 
 import {
   CALC_AREA_FLOOR,
@@ -72,8 +72,8 @@ const setLMwalls = (wallsState, dataLM) => {
   );
 };
 
-const setLMtecho = (techoState, dataLM) => {
-  return Object.assign({}, techoState, {
+const setLMroof = (roofState, dataLM) => {
+  return Object.assign({}, roofState, {
     correcion_latitud_mes_LM: Number(dataLM['HORA'])
   });
 };
@@ -157,7 +157,7 @@ const setUwindow = (windowsState, windowsDescription = 'vidrio sencillo') => {
 const setExteriorConditions = (state, exterior) =>
   Object.assign({}, state, {
     id: Number(exterior.id),
-    ciudad: exterior.ciudad,
+    city: exterior.city,
     latitud: Number(exterior.latitud),
     bulbo_seco: Number(exterior.bulbo_seco),
     bulbo_humedo: Number(exterior.bulbo_humedo),
@@ -181,22 +181,22 @@ const setCLTDWall = wallsState => {
   });
 };
 
-const setCLTDRoof = techoState => {
-  const data_techo = TABLE_TECHO.find(
+const setCLTDRoof = roofState => {
+  const data_roof = ROOF_TABLE.find(
     x => x.tipo_de_techo === 'con cielo raso suspendido' && x.numero_techo === '3'
   );
 
-  return Object.assign({}, techoState, {
-    CLTD_tabla: Number(data_techo['17'])
+  return Object.assign({}, roofState, {
+    CLTD_tabla: Number(data_roof['17'])
   });
 };
 
 const setU = (elState, type = 'TECHO', material = 'CUBIERTA_DE_EJEMPLO') => {
-  const Utechos = TABLE_U_ROOF_WALL_PARTITION.find(x => x.tipo === type && x.material === material);
+  const Uroofs = TABLE_U_ROOF_WALL_PARTITION.find(x => x.tipo === type && x.material === material);
 
   const setUobj = el =>
     Object.assign({}, el, {
-      coeficiente_transferencia_calor: Number(Utechos.U)
+      coeficiente_transferencia_calor: Number(Uroofs.U)
     });
 
   return Array.isArray(elState) ? elState.map(setUobj) : setUobj(elState);
@@ -385,43 +385,43 @@ export const walls = (wallsState = [], action, state) => {
   }
 };
 
-export const techo = (techoState = {}, action, state) => {
+export const roof = (roofState = {}, action, state) => {
   switch (action.type) {
     case SET_CLTD_ROOF:
-      return setCLTDRoof(techoState);
+      return setCLTDRoof(roofState);
     case SET_CLTD_ROOF_CORRECTION: {
       /*eslint no-console: ["error", { allow: ["error"] }] */
-      if (!techoState.correcion_latitud_mes_LM) {
+      if (!roofState.correcion_latitud_mes_LM) {
         console.error(
-          `For CLTD_Correction in techo,
+          `For CLTD_Correction in roof,
                 correcion_latitud_mes_LM is needed`,
-          techoState
+          roofState
         );
       }
       const dataTemperature = getDataTemperature(state);
-      return setCLTD_Correction(techoState, dataTemperature);
+      return setCLTD_Correction(roofState, dataTemperature);
     }
     case SET_LM_ROOF: {
       const { mes_carga_de_enfriamiento, latitud } = state.exterior;
-      return setLMtecho(techoState, setLM(mes_carga_de_enfriamiento, latitud));
+      return setLMroof(roofState, setLM(mes_carga_de_enfriamiento, latitud));
     }
     case SET_U_ROOF:
-      return setU(techoState, action.element, action.material);
+      return setU(roofState, action.element, action.material);
     case SET_U_1_ROOF: {
       const dataTemperature = getDataTemperature(state);
       return setCLTD_Correction(
-        setU_One([techoState], { material: action.material, id: 0 })[0],
+        setU_One([roofState], { material: action.material, id: 0 })[0],
         dataTemperature
       );
     }
     case SET_COLOR_K_ROOF:
-      return setColorK([techoState], { k: action.k, id: 0 })[0];
+      return setColorK([roofState], { k: action.k, id: 0 })[0];
     case CALC_AREA_ROOF:
-      return Object.assign({}, techoState, {
+      return Object.assign({}, roofState, {
         areaNeta: state.width * state.depth * sqrFEET
       });
     default:
-      return techoState;
+      return roofState;
   }
 };
 
@@ -448,42 +448,42 @@ export const doors = (doorsState = [], action, state) => {
   }
 };
 
-export const piso = (pisoState = {}, action, state) => {
+export const floor = (floorState = {}, action, state) => {
   switch (action.type) {
     case SET_U_FLOOR:
-      return setU(pisoState, action.element, action.material);
+      return setU(floorState, action.element, action.material);
     case SET_FLOOR_CLTD_CORRECTION: {
       const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
-      return Object.assign({}, pisoState, {
+      return Object.assign({}, floorState, {
         CLTD_Correction: Δtemp
       });
     }
     case CALC_AREA_FLOOR:
-      return Object.assign({}, pisoState, {
+      return Object.assign({}, floorState, {
         areaNeta: state.width * state.depth * sqrFEET
       });
     default:
-      return pisoState;
+      return floorState;
   }
 };
 
 export const results = (resultsState = {}, action, state) => {
   switch (action.type) {
     case SET_CARGA_ENFRIAMIENTO:
-      return Object.assign({}, resultsState, getCargaEnfriamiento(state));
+      return Object.assign({}, resultsState, getcoolingLoad(state));
     default:
       return resultsState;
   }
 };
 
-export const luces = (lucesState = {}, action) => {
+export const lights = (lightsState = {}, action) => {
   switch (action.type) {
     case SET_NUMBER_OF_LIGHTS:
-      return Object.assign({}, lucesState, {
+      return Object.assign({}, lightsState, {
         numberOfLights: action.value
       });
     default:
-      return lucesState;
+      return lightsState;
   }
 };
 

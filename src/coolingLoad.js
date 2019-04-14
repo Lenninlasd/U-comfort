@@ -5,7 +5,7 @@ import {
   calculoTotalSensible,
   getCFMCalorNetoSensible,
   calcularHumedadEntradaSerp
-} from './calculoCalor';
+} from './heatCalculation';
 
 import tablaCalorPersonas from '../json/calor_personas_6_11';
 import tablaCFM from '../json/CFM_6_15';
@@ -30,7 +30,7 @@ const calorTotal = (
   return { QS, QL };
 };
 
-export const getCargaEnfriamiento = state => {
+export const getcoolingLoad = state => {
   const FEET = 3.28084;
 
   const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
@@ -38,14 +38,14 @@ export const getCargaEnfriamiento = state => {
   const perimeter = 2 * FEET * (state.width + state.depth);
   const factorCorrecionCalorSensible = getCalor_sensible(state.windows, state.walls, perimeter);
 
-  const calorLuces =
-    state.luces.wattsPorLampara *
-    state.luces.numberOfLights *
-    state.luces.factConv *
+  const lightsHeat =
+    state.lights.wattsPorLampara *
+    state.lights.numberOfLights *
+    state.lights.factConv *
     factorCorrecionCalorSensible;
 
   const heatEquipments =
-    state.piso.areaNeta * state.luces.factConv * state.recinto.equitmentWattsPerSquaredFoot;
+    state.floor.areaNeta * state.lights.factConv * state.recinto.equitmentWattsPerSquaredFoot;
 
   const calorPersonas = setPeopleHeat(
     state.numberOfPeople,
@@ -64,12 +64,12 @@ export const getCargaEnfriamiento = state => {
   const sensibleEl = calculoTotalSensible(
     state.windows,
     state.walls,
-    state.techo,
+    state.roof,
     state.doors,
     factorCorrecionCalorSensible
   );
 
-  const ganancia_calor_recinto = sensibleEl + calorLuces + calorPersonas.sensible + heatEquipments;
+  const ganancia_calor_recinto = sensibleEl + lightsHeat + calorPersonas.sensible + heatEquipments;
 
   const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
@@ -94,10 +94,10 @@ export const getCargaEnfriamiento = state => {
     humedadEntradaSerp
   );
 
-  const cargaEnfriamiento = totalSensible + calorPersonas.latente + calorVentilacion.latente;
+  const coolingLoad = totalSensible + calorPersonas.latente + calorVentilacion.latente;
 
   return {
-    cargaEnfriamiento,
+    coolingLoad,
     CFMnetoSensible,
     QS_QL: QS + QL
   };

@@ -28,7 +28,7 @@ export const getCFMCalorNetoSensible = totalSensible => {
 export const calculoTotalSensible = (
   windows = [{}],
   walls = [{}],
-  techo = {},
+  roof = {},
   door = [{}],
   factorCorrecion
 ) => {
@@ -51,11 +51,11 @@ export const calculoTotalSensible = (
 
   const windowHeat = getCalorSensibleArray(windows);
   const wallHeat = getCalorSensibleArray(walls);
-  const calorTecho = getCalorSensible(techo);
+  const roofHeat = getCalorSensible(roof);
   const doorHeat = getCalorSensibleArray(door);
-  const calorRadiacionWindow = getCalorSensibleWindow(windows);
+  const windowsRadiationHeat = getCalorSensibleWindow(windows);
 
-  return windowHeat + wallHeat + calorTecho + doorHeat + calorRadiacionWindow;
+  return windowHeat + wallHeat + roofHeat + doorHeat + windowsRadiationHeat;
 };
 
 export const getCalor_sensible = (windows, walls, perimetro) => {

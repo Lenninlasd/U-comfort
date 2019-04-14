@@ -248,7 +248,7 @@ const mapStateToProps = state => ({
     height: state.height,
     depth: state.depth
   },
-  numberOfLights: state.luces.numberOfLights
+  numberOfLights: state.lights.numberOfLights
 });
 
 export default connect(mapStateToProps)(CanvasElement);

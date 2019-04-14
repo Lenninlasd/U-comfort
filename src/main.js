@@ -14,10 +14,10 @@ const store = createStore(
   {
     windows: initState.elementos.windows,
     walls: initState.elementos.walls,
-    techo: initState.elementos.techo,
+    roof: initState.elementos.roof,
     doors: initState.elementos.doors,
-    piso: initState.elementos.piso,
-    luces: initState.elementos.luces,
+    floor: initState.elementos.floor,
+    lights: initState.elementos.lights,
     depth: initState.depth,
     width: initState.width,
     height: initState.height,

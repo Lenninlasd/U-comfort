@@ -68,7 +68,7 @@ Roof.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  roof: state.techo
+  roof: state.roof
 });
 
 const mapDispatchToProps = dispatch => ({

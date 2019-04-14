@@ -15,7 +15,7 @@ import wallsImg from '../../../img/walls.svg';
 import windowsImg from '../../../img/windows.svg';
 import doorsImg from '../../../img/doors.svg';
 
-import { calcGrossWallArea, setCargaEnfriamiento } from '../../actions';
+import { calcGrossWallArea, setcoolingLoad } from '../../actions';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -108,7 +108,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   submit: () => {
     dispatch(calcGrossWallArea());
-    dispatch(setCargaEnfriamiento());
+    dispatch(setcoolingLoad());
   }
 });
 

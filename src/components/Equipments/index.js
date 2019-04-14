@@ -59,7 +59,7 @@ const ListEq = equipments => {
   );
 };
 
-const EquipmentsView = ({ history, cargaEnfriamiento, QS_QL, CFMnetoSensible }) => {
+const EquipmentsView = ({ history, coolingLoad, QS_QL, CFMnetoSensible }) => {
   const choosenQ = chooseBTU(QS_QL, btuList);
 
   const availableEquip = choosenQ.length
@@ -81,7 +81,7 @@ const EquipmentsView = ({ history, cargaEnfriamiento, QS_QL, CFMnetoSensible }) 
             </div>
             {false && (
               <div>
-                <strong>Carga de enfriamiento:</strong> {cargaEnfriamiento.toFixed(0)}
+                <strong>Carga de enfriamiento:</strong> {coolingLoad.toFixed(0)}
               </div>
             )}
             <div>
@@ -106,7 +106,7 @@ const EquipmentsView = ({ history, cargaEnfriamiento, QS_QL, CFMnetoSensible }) 
 };
 EquipmentsView.propTypes = {
   history: PropTypes.object.isRequired,
-  cargaEnfriamiento: PropTypes.number.isRequired,
+  coolingLoad: PropTypes.number.isRequired,
   QS_QL: PropTypes.number.isRequired,
   CFMnetoSensible: PropTypes.number.isRequired
 };

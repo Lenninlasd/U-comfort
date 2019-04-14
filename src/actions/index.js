@@ -99,7 +99,7 @@ export const CALC_GROSS_WALL_AREA = 'CALC_GROSS_WALL_AREA';
 export const SET_CARGA_ENFRIAMIENTO = 'SET_CARGA_ENFRIAMIENTO';
 
 export const calcGrossWallArea = () => ({ type: CALC_GROSS_WALL_AREA });
-export const setCargaEnfriamiento = () => ({ type: SET_CARGA_ENFRIAMIENTO });
+export const setcoolingLoad = () => ({ type: SET_CARGA_ENFRIAMIENTO });
 
 /*
  * Doors  action types
