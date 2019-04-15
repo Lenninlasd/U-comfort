@@ -7,7 +7,7 @@ import {
   calcularHumedadEntradaSerp
 } from './heatCalculation';
 
-import tablaCalorPersonas from '../json/calor_personas_6_11';
+import heatPeopleTable from '../json/calor_personas_6_11';
 import tablaCFM from '../json/CFM_6_15';
 
 // CFMventilacion = CFM_tabla * Numero de personas (ver function setCalorVentilacion)
@@ -50,7 +50,7 @@ export const getcoolingLoad = state => {
   const calorPersonas = setPeopleHeat(
     state.numberOfPeople,
     factorCorrecionCalorSensible,
-    tablaCalorPersonas,
+    heatPeopleTable,
     state.recinto.actividad_recinto
   );
 

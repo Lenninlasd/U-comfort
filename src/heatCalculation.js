@@ -1,7 +1,7 @@
-import tablaPsat from '../json/Psat_tabla_A4E_simp.js';
+import tablePsat from '../json/Psat_tabla_A4E_simp.js';
 
-export const setPeopleHeat = (numberOfPeople, correcion, tablaCalorPersonas, aplicacion) => {
-  const heat = tablaCalorPersonas.find(x => x['ACTIVIDAD'] === aplicacion);
+export const setPeopleHeat = (numberOfPeople, correcion, heatPeopleTable, aplicacion) => {
+  const heat = heatPeopleTable.find(x => x['ACTIVIDAD'] === aplicacion);
   const FCE = 1;
 
   return {
@@ -78,19 +78,19 @@ export const getCalor_sensible = (windows, walls, perimetro) => {
 };
 
 const getPresionSat = tempBulbSecRecinto => {
-  const tablaPsatN = tablaPsat.reduce((acc, el) => {
+  const tablePsatN = tablePsat.reduce((acc, el) => {
     acc[el.T_F] = Number(el.Psat_psi);
     return acc;
   }, {});
 
   if (tempBulbSecRecinto % 5 === 0) {
-    return tablaPsatN[tempBulbSecRecinto];
+    return tablePsatN[tempBulbSecRecinto];
   }
 
   const tempLimiteInferior = tempBulbSecRecinto - (tempBulbSecRecinto % 5);
   const tempLimiteSuperior = tempBulbSecRecinto + 5 - (tempBulbSecRecinto % 5);
-  const presInferior = tablaPsatN[tempLimiteInferior];
-  const presSuperior = tablaPsatN[tempLimiteSuperior];
+  const presInferior = tablePsatN[tempLimiteInferior];
+  const presSuperior = tablePsatN[tempLimiteSuperior];
   const tempRatio = (tempBulbSecRecinto - tempLimiteInferior) / 5;
 
   return tempRatio * (presSuperior - presInferior) + presInferior;
