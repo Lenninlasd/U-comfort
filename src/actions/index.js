@@ -71,11 +71,11 @@ export const clearHistory = () => ({ type: CLEAR_HISTORY });
 
 export const setElementHistory = elementType => {
   switch (elementType) {
-    case 'paredes':
+    case 'walls':
       return {
         type: SET_WALL_HISTORY
       };
-    case 'puertas':
+    case 'doors':
       return {
         type: SET_DOORS_HISTORY
       };
@@ -99,7 +99,7 @@ export const CALC_GROSS_WALL_AREA = 'CALC_GROSS_WALL_AREA';
 export const SET_CARGA_ENFRIAMIENTO = 'SET_CARGA_ENFRIAMIENTO';
 
 export const calcGrossWallArea = () => ({ type: CALC_GROSS_WALL_AREA });
-export const setCargaEnfriamiento = () => ({ type: SET_CARGA_ENFRIAMIENTO });
+export const setcoolingLoad = () => ({ type: SET_CARGA_ENFRIAMIENTO });
 
 /*
  * Doors  action types

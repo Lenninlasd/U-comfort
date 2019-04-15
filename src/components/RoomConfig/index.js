@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import tablaCalorPersonas from '../../../json/calor_personas_6_11';
+import heatPeopleTable from '../../../json/calor_personas_6_11';
 import tablaCFM from '../../../json/CFM_6_15';
 
-const apliacionesTipicas = [...new Set(tablaCalorPersonas.map(element => element.ACTIVIDAD))].map(
+const apliacionesTipicas = [...new Set(heatPeopleTable.map(element => element.ACTIVIDAD))].map(
   (item, i) => (
     <option key={i} value={item}>
       {item}

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { SaveAndCancel } from '../BackButton';
 import PropTypes from 'prop-types';
-import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
+import TABLE_U_ROOF_WALL_PARTITION from '../../../json/U_techos_paredes_particiones';
 import {
   calcGrossWallArea,
   setUoneDoor,
@@ -15,7 +15,7 @@ import {
   clearHistory
 } from '../../actions';
 
-const optionsDoors = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
+const optionsDoors = TABLE_U_ROOF_WALL_PARTITION.filter(element =>
   element.tipo.includes('PUERTA')
 ).map(el => (
   <option key={el.material} value={el.material}>
@@ -68,7 +68,7 @@ SelectDoorProps.propTypes = {
   optionList: PropTypes.array.isRequired
 };
 
-const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) => {
+const GenerateDoors = ({ door = {}, keyForm = '', removeItem, handleChange }) => {
   const deleteItem =
     typeof removeItem === 'function' ? (
       <div className="remove-item" onClick={() => removeItem(keyForm)}>
@@ -87,7 +87,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
           </small>
           <InputDoorProps
             tag={keyForm}
-            value={String(puerta.height)}
+            value={String(door.height)}
             type="height"
             title="height"
             handleChange={handleChange}
@@ -99,7 +99,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
           </small>
           <InputDoorProps
             tag={keyForm}
-            value={String(puerta.width)}
+            value={String(door.width)}
             type="width"
             title="width"
             handleChange={handleChange}
@@ -113,7 +113,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
           </small>
           <SelectDoorProps
             tag={keyForm}
-            value={puerta.orientacion}
+            value={door.orientacion}
             type="orientacion"
             handleChange={handleChange}
             title="Orientación"
@@ -139,7 +139,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
           </small>
           <SelectDoorProps
             tag={keyForm}
-            value={puerta.material}
+            value={door.material}
             type="material"
             handleChange={handleChange}
             title="Material"
@@ -151,7 +151,7 @@ const GenerateDoors = ({ puerta = {}, keyForm = '', removeItem, handleChange }) 
   );
 };
 GenerateDoors.propTypes = {
-  puerta: PropTypes.object.isRequired,
+  door: PropTypes.object.isRequired,
   keyForm: PropTypes.number.isRequired,
   removeItem: PropTypes.func,
   handleChange: PropTypes.func.isRequired
@@ -183,7 +183,7 @@ class NewDoorForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit} className="new-form-bg">
-        <GenerateDoors puerta={this.state} keyForm={100} handleChange={this.handleChange} />
+        <GenerateDoors door={this.state} keyForm={100} handleChange={this.handleChange} />
         <div className="add-window-button row">
           <div className="col-sm">
             <button type="submit" className="btn btn-outline-primary float-right">
@@ -200,16 +200,16 @@ NewDoorForm.propTypes = {
 };
 
 const Doors = ({
-  puertas,
+  doors,
   handleChange,
   handleBackButton,
   removeItem,
   handleAddButton,
   handleCancel
 }) => {
-  const inputList = puertas.map((puerta, key) => (
+  const inputList = doors.map((door, key) => (
     <GenerateDoors
-      puerta={puerta}
+      door={door}
       keyForm={key}
       key={key}
       removeItem={removeItem}
@@ -229,7 +229,7 @@ const Doors = ({
   );
 };
 Doors.propTypes = {
-  puertas: PropTypes.array.isRequired,
+  doors: PropTypes.array.isRequired,
   handleChange: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
   handleAddButton: PropTypes.func.isRequired,
@@ -255,7 +255,7 @@ const getDispatchData = (event, dispatch) => {
 };
 
 const mapStateToProps = state => ({
-  puertas: state.puertas
+  doors: state.doors
 });
 
 const mapDispatchToProps = dispatch => ({

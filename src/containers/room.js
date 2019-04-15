@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
   actividadRecinto: state.recinto.actividad_recinto,
   tipoRecinto: state.recinto.tipo_recinto,
   numberOfPeople: state.numberOfPeople,
-  numberOfLights: state.luces.numberOfLights,
+  numberOfLights: state.lights.numberOfLights,
   wattsPerSquaredFoot: state.recinto.equitmentWattsPerSquaredFoot
 });
 

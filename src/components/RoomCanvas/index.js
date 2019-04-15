@@ -93,7 +93,7 @@ function initCube(id, size, numberOfLights) {
   const element = document.getElementById(id);
 
   const elementSize = getSize(element);
-  const camera = new THREE.PerspectiveCamera(45, elementSize.width / elementSize.height, 1, 1000);
+  const camera = new THREE.PerspectiveCamera(10, elementSize.width / elementSize.height, 1, 1000);
   camera.position.z = 30;
   camera.position.x = 0; //100 * Math.sin( 30 );
   camera.position.y = 30;
@@ -248,7 +248,7 @@ const mapStateToProps = state => ({
     height: state.height,
     depth: state.depth
   },
-  numberOfLights: state.luces.numberOfLights
+  numberOfLights: state.lights.numberOfLights
 });
 
 export default connect(mapStateToProps)(CanvasElement);

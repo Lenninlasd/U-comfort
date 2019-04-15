@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import TABLA_U_TECHO_PARED_PARTICION from '../../../json/U_techos_paredes_particiones';
+import TABLE_U_ROOF_WALL_PARTITION from '../../../json/U_techos_paredes_particiones';
 import { setUoneRoof, setColorKRoof, setCLTDRoofCorrection } from '../../actions';
 
-const optionsRoof = TABLA_U_TECHO_PARED_PARTICION.filter(element =>
+const optionsRoof = TABLE_U_ROOF_WALL_PARTITION.filter(element =>
   element.tipo.includes('TECHO')
 ).map(el => (
   <option key={el.material} value={el.material}>
@@ -68,7 +68,7 @@ Roof.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  roof: state.techo
+  roof: state.roof
 });
 
 const mapDispatchToProps = dispatch => ({

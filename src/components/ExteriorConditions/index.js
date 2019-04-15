@@ -24,7 +24,7 @@ const ExteriorConditions = ({ exterior, handleChange }) => {
           <small>
             <strong>CIUDAD</strong>
           </small>
-          <select id="ciudad" className="form-control" onChange={handleChange} value={exterior.id}>
+          <select id="city" className="form-control" onChange={handleChange} value={exterior.id}>
             <option hidden>CIUDAD</option>
             <OptionList />
           </select>
