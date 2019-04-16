@@ -2,8 +2,8 @@ import tablaSC from '../json/SC_tabla_6_7';
 
 const uniqueList = list => [...new Set(list)];
 
-const getNominalThickness = glassType => {
-  const filterGlass = glassType ? tablaSC.filter(i => i.tipo_de_vidrio === glassType) : tablaSC;
+const getNominalThickness = windowType => {
+  const filterGlass = windowType ? tablaSC.filter(i => i.tipo_de_vidrio === windowType) : tablaSC;
 
   const thickList = filterGlass.map(i => i.espesor_nominal).filter(i => i !== '-');
   return uniqueList(thickList);

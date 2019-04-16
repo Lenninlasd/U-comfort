@@ -8,7 +8,8 @@ import {
   setNumberOfPeople,
   setNumberOfLights,
   setRoomActivity,
-  setRoomType
+  setRoomType,
+  setEquitmentWattsPerSquaredFoot
 } from '../actions';
 import { RoomForm } from '../components/RoomConfig';
 
@@ -34,6 +35,8 @@ const actionEnclosure = ({ value, id }) => {
       return setNumberOfLights(Number(value));
     case 'tipoRecinto':
       return setRoomType(value);
+    case 'amountOfEquipment':
+      return setEquitmentWattsPerSquaredFoot(Number(value));
   }
 };
 
@@ -44,7 +47,8 @@ const mapStateToProps = state => ({
   actividadRecinto: state.recinto.actividad_recinto,
   tipoRecinto: state.recinto.tipo_recinto,
   numberOfPeople: state.numberOfPeople,
-  numberOfLights: state.luces.numberOfLights
+  numberOfLights: state.lights.numberOfLights,
+  wattsPerSquaredFoot: state.recinto.equitmentWattsPerSquaredFoot
 });
 
 const mapDispatchToProps = dispatch => ({

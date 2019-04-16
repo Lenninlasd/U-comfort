@@ -1,18 +1,17 @@
-import getCalorPorInfiltracion from './infiltration';
 import {
   getCalor_sensible,
-  setCalorPersonas,
+  setPeopleHeat,
   setCalorVentilacion,
   calculoTotalSensible,
   getCFMCalorNetoSensible,
   calcularHumedadEntradaSerp
-} from './calculoCalor';
+} from './heatCalculation.js';
 
-import tablaCalorPersonas from '../../json/calor_personas_6_11';
+import heatPeopleTable from '../../json/calor_personas_6_11';
 import tablaCFM from '../../json/CFM_6_15';
 
 // CFMventilacion = CFM_tabla * Numero de personas (ver function setCalorVentilacion)
-export const getTempEntradaSerpentin = (CFMnetoSensible, CFMventilacion, exterior, recinto) => {
+const getTempEntradaSerpentin = (CFMnetoSensible, CFMventilacion, exterior, recinto) => {
   const aireExterior = CFMventilacion * exterior.bulbo_seco;
   const aireRetorno = recinto.bulbo_seco * (CFMnetoSensible - CFMventilacion);
   return (aireExterior + aireRetorno) / CFMnetoSensible;
@@ -31,33 +30,27 @@ const calorTotal = (
   return { QS, QL };
 };
 
-export const getCargaEnfriamiento = state => {
+export const getcoolingLoad = state => {
   const FEET = 3.28084;
 
   const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
   const ΔHumedad = state.exterior.humedad_especifica - state.recinto.humedad_especifica;
-
-  // Calculo de calor
-  const infiltration = getCalorPorInfiltracion(
-    state.piso.areaNeta,
-    state.height * FEET,
-    Δtemp,
-    ΔHumedad
-  );
-
   const perimeter = 2 * FEET * (state.width + state.depth);
-  const factorCorrecionCalorSensible = getCalor_sensible(state.vidrios, state.paredes, perimeter);
+  const factorCorrecionCalorSensible = getCalor_sensible(state.windows, state.walls, perimeter);
 
-  const calorLuces =
-    state.luces.wattsPorLampara *
-    state.luces.numberOfLights *
-    state.luces.factConv *
+  const lightsHeat =
+    state.lights.wattsPorLampara *
+    state.lights.numberOfLights *
+    state.lights.factConv *
     factorCorrecionCalorSensible;
 
-  const calorPersonas = setCalorPersonas(
+  const heatEquipments =
+    state.floor.areaNeta * state.lights.factConv * state.recinto.equitmentWattsPerSquaredFoot;
+
+  const calorPersonas = setPeopleHeat(
     state.numberOfPeople,
     factorCorrecionCalorSensible,
-    tablaCalorPersonas,
+    heatPeopleTable,
     state.recinto.actividad_recinto
   );
 
@@ -69,25 +62,21 @@ export const getCargaEnfriamiento = state => {
 
   //Calculo final
   const sensibleEl = calculoTotalSensible(
-    state.vidrios,
-    state.paredes,
-    state.techo,
-    state.piso,
-    state.puertas,
+    state.windows,
+    state.walls,
+    state.roof,
+    state.doors,
     factorCorrecionCalorSensible
   );
 
-  const ganancia_calor_recinto = sensibleEl + calorLuces + calorPersonas.sensible;
+  const ganancia_calor_recinto = sensibleEl + lightsHeat + calorPersonas.sensible + heatEquipments;
 
   const ganancia_ventilador_forzado = ganancia_calor_recinto * 0.025;
 
   const totalSensible =
-    ganancia_calor_recinto +
-    calorVentilacion.sensible +
-    ganancia_ventilador_forzado +
-    infiltration.sensible;
+    ganancia_calor_recinto + calorVentilacion.sensible + ganancia_ventilador_forzado;
 
-  const CFMnetoSensible = getCFMCalorNetoSensible(totalSensible, infiltration);
+  const CFMnetoSensible = getCFMCalorNetoSensible(totalSensible);
 
   const tempEntradaSerpentin = getTempEntradaSerpentin(
     CFMnetoSensible,
@@ -105,15 +94,10 @@ export const getCargaEnfriamiento = state => {
     humedadEntradaSerp
   );
 
-  const cargaEnfriamiento =
-    totalSensible +
-    calorPersonas.latente +
-    calorVentilacion.latente +
-    infiltration.sensible +
-    infiltration.latente;
+  const coolingLoad = totalSensible + calorPersonas.latente + calorVentilacion.latente;
 
   return {
-    cargaEnfriamiento,
+    coolingLoad,
     CFMnetoSensible,
     QS_QL: QS + QL
   };

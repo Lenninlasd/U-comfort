@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BufferGeometryUtils } from '../../../libs/BufferGeometryUtils.js';
 
+import compassImg from '../../../img/compass.svg';
+
 const OrbitControls = require('three-orbit-controls')(THREE);
 
 function createBulbLightGeometry(size, lights) {
@@ -17,7 +19,7 @@ function createBulbLightGeometry(size, lights) {
   const startDepth = -size.depth / 2 + stepDepth / 2;
   const startWidth = -size.width / 2 + stepWidth / 2;
 
-  const bulbGeometry = new THREE.SphereBufferGeometry(0.1, 6, 6);
+  const bulbGeometry = new THREE.SphereBufferGeometry(0.05, 6, 6);
   const bulbList = [];
   let lightCounter = 0;
   for (let i = 0; i < mesh && lightCounter < lights; i++) {
@@ -74,7 +76,7 @@ function createRectangleGeometry(size) {
   rectShape.lineTo(rectLength / 2, rectWidth / 2);
 
   const extrusionPath = new THREE.Path();
-  const padding = 0.2;
+  const padding = 0.1;
   extrusionPath.moveTo(rectLength / 2 - padding, rectWidth / 2 - padding);
   extrusionPath.lineTo(rectLength / 2 - padding, -rectWidth / 2 + padding);
   extrusionPath.lineTo(-rectLength / 2 + padding, -rectWidth / 2 + padding);
@@ -91,7 +93,7 @@ function initCube(id, size, numberOfLights) {
   const element = document.getElementById(id);
 
   const elementSize = getSize(element);
-  const camera = new THREE.PerspectiveCamera(45, elementSize.width / elementSize.height, 1, 1000);
+  const camera = new THREE.PerspectiveCamera(10, elementSize.width / elementSize.height, 1, 1000);
   camera.position.z = 30;
   camera.position.x = 0; //100 * Math.sin( 30 );
   camera.position.y = 30;
@@ -166,7 +168,7 @@ function initCube(id, size, numberOfLights) {
 const CompassElement = ({ angle }) => {
   return (
     <div className="compass" style={{ transform: `rotate(${angle}deg)` }}>
-      <img height="60" width="60" src="./img/compass.svg" />
+      <img height="60" width="60" src={compassImg} />
     </div>
   );
 };
@@ -246,7 +248,7 @@ const mapStateToProps = state => ({
     height: state.height,
     depth: state.depth
   },
-  numberOfLights: state.luces.numberOfLights
+  numberOfLights: state.lights.numberOfLights
 });
 
 export default connect(mapStateToProps)(CanvasElement);

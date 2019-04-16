@@ -1,10 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import bootstrap from 'bootstrap/dist/css/bootstrap.min.css'; // eslint-disable-line no-unused-vars
+import styles from '../Styles/css.css'; // eslint-disable-line no-unused-vars
 
 import CanvasElement from '../RoomCanvas';
 import CardForm from '../CardForm';
 import EquipmentsView from '../Equipments';
-import { Footer } from '../footer';
+import helpDoc from '../../../img/help.pdf';
+// import { Footer } from '../footer';
 
 const MainView = () => (
   <div className="container-fluid">
@@ -14,8 +17,9 @@ const MainView = () => (
         Cálculo de cargas térmicas para selección de equipos en ciudades del caribe colombiano
       </span>
       <a
-        href="../../img/help.pdf"
+        href={helpDoc}
         target="_blank"
+        rel="noopener noreferrer"
         className="btn btn-outline-primary my-2 my-sm-0"
         type="submit"
       >
@@ -38,7 +42,7 @@ export const App = () => (
     <div>
       <Route exact path="/" component={MainView} />
       <Route path="/equipment" component={EquipmentsView} />
-      {<Footer /> && false}
+      {/* <Footer /> */}
     </div>
   </Router>
 );

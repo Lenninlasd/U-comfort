@@ -70,14 +70,14 @@ export default [
 		"CLTD": ""
 	},
 	{
-		"tipo": "PAREDES",
+		"tipo": "PARTICION PAREDES",
 		"material": "BLOQUE_ESTUCO_PAÑETE(INTERIOR)",
 		"U": "0.475",
 		"grupo": "d",
 		"CLTD": ""
 	},
 	{
-		"tipo": "PAREDES",
+		"tipo": "PARTICION PAREDES",
 		"material": "MURO_INTERIOR",
 		"U": "0.36",
 		"grupo": "d",

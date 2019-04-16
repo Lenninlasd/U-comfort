@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import rootReducer from '../reducers/root.js';
 import initState from '../model.js';
 import enrichData from './enrichData.js';
-import { getTempEntradaSerpentin, getCargaEnfriamiento } from './cargaEnfriamiento.js';
+import { getTempEntradaSerpentin, getcoolingLoad } from './coolingLoad.js';
 
 const store = createStore(rootReducer, {
   vidrios: initState.elementos.vidrios,
@@ -192,8 +192,8 @@ test('Check getTempEntradaSerpentin', () => {
   );
 });
 
-test('Calculate the final getCargaEnfriamiento', () => {
-  const result = getCargaEnfriamiento(store.getState());
+test('Calculate the final getcoolingLoad', () => {
+  const result = getcoolingLoad(store.getState());
   const expectedRasult = {
     cargaEnfriamiento: 300029.86841378885,
     CFMnetoSensible: 10680.836894834243,

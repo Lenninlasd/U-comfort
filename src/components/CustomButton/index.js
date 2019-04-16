@@ -1,19 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { showElementView, setElementHistory } from '../../actions';
 import PropTypes from 'prop-types';
 
-const CustomButton = ({ title, buttonText, typeElement, data, showWindowsProps }) => (
+const CustomButton = ({
+  title,
+  buttonText,
+  elementType,
+  src,
+  numberOfElements,
+  showWindowsProps
+}) => (
   <div className="glass-windows form-group">
     <div>
       <small>
-        <strong>{typeElement === 'paredes' ? title : `${title}: ${data.length}`}</strong>
+        <strong>{`${title}: ${numberOfElements}`}</strong>
       </small>
     </div>
     <div>
-      {/* Esto se puede mejorar Adicionando un svg-loader a webpack */}
-      {typeElement && (
+      {elementType && (
         <button type="button" className="btn btn-light" onClick={showWindowsProps}>
-          <img height="28" width="28" src={`./img/${typeElement}.svg`} />
+          <img height="28" width="28" src={src} />
           <span>{` ${buttonText}`}</span>
         </button>
       )}
@@ -24,43 +31,22 @@ const CustomButton = ({ title, buttonText, typeElement, data, showWindowsProps }
 CustomButton.propTypes = {
   title: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
-  typeElement: PropTypes.string.isRequired,
-  data: PropTypes.array,
+  elementType: PropTypes.string.isRequired,
+  src: PropTypes.string,
+  numberOfElements: PropTypes.number,
   showWindowsProps: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state[ownProps.typeElement]
+  numberOfElements: state[ownProps.elementType].length
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const { typeElement } = ownProps;
-  let view, type;
-
-  switch (typeElement) {
-    case 'paredes':
-      view = 'wallsView';
-      type = 'SET_WALL_HISTORY';
-      break;
-    case 'puertas':
-      view = 'doorView';
-      type = 'SET_DOORS_HISTORY';
-      break;
-    default:
-      view = 'glassView';
-      type = 'SET_WINDOWS_HISTORY';
-      break;
-  }
-
+  const { elementType } = ownProps;
   return {
     showWindowsProps: () => {
-      dispatch({
-        type: 'SHOW_WINDOWS_PROPS',
-        view
-      });
-      dispatch({
-        type
-      });
+      dispatch(showElementView(elementType));
+      dispatch(setElementHistory(elementType));
     }
   };
 };

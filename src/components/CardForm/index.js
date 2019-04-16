@@ -11,7 +11,11 @@ import ListOfElements from '../WindowsConfig';
 import CustomButton from '../CustomButton';
 import Roof from '../Roof';
 
-import { calcGrossWallArea, setCargaEnfriamiento } from '../../actions';
+import wallsImg from '../../../img/walls.svg';
+import windowsImg from '../../../img/windows.svg';
+import doorsImg from '../../../img/doors.svg';
+
+import { calcGrossWallArea, setcoolingLoad } from '../../actions';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -30,39 +34,41 @@ const switchViews = (windowsView, defaultView) => {
   }
 };
 
-{
-  /*TODO: Normalizar estos nombres en toda la app */
-}
-const buttonsList = [
-  {
-    title: 'PAREDES',
-    typeElement: 'paredes',
-    buttonText: 'Configurar paredes'
-  },
-  {
-    title: 'VENTANAS INSTALADAS',
-    typeElement: 'vidrios',
-    buttonText: 'Agregar o eliminar ventanas'
-  },
-  {
-    title: 'PUERTAS',
-    typeElement: 'puertas',
-    buttonText: 'Agregar o eliminar puertas'
-  }
-];
-
-const CustomButtons = () => (
-  <>
-    {buttonsList.map((item, idx) => (
-      <CustomButton
-        key={idx}
-        title={item.title}
-        buttonText={item.buttonText}
-        typeElement={item.typeElement}
-      />
-    ))}
-  </>
-);
+const CustomButtons = () => {
+  const buttonsList = [
+    {
+      title: 'PAREDES',
+      elementType: 'walls',
+      src: wallsImg,
+      buttonText: 'Configurar paredes'
+    },
+    {
+      title: 'VENTANAS INSTALADAS',
+      elementType: 'windows',
+      src: windowsImg,
+      buttonText: 'Agregar o eliminar ventanas'
+    },
+    {
+      title: 'PUERTAS',
+      elementType: 'doors',
+      src: doorsImg,
+      buttonText: 'Agregar o eliminar puertas'
+    }
+  ];
+  return (
+    <>
+      {buttonsList.map((item, idx) => (
+        <CustomButton
+          key={idx}
+          title={item.title}
+          buttonText={item.buttonText}
+          elementType={item.elementType}
+          src={item.src}
+        />
+      ))}
+    </>
+  );
+};
 
 const CardForm = ({ history, submit, windowsView }) => {
   const handleClick = () => {
@@ -102,7 +108,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   submit: () => {
     dispatch(calcGrossWallArea());
-    dispatch(setCargaEnfriamiento());
+    dispatch(setcoolingLoad());
   }
 });
 

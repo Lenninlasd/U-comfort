@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setExteriorConditions } from '../../actions';
+import { setExteriorConditions, setSHGFWindow, setWallCLTDCorretion } from '../../actions';
 
 // Latidud
 import condicionesClimaticas from '../../../json/condiciones_climaticas';
@@ -24,7 +24,7 @@ const ExteriorConditions = ({ exterior, handleChange }) => {
           <small>
             <strong>CIUDAD</strong>
           </small>
-          <select id="ciudad" className="form-control" onChange={handleChange} value={exterior.id}>
+          <select id="city" className="form-control" onChange={handleChange} value={exterior.id}>
             <option hidden>CIUDAD</option>
             <OptionList />
           </select>
@@ -49,6 +49,8 @@ const mapDispatchToProps = dispatch => ({
   handleChange: event => {
     const value = event.target.value;
     dispatch(setExteriorConditions(condicionesClimaticas[value]));
+    dispatch(setSHGFWindow());
+    dispatch(setWallCLTDCorretion());
   }
 });
 

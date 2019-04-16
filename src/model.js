@@ -1,60 +1,29 @@
 export default {
-  numberOfPeople: 60,
-  height: 4.267,
-  depth: 27.432,
-  width: 18.288,
+  numberOfPeople: 5,
+  height: 2.5,
+  depth: 3,
+  width: 3,
   exterior: {
     id: 7,
-    ciudad: 'Indianapolis',
+    city: 'Indianapolis',
     latitud: 40,
     bulbo_seco: 90,
     bulbo_humedo: 74,
-    humedad_especifica: 101, // formula pendiente
+    humedad_especifica: 101, // pending formula
     mes_carga_de_enfriamiento: 'JUL',
     rango_diario: 22 // Fahrenheit
   },
   recinto: {
-    // Estas condiciones no varian
     bulbo_seco: 78,
     humedad_relativa: 50,
     humedad_especifica: 72,
-    actividad_recinto: 'PARADO, TRABAJO LIGERO O CAMINA DESPACIO',
-    tipo_recinto: 'comercios: pisos de venta (pisos superiores)'
-  },
-  cargaPico: {
-    fecha: '21-07-xxxx', // julio, no va a cambiar
-    hora: 17, // no va a cambiar
-    promedio: 79 // Fahrenheit
+    actividad_recinto: 'Sentado, trabajo ligero',
+    tipo_recinto: 'Oficina',
+    equitmentWattsPerSquaredFoot: 1
   },
   elementos: {
-    /* md`## Elementos del cuarto. Materiales en el cual se esta haciendo la conducción de exterior a interior.` */
-    vidrios: [
-      {
-        orientacion: 'W',
-        sombra: 'no', // usuario
-        width: 25.298,
-        height: 3.048,
-        espesor_nominal: '3/16 a 1/4',
-        tipo_de_vidrio: 'absorbente de calor'
-      },
-      {
-        orientacion: 'W',
-        sombra: 'no',
-        width: 2.133,
-        height: 1.828,
-        espesor_nominal: '3/32 a 1/4',
-        tipo_de_vidrio: 'claro'
-      },
-      {
-        orientacion: 'E',
-        sombra: 'no',
-        width: 2.133,
-        height: 1.828,
-        espesor_nominal: '3/32 a 1/4',
-        tipo_de_vidrio: 'claro'
-      }
-    ],
-    paredes: [
+    windows: [],
+    walls: [
       {
         orientacion: 'N',
         color: 'D',
@@ -88,27 +57,17 @@ export default {
         tipo: 'PAREDES'
       }
     ],
-    techo: {
+    roof: {
       color: 'D',
       correcion_color_K: 1,
       type: 'superficie_oscura',
       material: 'CUBIERTA_DE_EJEMPLO',
-      tipo: 'TECHO'
+      tipo: 'roof'
     },
-    piso: {},
-    puertas: [
-      {
-        width: 1.828,
-        height: 2.133,
-        orientacion: 'E',
-        tipo: 'PUERTA',
-        material: 'PUERTA_EJEMPLO',
-        CLDT_tabla: 27, // ºF Aun no se tiene esa tabla
-        CLDT_correccion: 22 // ºF
-      }
-    ],
-    luces: {
-      numberOfLights: 135,
+    floor: {},
+    doors: [],
+    lights: {
+      numberOfLights: 1,
       wattsPorLampara: 60,
       factConv: 3.41
     }

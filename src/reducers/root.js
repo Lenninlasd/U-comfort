@@ -1,14 +1,13 @@
 import {
-  vidrios,
-  paredes,
-  techo,
-  puertas,
-  piso,
-  luces,
+  windows,
+  walls,
+  roof,
+  doors,
+  floor,
+  lights,
   results,
   exterior,
   recinto,
-  cargaPico,
   past
 } from './prepareData.js';
 
@@ -17,12 +16,12 @@ import { appConfig } from './config.js';
 
 export default (state = {}, action) => ({
   past: past(state.past, action, state),
-  vidrios: vidrios(state.vidrios, action, state),
-  paredes: paredes(state.paredes, action, state),
-  techo: techo(state.techo, action, state),
-  puertas: puertas(state.puertas, action, state),
-  piso: piso(state.piso, action, state),
-  luces: luces(state.luces, action),
+  windows: windows(state.windows, action, state),
+  walls: walls(state.walls, action, state),
+  roof: roof(state.roof, action, state),
+  doors: doors(state.doors, action, state),
+  floor: floor(state.floor, action, state),
+  lights: lights(state.lights, action),
   results: results(state.results, action, state),
   depth: depth(state.depth, action),
   width: width(state.width, action),
@@ -30,6 +29,5 @@ export default (state = {}, action) => ({
   numberOfPeople: numberOfPeople(state.numberOfPeople, action),
   exterior: exterior(state.exterior, action),
   recinto: recinto(state.recinto, action),
-  cargaPico: cargaPico(state.cargaPico),
   appConfig: appConfig(state.appConfig, action)
 });
