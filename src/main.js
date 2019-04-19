@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers/root.js';
 import initState from './model.js';
 import { App } from './components/App';
-import enrichData from './enrichData.js';
+import enrichData from './formulas/enrichData.js';
 
 const store = createStore(
   rootReducer,
@@ -23,8 +23,7 @@ const store = createStore(
     height: initState.height,
     numberOfPeople: initState.numberOfPeople,
     exterior: initState.exterior,
-    recinto: initState.recinto,
-    cargaPico: initState.cargaPico
+    recinto: initState.recinto
   },
   composeWithDevTools()
 );

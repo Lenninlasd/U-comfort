@@ -7,7 +7,7 @@ import TABLE_SC from '../../json/SC_tabla_6_7';
 import WALL_TABLE from '../../json/CLTD_pared';
 import TABLE_LM from '../../json/LM_6_4';
 import TABLE_U_ROOF_WALL_PARTITION from '../../json/U_techos_paredes_particiones';
-import { getcoolingLoad } from '../coolingLoad.js';
+import { getcoolingLoad } from '../formulas/coolingLoad.js';
 
 import {
   CALC_AREA_FLOOR,

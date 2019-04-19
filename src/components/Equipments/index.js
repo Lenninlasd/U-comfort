@@ -59,12 +59,12 @@ const ListEq = equipments => {
   );
 };
 
-const EquipmentsView = ({ history, coolingLoad, QS_QL, CFMnetoSensible }) => {
+const EquipmentsView = ({ history, coolingLoad, QS_QL, netSensibleCFM }) => {
   const choosenQ = chooseBTU(QS_QL, btuList);
 
   const availableEquip = choosenQ.length
     ? LISTADO_DE_EQUIPOS.filter(eq => {
-        return eq.capacidad_BTU == choosenQ[1] && Number(eq.cfm_max) * 0.9 >= CFMnetoSensible;
+        return eq.capacidad_BTU == choosenQ[1] && Number(eq.cfm_max) * 0.9 >= netSensibleCFM;
       })
     : [];
 
@@ -88,7 +88,7 @@ const EquipmentsView = ({ history, coolingLoad, QS_QL, CFMnetoSensible }) => {
               <strong>Carga térmica de climatización: </strong> {QS_QL.toFixed(0)} Btu/h
             </div>
             <div>
-              <strong>CFM: </strong> {CFMnetoSensible.toFixed(0)}
+              <strong>CFM: </strong> {netSensibleCFM.toFixed(0)}
             </div>
 
             {availableEquip.length ? (
@@ -108,7 +108,7 @@ EquipmentsView.propTypes = {
   history: PropTypes.object.isRequired,
   coolingLoad: PropTypes.number.isRequired,
   QS_QL: PropTypes.number.isRequired,
-  CFMnetoSensible: PropTypes.number.isRequired
+  netSensibleCFM: PropTypes.number.isRequired
 };
 
 const mapStateToProps = state => state.results;

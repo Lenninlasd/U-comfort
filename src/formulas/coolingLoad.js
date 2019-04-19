@@ -2,31 +2,25 @@ import {
   getCalor_sensible,
   setPeopleHeat,
   setCalorVentilacion,
-  calculoTotalSensible,
-  getCFMCalorNetoSensible,
+  totalSensibleCalculation,
+  getNetSensibleHeatCFM,
   calcularHumedadEntradaSerp
-} from './heatCalculation';
+} from './heatCalculationHelpers.js';
 
-import heatPeopleTable from '../json/calor_personas_6_11';
-import tablaCFM from '../json/CFM_6_15';
+import tablaCFM from '../../json/CFM_6_15';
 
 // CFMventilacion = CFM_tabla * Numero de personas (ver function setCalorVentilacion)
-const getTempEntradaSerpentin = (CFMnetoSensible, CFMventilacion, exterior, recinto) => {
+export const getTempEntradaSerpentin = (netSensibleCFM, CFMventilacion, exterior, recinto) => {
   const aireExterior = CFMventilacion * exterior.bulbo_seco;
-  const aireRetorno = recinto.bulbo_seco * (CFMnetoSensible - CFMventilacion);
-  return (aireExterior + aireRetorno) / CFMnetoSensible;
+  const aireRetorno = recinto.bulbo_seco * (netSensibleCFM - CFMventilacion);
+  return (aireExterior + aireRetorno) / netSensibleCFM;
 };
 
-const calorTotal = (
-  tempEntradaSerpentin,
-  CFMnetoSensible, //=11189,
-  recinto,
-  humedadEntradaSerp
-) => {
+const calorTotal = (tempEntradaSerpentin, netSensibleCFM, recinto, humedadEntradaSerp) => {
   const tempSalidaSerp = recinto.bulbo_seco - 20;
   const humedadSalidaSerp = 65;
-  const QS = 1.1 * CFMnetoSensible * (tempEntradaSerpentin - tempSalidaSerp);
-  const QL = 0.68 * CFMnetoSensible * (humedadEntradaSerp - humedadSalidaSerp);
+  const QS = 1.1 * netSensibleCFM * (tempEntradaSerpentin - tempSalidaSerp);
+  const QL = 0.68 * netSensibleCFM * (humedadEntradaSerp - humedadSalidaSerp);
   return { QS, QL };
 };
 
@@ -36,21 +30,20 @@ export const getcoolingLoad = state => {
   const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
   const ΔHumedad = state.exterior.humedad_especifica - state.recinto.humedad_especifica;
   const perimeter = 2 * FEET * (state.width + state.depth);
-  const factorCorrecionCalorSensible = getCalor_sensible(state.windows, state.walls, perimeter);
+  const SensibleHeatCorrectionFactor = getCalor_sensible(state.windows, state.walls, perimeter);
 
   const lightsHeat =
     state.lights.wattsPorLampara *
     state.lights.numberOfLights *
     state.lights.factConv *
-    factorCorrecionCalorSensible;
+    SensibleHeatCorrectionFactor;
 
   const heatEquipments =
     state.floor.areaNeta * state.lights.factConv * state.recinto.equitmentWattsPerSquaredFoot;
 
   const calorPersonas = setPeopleHeat(
     state.numberOfPeople,
-    factorCorrecionCalorSensible,
-    heatPeopleTable,
+    SensibleHeatCorrectionFactor,
     state.recinto.actividad_recinto
   );
 
@@ -61,12 +54,12 @@ export const getcoolingLoad = state => {
   const calorVentilacion = setCalorVentilacion(state.numberOfPeople, Δtemp, ΔHumedad, cfmMinimo);
 
   //Calculo final
-  const sensibleEl = calculoTotalSensible(
+  const sensibleEl = totalSensibleCalculation(
     state.windows,
     state.walls,
     state.roof,
     state.doors,
-    factorCorrecionCalorSensible
+    SensibleHeatCorrectionFactor
   );
 
   const ganancia_calor_recinto = sensibleEl + lightsHeat + calorPersonas.sensible + heatEquipments;
@@ -76,10 +69,10 @@ export const getcoolingLoad = state => {
   const totalSensible =
     ganancia_calor_recinto + calorVentilacion.sensible + ganancia_ventilador_forzado;
 
-  const CFMnetoSensible = getCFMCalorNetoSensible(totalSensible);
+  const netSensibleCFM = getNetSensibleHeatCFM(totalSensible);
 
   const tempEntradaSerpentin = getTempEntradaSerpentin(
-    CFMnetoSensible,
+    netSensibleCFM,
     calorVentilacion.CFMventilacion,
     state.exterior,
     state.recinto
@@ -89,16 +82,15 @@ export const getcoolingLoad = state => {
 
   const { QS, QL } = calorTotal(
     tempEntradaSerpentin,
-    CFMnetoSensible,
+    netSensibleCFM,
     state.recinto,
     humedadEntradaSerp
   );
-
   const coolingLoad = totalSensible + calorPersonas.latente + calorVentilacion.latente;
 
   return {
     coolingLoad,
-    CFMnetoSensible,
+    netSensibleCFM,
     QS_QL: QS + QL
   };
 };
