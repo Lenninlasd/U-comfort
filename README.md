@@ -1,4 +1,4 @@
-# U-confort
+# U-confort [![Build Status](https://travis-ci.com/Lenninlasd/U-comfort.svg?branch=master)](https://travis-ci.com/Lenninlasd/U-comfort) [![Coverage Status](https://coveralls.io/repos/github/Lenninlasd/U-comfort/badge.svg?branch=master)](https://coveralls.io/github/Lenninlasd/U-comfort?branch=master)
 Advanced air conditioners calculator with React/Redux and WebGl.
 
 ### Install:
