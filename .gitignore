@@ -4,4 +4,3 @@ dist/
 *.min.js*
 *.DS_Store
 csv/*.csv
-**/__snapshots__
