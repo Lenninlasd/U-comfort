@@ -20,7 +20,8 @@ import {
   setUDoors,
   calcAreaDoorAll,
   setUFloor,
-  setFloorCLTDCorrection
+  setFloorCLTDCorrection,
+  setcoolingLoad
 } from '../actions';
 
 export default function enrichData(dispatch) {
@@ -51,4 +52,6 @@ export default function enrichData(dispatch) {
   dispatch(calcAreaFloor());
   dispatch(setUFloor('PISO', 'PISO_EJEMPLO'));
   dispatch(setFloorCLTDCorrection());
+
+  dispatch(setcoolingLoad());
 }

@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 import tablePsat from '../../json/Psat_tabla_A4E_simp.js';
+import heatPeopleTable from '../../json/calor_personas_6_11';
 
-export const setPeopleHeat = (numberOfPeople, correcion, heatPeopleTable, aplicacion) => {
+export const setPeopleHeat = (numberOfPeople, correcion, aplicacion) => {
   const heat = heatPeopleTable.find(x => x['ACTIVIDAD'] === aplicacion);
   const FCE = 1;
 
@@ -12,25 +14,25 @@ export const setPeopleHeat = (numberOfPeople, correcion, heatPeopleTable, aplica
 
 export const setCalorVentilacion = (numberOfPeople, Δtemp, ΔHumedad, cfmMinimo) => {
   const CFMventilacion = cfmMinimo * numberOfPeople;
-
+  const sensible = Number((1.1 * CFMventilacion * Δtemp).toFixed(3));
   return {
-    sensible: 1.1 * CFMventilacion * Δtemp,
+    sensible,
     latente: 0.68 * CFMventilacion * ΔHumedad,
     CFMventilacion
   };
 };
 
-export const getCFMCalorNetoSensible = totalSensible => {
+export const getNetSensibleHeatCFM = totalSensible => {
   const ΔtempAireSuministro = 20;
   return totalSensible / (ΔtempAireSuministro * 1.1);
 };
 
-export const calculoTotalSensible = (
-  windows = [{}],
-  walls = [{}],
+export const totalSensibleCalculation = (
+  windows = [],
+  walls = [],
   roof = {},
-  door = [{}],
-  factorCorrecion
+  door = [],
+  factorCorrecion = 1
 ) => {
   const getCalorSensibleWindow = element => {
     if (!element.length) return 0;
@@ -46,15 +48,18 @@ export const calculoTotalSensible = (
     return element.map(i => getCalorSensible(i)).reduce((anterior, actual) => anterior + actual);
   };
 
-  const getCalorSensible = obj =>
-    obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_Correction;
+  const getCalorSensible = obj => {
+    if (Object.keys(obj).length == 0) return 0;
+    return (
+      obj.coeficiente_transferencia_calor * obj.areaNeta * factorCorrecion * obj.CLTD_Correction
+    );
+  };
 
   const windowHeat = getCalorSensibleArray(windows);
   const wallHeat = getCalorSensibleArray(walls);
   const roofHeat = getCalorSensible(roof);
   const doorHeat = getCalorSensibleArray(door);
   const windowsRadiationHeat = getCalorSensibleWindow(windows);
-
   return windowHeat + wallHeat + roofHeat + doorHeat + windowsRadiationHeat;
 };
 
