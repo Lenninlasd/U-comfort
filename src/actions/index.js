@@ -101,6 +101,11 @@ export const SET_CARGA_ENFRIAMIENTO = 'SET_CARGA_ENFRIAMIENTO';
 export const calcGrossWallArea = () => ({ type: CALC_GROSS_WALL_AREA });
 export const setcoolingLoad = () => ({ type: SET_CARGA_ENFRIAMIENTO });
 
+export const submitForm = () => dispatch => {
+  dispatch(calcGrossWallArea());
+  dispatch(setcoolingLoad());
+};
+
 /*
  * Doors  action types
  */

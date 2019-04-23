@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
 import rootReducer from './reducers/root.js';
 import initState from './model.js';
@@ -25,7 +26,7 @@ const store = createStore(
     exterior: initState.exterior,
     recinto: initState.recinto
   },
-  composeWithDevTools()
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 enrichData(store.dispatch);
