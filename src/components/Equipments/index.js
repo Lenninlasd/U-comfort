@@ -9,13 +9,25 @@ const btuList = [...new Set(LISTADO_DE_EQUIPOS.map(eq => Number(eq.capacidad_BTU
   (a, b) => a - b
 );
 
-const chooseBTU = (Q, btuList) => {
-  for (let [i, q] of btuList.entries()) {
-    if (Q <= q * 0.8) {
-      return [i, q];
-    }
+export const chooseBTU = (Q, btuList) => {
+  const chosen = [];
+  for (let q of btuList) {
+    const case1 = Q <= 8000 && Q * 1.2 <= q && Q * 2 >= q;
+    const case2 = Q > 8000 && Q * 1.2 <= q && Q * 1.5 >= q;
+    if (case1 || case2) chosen.push(q);
   }
-  return [];
+  return chosen;
+};
+
+export const getAvailableEquip = (choosenQ, netSensibleCFM, LISTADO_DE_EQUIPOS) => {
+  return choosenQ.length
+    ? LISTADO_DE_EQUIPOS.filter(
+        eq =>
+          eq.capacidad_BTU >= choosenQ[0] &&
+          eq.capacidad_BTU <= choosenQ[choosenQ.length - 1] &&
+          Number(eq.cfm_max) * 0.9 >= netSensibleCFM
+      )
+    : [];
 };
 
 const ListEq = equipments => {
@@ -59,14 +71,9 @@ const ListEq = equipments => {
   );
 };
 
-const EquipmentsView = ({ history, coolingLoad, QS_QL, netSensibleCFM }) => {
+const EquipmentsView = ({ history, QS_QL, netSensibleCFM }) => {
   const choosenQ = chooseBTU(QS_QL, btuList);
-
-  const availableEquip = choosenQ.length
-    ? LISTADO_DE_EQUIPOS.filter(eq => {
-        return eq.capacidad_BTU == choosenQ[1] && Number(eq.cfm_max) * 0.9 >= netSensibleCFM;
-      })
-    : [];
+  const availableEquip = getAvailableEquip(choosenQ, netSensibleCFM, LISTADO_DE_EQUIPOS);
 
   const handleBackButton = () => history.push('/');
 
@@ -79,11 +86,6 @@ const EquipmentsView = ({ history, coolingLoad, QS_QL, netSensibleCFM }) => {
               <BackButton className="col-1" onClick={handleBackButton} />
               <div className="col-2 back-button-text">Atrás</div>
             </div>
-            {false && (
-              <div>
-                <strong>Carga de enfriamiento:</strong> {coolingLoad.toFixed(0)}
-              </div>
-            )}
             <div>
               <strong>Carga térmica de climatización: </strong> {QS_QL.toFixed(0)} Btu/h
             </div>
