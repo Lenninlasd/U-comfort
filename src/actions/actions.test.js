@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 describe('Test room action creators', () => {
-  it('uses correct constants', () => {
+  it('get the correct action', () => {
     expect(actions.setDepth(10)).toEqual({
       type: 'SET_DEPTH',
       value: 10
@@ -57,7 +57,7 @@ describe('test the cardForm action creators', () => {
   const mockStore = configureMockStore([thunk]);
   const store = mockStore({});
 
-  it('uses correct constants', () => {
+  it('get the correct action', () => {
     expect(actions.calcGrossWallArea()).toEqual({
       type: 'CALC_GROSS_WALL_AREA'
     });
@@ -73,7 +73,7 @@ describe('test the cardForm action creators', () => {
 });
 
 describe('test roof action creators', () => {
-  it('uses correct constants', () => {
+  it('get the correct action', () => {
     expect(actions.setUoneRoof('concrete')).toEqual({
       type: 'SET_U_1_ROOF',
       material: 'concrete'
@@ -94,7 +94,7 @@ describe('test roof action creators', () => {
 });
 
 describe('test walls action creators', () => {
-  it('uses correct constants', () => {
+  it('get the correct action', () => {
     expect(actions.setUoneWall({ id: 1, material: 'crystal' })).toEqual({
       type: 'SET_U_1_WALL',
       data: { id: 1, material: 'crystal' }
@@ -116,7 +116,7 @@ describe('test walls action creators', () => {
 });
 
 describe('test windows action creators', () => {
-  it('uses correct constants', () => {
+  it('get the correct action', () => {
     expect(actions.updatePropWindow({ id: 0, sombra: 'yes' })).toEqual({
       type: 'UPDATE_PROP_WINDOW',
       data: { id: 0, sombra: 'yes' }
@@ -139,7 +139,7 @@ describe('test windows action creators', () => {
 });
 
 describe('test doors action creators', () => {
-  it('uses correct constants', () => {
+  it('get the correct action', () => {
     expect(actions.setUoneDoor({})).toEqual({
       type: 'SET_U_1_DOOR',
       data: {}
@@ -169,5 +169,19 @@ describe('test doors action creators', () => {
     expect(actions.hideElementsView()).toEqual({ type: 'HIDE_ELEMENTS_VIEW' });
     expect(actions.setUndoDoors()).toEqual({ type: 'SET_UNDO_DOORS' });
     expect(actions.calcAreaDoorAll()).toEqual({ type: 'CALC_AREA_DOOR_ALL' });
+  });
+});
+
+describe('test CustomButton actions', () => {
+  const mockStore = configureMockStore([thunk]);
+  const store = mockStore({});
+
+  it('showElementProperties should call showElementView and setElementHistory', () => {
+    store.dispatch(actions.showElementProperties('elementType'));
+
+    expect(store.getActions()).toEqual([
+      actions.showElementView('elementType'),
+      actions.setElementHistory('elementType')
+    ]);
   });
 });

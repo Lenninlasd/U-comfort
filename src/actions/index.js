@@ -16,8 +16,6 @@ export const showElementView = elementType => ({
   elementType
 });
 
-export const clearHistory = () => ({ type: CLEAR_HISTORY });
-
 export const setElementHistory = elementType => {
   switch (elementType) {
     case 'walls':
@@ -33,6 +31,13 @@ export const setElementHistory = elementType => {
         type: SET_WINDOWS_HISTORY
       };
   }
+};
+
+export const clearHistory = () => ({ type: CLEAR_HISTORY });
+
+export const showElementProperties = elementType => dispatch => {
+  dispatch(showElementView(elementType));
+  dispatch(setElementHistory(elementType));
 };
 
 /*
