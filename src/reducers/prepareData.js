@@ -19,7 +19,7 @@ import {
   SET_ROOM_TYPE,
   SET_EQUITMENT_WATTS_PER_SQUARED_FOOT,
   CALC_GROSS_WALL_AREA,
-  SET_CARGA_ENFRIAMIENTO,
+  SET_COOLING_LOAD,
   SET_U_1_DOOR,
   UPDATE_PROP_DOOR,
   CALC_AREA_DOOR,
@@ -469,7 +469,7 @@ export const floor = (floorState = {}, action, state) => {
 
 export const results = (resultsState = {}, action, state) => {
   switch (action.type) {
-    case SET_CARGA_ENFRIAMIENTO:
+    case SET_COOLING_LOAD:
       return Object.assign({}, resultsState, getcoolingLoad(state));
     default:
       return resultsState;

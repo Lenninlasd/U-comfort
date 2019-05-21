@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import heatPeopleTable from '../../../json/calor_personas_6_11';
 import tablaCFM from '../../../json/CFM_6_15';
+import { setSizeChange, setRoomChange } from '../../actions';
 
 const apliacionesTipicas = [...new Set(heatPeopleTable.map(element => element.ACTIVIDAD))].map(
   (item, i) => (
@@ -17,7 +19,7 @@ const tiposRecinto = tablaCFM.map((item, i) => (
   </option>
 ));
 
-export const RoomForm = props => (
+const RoomForm = props => (
   <form className="size-data-form">
     <div className="form-row form-group">
       <div className="col-sm-12">
@@ -34,7 +36,7 @@ export const RoomForm = props => (
           type="number"
           value={props.depth}
           placeholder="LARGO"
-          onChange={props.onSizeChange}
+          onChange={props.setSizeChange}
         />
       </div>
       <div className="col-md-4 col-sm-12">
@@ -47,7 +49,7 @@ export const RoomForm = props => (
           type="number"
           value={props.width}
           placeholder="ANCHO"
-          onChange={props.onSizeChange}
+          onChange={props.setSizeChange}
         />
       </div>
       <div className="col-md-4 col-sm-12">
@@ -60,7 +62,7 @@ export const RoomForm = props => (
           type="number"
           value={props.height}
           placeholder="ALTO"
-          onChange={props.onSizeChange}
+          onChange={props.setSizeChange}
         />
       </div>
       <div className="col-md-12 col-sm-12">
@@ -73,7 +75,7 @@ export const RoomForm = props => (
           type="number"
           value={props.numberOfPeople}
           placeholder="No. DE PERSONAS"
-          onChange={props.onEnclosureChange}
+          onChange={props.setRoomChange}
         />
       </div>
       <div className="col-md-12 col-sm-12">
@@ -86,7 +88,7 @@ export const RoomForm = props => (
           type="number"
           value={props.numberOfLights}
           placeholder="No. DE LUCES"
-          onChange={props.onEnclosureChange}
+          onChange={props.setRoomChange}
         />
       </div>
       <div className="col-md-12 col-sm-12">
@@ -98,7 +100,7 @@ export const RoomForm = props => (
             <select
               id="actividadRecinto"
               className="form-control"
-              onChange={props.onEnclosureChange}
+              onChange={props.setRoomChange}
               value={props.actividadRecinto}
             >
               <option hidden>ACTIVIDAD DEL RECINTO</option>
@@ -112,7 +114,7 @@ export const RoomForm = props => (
             <select
               id="tipoRecinto"
               className="form-control"
-              onChange={props.onEnclosureChange}
+              onChange={props.setRoomChange}
               value={props.tipoRecinto}
             >
               <option hidden>TIPO DE RECINTO</option>
@@ -130,7 +132,7 @@ export const RoomForm = props => (
             <select
               id="amountOfEquipment"
               className="form-control"
-              onChange={props.onEnclosureChange}
+              onChange={props.setRoomChange}
               value={props.wattsPerSquaredFoot}
             >
               <option hidden>CANTIDAD DE EQUIPOS EN RECINTO</option>
@@ -152,8 +154,24 @@ RoomForm.propTypes = {
   width: PropTypes.number.isRequired,
   numberOfLights: PropTypes.number.isRequired,
   numberOfPeople: PropTypes.number.isRequired,
-  onSizeChange: PropTypes.func.isRequired,
-  onEnclosureChange: PropTypes.func.isRequired,
+  setSizeChange: PropTypes.func.isRequired,
+  setRoomChange: PropTypes.func.isRequired,
   actividadRecinto: PropTypes.string.isRequired,
   wattsPerSquaredFoot: PropTypes.number.isRequired
 };
+
+const mapStateToProps = state => ({
+  width: state.width,
+  height: state.height,
+  depth: state.depth,
+  actividadRecinto: state.recinto.actividad_recinto,
+  tipoRecinto: state.recinto.tipo_recinto,
+  numberOfPeople: state.numberOfPeople,
+  numberOfLights: state.lights.numberOfLights,
+  wattsPerSquaredFoot: state.recinto.equitmentWattsPerSquaredFoot
+});
+
+export default connect(
+  mapStateToProps,
+  { setSizeChange, setRoomChange }
+)(RoomForm);

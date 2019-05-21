@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ExteriorConditions from '../ExteriorConditions';
-import Enclosure from '../../containers/room.js';
+import Room from '../RoomConfig';
 import Doors from '../Doors';
 import WallsConfig from '../WallsConfig';
 import ListOfElements from '../WindowsConfig';
@@ -15,7 +15,7 @@ import wallsImg from '../../../img/walls.svg';
 import windowsImg from '../../../img/windows.svg';
 import doorsImg from '../../../img/doors.svg';
 
-import { calcGrossWallArea, setcoolingLoad } from '../../actions';
+import { submitForm } from '../../actions';
 
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
@@ -70,9 +70,9 @@ const CustomButtons = () => {
   );
 };
 
-const CardForm = ({ history, submit, windowsView }) => {
+export const CardForm = ({ history, submitForm, windowsView }) => {
   const handleClick = () => {
-    submit();
+    submitForm();
     history.push('/equipment');
   };
 
@@ -83,7 +83,7 @@ const CardForm = ({ history, submit, windowsView }) => {
           windowsView,
           <div>
             <ExteriorConditions />
-            <Enclosure />
+            <Room />
             <CustomButtons />
             <Roof />
             <button type="button" className="btn btn-primary" onClick={handleClick}>
@@ -97,7 +97,7 @@ const CardForm = ({ history, submit, windowsView }) => {
 };
 CardForm.propTypes = {
   history: PropTypes.object.isRequired,
-  submit: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
   windowsView: PropTypes.string
 };
 
@@ -105,16 +105,9 @@ const mapStateToProps = state => ({
   windowsView: state.appConfig.windowsView
 });
 
-const mapDispatchToProps = dispatch => ({
-  submit: () => {
-    dispatch(calcGrossWallArea());
-    dispatch(setcoolingLoad());
-  }
-});
-
 export default withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    { submitForm }
   )(CardForm)
 );

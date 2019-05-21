@@ -12,11 +12,11 @@
     "test:watch": "jest --watch --verbose",
     "test:coverage": "jest --coverage --colors",
     "prepare-folder": "cp -r ./ ../U-confort-dist && rm -rf ../U-confort-dist/.git && rm -rf ../U-confort-dist/node_modules",
-    "zip": "npm run build && npm run prepare-folder && zip -r ../U-confort.zip ../U-confort"
+    "zip": "npm run build && npm run prepare-folder && zip -r ../U-confort.zip ../U-confort-dist"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm test && lint-staged"
     }
   },
   "lint-staged": {
@@ -68,6 +68,7 @@
     "prop-types": "^15.7.2",
     "react-test-renderer": "^16.8.3",
     "redux-devtools-extension": "^2.13.8",
+    "redux-mock-store": "^1.5.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.2",
     "webpack-cli": "^3.2.3",
@@ -80,6 +81,7 @@
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "three": "^0.92.0",
     "three-orbit-controls": "^82.1.0"
   }
