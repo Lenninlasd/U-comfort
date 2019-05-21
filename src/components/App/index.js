@@ -7,7 +7,6 @@ import CanvasElement from '../RoomCanvas';
 import CardForm from '../CardForm';
 import EquipmentsView from '../Equipments';
 import helpDoc from '../../../img/help.pdf';
-// import { Footer } from '../footer';
 
 const MainView = () => (
   <div className="container-fluid">
@@ -42,7 +41,6 @@ export const App = () => (
     <div>
       <Route exact path="/" component={MainView} />
       <Route path="/equipment" component={EquipmentsView} />
-      {/* <Footer /> */}
     </div>
   </Router>
 );

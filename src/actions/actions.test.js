@@ -51,6 +51,18 @@ describe('Test room action creators', () => {
       value: 2
     });
   });
+
+  it('setSizeChange should call actionSizeForm, calcAreaFloor, calcAreaRoof', () => {
+    const actionsList = [];
+    const dispatch = action => actionsList.push(action);
+    actions.setSizeChange({ target: { id: 'depth' } })(dispatch);
+
+    expect(actionsList.map(a => a.type)).toEqual([
+      'SET_DEPTH',
+      'CALC_AREA_FLOOR',
+      'CALC_AREA_ROOF'
+    ]);
+  });
 });
 
 describe('test the cardForm action creators', () => {

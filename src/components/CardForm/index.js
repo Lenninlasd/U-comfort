@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ExteriorConditions from '../ExteriorConditions';
-import Enclosure from '../../containers/room.js';
+import Room from '../RoomConfig';
 import Doors from '../Doors';
 import WallsConfig from '../WallsConfig';
 import ListOfElements from '../WindowsConfig';
@@ -83,7 +83,7 @@ export const CardForm = ({ history, submitForm, windowsView }) => {
           windowsView,
           <div>
             <ExteriorConditions />
-            <Enclosure />
+            <Room />
             <CustomButtons />
             <Roof />
             <button type="button" className="btn btn-primary" onClick={handleClick}>

@@ -25,6 +25,18 @@ export const setHeight = value => ({ type: SET_HEIGHT, value });
 
 export const setWidth = value => ({ type: SET_WIDTH, value });
 
+export const actionSizeForm = ({ value, id }) => {
+  value = Number(value);
+  switch (id) {
+    case 'depth':
+      return setDepth(value);
+    case 'width':
+      return setWidth(value);
+    case 'height':
+      return setHeight(value);
+  }
+};
+
 export const calcAreaFloor = () => ({ type: CALC_AREA_FLOOR });
 
 export const calcAreaRoof = () => ({ type: CALC_AREA_ROOF });
@@ -60,3 +72,24 @@ export const setEquitmentWattsPerSquaredFoot = value => ({
   type: SET_EQUITMENT_WATTS_PER_SQUARED_FOOT,
   value
 });
+
+export const setSizeChange = event => dispatch => {
+  dispatch(actionSizeForm(event.target));
+  dispatch(calcAreaFloor());
+  dispatch(calcAreaRoof());
+};
+
+export const setRoomChange = ({ target: { value, id } }) => {
+  switch (id) {
+    case 'actividadRecinto':
+      return setRoomActivity(value);
+    case 'numberOfPeople':
+      return setNumberOfPeople(Number(value));
+    case 'numberOfLights':
+      return setNumberOfLights(Number(value));
+    case 'tipoRecinto':
+      return setRoomType(value);
+    case 'amountOfEquipment':
+      return setEquitmentWattsPerSquaredFoot(Number(value));
+  }
+};
