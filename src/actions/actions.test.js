@@ -55,12 +55,11 @@ describe('Test room action creators', () => {
   it('setSizeChange should call actionSizeForm, calcAreaFloor, calcAreaRoof', () => {
     const actionsList = [];
     const dispatch = action => actionsList.push(action);
-    actions.setSizeChange({ target: { id: 'depth' } })(dispatch);
-
-    expect(actionsList.map(a => a.type)).toEqual([
-      'SET_DEPTH',
-      'CALC_AREA_FLOOR',
-      'CALC_AREA_ROOF'
+    actions.setSizeChange({ target: { id: 'depth', value: 1 } })(dispatch);
+    expect(actionsList).toEqual([
+      actions.setDepth(1),
+      actions.calcAreaFloor(),
+      actions.calcAreaRoof()
     ]);
   });
 });

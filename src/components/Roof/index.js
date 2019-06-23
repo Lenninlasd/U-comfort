@@ -13,7 +13,7 @@ const optionsRoof = TABLE_U_ROOF_WALL_PARTITION.filter(element =>
   </option>
 ));
 
-const Roof = ({ roof = {}, handleChange, changeColorK }) => {
+export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
   return (
     <div className="form-group">
       <div className="row">
@@ -71,15 +71,13 @@ const mapStateToProps = state => ({
   roof: state.roof
 });
 
-const mapDispatchToProps = dispatch => ({
-  handleChange: event => {
-    dispatch(setUoneRoof(event.target.value));
-  },
-  changeColorK: event => {
+const mapDispatchToProps = {
+  handleChange: event => setUoneRoof(event.target.value),
+  changeColorK: event => dispatch => {
     dispatch(setColorKRoof(event.target.value));
     dispatch(setCLTDRoofCorrection());
   }
-});
+};
 
 export default connect(
   mapStateToProps,

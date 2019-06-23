@@ -15,6 +15,7 @@ export const SaveAndCancel = ({ handleAccept, handleCancel }) => (
   <div className="row mt-3 pt-3">
     <div className="col-sm">
       <button
+        name="accept"
         className="ml-1 mt-1 mb-1 btn btn-primary float-right"
         type="button"
         onClick={handleAccept}
@@ -22,6 +23,7 @@ export const SaveAndCancel = ({ handleAccept, handleCancel }) => (
         Aceptar
       </button>
       <button
+        name="cancel"
         className="m-1 btn btn-outline-danger float-right"
         type="button"
         onClick={handleCancel}
