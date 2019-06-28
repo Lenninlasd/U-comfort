@@ -6,6 +6,8 @@ import { BufferGeometryUtils } from '../../../libs/BufferGeometryUtils.js';
 
 import compassImg from '../../../img/compass.svg';
 
+import styles from '../Styles/css.css';
+
 const OrbitControls = require('three-orbit-controls')(THREE);
 
 function createBulbLightGeometry(size, lights) {
@@ -160,14 +162,14 @@ function initCube(id, size, numberOfLights) {
   function getSize(element) {
     return {
       width: element.offsetWidth,
-      height: Math.abs(window.innerHeight - 200)
+      height: element.parentElement.offsetHeight //Math.abs(window.innerHeight - 200)
     };
   }
 }
 
 const CompassElement = ({ angle }) => {
   return (
-    <div className="compass" style={{ transform: `rotate(${angle}deg)` }}>
+    <div className={styles.compass} style={{ transform: `rotate(${angle}deg)` }}>
       <img height="60" width="60" src={compassImg} />
     </div>
   );
@@ -216,9 +218,7 @@ class CanvasElement extends React.Component {
   changeOrbit(event) {
     const rotationZ = event.target.object.rotation.z;
     const angle = (rotationZ * 180) / Math.PI;
-    this.setState({
-      angle
-    });
+    this.setState({ angle });
   }
 
   render() {
@@ -226,7 +226,7 @@ class CanvasElement extends React.Component {
       this.updateGeometry(this.props.size, this.props.numberOfLights);
     }
     return (
-      <div id={this.props.id} className="threedmodel">
+      <div id={this.props.id} className={styles.threedmodel}>
         <CompassElement angle={this.state.angle} />
       </div>
     );

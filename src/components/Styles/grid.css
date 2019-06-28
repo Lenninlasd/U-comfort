@@ -1,0 +1,27 @@
+.u-container {
+  display: grid;
+  grid-template-columns: calc(100% - 400px) 400px;
+  grid-template-rows: 68px calc(100% - 68px);
+  height: 100vh;
+  grid-template-areas:
+    'nav nav'
+    'canvaselement cardform';
+}
+
+nav {
+  grid-area: nav;
+}
+
+.canvas-element {
+  grid-area: canvaselement;
+}
+
+.card-form {
+  grid-area: cardform;
+  overflow: auto;
+}
+
+.card-form div {
+  border-radius: 0px;
+  border-top: none;
+}

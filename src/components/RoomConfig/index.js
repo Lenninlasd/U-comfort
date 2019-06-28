@@ -5,6 +5,8 @@ import heatPeopleTable from '../../../json/calor_personas_6_11';
 import tablaCFM from '../../../json/CFM_6_15';
 import { setSizeChange, setRoomChange } from '../../actions';
 
+import boot from 'bootstrap/dist/css/bootstrap.min.css';
+
 const apliacionesTipicas = [...new Set(heatPeopleTable.map(element => element.ACTIVIDAD))].map(
   (item, i) => (
     <option key={i} value={item}>
@@ -32,7 +34,7 @@ export const RoomForm = props => (
         </small>
         <input
           id="depth"
-          className="form-control"
+          className={boot.formControl}
           type="number"
           value={props.depth}
           placeholder="LARGO"
@@ -45,7 +47,7 @@ export const RoomForm = props => (
         </small>
         <input
           id="width"
-          className="form-control"
+          className={boot.formControl}
           type="number"
           value={props.width}
           placeholder="ANCHO"
@@ -58,7 +60,7 @@ export const RoomForm = props => (
         </small>
         <input
           id="height"
-          className="form-control"
+          className={boot.formControl}
           type="number"
           value={props.height}
           placeholder="ALTO"
@@ -71,7 +73,7 @@ export const RoomForm = props => (
         </small>
         <input
           id="numberOfPeople"
-          className="form-control"
+          className={boot.formControl}
           type="number"
           value={props.numberOfPeople}
           placeholder="No. DE PERSONAS"
@@ -84,7 +86,7 @@ export const RoomForm = props => (
         </small>
         <input
           id="numberOfLights"
-          className="form-control"
+          className={boot.formControl}
           type="number"
           value={props.numberOfLights}
           placeholder="No. DE LUCES"
@@ -99,7 +101,7 @@ export const RoomForm = props => (
             </small>
             <select
               id="actividadRecinto"
-              className="form-control"
+              className={boot.formControl}
               onChange={props.setRoomChange}
               value={props.actividadRecinto}
             >
@@ -113,7 +115,7 @@ export const RoomForm = props => (
             </small>
             <select
               id="tipoRecinto"
-              className="form-control"
+              className={boot.formControl}
               onChange={props.setRoomChange}
               value={props.tipoRecinto}
             >
@@ -131,7 +133,7 @@ export const RoomForm = props => (
             </small>
             <select
               id="amountOfEquipment"
-              className="form-control"
+              className={boot.formControl}
               onChange={props.setRoomChange}
               value={props.wattsPerSquaredFoot}
             >

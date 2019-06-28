@@ -17,10 +17,6 @@
 .u-body {
   margin-top: 64px;
 }
-.u-navbar {
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-}
 
 .u-card {
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
@@ -39,12 +35,9 @@ select.form-control {
 }
 
 .threedmodel {
-  margin: 10px;
+  margin: 0px;
   border-radius: 2px;
   transition: background-color linear 0.5s;
-}
-.threedmodel:hover {
-  background-color: #00000018;
 }
 
 .list-of-elements {

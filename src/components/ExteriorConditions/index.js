@@ -6,6 +6,8 @@ import { setExteriorConditions, setSHGFWindow, setWallCLTDCorretion } from '../.
 // Latidud
 import condicionesClimaticas from '../../../json/condiciones_climaticas';
 
+import boot from 'bootstrap/dist/css/bootstrap.min.css';
+
 const OptionList = () => (
   <>
     {condicionesClimaticas.map(item => (
@@ -19,12 +21,17 @@ const OptionList = () => (
 const ExteriorConditions = ({ exterior, handleChange }) => {
   return (
     <form>
-      <div className="form-row form-group">
-        <div className="col-md-12 col-sm-12">
+      <div className={`${boot.formRow} ${boot.formGroup}`}>
+        <div className={`${boot.colMd12} ${boot.colSm12}`}>
           <small>
             <strong>CIUDAD</strong>
           </small>
-          <select id="city" className="form-control" onChange={handleChange} value={exterior.id}>
+          <select
+            id="city"
+            className={boot.formControl}
+            onChange={handleChange}
+            value={exterior.id}
+          >
             <option hidden>CIUDAD</option>
             <OptionList />
           </select>

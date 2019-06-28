@@ -17,6 +17,8 @@ import doorsImg from '../../../img/doors.svg';
 
 import { submitForm } from '../../actions';
 
+import boot from 'bootstrap/dist/css/bootstrap.min.css';
+
 const switchViews = (windowsView, defaultView) => {
   switch (windowsView) {
     case 'glassView':
@@ -77,8 +79,8 @@ export const CardForm = ({ history, submitForm, windowsView }) => {
   };
 
   return (
-    <div className="card u-card">
-      <div className="card-body">
+    <div className={`${boot.card}`}>
+      <div className={boot.cardBody}>
         {switchViews(
           windowsView,
           <div>

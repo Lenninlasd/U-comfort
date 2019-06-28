@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import TABLE_U_ROOF_WALL_PARTITION from '../../../json/U_techos_paredes_particiones';
 import { setUoneRoof, setColorKRoof, setCLTDRoofCorrection } from '../../actions';
 
+import boot from 'bootstrap/dist/css/bootstrap.min.css';
+
 const optionsRoof = TABLE_U_ROOF_WALL_PARTITION.filter(element =>
   element.tipo.includes('TECHO')
 ).map(el => (
@@ -15,7 +17,7 @@ const optionsRoof = TABLE_U_ROOF_WALL_PARTITION.filter(element =>
 
 export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
   return (
-    <div className="form-group">
+    <div className={boot.formGroup}>
       <div className="row">
         <div className="col">
           <div>
@@ -25,7 +27,7 @@ export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
           </div>
           <select
             id="typeofRoof"
-            className="form-control"
+            className={boot.formControl}
             value={roof.material}
             onChange={handleChange}
           >
@@ -43,7 +45,7 @@ export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
           </div>
           <select
             id="correcion_color_K"
-            className="form-control"
+            className={boot.formControl}
             value={String(roof.correcion_color_K)}
             onChange={changeColorK}
           >
