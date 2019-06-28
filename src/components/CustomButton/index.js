@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { showElementProperties } from '../../actions';
 import PropTypes from 'prop-types';
 
+import boot from 'bootstrap/dist/css/bootstrap.min.css';
+import styles from '../Styles/css.css';
+
 export const CustomButton = ({
   title,
   buttonText,
@@ -11,7 +14,7 @@ export const CustomButton = ({
   numberOfElements,
   showElementProperties
 }) => (
-  <div className="glass-windows form-group">
+  <div className={`${styles.glassWindows} ${boot.formGroup}`}>
     <div>
       <small>
         <strong>{`${title}: ${numberOfElements}`}</strong>
@@ -21,7 +24,7 @@ export const CustomButton = ({
       {elementType && (
         <button
           type="button"
-          className="btn btn-light"
+          className={`${boot.btn} ${boot.btnLight}`}
           onClick={() => showElementProperties(elementType)}
         >
           <img height="28" width="28" src={src} />

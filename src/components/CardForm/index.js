@@ -88,7 +88,11 @@ export const CardForm = ({ history, submitForm, windowsView }) => {
             <Room />
             <CustomButtons />
             <Roof />
-            <button type="button" className="btn btn-primary" onClick={handleClick}>
+            <button
+              type="button"
+              className={`${boot.btn} ${boot.btnPrimary}`}
+              onClick={handleClick}
+            >
               Calcular
             </button>
           </div>
