@@ -20,13 +20,13 @@ export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
     <div className={boot.formGroup}>
       <div className="row">
         <div className="col">
-          <div>
+          <label htmlFor="typeofRoof">
             <small>
-              <strong> TIPO DE TECHO</strong>
+              <strong>TIPO DE TECHO</strong>
             </small>
-          </div>
+          </label>
           <select
-            data-testid="typeofRoof"
+            id="typeofRoof"
             className={boot.formControl}
             value={roof.material}
             onChange={handleChange}
@@ -38,13 +38,13 @@ export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
           </select>
         </div>
         <div className="col">
-          <div>
+          <label htmlFor="correcion_color_K">
             <small>
-              <strong> COLOR</strong>
+              <strong>COLOR</strong>
             </small>
-          </div>
+          </label>
           <select
-            data-testid="correcion_color_K"
+            id="correcion_color_K"
             className={boot.formControl}
             value={String(roof.correcion_color_K)}
             onChange={changeColorK}

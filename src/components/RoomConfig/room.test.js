@@ -1,22 +1,9 @@
 import RoomForm from './index';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import React from 'react';
 
-import reducer from '../../reducers/root';
+import { renderWithRedux } from '../../utils/tests';
 import initialState from '../../initialState';
-
-function renderWithRedux(
-  ui,
-  { initialState, store = createStore(reducer, initialState, applyMiddleware(thunk)) } = {}
-) {
-  return {
-    ...render(<Provider store={store}>{ui}</Provider>),
-    store
-  };
-}
 
 describe('Test the form changes modify the redux store', () => {
   const { getByLabelText, store } = renderWithRedux(<RoomForm />, { initialState });

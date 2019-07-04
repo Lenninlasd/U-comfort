@@ -1,23 +1,9 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import { cleanup, fireEvent } from '@testing-library/react';
 
-import { render, cleanup, fireEvent } from '@testing-library/react';
-
-import reducer from '../../reducers/root';
 import { CardForm } from './index';
 import initialState from '../../initialState';
-
-function renderWithRedux(
-  ui,
-  { initialState, store = createStore(reducer, initialState, applyMiddleware(thunk)) } = {}
-) {
-  return {
-    ...render(<Provider store={store}>{ui}</Provider>),
-    store
-  };
-}
+import { renderWithRedux } from '../../utils/tests';
 
 describe('<cardForm /> should sumbit', () => {
   afterEach(cleanup);
