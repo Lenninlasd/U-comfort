@@ -1,5 +1,5 @@
 import { Roof } from './index';
-import { shallow } from 'enzyme';
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 
 describe('Test Roof component', () => {
@@ -10,11 +10,11 @@ describe('Test Roof component', () => {
   };
 
   it('Should trigger action on click', () => {
-    const wrapper = shallow(<Roof {...props} />);
+    const { getByTestId } = render(<Roof {...props} />);
 
-    wrapper.find('select#typeofRoof').simulate('change');
-    wrapper.find('select#correcion_color_K').simulate('change');
-    expect(props.handleChange.mock.calls.length).toBe(1);
-    expect(props.changeColorK.mock.calls.length).toBe(1);
+    fireEvent.change(getByTestId('typeofRoof'));
+    fireEvent.change(getByTestId('correcion_color_K'));
+    expect(props.handleChange).toHaveBeenCalledTimes(1);
+    expect(props.changeColorK).toHaveBeenCalledTimes(1);
   });
 });

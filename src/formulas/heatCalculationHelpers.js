@@ -101,9 +101,9 @@ const getPresionSat = tempBulbSecRecinto => {
   return tempRatio * (presSuperior - presInferior) + presInferior;
 };
 
-export const calcularHumedadEntradaSerp = ({ recinto, exterior }, tempEntradaSerp) => {
-  const presionSatBulboSecoInterior = getPresionSat(recinto.bulbo_seco);
-  const humedadRelativa = recinto.humedad_relativa / 100;
+export const calcularHumedadEntradaSerp = ({ room, exterior }, tempEntradaSerp) => {
+  const presionSatBulboSecoInterior = getPresionSat(room.bulbo_seco);
+  const humedadRelativa = room.humedad_relativa / 100;
   const presionParcial = humedadRelativa * presionSatBulboSecoInterior;
   const presionAtmosferica = 14.696;
 
@@ -112,7 +112,7 @@ export const calcularHumedadEntradaSerp = ({ recinto, exterior }, tempEntradaSer
 
   return (
     humedadAbsInterior +
-    ((tempEntradaSerp - recinto.bulbo_seco) * (exterior.humedad_especifica - humedadAbsInterior)) /
-      (exterior.bulbo_seco - recinto.bulbo_seco)
+    ((tempEntradaSerp - room.bulbo_seco) * (exterior.humedad_especifica - humedadAbsInterior)) /
+      (exterior.bulbo_seco - room.bulbo_seco)
   );
 };

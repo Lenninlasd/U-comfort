@@ -1,25 +1,31 @@
-import BackButton, { SaveAndCancel } from './index';
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, fireEvent, cleanup } from '@testing-library/react';
+import BackButton, { SaveAndCancel } from './index';
+
+afterEach(cleanup);
 
 describe('Test SaveAndCancel component', () => {
   it('should trigger callbacks', () => {
-    const props = { handleAccept: jest.fn(), handleCancel: jest.fn() };
-    const wrapper = shallow(<SaveAndCancel {...props} />);
+    const props = {
+      handleAccept: jest.fn(),
+      handleCancel: jest.fn()
+    };
 
-    wrapper.find('button[name="accept"]').simulate('click');
-    wrapper.find('button[name="cancel"]').simulate('click');
+    const { getByText } = render(<SaveAndCancel {...props} />);
 
-    expect(props.handleAccept.mock.calls.length).toBe(1);
-    expect(props.handleCancel.mock.calls.length).toBe(1);
+    fireEvent.click(getByText('Aceptar'));
+    fireEvent.click(getByText('Cancelar'));
+
+    expect(props.handleAccept).toHaveBeenCalledTimes(1);
+    expect(props.handleCancel).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('Test BackButton component', () => {
   it('uses Router for logout functionality', () => {
     const onClick = jest.fn();
-    const wrapper = shallow(<BackButton onClick={onClick} />);
-    wrapper.find('button').simulate('click');
-    expect(onClick.mock.calls.length).toBe(1);
+    const { getByText } = render(<BackButton onClick={onClick} />);
+    fireEvent.click(getByText('←'));
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

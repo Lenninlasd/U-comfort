@@ -220,7 +220,7 @@ const Doors = ({
   return (
     <div>
       <small>
-        <strong>PROPIEDADES DE LAS PUERTAS:</strong>
+        <strong>PROPIEDADES DE LAS PUERTAS</strong>
       </small>
       {inputList}
       <NewDoorForm submit={handleAddButton} />

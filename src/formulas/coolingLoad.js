@@ -10,14 +10,14 @@ import {
 import tablaCFM from '../../json/CFM_6_15';
 
 // CFMventilacion = CFM_tabla * Numero de personas (ver function setCalorVentilacion)
-export const getTempEntradaSerpentin = (netSensibleCFM, CFMventilacion, exterior, recinto) => {
+export const getTempEntradaSerpentin = (netSensibleCFM, CFMventilacion, exterior, room) => {
   const aireExterior = CFMventilacion * exterior.bulbo_seco;
-  const aireRetorno = recinto.bulbo_seco * (netSensibleCFM - CFMventilacion);
+  const aireRetorno = room.bulbo_seco * (netSensibleCFM - CFMventilacion);
   return (aireExterior + aireRetorno) / netSensibleCFM;
 };
 
-const calorTotal = (tempEntradaSerpentin, netSensibleCFM, recinto, humedadEntradaSerp) => {
-  const tempSalidaSerp = recinto.bulbo_seco - 20;
+const calorTotal = (tempEntradaSerpentin, netSensibleCFM, room, humedadEntradaSerp) => {
+  const tempSalidaSerp = room.bulbo_seco - 20;
   const humedadSalidaSerp = 65;
   const QS = 1.1 * netSensibleCFM * (tempEntradaSerpentin - tempSalidaSerp);
   const QL = 0.68 * netSensibleCFM * (humedadEntradaSerp - humedadSalidaSerp);
@@ -27,8 +27,8 @@ const calorTotal = (tempEntradaSerpentin, netSensibleCFM, recinto, humedadEntrad
 export const getcoolingLoad = state => {
   const FEET = 3.28084;
 
-  const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
-  const ΔHumedad = state.exterior.humedad_especifica - state.recinto.humedad_especifica;
+  const Δtemp = state.exterior.bulbo_seco - state.room.bulbo_seco;
+  const ΔHumedad = state.exterior.humedad_especifica - state.room.humedad_especifica;
   const perimeter = 2 * FEET * (state.width + state.depth);
   const SensibleHeatCorrectionFactor = getCalor_sensible(state.windows, state.walls, perimeter);
 
@@ -39,17 +39,15 @@ export const getcoolingLoad = state => {
     SensibleHeatCorrectionFactor;
 
   const heatEquipments =
-    state.floor.areaNeta * state.lights.factConv * state.recinto.equitmentWattsPerSquaredFoot;
+    state.floor.areaNeta * state.lights.factConv * state.room.equitmentWattsPerSquaredFoot;
 
   const calorPersonas = setPeopleHeat(
     state.numberOfPeople,
     SensibleHeatCorrectionFactor,
-    state.recinto.actividad_recinto
+    state.room.roomActivity
   );
 
-  const cfmMinimo = Number(
-    tablaCFM.find(x => x.lugar === state.recinto.tipo_recinto)['cfm_minimo']
-  );
+  const cfmMinimo = Number(tablaCFM.find(x => x.lugar === state.room.typeOfRoom)['cfm_minimo']);
 
   const calorVentilacion = setCalorVentilacion(state.numberOfPeople, Δtemp, ΔHumedad, cfmMinimo);
 
@@ -75,7 +73,7 @@ export const getcoolingLoad = state => {
     netSensibleCFM,
     calorVentilacion.CFMventilacion,
     state.exterior,
-    state.recinto
+    state.room
   );
 
   const humedadEntradaSerp = calcularHumedadEntradaSerp(state, tempEntradaSerpentin);
@@ -83,7 +81,7 @@ export const getcoolingLoad = state => {
   const { QS, QL } = calorTotal(
     tempEntradaSerpentin,
     netSensibleCFM,
-    state.recinto,
+    state.room,
     humedadEntradaSerp
   );
   const coolingLoad = totalSensible + calorPersonas.latente + calorVentilacion.latente;

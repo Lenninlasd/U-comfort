@@ -6,28 +6,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import rootReducer from './reducers/root.js';
-import initState from './model.js';
+import initState from './initialState';
 import { App } from './components/App';
 import enrichData from './formulas/enrichData.js';
 
-const store = createStore(
-  rootReducer,
-  {
-    windows: initState.elementos.windows,
-    walls: initState.elementos.walls,
-    roof: initState.elementos.roof,
-    doors: initState.elementos.doors,
-    floor: initState.elementos.floor,
-    lights: initState.elementos.lights,
-    depth: initState.depth,
-    width: initState.width,
-    height: initState.height,
-    numberOfPeople: initState.numberOfPeople,
-    exterior: initState.exterior,
-    recinto: initState.recinto
-  },
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const store = createStore(rootReducer, initState, composeWithDevTools(applyMiddleware(thunk)));
 
 enrichData(store.dispatch);
 

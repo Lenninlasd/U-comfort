@@ -1,34 +1,61 @@
-import { RoomForm } from './index';
-import { shallow } from 'enzyme';
+import RoomForm from './index';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 
-describe('Test Room component', () => {
-  const props = {
-    depth: 0,
-    height: 0,
-    width: 0,
-    numberOfLights: 0,
-    numberOfPeople: 0,
-    wattsPerSquaredFoot: 0,
-    actividadRecinto: '',
-    setSizeChange: jest.fn(),
-    setRoomChange: jest.fn()
+import reducer from '../../reducers/root';
+import initialState from '../../initialState';
+
+function renderWithRedux(
+  ui,
+  { initialState, store = createStore(reducer, initialState, applyMiddleware(thunk)) } = {}
+) {
+  return {
+    ...render(<Provider store={store}>{ui}</Provider>),
+    store
   };
+}
 
-  it('Should trigger action on click', () => {
-    const wrapper = shallow(<RoomForm {...props} />);
+describe('Test the form changes modify the redux store', () => {
+  const { getByLabelText, store } = renderWithRedux(<RoomForm />, { initialState });
 
-    wrapper.find('input#depth').simulate('change');
-    wrapper.find('input#width').simulate('change');
-    wrapper.find('input#height').simulate('change');
+  it('size input changes should modify the redux store', () => {
+    const eventSize = { target: { value: Math.PI } };
+    fireEvent.change(getByLabelText('LARGO (m)'), eventSize);
+    fireEvent.change(getByLabelText('ANCHO (m)'), eventSize);
+    fireEvent.change(getByLabelText('ALTO (m)'), eventSize);
 
-    wrapper.find('input#numberOfPeople').simulate('change');
-    wrapper.find('input#numberOfLights').simulate('change');
-    wrapper.find('select#actividadRecinto').simulate('change');
-    wrapper.find('select#tipoRecinto').simulate('change');
-    wrapper.find('select#amountOfEquipment').simulate('change');
+    const { depth, width, height } = store.getState();
 
-    expect(props.setSizeChange.mock.calls.length).toBe(3);
-    expect(props.setRoomChange.mock.calls.length).toBe(5);
+    expect(depth).toBe(Math.PI);
+    expect(width).toBe(Math.PI);
+    expect(height).toBe(Math.PI);
+  });
+
+  it('room input changes should modify the redux store', () => {
+    const eventRoom = { target: { value: 101 } };
+    fireEvent.change(getByLabelText('No. DE PERSONAS'), eventRoom);
+    fireEvent.change(getByLabelText('No. DE LUCES'), eventRoom);
+
+    const { numberOfPeople, lights } = store.getState();
+
+    expect(numberOfPeople).toBe(101);
+    expect(lights.numberOfLights).toBe(101);
+  });
+
+  it('room input changes should modify the redux store', () => {
+    fireEvent.change(getByLabelText('ACTIVIDAD DEL RECINTO'), { target: { value: 'Deporte' } });
+    fireEvent.change(getByLabelText('TIPO DE RECINTO'), { target: { value: 'Bares' } });
+    fireEvent.change(getByLabelText('CANTIDAD DE EQUIPOS EN RECINTO'), {
+      target: { value: 1.5 }
+    });
+
+    const { room } = store.getState();
+
+    expect(room.typeOfRoom).toBe('Bares');
+    expect(room.equitmentWattsPerSquaredFoot).toBe(1.5);
+    expect(room.roomActivity).toBe('Deporte');
   });
 });

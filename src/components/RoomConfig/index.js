@@ -29,9 +29,11 @@ export const RoomForm = props => (
       </div>
 
       <div className="col-md-4 col-sm-12">
-        <small>
-          <strong>LARGO (m)</strong>
-        </small>
+        <label htmlFor="depth">
+          <small>
+            <strong>LARGO (m)</strong>
+          </small>
+        </label>
         <input
           id="depth"
           className={boot.formControl}
@@ -39,12 +41,15 @@ export const RoomForm = props => (
           value={props.depth}
           placeholder="LARGO"
           onChange={props.setSizeChange}
+          min="1"
         />
       </div>
       <div className="col-md-4 col-sm-12">
-        <small>
-          <strong>ANCHO (m)</strong>
-        </small>
+        <label htmlFor="width">
+          <small>
+            <strong>ANCHO (m)</strong>
+          </small>
+        </label>
         <input
           id="width"
           className={boot.formControl}
@@ -52,12 +57,15 @@ export const RoomForm = props => (
           value={props.width}
           placeholder="ANCHO"
           onChange={props.setSizeChange}
+          min="1"
         />
       </div>
       <div className="col-md-4 col-sm-12">
-        <small>
-          <strong>ALTO (m)</strong>
-        </small>
+        <label htmlFor="height">
+          <small>
+            <strong>ALTO (m)</strong>
+          </small>
+        </label>
         <input
           id="height"
           className={boot.formControl}
@@ -65,12 +73,15 @@ export const RoomForm = props => (
           value={props.height}
           placeholder="ALTO"
           onChange={props.setSizeChange}
+          min="1"
         />
       </div>
       <div className="col-md-12 col-sm-12">
-        <small>
-          <strong>No. DE PERSONAS</strong>
-        </small>
+        <label htmlFor="numberOfPeople">
+          <small>
+            <strong>No. DE PERSONAS</strong>
+          </small>
+        </label>
         <input
           id="numberOfPeople"
           className={boot.formControl}
@@ -78,12 +89,15 @@ export const RoomForm = props => (
           value={props.numberOfPeople}
           placeholder="No. DE PERSONAS"
           onChange={props.setRoomChange}
+          min="0"
         />
       </div>
       <div className="col-md-12 col-sm-12">
-        <small>
-          <strong>No. DE LUCES</strong>
-        </small>
+        <label htmlFor="numberOfLights">
+          <small>
+            <strong>No. DE LUCES</strong>
+          </small>
+        </label>
         <input
           id="numberOfLights"
           className={boot.formControl}
@@ -91,14 +105,17 @@ export const RoomForm = props => (
           value={props.numberOfLights}
           placeholder="No. DE LUCES"
           onChange={props.setRoomChange}
+          min="0"
         />
       </div>
       <div className="col-md-12 col-sm-12">
         <div className="row">
           <div className="col">
-            <small>
-              <strong style={{ whiteSpace: 'nowrap' }}>ACTIVIDAD DEL RECINTO</strong>
-            </small>
+            <label htmlFor="actividadRecinto">
+              <small>
+                <strong style={{ whiteSpace: 'nowrap' }}>ACTIVIDAD DEL RECINTO</strong>
+              </small>
+            </label>
             <select
               id="actividadRecinto"
               className={boot.formControl}
@@ -110,14 +127,16 @@ export const RoomForm = props => (
             </select>
           </div>
           <div className="col">
-            <small>
-              <strong>TIPO DE RECINTO</strong>
-            </small>
+            <label htmlFor="typeOfRoom">
+              <small>
+                <strong>TIPO DE RECINTO</strong>
+              </small>
+            </label>
             <select
-              id="tipoRecinto"
+              id="typeOfRoom"
               className={boot.formControl}
               onChange={props.setRoomChange}
-              value={props.tipoRecinto}
+              value={props.typeOfRoom}
             >
               <option hidden>TIPO DE RECINTO</option>
               {tiposRecinto}
@@ -128,9 +147,11 @@ export const RoomForm = props => (
       <div className="col-sm-12">
         <div className="form-row form-group">
           <div className="col-md-12 col-sm-12">
-            <small>
-              <strong>CANTIDAD DE EQUIPOS EN RECINTO</strong>
-            </small>
+            <label htmlFor="amountOfEquipment">
+              <small>
+                <strong>CANTIDAD DE EQUIPOS EN RECINTO</strong>
+              </small>
+            </label>
             <select
               id="amountOfEquipment"
               className={boot.formControl}
@@ -166,11 +187,11 @@ const mapStateToProps = state => ({
   width: state.width,
   height: state.height,
   depth: state.depth,
-  actividadRecinto: state.recinto.actividad_recinto,
-  tipoRecinto: state.recinto.tipo_recinto,
+  actividadRecinto: state.room.roomActivity,
+  typeOfRoom: state.room.typeOfRoom,
   numberOfPeople: state.numberOfPeople,
   numberOfLights: state.lights.numberOfLights,
-  wattsPerSquaredFoot: state.recinto.equitmentWattsPerSquaredFoot
+  wattsPerSquaredFoot: state.room.equitmentWattsPerSquaredFoot
 });
 
 export default connect(

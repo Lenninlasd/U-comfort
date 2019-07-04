@@ -85,11 +85,11 @@ const calcAreaAll = state =>
     })
   );
 
-const getDataTemperature = ({ exterior, recinto }) => ({
+const getDataTemperature = ({ exterior, room }) => ({
   tempExterior: exterior.bulbo_seco,
-  tempInterior: recinto.bulbo_seco,
+  tempInterior: room.bulbo_seco,
   rango_diario: exterior.rango_diario,
-  Δtemp: exterior.bulbo_seco - recinto.bulbo_seco
+  Δtemp: exterior.bulbo_seco - room.bulbo_seco
 });
 
 const setCLTD_windows = windowsState => {
@@ -453,7 +453,7 @@ export const floor = (floorState = {}, action, state) => {
     case SET_U_FLOOR:
       return setU(floorState, action.element, action.material);
     case SET_FLOOR_CLTD_CORRECTION: {
-      const Δtemp = state.exterior.bulbo_seco - state.recinto.bulbo_seco;
+      const Δtemp = state.exterior.bulbo_seco - state.room.bulbo_seco;
       return Object.assign({}, floorState, {
         CLTD_Correction: Δtemp
       });
@@ -498,15 +498,15 @@ export const exterior = (exteriorState = {}, action) => {
   }
 };
 
-export const recinto = (recintoState = {}, action) => {
+export const room = (recintoState = {}, action) => {
   switch (action.type) {
     case SET_ROOM_ACTIVITY:
       return Object.assign({}, recintoState, {
-        actividad_recinto: action.value
+        roomActivity: action.value
       });
     case SET_ROOM_TYPE:
       return Object.assign({}, recintoState, {
-        tipo_recinto: action.value
+        typeOfRoom: action.value
       });
     case SET_EQUITMENT_WATTS_PER_SQUARED_FOOT:
       return { ...recintoState, equitmentWattsPerSquaredFoot: action.value };

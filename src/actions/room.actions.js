@@ -87,7 +87,7 @@ export const setRoomChange = ({ target: { value, id } }) => {
       return setNumberOfPeople(Number(value));
     case 'numberOfLights':
       return setNumberOfLights(Number(value));
-    case 'tipoRecinto':
+    case 'typeOfRoom':
       return setRoomType(value);
     case 'amountOfEquipment':
       return setEquitmentWattsPerSquaredFoot(Number(value));

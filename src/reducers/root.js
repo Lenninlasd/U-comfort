@@ -7,7 +7,7 @@ import {
   lights,
   results,
   exterior,
-  recinto,
+  room,
   past
 } from './prepareData.js';
 
@@ -28,6 +28,6 @@ export default (state = {}, action) => ({
   height: height(state.height, action),
   numberOfPeople: numberOfPeople(state.numberOfPeople, action),
   exterior: exterior(state.exterior, action),
-  recinto: recinto(state.recinto, action),
+  room: room(state.room, action),
   appConfig: appConfig(state.appConfig, action)
 });

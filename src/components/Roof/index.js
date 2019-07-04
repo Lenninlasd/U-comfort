@@ -26,7 +26,7 @@ export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
             </small>
           </div>
           <select
-            id="typeofRoof"
+            data-testid="typeofRoof"
             className={boot.formControl}
             value={roof.material}
             onChange={handleChange}
@@ -44,7 +44,7 @@ export const Roof = ({ roof = {}, handleChange, changeColorK }) => {
             </small>
           </div>
           <select
-            id="correcion_color_K"
+            data-testid="correcion_color_K"
             className={boot.formControl}
             value={String(roof.correcion_color_K)}
             onChange={changeColorK}

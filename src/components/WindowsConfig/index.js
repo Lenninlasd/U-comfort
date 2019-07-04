@@ -263,7 +263,7 @@ const ListOfElements = ({
   return (
     <div>
       <small>
-        <strong>PROPIEDADES DE LAS VENTANAS:</strong>
+        <strong>PROPIEDADES DE LAS VENTANAS</strong>
       </small>
       {inputList}
       <NewGlassForm submit={handleAddButton} />
