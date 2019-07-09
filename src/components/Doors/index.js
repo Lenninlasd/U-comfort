@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { SaveAndCancel } from '../BackButton';
 import PropTypes from 'prop-types';
@@ -157,43 +157,36 @@ GenerateDoors.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
-class NewDoorForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.defaultState = { width: '', height: '', orientacion: '', material: '' };
-    this.state = this.defaultState;
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+function NewDoorForm({ submit }) {
+  const defaultState = { width: '', height: '', orientacion: '', material: '' };
+  const [state, setState] = useState(defaultState);
 
-  handleChange(event) {
+  function handleChange(event) {
     const el = event.target;
     const type = el.dataset.type;
     const numericValue = Number(el.value);
     const value = Number.isNaN(numericValue) ? el.value : numericValue;
-    this.setState({ [type]: value });
+    setState({ ...state, [type]: value });
   }
 
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    this.props.submit(this.state);
-    this.setState(this.defaultState);
+    submit(state);
+    setState(defaultState);
   }
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit} className="new-form-bg">
-        <GenerateDoors door={this.state} keyForm={100} handleChange={this.handleChange} />
-        <div className="add-window-button row">
-          <div className="col-sm">
-            <button type="submit" className="btn btn-outline-primary float-right">
-              Agregar puerta
-            </button>
-          </div>
+  return (
+    <form onSubmit={handleSubmit} className="new-form-bg">
+      <GenerateDoors door={state} keyForm={100} handleChange={handleChange} />
+      <div className="add-window-button row">
+        <div className="col-sm">
+          <button type="submit" className="btn btn-outline-primary float-right">
+            Agregar puerta
+          </button>
         </div>
-      </form>
-    );
-  }
+      </div>
+    </form>
+  );
 }
 NewDoorForm.propTypes = {
   submit: PropTypes.func.isRequired

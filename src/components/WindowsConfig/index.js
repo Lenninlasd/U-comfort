@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import u from '../../reactData';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -195,49 +195,43 @@ GenerateWindowForm.propTypes = {
   handleChange: PropTypes.func.isRequired
 };
 
-class NewGlassForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.defaultState = {
-      width: '',
-      height: '',
-      orientacion: '',
-      sombra: '',
-      espesor_nominal: '',
-      tipo_de_vidrio: ''
-    };
-    this.state = this.defaultState;
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+const NewGlassForm = ({ submit }) => {
+  const defaultState = {
+    width: '',
+    height: '',
+    orientacion: '',
+    sombra: '',
+    espesor_nominal: '',
+    tipo_de_vidrio: ''
+  };
 
-  handleChange(event) {
+  const [state, setState] = useState(defaultState);
+
+  function handleChange(event) {
     const el = event.target;
     const type = el.dataset.type;
-    this.setState({ [type]: el.value });
+    setState({ ...state, [type]: el.value });
   }
 
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    this.props.submit(this.state);
-    this.setState(this.defaultState);
+    submit(state);
+    setState(defaultState);
   }
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit} className="new-form-bg">
-        <GenerateWindowForm window={this.state} keyForm={100} handleChange={this.handleChange} />
-        <div className="add-window-button row">
-          <div className="col-sm">
-            <button type="submit" className="btn btn-outline-primary float-right">
-              Agregar ventana
-            </button>
-          </div>
+  return (
+    <form onSubmit={handleSubmit} className="new-form-bg">
+      <GenerateWindowForm window={state} keyForm={100} handleChange={handleChange} />
+      <div className="add-window-button row">
+        <div className="col-sm">
+          <button type="submit" className="btn btn-outline-primary float-right">
+            Agregar ventana
+          </button>
         </div>
-      </form>
-    );
-  }
-}
+      </div>
+    </form>
+  );
+};
 NewGlassForm.propTypes = {
   submit: PropTypes.func.isRequired
 };
